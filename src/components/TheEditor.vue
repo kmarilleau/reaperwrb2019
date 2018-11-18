@@ -34,12 +34,12 @@
       <div class="app-editor-panel">
         <template>
 
-          <template v-if="typeof(item.textcolor) !== 'undefined'">
+          <template v-if="typeof(item.type) !== 'undefined'">
             <label>Text Color</label>
             <app-text-color-picker :color="item.textcolor" />
           </template>
 
-          <template v-if="typeof(item.bgcolor) !== 'undefined'">
+          <template v-if="typeof(item.type) !== 'undefined'">
             <label>Background Color</label>
             <app-item-color-picker :color="item.bgcolor" />
           </template>
