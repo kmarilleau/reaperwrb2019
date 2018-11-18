@@ -21,12 +21,12 @@
           <button @click="onSave">Save</button>
         </template>
 
-        <span class="app-reaper-status" 
+        <button class="app-reaper-status-offline" 
           v-if="this.$store.state.reaper.ready === false"
           @click="onDisableEditor()"
         >
           <font-awesome-icon icon="exclamation-circle" size="2x" />
-        </span>
+        </button>
 
       </div>
 
@@ -55,7 +55,7 @@
           <input type="text"
             @input="onEditAction"
             :value="item.action"
-          />
+          >
         </template>
 
         <template v-if="item.type === 'action' || item.type === 'tab'">
@@ -63,7 +63,7 @@
           <input type="text"
             @input="onEditLabel" 
             :value="item.label"
-          />
+          autofocus>
         </template>
 
         <template v-if="item.type === 'action' && item.desc !== ''">
@@ -78,7 +78,7 @@
           <input type="checkbox" class="app-editor-checkbox"
             @input="onEditToggle"
             :checked="item.toggle"
-          />
+          >
         </template>
         
       </div>
@@ -795,9 +795,24 @@ label {
 .app-editor button,
 .app-editor .app-item-desc,
 .app-editor input {
-  padding: 10px;
+  line-height: 40px;
+  padding: 0 10px 0 10px;
   border-radius: 3px;
 }
+
+.app-editor input[type=text] {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+}
+ 
+.app-editor input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 10px rgb(255, 70, 70);
+  border: 1px solid rgba(255, 70, 70, 1);
+}
+
 .app-item-desc {
   background-color: #cdcdcd;
   color: #0f0f0f;
@@ -818,8 +833,9 @@ label {
   margin: 0;
   padding: 0;
 }
-.app-reaper-status {
-  padding: 10px;
-  color: tomato;
+.app-reaper-status-offline * {
+  color: #ff2828;
+  margin: auto;
+  height: 20px;
 }
 </style>

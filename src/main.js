@@ -116,7 +116,7 @@ const store = new Vuex.Store({
         case 'action':
           item = {
             type: 'action',
-            label: 'new',
+            label: 'label',
             action: 0,
             color: '#f0f0f0',
             bgcolor: '#424242',
