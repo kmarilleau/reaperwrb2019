@@ -4,7 +4,7 @@
       <!-- EDITOR MAIN FUNCTIONS -->
       <div class="app-editor-panel app-editor-menu">
 
-        <label>Menu</label>
+        <label>ReaperWRB {{ this.$store.state.version }} </label>
 
         <template v-if="this.$store.state.tabs.length === 0">
           <button @click="onNew">New</button>

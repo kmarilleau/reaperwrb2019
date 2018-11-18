@@ -53,11 +53,7 @@ const store = new Vuex.Store({
     // FIXME move to editor
     active_tab: 0,
     active_row: 0,
-    edit_item: {
-      // FIXME ugly also not really working
-      textcolor: '',
-      bgcolor: '',
-    },
+    edit_item: false,
     tabs: [],
   },
 
@@ -176,6 +172,7 @@ const store = new Vuex.Store({
 
     delete_item: (state, item) => {
       switch(item.data.type) {
+        
         case 'tab':
           state.tabs.splice(item.index, 1)
           state.active_tab = 0
@@ -183,8 +180,9 @@ const store = new Vuex.Store({
         default:
           state.tabs[state.active_tab].rows[item.row].splice(item.index, 1)
           break
-      }
-    },
+        }
+        state.edit_item = false
+      },
 
     add_row: (state, row) => {
       state.tabs[state.active_tab].rows.splice(row + 1, 0, [])
