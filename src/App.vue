@@ -75,6 +75,76 @@ button, input {
   opacity: 0.7;
 }
 
+.app-editor {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr 4fr;
+}
+label {
+  font-weight: bold;
+  color: #cdcdcd;
+}
+.app-editor-menu {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.app-editor-panel {
+  margin: 10px 20px 10px 20px;
+}
+.app-editor button { 
+  cursor: pointer;
+}
+.app-editor button:hover {
+  background-color: #f0f0f0 !important;
+}
+.app-editor button,
+.app-editor .app-item-desc,
+.app-editor input {
+  line-height: 40px;
+  padding: 0 10px 0 10px;
+  border-radius: 3px;
+}
+
+.app-editor input[type=text] {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+}
+ 
+.app-editor input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 10px rgb(255, 70, 70);
+  border: 1px solid rgba(255, 70, 70, 1);
+}
+
+.app-item-desc {
+  background-color: #cdcdcd;
+  color: #0f0f0f;
+  width: 95%;
+  font-size: 0.8125em;
+  line-height: 150%;
+}
+.app-editor input[type=text] {
+  width: 95%;
+}
+.app-editor label {
+  display: block;
+  margin: 10px 0;
+}
+.app-editor-checkbox {
+  height: 25px;
+  width: 25px;
+  margin: 0;
+  padding: 0;
+}
+.app-reaper-status-offline * {
+  color: #ff2828;
+  margin: auto;
+  height: 20px;
+}
+
 .app-view {
   width: 100%;
 }

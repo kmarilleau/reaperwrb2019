@@ -1,7 +1,7 @@
 <template>
     <div class="app-item-edit-buttons">
-        <a class="app-item-edit-button" @click.stop="onItemEdit"><font-awesome-icon icon="pen" size="1x" /></a>
-        <a class="app-item-edit-button" @click.stop="onItemDelete"><font-awesome-icon icon="trash" size="1x" /></a>
+      <a class="app-item-edit-button" @click.stop="onItemEdit"><font-awesome-icon icon="pen" size="1x" /></a>
+      <a class="app-item-edit-button" @click.stop="onItemDelete"><font-awesome-icon icon="trash" size="1x" /></a>
     </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
         row: this.row,
         index: this.index,
       }
-      this.$store.commit('delete_item', commit)
+      this.$store.commit('show_delete_dialog', commit)
     }
   }
 }
@@ -48,12 +48,10 @@ a.app-item-edit-button {
   text-align: center;
   z-index: 100;
 }
-
 .app-item:hover .app-item-edit-buttons,
 .app-tab-navigation-item:hover .app-item-edit-buttons {
   visibility: visible;
 }
-
 .app-item-edit-button:hover {
   opacity: 1;
 }

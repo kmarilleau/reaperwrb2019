@@ -48,12 +48,15 @@ const store = new Vuex.Store({
     editor: {
       enabled: true,
       toggle: false,
+      // FIXME niceify
       menu: false,
+      delete_dialog: false
     },
     // FIXME move to editor
     active_tab: 0,
     active_row: 0,
     edit_item: false,
+    delete_item: false,
     tabs: [],
   },
 
@@ -170,28 +173,58 @@ const store = new Vuex.Store({
       }
     },
 
-    delete_item: (state, item) => {
-      switch(item.data.type) {
+    show_delete_dialog: (state, item) => {
+      state.editor.delete_dialog = true
+      state.delete_item = item
+    },
+
+    cancel_delete: (state) => {
+      state.delete_item = false,
+      state.editor.delete_dialog = false
+    },
+
+    delete_item: (state, keepItems) => {
+      switch(state.delete_item.data.type) {
         
         case 'tab':
-          state.tabs.splice(item.index, 1)
+          // FIXME
+          let rows
+          if(keepItems) {
+            let tab = state.delete_item.index
+            rows = state.tabs[tab].rows
+            if(tab >= 1) {
+              rows.forEach(row => { state.tabs[tab - 1].rows.push(row)})
+            }
+          }
+          state.tabs.splice(state.delete_item.index, 1)
           state.active_tab = 0
           break
+
+        case 'row':
+
+          let items = false
+          if(keepItems)
+            items = state.tabs[state.active_tab].rows[state.delete_item.row]
+
+          state.tabs[state.active_tab].rows.splice(state.delete_item.row, 1)
+          if(state.tabs[state.active_tab].rows.length === 0)
+            state.tabs[state.active_tab].rows.push([])
+          
+          if(items)
+            items.forEach(item => { state.tabs[state.active_tab].rows[0].push(item)})
+          break
+
         default:
-          state.tabs[state.active_tab].rows[item.row].splice(item.index, 1)
+          state.tabs[state.active_tab].rows[state.delete_item.row].splice(state.delete_item.index, 1)
           break
         }
+
         state.edit_item = false
+        state.editor.delete_dialog = false
       },
 
     add_row: (state, row) => {
       state.tabs[state.active_tab].rows.splice(row + 1, 0, [])
-    },
-
-    delete_row: (state, row) => {
-      state.tabs[state.active_tab].rows.splice(row, 1)
-      if(state.tabs[state.active_tab].rows.length === 0)
-        state.tabs[state.active_tab].rows.push([])
     },
 
     add_tab: (state, tab) => {

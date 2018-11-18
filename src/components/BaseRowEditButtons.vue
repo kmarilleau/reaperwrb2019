@@ -1,5 +1,7 @@
 <template>
-  <div class="app-row-edit-buttons">
+  <div class="app-row-edit-buttons"
+    :class="{ hidden: this.$store.state.editor.delete_dialog }">
+  >
     <a @click.stop="onAddItem()" class="app-row-edit-button">
       <font-awesome-icon icon="plus" size="1x" />
       <span>Item</span>
@@ -31,7 +33,14 @@ export default {
     },
 
     onDeleteRow: function(event) {
-      this.$store.commit('delete_row', this.row)
+      let commit = {
+        data: {
+          type: 'row',
+        },
+        row: this.row,
+        index: this.index,
+      }
+      this.$store.commit('show_delete_dialog', commit)
     }
   }
 }
