@@ -1,0 +1,222 @@
+<template>
+  <div id="app">
+    <router-view/>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+}
+</script>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f0f0f;
+}
+
+a, p, span, svg, div, img, input, button {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+button, input {
+  border: 1px solid #424242;
+  border-radius: 3px;
+}
+
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #f0f0f0;
+}
+
+#reaperwrb-json {
+  display: none;
+}
+
+.app-container {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.app-container-editor {
+  grid-template-columns: 1024px auto;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgb(68, 68, 68); 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgb(68, 68, 68); 
+}
+
+.hidden { display: none !important; }
+
+.sortable-ghost {
+  opacity: 0.7;
+}
+
+.app-view {
+  width: 100%;
+}
+
+.app-view-scroll {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.app-row,
+.app-tab-navigation {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.app-item,
+.app-tab-navigation-item {
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.app-item,
+.app-row-edit-buttons { height: 160px; }
+
+.app-item-action-preview {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  background: #191919;
+  border-radius: 5px;
+}
+
+.app-item-action-preview .app-item-action {
+  width: calc((1024px / 6) - 4px);
+}
+
+.app-item-transport {
+  grid-column-end: span 4;
+  height: calc(100vh/6);
+}
+
+.app-item-transport-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.app-item-transport-container a {
+  width: calc(18% - 1%);
+  text-align: center;
+  line-height: calc(100vh / 6);
+  font-size: 400%;
+}
+
+.app-item-transport-position {
+  width: 30%;
+  margin-left: 2%;
+  text-align: left;
+  line-height: calc(100vh / 6);
+  font-size: 400%;
+}
+
+.app-item-markers {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  height: calc(100vh/6);
+  overflow-y: scroll;
+}
+
+.app-tab-navigation-item {
+  line-height: 30px;
+}
+
+.app-tab-add {
+  text-align: center;
+  margin: 2px;
+}
+
+.app-row-edit-buttons {
+  display: grid;
+  justify-content: center;
+}
+
+.app-row-edit-button {
+  margin: 12px 0 0 0;
+}
+
+.app-row-edit-button span {
+  font-size: 130%;
+  margin-left: 10px;
+}
+
+.app-tab-add {
+  height: 30px;
+  line-height: 30px;
+}
+
+.app-item-add,
+.app-tab-add,
+.app-row-edit-buttons {
+  background: #191919;
+  color: #424242;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.app-item-add:hover,
+.app-tab-add:hover,
+.app-row-edit-buttons:hover {
+  opacity: 1;
+}
+
+.app-item-add:hover,
+.app-tab-add:hover,
+.app-row-edit-button:hover {
+  color: #f0f0f0;
+}
+
+.app-item-action-label,
+.app-item-tab-label {
+  margin: 0 10px;
+}
+
+.app-item-action-container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.app-item-action-icon {
+  margin: 20px auto 10px auto;
+}
+
+.app-item-action-label {
+  text-align: center;
+  justify-self: center;
+  margin: auto 10px;
+}
+
+.vc-compact-color-item,
+.vc-grayscale-color-item {
+  width: 26px !important;
+  height: 26px !important;
+  margin: 1px !important;
+}
+</style>
