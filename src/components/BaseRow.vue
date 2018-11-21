@@ -6,7 +6,7 @@
         group: 'items',
         sort: this.$store.state.editor.enabled 
       }" 
-      :class="'app-row'" 
+      :class="'app-row'"
     >
       
       <app-item

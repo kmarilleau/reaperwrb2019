@@ -3,7 +3,7 @@
   v-if="this.$store.state.editor.delete_dialog"
   :class="{ hidden: !this.$store.state.editor.delete_dialog }">
     <div>
-      <h1>Permanently Delete Item?</h1>
+      <h1>Permanently Delete?</h1>
 
       <button
         @click.stop="onDelete(false)"

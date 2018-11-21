@@ -1,5 +1,5 @@
 <template>
-  <div class="app-tab">
+  <div class="app-tab-rows">
     <app-row
       v-if="rows.length > 0"
       v-for="(items, row) in rows" :key="row"

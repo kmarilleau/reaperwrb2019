@@ -1,5 +1,7 @@
 <template>
-    <div class="app-item-edit-buttons">
+    <div class="app-item-edit-buttons"
+      :class="{ hidden: this.$store.state.editor.delete_dialog }"
+    >
       <a class="app-item-edit-button" @click.stop="onItemEdit"><font-awesome-icon icon="pen" size="1x" /></a>
       <a class="app-item-edit-button" @click.stop="onItemDelete"><font-awesome-icon icon="trash" size="1x" /></a>
     </div>
@@ -26,6 +28,7 @@ export default {
         data: this.item,
         row: this.row,
         index: this.index,
+        el: this.$parent.$el
       }
       this.$store.commit('show_delete_dialog', commit)
     }

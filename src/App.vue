@@ -75,6 +75,16 @@ button, input {
   opacity: 0.7;
 }
 
+.app-highlight-delete[class*="app-item"],
+.app-highlight-delete[class*="app-tab"] {
+  background: #cdcdcd !important;
+  opacity: 1  !important;
+}
+
+.app-highlight-delete[class*="app-row"] * {
+  background: #cdcdcd !important;
+}
+
 .app-editor {
   height: 100vh;
   display: grid;

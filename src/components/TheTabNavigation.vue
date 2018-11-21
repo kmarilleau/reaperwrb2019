@@ -7,7 +7,11 @@
       :index="index"
     ></app-tab-navigation-item>
 
-    <app-tab-add v-if="this.$store.state.editor.enabled" />
+    <app-tab-add 
+      v-if="this.$store.state.editor.enabled" 
+      :class="{ hidden: this.$store.state.editor.delete_dialog }"
+    />
+
   </div>
 </template>
 

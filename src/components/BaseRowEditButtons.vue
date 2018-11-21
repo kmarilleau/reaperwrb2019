@@ -1,6 +1,6 @@
 <template>
   <div class="app-row-edit-buttons"
-    :class="{ hidden: this.$store.state.editor.delete_dialog }">
+    :class="{ hidden: this.$store.state.editor.delete_dialog }"
   >
     <a @click.stop="onAddItem()" class="app-row-edit-button">
       <font-awesome-icon icon="plus" size="1x" />
@@ -10,7 +10,9 @@
       <font-awesome-icon icon="plus" size="1x" />
       <span>Row</span>
     </a>
-    <a @click.stop="onDeleteRow()" class="app-row-edit-button">
+    <a @click.stop="onDeleteRow()" class="app-row-edit-button"
+      v-if="this.$store.state.tabs[this.$store.state.active_tab].rows.length > 1"
+    >
       <font-awesome-icon icon="trash" size="1x" />
       <span>Row</span>
     </a>
@@ -39,6 +41,7 @@ export default {
         },
         row: this.row,
         index: this.index,
+        el: this.$parent.$el
       }
       this.$store.commit('show_delete_dialog', commit)
     }

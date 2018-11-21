@@ -176,18 +176,39 @@ const store = new Vuex.Store({
     show_delete_dialog: (state, item) => {
       state.editor.delete_dialog = true
       state.delete_item = item
+      state.delete_item.el.classList.add('app-highlight-delete')
+      if(item.data.type === 'tab') {
+        let items = document.getElementsByClassName('app-item')
+        for(var i = 0; i < items.length; i++) {
+          items[i].classList.add('app-highlight-delete')
+        }
+      }
     },
 
     cancel_delete: (state) => {
+      // FIXME clean-up
+      state.delete_item.el.classList.remove('app-highlight-delete')
+      let el = document.getElementsByClassName('app-item')
+      for(var i = 0; i < el.length; i++) {
+        el[i].classList.remove('app-highlight-delete')
+      }
       state.delete_item = false,
       state.editor.delete_dialog = false
     },
 
     delete_item: (state, keepItems) => {
+
+      state.delete_item.el.classList.remove('app-highlight-delete')
+
       switch(state.delete_item.data.type) {
         
         case 'tab':
-          // FIXME
+          // FIXME not working when first tab ist deleted
+          let el = document.getElementsByClassName('app-item')
+          for(var i = 0; i < el.length; i++) {
+            el[i].classList.remove('app-highlight-delete')
+          }
+
           let rows
           if(keepItems) {
             let tab = state.delete_item.index
@@ -197,7 +218,7 @@ const store = new Vuex.Store({
             }
           }
           state.tabs.splice(state.delete_item.index, 1)
-          state.active_tab = 0
+          state.active_tab = state.tabs.length - 1
           break
 
         case 'row':
@@ -212,6 +233,7 @@ const store = new Vuex.Store({
           
           if(items)
             items.forEach(item => { state.tabs[state.active_tab].rows[0].push(item)})
+          
           break
 
         default:
