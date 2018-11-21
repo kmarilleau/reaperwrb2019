@@ -33,8 +33,13 @@ export default {
   computed: {
     labelClass: function() {
       // FIXME needs testing
+      let classes = []
+
       if(!this.item.icon)
-        return 'app-item-noicon'
+        classes.push('app-item-noicon')
+
+      // FIXME check string length
+
     },
   },
 }

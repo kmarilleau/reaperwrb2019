@@ -5,7 +5,7 @@
         draggable: this.$store.state.editor.enabled ? '.app-item' : false, 
         group: 'items',
         sort: this.$store.state.editor.enabled 
-      }" 
+      }"
       :class="'app-row'"
     >
       

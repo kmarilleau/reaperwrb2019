@@ -75,6 +75,10 @@ button, input {
   opacity: 0.7;
 }
 
+.app-highlight-edit[class*="app-item"] {
+  opacity: 0.7;
+}
+
 .app-highlight-delete[class*="app-item"],
 .app-highlight-delete[class*="app-tab"] {
   background: #cdcdcd !important;

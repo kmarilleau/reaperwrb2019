@@ -58,6 +58,12 @@ const store = new Vuex.Store({
     edit_item: false,
     delete_item: false,
     tabs: [],
+    clearEditHightlight: () => {
+      let el = document.getElementsByClassName('app-highlight-edit')
+      for(var i = 0; i < el.length; i++) {
+        el[i].classList.remove('app-highlight-edit')
+      }
+    },
   },
 
   mutations: {
@@ -94,7 +100,15 @@ const store = new Vuex.Store({
         data.forEach(tab => state.tabs.push(tab))
     },
 
-    switch_tab: (state, tab) => state.active_tab = tab,
+    switch_tab: (state, tab) => {
+      state.edit_item = false
+      state.clearEditHightlight()
+      let el = document.getElementsByClassName('app-highlight-edit')
+      for(var i = 0; i < el.length; i++) {
+        el[i].classList.remove('app-highlight-edit')
+      }
+      state.active_tab = tab
+    },
     switch_row: (state, row) => state.active_row = row,
     toggle_editor: (state) => state.editor.toggle = state.editor.toggle ? false : true,
     show_editor: (state) => state.editor.toggle = true, 
@@ -165,6 +179,8 @@ const store = new Vuex.Store({
     },
 
     edit_item: (state, item) => {
+      state.clearEditHightlight()
+      item.el.classList.add('app-highlight-edit')
       if(item.data.type === 'tab') {
         state.edit_item = state.tabs[item.index]
         state.active_tab = item.index
@@ -178,9 +194,9 @@ const store = new Vuex.Store({
       state.delete_item = item
       state.delete_item.el.classList.add('app-highlight-delete')
       if(item.data.type === 'tab') {
-        let items = document.getElementsByClassName('app-item')
-        for(var i = 0; i < items.length; i++) {
-          items[i].classList.add('app-highlight-delete')
+        let el = document.getElementsByClassName('app-item')
+        for(var i = 0; i < el.length; i++) {
+          el[i].classList.add('app-highlight-delete')
         }
       }
     },

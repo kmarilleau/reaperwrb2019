@@ -18,6 +18,7 @@ export default {
         data: this.item,
         row: this.row,
         index: this.index,
+        el: this.$parent.$el
       }
       this.$store.commit('edit_item', commit)
     },
