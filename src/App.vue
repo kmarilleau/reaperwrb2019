@@ -117,6 +117,11 @@ label {
   border-radius: 3px;
 }
 
+.app-editor button.app-editor-icon-delete {
+  position: absolute;
+  margin: 40px;
+}
+
 .app-editor input[type=text] {
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;

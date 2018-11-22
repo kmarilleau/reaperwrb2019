@@ -90,6 +90,7 @@
         <template>
           <div class="app-item-action-preview">
             <label>Preview Icon</label>
+            <button @click.stop="onClearIcons(item)" class="app-editor-icon-delete"><font-awesome-icon icon="trash" size="1x" /></button>
             <div class="app-item app-item-action" :style="{ backgroundColor: item.bgcolor }">
               <app-item-action :item="item" />
             </div>
@@ -172,6 +173,11 @@ export default {
 
     onEditToggle: function(event) {
       this.$store.commit('update_item', { key: 'toggle', val: event.target.checked })
+    },
+
+    onClearIcons: function(event) {
+      this.$store.commit('update_item', { key: 'icon', val: null })
+      this.$store.commit('update_item', { key: 'toggleicon', val: null })
     },
 
     onNew: function(event) {
