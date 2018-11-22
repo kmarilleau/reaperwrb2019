@@ -6,7 +6,8 @@
   >
 
     <app-tab-edit-buttons 
-      v-if="this.$store.state.editor.enabled"
+      v-if="this.$store.state.editor.enabled &&
+      this.$store.state.active_tab === index"
       :item="tab"
       :index="index"
     />

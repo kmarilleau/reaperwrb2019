@@ -8,7 +8,8 @@
     ></app-tab-navigation-item>
 
     <app-tab-add 
-      v-if="this.$store.state.editor.enabled" 
+      v-if="this.$store.state.editor.enabled 
+      && this.$store.state.editor.menu === false"
       :class="{ hidden: this.$store.state.editor.delete_dialog }"
     />
 

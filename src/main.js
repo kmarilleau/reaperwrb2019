@@ -109,11 +109,16 @@ const store = new Vuex.Store({
       }
       state.active_tab = tab
     },
+
     switch_row: (state, row) => state.active_row = row,
     toggle_editor: (state) => state.editor.toggle = state.editor.toggle ? false : true,
     show_editor: (state) => state.editor.toggle = true, 
     enable_editor: (state, enabled) => state.editor.enabled = enabled,
-    show_menu: (state) => state.editor.menu = true,
+
+    show_menu: (state) => {
+      state.clearEditHightlight()
+      state.editor.menu = true
+    },
     
     clear: state => {
       state.tabs = []
@@ -180,6 +185,7 @@ const store = new Vuex.Store({
 
     edit_item: (state, item) => {
       state.clearEditHightlight()
+      console.log(item.el)
       item.el.classList.add('app-highlight-edit')
       if(item.data.type === 'tab') {
         state.edit_item = state.tabs[item.index]
@@ -276,6 +282,11 @@ const store = new Vuex.Store({
 
       state.active_tab = state.tabs.length - 1
       state.edit_item = state.tabs[state.active_tab]
+    },
+
+    clear_highlight: (state, data) => {
+      state.edit_item = false
+      state.clearEditHightlight()
     },
 
     update_item: (state, data) => state.edit_item[data.key] = data.val,

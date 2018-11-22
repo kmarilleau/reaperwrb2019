@@ -8,6 +8,7 @@
         sort: this.$store.state.editor.enabled 
       }"
       :class="'app-row'"
+      @start="onDraggableStart"
     >
 
       <app-item
@@ -21,7 +22,8 @@
     </draggable>
 
     <app-row-edit-buttons 
-      v-if="this.$store.state.editor.enabled" 
+      v-if="this.$store.state.editor.enabled 
+      && this.$store.state.editor.menu === false" 
       :row="row"
     />
 
@@ -49,7 +51,6 @@ export default {
       },
       set(value) {
         this.$store.commit('update_row', {row: this.row, value: value })
-        //this.$forceUpdate()
       }
     }
   },
@@ -58,6 +59,10 @@ export default {
     classRow() {
       return this.$store.state.editor.enabled ? 'app-editor-grid' : 'app-view-grid'
     },
+
+    onDraggableStart() {
+      this.$store.commit('clear_highlight')
+    }
   }
 };
 </script>

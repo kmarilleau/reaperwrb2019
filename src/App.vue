@@ -72,8 +72,15 @@ button, input {
   opacity: 0.7;
 }
 
-.app-highlight-select[class*="app-item"] {
-  opacity: 0.7;
+.app-highlight-edit[class*="app-item"],
+.app-highlight-edit[class*="app-tab-navigation-item"] {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .app-highlight-delete[class*="app-item"],
