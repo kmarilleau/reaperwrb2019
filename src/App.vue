@@ -6,10 +6,7 @@
 
 <script>
 export default {
-  name: "App",
-  mounted: function() {
-    document.getElementById('loading').style.display = 'none';
-  }
+  name: "App"
 }
 </script>
 
@@ -75,7 +72,7 @@ button, input {
   opacity: 0.7;
 }
 
-.app-highlight-edit[class*="app-item"] {
+.app-highlight-select[class*="app-item"] {
   opacity: 0.7;
 }
 

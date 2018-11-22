@@ -12,7 +12,7 @@ import { fab, faBlogger } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
-import { saveAs } from 'file-saver/FileSaver'
+import { saveAs } from 'file-saver/FileSaver' 
 
 library.add(fas, far, fab)
 

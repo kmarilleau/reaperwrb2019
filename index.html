@@ -8,13 +8,14 @@
   <script src="main.js"></script>
   <style type="text/css">
     body { background: #0f0f0f; }
-    #loading { font-family: sans-serif; color: #f0f0f0; }
+    #loader { display: flex; justify-content: center; align-items: center; }
   </style>
 </head>
 <body>
-  <div id="loading">
-    <h1>LAUNCHING REAPERWRB...</h1>
+  <div id="app">
+    <div id="loader">
+      <img src="/static/spinner.gif" />
+    </div>
   </div>
-  <div id="app"></div>
 </body>
 </html>
