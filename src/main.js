@@ -285,13 +285,14 @@ const store = new Vuex.Store({
     },
 
     clear_highlight: (state, data) => {
-      state.edit_item = false
       state.clearEditHightlight()
+      state.edit_item = false
     },
 
     update_item: (state, data) => state.edit_item[data.key] = data.val,
 
     update_row: (state, data) => {
+      state.clearEditHightlight()
       Vue.set(state.tabs[state.active_tab].rows, data.row, data.value)
     },
 

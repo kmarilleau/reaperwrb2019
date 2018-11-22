@@ -72,24 +72,26 @@ button, input {
   opacity: 0.7;
 }
 
-.app-highlight-edit[class*="app-item"],
-.app-highlight-edit[class*="app-tab-navigation-item"] {
-  animation: blinker 1s linear infinite;
-}
-
 @keyframes blinker {
   50% {
     opacity: 0.5;
   }
 }
 
+.app-highlight-edit[class*="app-item"],
+.app-highlight-edit[class*="app-tab-navigation-item"] {
+  animation: blinker 1s linear infinite;
+}
+
 .app-highlight-delete[class*="app-item"],
 .app-highlight-delete[class*="app-tab"] {
+  animation: blinker 1s linear infinite;
   background: #cdcdcd !important;
   opacity: 1  !important;
 }
 
 .app-highlight-delete[class*="app-row"] * {
+  animation: blinker 1s linear infinite;
   background: #cdcdcd !important;
 }
 
