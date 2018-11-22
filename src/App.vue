@@ -183,8 +183,7 @@ label {
   border-radius: 3px;
 }
 
-.app-item,
-.app-row-edit-buttons { height: 160px; }
+.app-item { height: 160px; }
 
 .app-item-action-preview {
   display: grid;
@@ -240,25 +239,33 @@ label {
 .app-tab-add {
   text-align: center;
   margin: 2px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.app-row {
+  min-height: 160px; /* FIXME */
 }
 
 .app-row-edit-buttons {
+  /* display: grid;
+  justify-content: center; */
   display: grid;
-  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 4px;
+  padding: 2px;
 }
 
 .app-row-edit-button {
-  margin: 12px 0 0 0;
+  border-radius: 3px;
+  background: #202020;
+  padding: 2px 8px;
+  text-align: center;
 }
 
 .app-row-edit-button span {
-  font-size: 130%;
+  font-size: 100%;
   margin-left: 10px;
-}
-
-.app-tab-add {
-  height: 30px;
-  line-height: 30px;
 }
 
 .app-item-add,

@@ -1,4 +1,5 @@
 <template>
+  <div>
     <draggable 
       v-model="items"
       :options="{ 
@@ -8,7 +9,7 @@
       }"
       :class="'app-row'"
     >
-      
+
       <app-item
         v-if="items.length > 0"
         v-for="(item, index) in items" :key="index"
@@ -16,13 +17,15 @@
         :item="item"
         :index="index"
       />
+    
+    </draggable>
 
-      <app-row-edit-buttons 
+    <app-row-edit-buttons 
       v-if="this.$store.state.editor.enabled" 
       :row="row"
-      />
+    />
 
-    </draggable>
+  </div>
 </template>
 
 <script>
