@@ -41,7 +41,7 @@ export default {
         },
         row: this.row,
         index: this.index,
-        el: this.$parent.$el
+        el: this.$parent.$children[0].$el
       }
       this.$store.commit('show_delete_dialog', commit)
     }
