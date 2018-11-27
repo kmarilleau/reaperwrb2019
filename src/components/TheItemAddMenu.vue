@@ -1,10 +1,11 @@
 <template>
   <div id="app-item-add-menu" :class="{ hidden: !this.$store.state.editor.menu }">
-    <div><a @click.stop="onAdd('action')">Action</a></div>
-    <div><a @click.stop="onAdd('spacer')">Spacer</a></div>
-    <div><a @click.stop="onAdd('transport')">Transport</a></div>
-    <div><a @click.stop="onAdd('markers')">Markers</a></div>
-    <div><a @click.stop="onAdd('regions')">Regions</a></div>
+    <button style="grid-column-end: 6 span;" @click.stop="onCancel()">Cancel</button>
+    <button @click.stop="onAdd('action')">Action</button>
+    <button @click.stop="onAdd('spacer')">Spacer</button>
+    <button @click.stop="onAdd('transport')">Transport</button>
+    <button @click.stop="onAdd('markers')">Markers</button>
+    <button @click.stop="onAdd('regions')">Regions</button>
   </div>
 </template>
 
@@ -14,6 +15,9 @@ export default {
     onAdd: function(type) {
       document.getElementById('app-item-add-menu').classList.add('hidden')
       this.$store.commit('add_item', type)
+    },
+    onCancel: function(event) {
+      this.$store.commit('add_item_cancel')
     }
   }
 }
@@ -30,27 +34,16 @@ export default {
   width: inherit;
   z-index: 1000;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding-top: 34px;
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 100px);
-  grid-row-gap: 20px;
 }
 
-#app-item-add-menu div {
+#app-item-add-menu button {
   display: inline-block;
   line-height: 100px;
   text-align: center;
-}
-
-#app-item-add-menu a {
-  display: block;
-  margin: 10px;
-  border: 3px solid #424242;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 150%;
-}
-
-#app-item-add-menu a:hover {
-  background-color: #424242;
+  margin: 1px;
+  font-size: 125%;
 }
 </style>

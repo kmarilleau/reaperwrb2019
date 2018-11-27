@@ -188,6 +188,10 @@ const store = new Vuex.Store({
       state.editor.menu = false
     },
 
+    add_item_cancel: (state) => {
+      state.editor.menu = false
+    },
+
     edit_item: (state, item) => {
       state.clearEditHightlight()
       console.log(item.el)
