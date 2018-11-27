@@ -10,6 +10,7 @@
       this.$store.state.active_tab === index"
       :item="tab"
       :index="index"
+      :class="{ hidden: this.$store.state.editor.menu }"
     />
 
     <span class="app-item-tab-label" 

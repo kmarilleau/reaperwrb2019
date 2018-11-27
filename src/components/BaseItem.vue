@@ -11,6 +11,7 @@
       :row="row" 
       :item="item" 
       :index="index" 
+      :class="{ hidden: this.$store.state.editor.menu }"
     />
 
     <app-item-action 
