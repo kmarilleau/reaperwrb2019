@@ -1,7 +1,10 @@
 <template>
   <div class="app-item"
     :class="'app-item-' + item.type"
-    :style="{ backgroundColor: item.bgcolor }"
+    :style="{ 
+      backgroundColor: item.bgcolor, 
+      gridColumnEnd: item.width ? 'span ' + item.width : 'span 1' 
+    }"
   >
     <app-item-edit-buttons 
       v-if="this.$store.state.editor.enabled" 

@@ -73,6 +73,11 @@
           </div>
         </template>
 
+        <template>
+          <label>Width</label>
+          <app-item-width-slider v-model="item.width" :min="1" :max="6" :width="400" :piecewise="true" />
+        </template>
+
         <template v-if="item.type === 'action'">
           <label>Toggle</label>
           <input type="checkbox" class="app-editor-checkbox"
@@ -125,6 +130,7 @@ import TheItemAddMenu from '@/components/TheItemAddMenu.vue'
 import TheDeleteDialog from '@/components/TheDeleteDialog.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemActionToggle from '@/components/BaseItemActionToggle.vue'
+import VueSlider from 'vue-slider-component'
 
 export default {
   props: ['item'],
@@ -136,14 +142,16 @@ export default {
     'app-item-add-menu': TheItemAddMenu,
     'app-delete-dialog': TheDeleteDialog,
     'app-item-action': BaseItemAction,
-    'app-item-action-toggle': BaseItemActionToggle
+    'app-item-action-toggle': BaseItemActionToggle,
+    'app-item-width-slider': VueSlider
   },
   computed: {
     showOptionsPanel: function() {
       if(this.$store.state.tabs.length > 0 && ( 
         this.$store.state.edit_item.label ||
         this.$store.state.edit_item.desc ||
-        this.$store.state.edit_item.action
+        this.$store.state.edit_item.action ||
+        this.$store.state.edit_item.width
       )) {
           return true
         } else {
@@ -169,6 +177,10 @@ export default {
 
     onEditAction: function(event) {
       this.$store.commit('update_item', { key: 'action', val: event.target.value })
+    },
+
+    onEditWidth: function(event) {
+      // console.log(event.target.value)
     },
 
     onEditToggle: function(event) {

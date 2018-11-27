@@ -141,14 +141,16 @@ const store = new Vuex.Store({
             toggle: false,
             icon: null,
             toggleicon: null,
-            desc: ''
+            desc: '',
+            width: 1
           }
           break
 
         case 'spacer':
           item = {
             type: 'spacer',
-            bgcolor: '#424242'
+            bgcolor: '#424242',
+            width: 1,
           }
           break
 
@@ -156,7 +158,8 @@ const store = new Vuex.Store({
           item = {
             type: 'transport',
             bgcolor: '#424242',
-            textcolor: '#f0f0f0'
+            textcolor: '#f0f0f0',
+            width: 3,
           }
           break
 
@@ -164,7 +167,8 @@ const store = new Vuex.Store({
           item = {
             type: 'markers',
             bgcolor: '#424242',
-            textcolor: '#f0f0f0'
+            textcolor: '#f0f0f0',
+            width: 3,
           }
           break
 
@@ -172,7 +176,8 @@ const store = new Vuex.Store({
           item = {
             type: 'regions',
             bgcolor: '#424242',
-            textcolor: '#f0f0f0'
+            textcolor: '#f0f0f0',
+            width: 3
           }
           break
       }
