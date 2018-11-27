@@ -7,16 +7,16 @@
 
       <button
         @click.stop="onDelete(false)"
-      ><font-awesome-icon icon="trash" size="1x"></font-awesome-icon> Delete</button>
+      ><font-awesome-icon icon="trash" size="1x" /> Delete</button>
 
       <button
         v-if="this.$store.state.delete_item.data.type === 'tab' || this.$store.state.delete_item.data.type === 'row'"
         @click.stop="onDelete(true)"
-      ><font-awesome-icon icon="trash" size="1x"></font-awesome-icon> Keep Items</button>
+      ><font-awesome-icon icon="trash" size="1x" /> Keep Items</button>
 
       <button
         @click.stop="onCancel"
-      ><font-awesome-icon icon="ban" size="1x"></font-awesome-icon> Cancel</button>
+      ><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
 
     </div>
   </div>

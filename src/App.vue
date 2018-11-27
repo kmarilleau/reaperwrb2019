@@ -164,12 +164,14 @@ label {
   margin: 0;
   padding: 0;
 }
+.app-editor .vue-slider-component {
+  margin-top: 30px !important;
+}
 .app-reaper-status-offline * {
   color: #ff2828;
   margin: auto;
   height: 20px;
 }
-
 .app-view {
   width: 100%;
 }

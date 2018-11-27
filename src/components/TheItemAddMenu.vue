@@ -1,6 +1,6 @@
 <template>
   <div id="app-item-add-menu" :class="{ hidden: !this.$store.state.editor.menu }">
-    <button style="grid-column-end: 6 span;" @click.stop="onCancel()">Cancel</button>
+    <button style="grid-column-end: 6 span;" @click.stop="onCancel()"><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
     <button @click.stop="onAdd('action')">Action</button>
     <button @click.stop="onAdd('spacer')">Spacer</button>
     <button @click.stop="onAdd('transport')">Transport</button>
