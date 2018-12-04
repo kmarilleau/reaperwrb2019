@@ -44,6 +44,7 @@ export default {
   visibility: hidden;
   height: 0px;
 }
+
 a.app-item-edit-button {
   opacity: 0.5;
   display: inline-block;

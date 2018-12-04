@@ -21,6 +21,10 @@
           <button @click="onSave">Save</button>
         </template>
 
+        <template v-if="this.$store.state.tabs.length > 0 && this.$store.state.tabs[this.$store.state.active_tab].rows.length > 0">
+          <button @click="onToggleBulkEdit">Bulk Edit</button>
+        </template>
+
         <button class="app-reaper-status-offline" 
           v-if="this.$store.state.reaper.ready === false"
           @click="onDisableEditor()"
@@ -734,6 +738,10 @@ export default {
 
     onClearEditor: function(event) {
       this.$store.commit('clear')
+    },
+
+    onToggleBulkEdit: function(event) {
+      this.$store.commit('toggle_bulk_edit')
     },
 
     onSave: function(event) {

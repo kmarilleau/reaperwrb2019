@@ -50,7 +50,8 @@ const store = new Vuex.Store({
       toggle: false,
       // FIXME niceify
       menu: false,
-      delete_dialog: false
+      delete_dialog: false,
+      buld_edit: false
     },
     // FIXME move to editor
     active_tab: 0,
@@ -114,6 +115,10 @@ const store = new Vuex.Store({
     toggle_editor: (state) => state.editor.toggle = state.editor.toggle ? false : true,
     show_editor: (state) => state.editor.toggle = true, 
     enable_editor: (state, enabled) => state.editor.enabled = enabled,
+
+    toggle_bulk_edit: (state) => {
+      state.editor.buld_edit = state.editor.bulk_edit ? false : true;
+    },
 
     show_menu: (state) => {
       state.clearEditHightlight()

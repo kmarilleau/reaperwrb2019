@@ -81,6 +81,7 @@ button, input {
 .app-highlight-edit[class*="app-item"],
 .app-highlight-edit[class*="app-tab-navigation-item"] {
   animation: blinker 1s linear infinite;
+  box-shadow: inset 0 0 20px #f0f0f0;
 }
 
 .app-highlight-delete[class*="app-item"],
@@ -184,7 +185,7 @@ label {
 .app-row,
 .app-tab-navigation {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
 }
 
 .app-item,
@@ -299,6 +300,10 @@ label {
   color: #f0f0f0;
 }
 
+.app-item-action:active {
+  box-shadow: inset 0 0 20px #0f0f0f;
+}
+
 .app-item-action-label,
 .app-item-tab-label {
   margin: 0 10px;
@@ -312,6 +317,10 @@ label {
 
 .app-item-action-icon {
   margin: 20px auto 10px auto;
+  opacity: 0.8;
+}
+.app-item-action:active .app-item-action-icon {
+  opacity: 1;
 }
 
 .app-item-action-label {

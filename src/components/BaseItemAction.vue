@@ -1,5 +1,6 @@
 <template>
   <a @click="onClick" class="app-item-action-container">
+
     <div class="app-item-action-icon">
       <font-awesome-icon 
         v-if="item.icon"
@@ -9,7 +10,7 @@
     </div>
 
     <div class="app-item-action-label"
-      :style="{ color: item.textcolor }" 
+      :style="{ color: item.textcolor }"
       :class="labelClass"
     >
       <span>{{item.label}}</span>
