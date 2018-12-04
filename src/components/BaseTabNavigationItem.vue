@@ -13,7 +13,7 @@
       :class="{ hidden: this.$store.state.editor.menu }"
     />
 
-    <span class="app-item-tab-label" 
+    <span class="app-item-label" 
       :style="{ color: tab.textcolor }
     ">
       {{tab.label}}

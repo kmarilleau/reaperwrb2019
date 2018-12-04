@@ -2,7 +2,7 @@
   <div class="app-editor">
 
       <!-- EDITOR MAIN FUNCTIONS -->
-      <div class="app-editor-panel app-editor-menu">
+      <div class="app-editor-panel">
 
         <label>ReaperWRB {{ this.$store.state.version }} </label>
 
@@ -32,6 +32,39 @@
           <font-awesome-icon icon="exclamation-circle" size="2x" />
         </button>
 
+      </div>
+
+      <div class="app-editor-panel">
+        <label>Options</label>
+        <select 
+          v-model="options.columns.desktop"
+        >
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        Columns (Desktop)
+
+        <select v-model="options.columns.tablet">
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        Columns (Tablet)
+
+        <select v-model="options.columns.mobile">
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        Columns (Mobile)
+        
       </div>
 
       <!-- EDITOR COLORS -->
@@ -79,7 +112,7 @@
 
         <template>
           <label>Width</label>
-          <app-item-width-slider v-model="item.width" :min="1" :max="6" :width="400" :piecewise="true" />
+          <app-item-width-slider v-model="item.width" :min="1" :max="this.$store.state.options.columns.desktop" :width="400" :piecewise="true" />
         </template>
 
         <template v-if="item.type === 'action'">
@@ -137,7 +170,7 @@ import BaseItemActionToggle from '@/components/BaseItemActionToggle.vue'
 import VueSlider from 'vue-slider-component'
 
 export default {
-  props: ['item'],
+  props: ['item', 'options'],
 
   components: {
     'app-item-color-picker': BaseEditorItemColorPicker,
@@ -746,6 +779,11 @@ export default {
 
     onSave: function(event) {
       this.$store.commit('save_html')
+    },
+
+    onSetColumns: function(event) {
+      console.log(event)
+      this.$store.commit('set_columns')
     },
 
     fixJSON: function(tabs) {

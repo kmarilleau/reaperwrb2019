@@ -106,10 +106,6 @@ label {
   font-weight: bold;
   color: #cdcdcd;
 }
-.app-editor-menu {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
 .app-editor-panel {
   margin: 10px 20px 10px 20px;
 }
@@ -185,7 +181,6 @@ label {
 .app-row,
 .app-tab-navigation {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
 }
 
 .app-item,
@@ -195,7 +190,9 @@ label {
   border-radius: 3px;
 }
 
-.app-item { height: 160px; }
+.app-item { 
+  height: 160px; 
+}
 
 .app-item-action-preview {
   display: grid;
@@ -233,15 +230,6 @@ label {
   text-align: left;
   line-height: calc(100vh / 6);
   font-size: 400%;
-}
-
-.app-item-markers {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 1;
-  height: calc(100vh/6);
-  overflow-y: scroll;
 }
 
 .app-tab-navigation-item {
@@ -304,26 +292,29 @@ label {
   box-shadow: inset 0 0 20px #0f0f0f;
 }
 
-.app-item-action-label,
-.app-item-tab-label {
+.app-item-label {
   margin: 0 10px;
 }
 
-.app-item-action-container {
+.app-item-action-container,
+.app-item-container {
   display: flex;
   flex-direction: column;
   justify-items: center;
 }
 
-.app-item-action-icon {
+.app-item-action-icon,
+.app-item-markers-icon {
   margin: 20px auto 10px auto;
   opacity: 0.8;
 }
-.app-item-action:active .app-item-action-icon {
+
+.app-item-action:active .app-item-action-icon,
+.app-item-markers-icon:active {
   opacity: 1;
 }
 
-.app-item-action-label {
+.app-item-label {
   text-align: center;
   justify-self: center;
   margin: auto 10px;

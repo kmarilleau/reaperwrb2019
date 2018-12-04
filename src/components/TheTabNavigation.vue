@@ -1,6 +1,8 @@
 <template>
-  <div class="app-tab-navigation">
-    
+  <div class="app-tab-navigation"
+    :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.options.columns.desktop + ', 1fr)' }"
+
+  >
     <app-tab-navigation-item
       v-for="(tab, index) in tabs" :key="index"
       :tab="tab"
@@ -28,9 +30,6 @@ export default {
   components: {
     'app-tab-navigation-item': BaseTabNavigationItem,
     'app-tab-add': TheTabAdd
-  },
-
-  methods: {
   }
 };
 </script>

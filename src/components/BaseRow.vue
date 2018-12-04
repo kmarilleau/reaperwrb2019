@@ -8,6 +8,7 @@
         sort: this.$store.state.editor.enabled 
       }"
       :class="'app-row'"
+      :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.options.columns.desktop + ', 1fr)' }"
       @start="onDraggableStart"
     >
 

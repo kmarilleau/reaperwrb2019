@@ -9,7 +9,7 @@
       />
     </div>
 
-    <div class="app-item-action-label"
+    <div class="app-item-label"
       :style="{ color: item.textcolor }"
       :class="labelClass"
     >

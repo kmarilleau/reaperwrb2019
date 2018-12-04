@@ -1,13 +1,30 @@
 <template>
-  <div class="app-item-markers">
-    <a class="app-item-marker" v-for="(marker, index) in this.$store.state.reaper.markers" 
-      :key="index"
-      :style="{ color: item.textcolor }"
-      :marker="marker"  
-      @click.stop="goToMarker(marker.id)"
-    >
-      <span>{{marker.id}}: {{marker.name}}</span>
-    </a>
+  <div class="app-item app-item-container app-item-markers">
+    <div class="app-item-markers-nav">
+      <div class="app-item-markers-icon">
+        <a @click.stop="onPreviousMarker()">
+          <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
+        </a>
+      </div>
+      <div class="app-item-markers-info">
+        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.marker }}</span>
+      </div>
+      <div class="app-item-markers-icon">
+        <a @click.stop="onRefresh()">
+        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="5x" />
+        </a>
+      </div>
+      <div class="app-item-markers-icon">
+        <a @click.stop="onNextMarker()">
+        <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
+        </a>
+      </div>
+    </div>
+
+    <div class="app-item-label">
+      <span>Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
+    </div>
+
   </div>
 </template>
 
@@ -16,9 +33,22 @@ export default {
   props: ['item', 'markers'],
 
   methods: {
-    goToMarker: function(id) {
-      if(this.$store.state.reaper.ready)
+    onPreviousMarker: function(event) {
+      alert('fixme: prev marker')
+      if(this.$store.state.reaper.ready) {
         wwr_req('SET/POS_STR/m' + id)
+      }
+    },
+    onNextMarker: function(event) {
+      alert('fixme: next marker')
+      if(this.$store.state.reaper.ready) {
+        wwr_req('SET/POS_STR/m' + id)   
+      }
+    },
+    onRefresh: function(event) {
+      alert('refresh')
+      if(this.$store.state.reaper.ready)
+        wwr_req("MARKER")
     }
   },
 
@@ -26,34 +56,20 @@ export default {
     if(this.$store.state.reaper.ready)
       wwr_req("MARKER")
   },
-
-  beforeDestroy: function() {
-
-  }
 }
 </script>
 
 <style scoped>
-.app-item-markers {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+.app-item-markers-nav {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  margin: 20px 0 0 0;
 }
-.app-item-marker {
-  display: block;
-  line-height: 30px;
-  cursor: pointer;
-  border: 1px solid #f0f0f0;
-  border-radius: 3px;
-  opacity: 0.5;
-  margin: 2px 4px;
+.app-item-markers-info,
+.app-item-markers-icon {
+  margin: auto;
 }
-
-.app-item-marker span {
-  margin-left: 10px;
-}
-
-.app-item-marker:hover {
-  opacity: 1;
+.app-item-markers-info * {
+  font-size: 5em;
 }
 </style>

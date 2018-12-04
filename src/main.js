@@ -43,6 +43,7 @@ const store = new Vuex.Store({
         { name: 'maker 5', id: 4, pos: '5', color: '#424242' },
         { name: 'maker 6', id: 5, pos: '6', color: '#424242' },
       ],
+      marker: 0,
       regions: false,
     }, 
     editor: {
@@ -54,6 +55,13 @@ const store = new Vuex.Store({
       buld_edit: false
     },
     // FIXME move to editor
+    options: {
+      columns: {
+        desktop: 8,
+        tablet: 6,
+        mobile: 4
+      }
+    },
     active_tab: 0,
     active_row: 0,
     edit_item: false,
@@ -124,6 +132,10 @@ const store = new Vuex.Store({
       state.clearEditHightlight()
       state.editor.menu = true
     },
+
+    set_columns: (state, data) => {
+      state.options.columns.desktop = 2
+    },
     
     clear: state => {
       state.tabs = []
@@ -173,7 +185,7 @@ const store = new Vuex.Store({
             type: 'markers',
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
-            width: 3,
+            width: 4,
           }
           break
 
@@ -182,7 +194,7 @@ const store = new Vuex.Store({
             type: 'regions',
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
-            width: 3
+            width: 4,
           }
           break
       }

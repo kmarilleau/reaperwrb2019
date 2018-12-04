@@ -7,8 +7,9 @@
       :tab="this.$store.state.active_tab"
     />
     <app-editor 
-      v-if="this.$store.state.editor.enabled" 
-      :item="this.$store.state.edit_item" 
+      v-if="this.$store.state.editor.enabled"
+      :item="this.$store.state.edit_item"
+      :options="this.$store.state.options"
     />
   </div>
 </template>
