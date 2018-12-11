@@ -112,7 +112,7 @@
 
         <template>
           <label>Width</label>
-          <app-item-width-slider v-model="item.width" :min="item.minwidth !== undefined ? item.minwidth : 1" :max="this.$store.state.options.columns.desktop" :width="400" :piecewise="true" />
+          <app-item-width-slider v-model="item.width" :min="item.minwidth === undefined ? 1 : item.minwidth" :max="parseInt(this.$store.state.options.columns.desktop)" :width="400" :piecewise="true" />
         </template>
 
         <template v-if="item.type === 'action'">
