@@ -39,19 +39,23 @@ export default {
 
 <style >
 .app-item-edit-buttons {
-  text-align: right;
+  position: relative;
+  height: 0;
+  display: flex;
   line-height: 30px;
   visibility: hidden;
-  height: 0px;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 a.app-item-edit-button {
+  background: #424242;
   opacity: 0.5;
   display: inline-block;
   height: 30px; 
   width: 30px;
   text-align: center;
-  z-index: 100;
+  z-index: 1000;
 }
 .app-item:hover .app-item-edit-buttons,
 .app-tab-navigation-item:hover .app-item-edit-buttons {

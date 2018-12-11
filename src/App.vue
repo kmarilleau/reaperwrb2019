@@ -248,8 +248,6 @@ label {
 }
 
 .app-row-edit-buttons {
-  /* display: grid;
-  justify-content: center; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 4px;

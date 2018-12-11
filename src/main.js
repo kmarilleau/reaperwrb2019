@@ -111,7 +111,11 @@ const store = new Vuex.Store({
 
     switch_tab: (state, tab) => {
       state.edit_item = false
-      state.clearEditHightlight()
+      state.clearEditHightlight() // FIXME use store commit instead
+
+      if(state.editor.delete_dialog)
+        store.commit('cancel_delete')
+
       let el = document.getElementsByClassName('app-highlight-edit')
       for(var i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
@@ -177,6 +181,7 @@ const store = new Vuex.Store({
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
             width: 3,
+            minwidth: 3,
           }
           break
 
@@ -185,7 +190,8 @@ const store = new Vuex.Store({
             type: 'markers',
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
-            width: 4,
+            width: 3,
+            minwidth: 3,
           }
           break
 
@@ -194,7 +200,8 @@ const store = new Vuex.Store({
             type: 'regions',
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
-            width: 4,
+            width: 3,
+            minwidth: 3,
           }
           break
       }
