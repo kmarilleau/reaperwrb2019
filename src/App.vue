@@ -302,13 +302,15 @@ label {
 }
 
 .app-item-action-icon,
-.app-item-markers-icon {
+.app-item-markers-icon,
+.app-item-regions-icon {
   margin: 20px auto 10px auto;
   opacity: 0.8;
 }
 
 .app-item-action:active .app-item-action-icon,
-.app-item-markers-icon:active {
+.app-item-markers-icon:active,
+.app-item-regions-icon:active {
   opacity: 1;
 }
 

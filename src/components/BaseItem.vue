@@ -33,6 +33,12 @@
       :markers="this.$store.state.reaper.markers"
     />
 
+    <app-item-regions
+      v-if="item.type === 'regions'"
+      :item="item"
+      :regions="this.$store.state.reaper.regions"
+    />
+
   </div>
 </template>
 
@@ -41,6 +47,7 @@ import BaseItemEditButtons from '@/components/BaseItemEditButtons.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
+import BaseItemRegions from '@/components/BaseItemRegions.vue'
 
 export default {
   props: ['row', 'item', 'index', 'preview', 'toggle'],
@@ -50,6 +57,7 @@ export default {
     'app-item-action': BaseItemAction,
     'app-item-transport': BaseItemTransport,
     'app-item-markers': BaseItemMarkers,
+    'app-item-regions': BaseItemRegions,
   },
 }
 </script>

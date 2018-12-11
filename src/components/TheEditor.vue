@@ -779,7 +779,6 @@ export default {
     },
 
     onSetColumns: function(event) {
-      console.log(event)
       this.$store.commit('set_columns')
     },
 

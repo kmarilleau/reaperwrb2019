@@ -1,5 +1,6 @@
 <template>
-  <div class="app-item app-item-container app-item-markers">
+  <div class="app-item-container app-item-markers">
+    
     <div class="app-item-markers-nav">
       <div class="app-item-markers-icon">
         <a @click.stop="onPreviousMarker()">
@@ -22,7 +23,7 @@
     </div>
 
     <div class="app-item-label">
-      <span>Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
+      <span :style="{ color: item.textcolor }">Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
     </div>
 
   </div>
@@ -34,19 +35,14 @@ export default {
 
   methods: {
     onPreviousMarker: function(event) {
-      alert('fixme: prev marker')
-      if(this.$store.state.reaper.ready) {
+      if(this.$store.state.reaper.ready)
         wwr_req('SET/POS_STR/m' + id)
-      }
     },
     onNextMarker: function(event) {
-      alert('fixme: next marker')
-      if(this.$store.state.reaper.ready) {
+      if(this.$store.state.reaper.ready)
         wwr_req('SET/POS_STR/m' + id)   
-      }
     },
     onRefresh: function(event) {
-      alert('refresh')
       if(this.$store.state.reaper.ready)
         wwr_req("MARKER")
     }

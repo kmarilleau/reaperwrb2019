@@ -44,7 +44,15 @@ const store = new Vuex.Store({
         { name: 'maker 6', id: 5, pos: '6', color: '#424242' },
       ],
       marker: 0,
-      regions: false,
+      regions: [
+        { name: 'maker 1', id: 0, pos: '1', color: '#424242' },
+        { name: 'maker 2', id: 1, pos: '2', color: '#424242' },
+        { name: 'maker 3', id: 2, pos: '3', color: '#424242' },
+        { name: 'maker 4', id: 3, pos: '4', color: '#424242' },
+        { name: 'maker 5', id: 4, pos: '5', color: '#424242' },
+        { name: 'maker 6', id: 5, pos: '6', color: '#424242' },
+      ],
+      region: 0,
     }, 
     editor: {
       enabled: true,
