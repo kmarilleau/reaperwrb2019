@@ -2,20 +2,20 @@
   <div class="app-item-container app-item-regions">
     <div class="app-item-regions-nav">
       <div class="app-item-regions-icon">
-        <a @click.stop="onPreviousMarker()">
+        <a @click.stop="onPreviousRegion()">
           <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
         </a>
       </div>
       <div class="app-item-regions-info">
-        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.region }}</span>
+        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
       </div>
       <div class="app-item-regions-icon">
         <a @click.stop="onRefresh()">
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="5x" />
+        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="4x" />
         </a>
       </div>
       <div class="app-item-regions-icon">
-        <a @click.stop="onNextMarker()">
+        <a @click.stop="onNextRegion()">
         <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
         </a>
       </div>
@@ -32,16 +32,28 @@
 export default {
   props: ['item', 'regions'],
 
-
   methods: {
     onPreviousRegion: function(event) {
+      console.log("previous region")
+      const regions  = this.$store.state.reaper.regions
+      const region = this.$store.state.reaper.region
+      this.$store.state.reaper.region = region - 1 < 0 ? regions.length - 1 : region - 1
+      const id = regions[region].id
+
       if(this.$store.state.reaper.ready)
         wwr_req('SET/POS_STR/r' + id)
     },
+
     onNextRegion: function(event) {
+      const regions  = this.$store.state.reaper.regions
+      const region = this.$store.state.reaper.region
+      this.$store.state.reaper.region = region + 1 == regions.length ? 0 : region + 1
+      const id = regions[region].id
+
       if(this.$store.state.reaper.ready)
         wwr_req('SET/POS_STR/r' + id)   
     },
+
     onRefresh: function(event) {
       if(this.$store.state.reaper.ready)
         wwr_req("REGION")

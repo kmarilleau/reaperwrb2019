@@ -36,6 +36,7 @@
 
       <div class="app-editor-panel">
         <label>Options</label>
+        <!--
         <select 
           v-model="options.columns.desktop"
         >
@@ -63,7 +64,12 @@
           <option value="7">7</option>
           <option value="8">8</option>
         </select>
-        Columns (Mobile)
+        Columns (Mobile) -->
+
+
+        <button 
+          v-if="this.$store.state.edit_item !== false"
+          @click.stop="onEditCancel()">Cancel</button>
         
       </div>
 
@@ -87,6 +93,7 @@
       <div class="app-editor-panel"
         v-if="showOptionsPanel"
       >
+
         <template v-if="item.type === 'action'">
           <label>Action </label>
           <input type="text"
@@ -203,6 +210,10 @@ export default {
     classToggleIconPicker: function(event) {
       if (this.item.toggle !== true)
         return 'hidden'
+    },
+
+    onEditCancel: function(event) {
+      this.$store.commit('cancel_edit_item')
     },
     
     onEditLabel: function(event) {

@@ -45,12 +45,12 @@ const store = new Vuex.Store({
       ],
       marker: 0,
       regions: [
-        { name: 'maker 1', id: 0, pos: '1', color: '#424242' },
-        { name: 'maker 2', id: 1, pos: '2', color: '#424242' },
-        { name: 'maker 3', id: 2, pos: '3', color: '#424242' },
-        { name: 'maker 4', id: 3, pos: '4', color: '#424242' },
-        { name: 'maker 5', id: 4, pos: '5', color: '#424242' },
-        { name: 'maker 6', id: 5, pos: '6', color: '#424242' },
+        { name: 'region 1', id: 0, pos: '1', color: '#424242' },
+        { name: 'region 2', id: 1, pos: '2', color: '#424242' },
+        { name: 'region 3', id: 2, pos: '3', color: '#424242' },
+        { name: 'region 4', id: 3, pos: '4', color: '#424242' },
+        { name: 'region 5', id: 4, pos: '5', color: '#424242' },
+        { name: 'region 6', id: 5, pos: '6', color: '#424242' },
       ],
       region: 0,
     }, 
@@ -75,7 +75,7 @@ const store = new Vuex.Store({
     edit_item: false,
     delete_item: false,
     tabs: [],
-    clearEditHightlight: () => {
+    clearEditHighlight: () => {
       let el = document.getElementsByClassName('app-highlight-edit')
       for(var i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
@@ -119,7 +119,7 @@ const store = new Vuex.Store({
 
     switch_tab: (state, tab) => {
       state.edit_item = false
-      state.clearEditHightlight() // FIXME use store commit instead
+      state.clearEditHighlight() // FIXME use store commit instead
 
       if(state.editor.delete_dialog)
         store.commit('cancel_delete')
@@ -141,7 +141,7 @@ const store = new Vuex.Store({
     },
 
     show_menu: (state) => {
-      state.clearEditHightlight()
+      state.clearEditHighlight()
       state.editor.menu = true
     },
 
@@ -225,8 +225,7 @@ const store = new Vuex.Store({
     },
 
     edit_item: (state, item) => {
-      state.clearEditHightlight()
-      console.log(item.el)
+      state.clearEditHighlight()
       item.el.classList.add('app-highlight-edit')
       if(item.data.type === 'tab') {
         state.edit_item = state.tabs[item.index]
@@ -234,6 +233,11 @@ const store = new Vuex.Store({
       } else {
         state.edit_item = state.tabs[state.active_tab].rows[item.row][item.index]
       }
+    },
+
+    cancel_edit_item: (state, item) => {
+      state.clearEditHighlight()
+      state.edit_item = false
     },
 
     show_delete_dialog: (state, item) => {
@@ -326,14 +330,14 @@ const store = new Vuex.Store({
     },
 
     clear_highlight: (state, data) => {
-      state.clearEditHightlight()
+      state.clearEditHighlight()
       state.edit_item = false
     },
 
     update_item: (state, data) => state.edit_item[data.key] = data.val,
 
     update_row: (state, data) => {
-      state.clearEditHightlight()
+      state.clearEditHighlight()
       Vue.set(state.tabs[state.active_tab].rows, data.row, data.value)
     },
 
@@ -357,6 +361,23 @@ const store = new Vuex.Store({
         state.reaper.markers = data
           .filter(function (item) {
             return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END')
+          })
+          .map(function (item) {
+            let data = item.split('\t')
+            return {
+              name: data[1],
+              id: data[2],
+              pos: data[3],
+              color: data[4]
+            }
+          })
+      }
+
+      if(result.match('REGION_LIST')) {
+        const data = result.trim().split("\n")
+        state.reaper.regions = data
+          .filter(function (item) {
+            return !item.match('REGION_LIST') && !item.match('REGION_LIST_END')
           })
           .map(function (item) {
             let data = item.split('\t')

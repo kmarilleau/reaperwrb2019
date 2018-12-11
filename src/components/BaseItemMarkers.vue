@@ -8,11 +8,11 @@
         </a>
       </div>
       <div class="app-item-markers-info">
-        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.marker }}</span>
+        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].id }}</span>
       </div>
       <div class="app-item-markers-icon">
         <a @click.stop="onRefresh()">
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="5x" />
+        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="4x" />
         </a>
       </div>
       <div class="app-item-markers-icon">
@@ -35,13 +35,26 @@ export default {
 
   methods: {
     onPreviousMarker: function(event) {
+      console.log("previous region")
+      const markers  = this.$store.state.reaper.markers
+      const marker = this.$store.state.reaper.marker
+      this.$store.state.reaper.marker = marker - 1 < 0 ? markers.length - 1 : marker - 1
+      const id = markers[marker].id
+
       if(this.$store.state.reaper.ready)
         wwr_req('SET/POS_STR/m' + id)
     },
+
     onNextMarker: function(event) {
+      const markers  = this.$store.state.reaper.markers
+      console.log(markers)
+      const marker = this.$store.state.reaper.marker
+      this.$store.state.reaper.marker = marker + 1 == markers.length ? 0 : marker + 1
+      const id = markers[marker].id
       if(this.$store.state.reaper.ready)
         wwr_req('SET/POS_STR/m' + id)   
     },
+
     onRefresh: function(event) {
       if(this.$store.state.reaper.ready)
         wwr_req("MARKER")
