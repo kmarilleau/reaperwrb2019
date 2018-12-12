@@ -32,6 +32,8 @@
           <font-awesome-icon icon="exclamation-circle" size="2x" />
         </button>
 
+        <input v-model="editor.bulk_edit" type="checkbox" />Toggle Bulk Edit
+
       </div>
 
       <div class="app-editor-panel">
@@ -66,7 +68,6 @@
         </select>
         Columns (Mobile) -->
 
-
         <button 
           v-if="this.$store.state.edit_item !== false"
           @click.stop="onEditCancel()">Cancel</button>
@@ -91,7 +92,7 @@
       </div>
       <!-- EDITOR OPTIONS PANEL -->
       <div class="app-editor-panel"
-        v-if="showOptionsPanel"
+        v-if="showOptionsPanel && !editor.bulk_edit"
       >
 
         <template v-if="item.type === 'action'">
@@ -174,7 +175,7 @@ import BaseItemActionToggle from '@/components/BaseItemActionToggle.vue'
 import VueSlider from 'vue-slider-component'
 
 export default {
-  props: ['item', 'options'],
+  props: ['item', 'options', 'editor'],
 
   components: {
     'app-item-color-picker': BaseEditorItemColorPicker,

@@ -60,7 +60,7 @@ const store = new Vuex.Store({
       // FIXME niceify
       menu: false,
       delete_dialog: false,
-      buld_edit: false
+      bulk_edit: false
     },
     // FIXME move to editor
     options: {

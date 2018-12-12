@@ -10,6 +10,7 @@
       v-if="this.$store.state.editor.enabled"
       :item="this.$store.state.edit_item"
       :options="this.$store.state.options"
+      :editor="this.$store.state.editor"
     />
   </div>
 </template>

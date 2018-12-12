@@ -10,9 +10,10 @@
       ><font-awesome-icon icon="trash" size="1x" /> Delete</button>
 
       <button
-        v-if="this.$store.state.delete_item.data.type === 'tab' || this.$store.state.delete_item.data.type === 'row'"
-        @click.stop="onDelete(true)"
-      ><font-awesome-icon icon="trash" size="1x" /> Keep Items</button>
+        v-if="showKeepItems()"
+        @click.stop="onDelete(true)">
+        <font-awesome-icon icon="trash" size="1x" /> Keep Items
+      </button>
 
       <button
         @click.stop="onCancel"
@@ -25,6 +26,17 @@
 <script>
 export default {
   methods: {
+    showKeepItems: function() {
+      switch(this.$store.state.delete_item.data.type) {
+        case 'tab':
+          // should never be triggered because we can't delete the last row
+          return this.$store.state.tabs[this.$store.state.active_tab].rows.length > 0 ? true : false
+        case 'row':
+          return this.$store.state.tabs[this.$store.state.active_tab].rows[this.$store.state.delete_item.row].length > 0 ? true : false
+        default:
+          return false
+      }
+    },
     onDelete: function(keepItems) {
       this.$store.commit('delete_item', keepItems)
     },
