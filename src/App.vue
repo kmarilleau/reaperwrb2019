@@ -84,6 +84,10 @@ button, input {
   box-shadow: inset 0 0 20px #f0f0f0;
 }
 
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
 .app-highlight-delete[class*="app-item"],
 .app-highlight-delete[class*="app-tab"] {
   animation: blinker 1s linear infinite;
@@ -158,7 +162,7 @@ label {
 .app-editor-checkbox {
   height: 25px;
   width: 25px;
-  margin: 0;
+  margin: 2px;
   padding: 0;
 }
 .app-editor .vue-slider-component {
@@ -207,29 +211,35 @@ label {
 }
 
 .app-item-transport {
-  grid-column-end: span 4;
-  height: calc(100vh/6);
 }
 
 .app-item-transport-container {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   height: 100%;
 }
 
 .app-item-transport-container a {
-  width: calc(18% - 1%);
   text-align: center;
   line-height: calc(100vh / 6);
-  font-size: 400%;
+  opacity: 0.8;
 }
 
-.app-item-transport-position {
-  width: 30%;
-  margin-left: 2%;
-  text-align: left;
-  line-height: calc(100vh / 6);
-  font-size: 400%;
+.app-item-transport-container a:active {
+  opacity: 1;
+}
+
+.app-item-position-info {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  font-size: 500%;
+  width: 100%;
+  height: 100%;
+}
+
+.app-item-position-info * {
+  margin: auto;
 }
 
 .app-tab-navigation-item {
@@ -303,7 +313,8 @@ label {
 
 .app-item-action-icon,
 .app-item-markers-icon,
-.app-item-regions-icon {
+.app-item-regions-icon,
+.app-item-transport-icon {
   margin: 20px auto 10px auto;
   opacity: 0.8;
 }

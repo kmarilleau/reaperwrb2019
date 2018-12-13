@@ -1,5 +1,6 @@
 <template>
   <div class="app-item-color-picker">
+    <label>Background Color</label>
     <app-item-color-picker-swatches :value="color" @input="updateValue" />
     <app-item-color-picker-slider :value="color" @input="updateValue" />
   </div>
@@ -25,7 +26,10 @@ export default {
 
   methods: {
     updateValue: function(event) {
-      this.$store.commit('update_item', { key: 'bgcolor', val:event.hex })
+      if(this.$store.state.editor.bulk_edit)
+        this.$store.commit('update_items', {key: 'bgcolor', val:event.hex })
+      else 
+        this.$store.commit('update_item', { key: 'bgcolor', val:event.hex })
     }
   }
 };

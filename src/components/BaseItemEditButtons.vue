@@ -1,9 +1,18 @@
 <template>
     <div class="app-item-edit-buttons"
-      :class="{ hidden: this.$store.state.editor.delete_dialog }"
+      v-if="this.$store.state.editor.enabled"
+      :class="{ hidden: this.$store.state.editor.bulk_edit ? 0 : this.$store.state.editor.delete_dialog }"
     >
-      <a class="app-item-edit-button" @click.stop="onItemEdit"><font-awesome-icon icon="pen" size="1x" /></a>
-      <a class="app-item-edit-button" @click.stop="onItemDelete"><font-awesome-icon icon="trash" size="1x" /></a>
+      <template 
+        v-if="!this.$store.state.editor.bulk_edit"
+      >
+        <a class="app-item-edit-button" @click.stop="onItemEdit"><font-awesome-icon icon="pen" size="1x" /></a>
+        <a class="app-item-edit-button" @click.stop="onItemDelete"><font-awesome-icon icon="trash" size="1x" /></a>
+      </template>
+
+      <template v-if="this.$store.state.editor.bulk_edit">
+        <input @change="onItemBulkEdit($event)" class="app-editor-checkbox" type="checkbox" />
+      </template>
     </div>
 </template>
 
@@ -21,6 +30,17 @@ export default {
         el: this.$parent.$el
       }
       this.$store.commit('edit_item', commit)
+    },
+
+    onItemBulkEdit: function(event) {
+      let commit = {
+        item: this.item,
+        row: this.row,
+        index: this.index
+      }
+
+      event.target.checked ? 
+        this.$store.commit('bulk_edit_add', commit) : this.$store.commit('bulk_edit_remove', commit)
     },
     
     onItemDelete: function(event) {
@@ -43,7 +63,6 @@ export default {
   height: 0;
   display: flex;
   line-height: 30px;
-  visibility: hidden;
   flex-direction: row;
   justify-content: flex-end;
 }
@@ -56,9 +75,10 @@ a.app-item-edit-button {
   width: 30px;
   text-align: center;
   z-index: 1000;
+  visibility: hidden;
 }
-.app-item:hover .app-item-edit-buttons,
-.app-tab-navigation-item:hover .app-item-edit-buttons {
+.app-item:hover .app-item-edit-button,
+.app-tab-navigation-item:hover .app-item-edit-button {
   visibility: visible;
 }
 .app-item-edit-button:hover {

@@ -32,7 +32,7 @@
           <font-awesome-icon icon="exclamation-circle" size="2x" />
         </button>
 
-        <input v-model="editor.bulk_edit" type="checkbox" />Toggle Bulk Edit
+        <input @change="onToggleBulkEdit($event)" class="app-editor-checkbox" type="checkbox" />Toggle Bulk Edit
 
       </div>
 
@@ -70,26 +70,23 @@
 
         <button 
           v-if="this.$store.state.edit_item !== false"
-          @click.stop="onEditCancel()">Cancel</button>
+          @click.stop="onEditCancel()">Cancel
+        </button>
         
       </div>
 
       <!-- EDITOR COLORS -->
       <div class="app-editor-panel">
-        <template>
-
-          <template v-if="typeof(item.type) !== 'undefined'">
-            <label>Text Color</label>
-            <app-text-color-picker :color="item.textcolor" />
-          </template>
-
-          <template v-if="typeof(item.type) !== 'undefined'">
-            <label>Background Color</label>
-            <app-item-color-picker :color="item.bgcolor" />
-          </template>
-
-        </template>
+        <app-text-color-picker 
+          v-if="typeof(item.type) !== 'undefined' || this.$store.state.editor.bulk_edit" 
+          :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 
+        />
+        <app-item-color-picker 
+          v-if="typeof(item.type) !== 'undefined' || this.$store.state.editor.bulk_edit" 
+          :color="typeof(item.bgcolor) !== 'undefined' ? item.bgcolor : '#222222'" 
+        />
       </div>
+
       <!-- EDITOR OPTIONS PANEL -->
       <div class="app-editor-panel"
         v-if="showOptionsPanel && !editor.bulk_edit"
@@ -783,7 +780,7 @@ export default {
     },
 
     onToggleBulkEdit: function(event) {
-      this.$store.commit('toggle_bulk_edit')
+      this.$store.commit('toggle_bulk_edit', event.target.checked)
     },
 
     onSave: function(event) {

@@ -1,11 +1,14 @@
 <template>
   <div id="app-item-add-menu" :class="{ hidden: !this.$store.state.editor.menu }">
     <button style="grid-column-end: 6 span;" @click.stop="onCancel()"><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
-    <button @click.stop="onAdd('action')">Action</button>
-    <button @click.stop="onAdd('spacer')">Spacer</button>
-    <button @click.stop="onAdd('transport')">Transport</button>
-    <button @click.stop="onAdd('markers')">Markers</button>
-    <button @click.stop="onAdd('regions')">Regions</button>
+    <div class="app-item-add-menu-items">
+      <a @click.stop="onAdd('action')">Action</a>
+      <a @click.stop="onAdd('spacer')">Spacer</a>
+      <a @click.stop="onAdd('transport')">Transport</a>
+      <a @click.stop="onAdd('position')">Position</a>
+      <a @click.stop="onAdd('markers')">Markers</a>
+      <a @click.stop="onAdd('regions')">Regions</a>
+    </div>
   </div>
 </template>
 
@@ -32,18 +35,32 @@ export default {
   right: 0;
   bottom: 0;
   width: inherit;
-  z-index: 1000;
+}
+
+.app-item-add-menu-items {
   display: grid;
-  padding-top: 34px;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 100px);
+  grid-template-columns: repeat(4, 1fr);
+  padding: 20px;
 }
 
 #app-item-add-menu button {
-  display: inline-block;
-  line-height: 100px;
-  text-align: center;
+  margin: 20px;
+}
+
+#app-item-add-menu a {
+  display: block;
   margin: 1px;
   font-size: 125%;
+  cursor: pointer;
+  border: 1px solid #222222;
+  background: #222222;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+#app-item-add-menu a:hover {
+  opacity: 1;
 }
 </style>

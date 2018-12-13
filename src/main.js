@@ -73,6 +73,7 @@ const store = new Vuex.Store({
     active_tab: 0,
     active_row: 0,
     edit_item: false,
+    edit_items: [],
     delete_item: false,
     tabs: [],
     clearEditHighlight: () => {
@@ -119,6 +120,7 @@ const store = new Vuex.Store({
 
     switch_tab: (state, tab) => {
       state.edit_item = false
+      // FIXME can't be part of the state / move function elsewhere
       state.clearEditHighlight() // FIXME use store commit instead
 
       if(state.editor.delete_dialog)
@@ -136,8 +138,21 @@ const store = new Vuex.Store({
     show_editor: (state) => state.editor.toggle = true, 
     enable_editor: (state, enabled) => state.editor.enabled = enabled,
 
-    toggle_bulk_edit: (state) => {
-      state.editor.buld_edit = state.editor.bulk_edit ? false : true;
+    toggle_bulk_edit: (state, bulk_edit) => {
+      state.clearEditHighlight()
+      state.edit_item = false
+      state.edit_items = []
+      state.editor.bulk_edit = bulk_edit;
+    },
+
+    bulk_edit_add: (state, data) => {
+      state.edit_items.push(data)
+    },
+
+    bulk_edit_remove: (state, data) => {
+      state.edit_items = state.edit_items.filter((item) => {
+        return item.index == data.index && item.row == data.row ? false : true
+      })
     },
 
     show_menu: (state) => {
@@ -186,10 +201,20 @@ const store = new Vuex.Store({
         case 'transport':
           item = {
             type: 'transport',
-            bgcolor: '#424242',
+            bgcolor: 'rgb(22, 165, 165)',
             textcolor: '#f0f0f0',
-            width: 3,
+            width: 4,
             minwidth: 3,
+          }
+          break
+
+        case 'position':
+          item = {
+            type: 'position',
+            bgcolor: 'rgb(22, 165, 165)',
+            textcolor: '#f0f0f0',
+            width: 4,
+            minwidth: 4,
           }
           break
 
@@ -336,6 +361,10 @@ const store = new Vuex.Store({
 
     update_item: (state, data) => state.edit_item[data.key] = data.val,
 
+    update_items: (state, data) => {
+      state.edit_items.forEach(item => item.item[data.key] = data.val)
+    },
+
     update_row: (state, data) => {
       state.clearEditHighlight()
       Vue.set(state.tabs[state.active_tab].rows, data.row, data.value)
@@ -351,7 +380,7 @@ const store = new Vuex.Store({
           playstate: parseInt(data[0]), // 
           position_seconds: data[1],
           repeat: parseInt(data[2]),
-          position_string: parseFloat(data[3]),
+          position_string: data[3],
           position_string_beats: data[4]
         }
       }

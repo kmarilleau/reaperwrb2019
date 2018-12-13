@@ -6,8 +6,9 @@
   >
 
     <app-tab-edit-buttons 
-      v-if="this.$store.state.editor.enabled &&
-      this.$store.state.active_tab === index"
+      v-if="this.$store.state.editor.enabled
+      && this.$store.state.active_tab === index
+      && !this.$store.state.editor.bulk_edit"
       :item="tab"
       :index="index"
       :class="{ hidden: this.$store.state.editor.menu }"

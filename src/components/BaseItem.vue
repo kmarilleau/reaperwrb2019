@@ -7,7 +7,6 @@
     }"
   >
     <app-item-edit-buttons 
-      v-if="this.$store.state.editor.enabled" 
       :row="row" 
       :item="item" 
       :index="index" 
@@ -24,6 +23,12 @@
     <app-item-transport 
       v-if="item.type === 'transport'" 
       :item="item" 
+      :transport="this.$store.state.reaper.transport"
+    />
+
+    <app-item-position
+      v-if="item.type === 'position'"
+      :item="item"
       :transport="this.$store.state.reaper.transport"
     />
 
@@ -48,6 +53,7 @@ import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
 import BaseItemRegions from '@/components/BaseItemRegions.vue'
+import BaseItemPosition from '@/components/BaseItemPosition.vue'
 
 export default {
   props: ['row', 'item', 'index', 'preview', 'toggle'],
@@ -58,6 +64,7 @@ export default {
     'app-item-transport': BaseItemTransport,
     'app-item-markers': BaseItemMarkers,
     'app-item-regions': BaseItemRegions,
+    'app-item-position': BaseItemPosition,
   },
 }
 </script>

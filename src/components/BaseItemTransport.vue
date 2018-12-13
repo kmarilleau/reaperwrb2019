@@ -1,25 +1,28 @@
 <template>
-  <div class="app-item-transport-container" :style="{ color: item.textcolor }">
-
-    <a @click.stop="onPlay()">
-      <font-awesome-icon icon="play" size="1x" />    
+  <div :style="{ color: item.textcolor }">
+    <div class="app-item-transport-container">
+    <a @click.stop="onPlay()" class="app-item-transport-icon"
+      :class="{ blink: transport.playstate == 1 }"
+    >
+      <font-awesome-icon icon="play" size="4x" />    
     </a>
 
-    <a @click.stop="onPause()">
-      <font-awesome-icon icon="pause" size="1x" />
+    <a @click.stop="onPause()" class="app-item-transport-icon">
+      <font-awesome-icon icon="pause" size="4x" />
     </a>
 
-    <a @click.stop="onToggleRepeat()">
-      <font-awesome-icon icon="redo" sitze="1x" />
+    <a @click.stop="onRecord()" class="app-item-transport-icon">
+      <font-awesome-icon icon="circle" size="4x" />
     </a>
 
-    <a @click.stop="onStop()">
-      <font-awesome-icon icon="stop" size="1x" />
+    <a @click.stop="onToggleRepeat()" class="app-item-transport-icon">
+      <font-awesome-icon icon="redo" size="4x" />
     </a>
 
-    <span class="app-item-transport-position">
-      {{this.$store.state.reaper.transport.position_string}}
-    </span>
+    <a @click.stop="onStop()" class="app-item-transport-icon">
+      <font-awesome-icon icon="stop" size="4x" />
+    </a>
+    </div>
 
   </div>
 </template>
@@ -32,17 +35,9 @@ export default {
     onPlay() { wwr_req(1007) },
     onStop() { wwr_req(1016) },
     onPause() { wwr_req(1008) },
+    onRecord() { wwr_req(1013) },
     onToggleRepeat() { wwr_req('SET/REPEAT/-1') },
   },
-
-  beforeMount: function() {
-    if(this.$store.state.reaper.ready)
-      wwr_req_recur('TRANSPORT', 20)
-  },
-  beforeDestroy: function() {
-    if(this.$store.state.reaper.ready)
-      wwr_req_recur_cancel('TRANSPORT')
-  }
 }
 </script>
 

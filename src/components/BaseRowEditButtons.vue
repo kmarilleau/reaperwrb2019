@@ -1,5 +1,8 @@
 <template>
   <div class="app-row-edit-buttons"
+    v-if="this.$store.state.editor.enabled 
+    && this.$store.state.editor.menu === false
+    && !this.$store.state.editor.bulk_edit" 
     :class="{ hidden: this.$store.state.editor.delete_dialog }"
   >
     <a @click.stop="onAddItem()" class="app-row-edit-button">

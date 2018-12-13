@@ -1,5 +1,6 @@
 <template>
   <div class="app-text-color-picker">
+    <label>Text Color</label>
     <app-text-color-picker :value="color" @input="updateValue" />
   </div>
 </template>
@@ -16,7 +17,10 @@ export default {
 
   methods: {
     updateValue: function(event) {
-      this.$store.commit('update_item', { key: 'textcolor', val: event.hex })
+      if(this.$store.state.editor.bulk_edit)
+        this.$store.commit('update_items', { key: 'textcolor', val: event.hex })
+      else
+        this.$store.commit('update_item', { key: 'textcolor', val: event.hex })
     }
   }
 };
