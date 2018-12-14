@@ -183,6 +183,7 @@ const store = new Vuex.Store({
             color: '#f0f0f0',
             bgcolor: '#424242',
             toggle: false,
+            toggled: false,
             icon: null,
             toggleicon: null,
             desc: '',
@@ -371,7 +372,7 @@ const store = new Vuex.Store({
     },
 
     reaper_onreply: (state, result) => {
-      // console.log(result)
+      console.log(result)
 
       if(result.match('TRANSPORT')) {
         const data = result.trim().split("\n")[0].split("\t")

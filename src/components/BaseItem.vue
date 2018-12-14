@@ -1,6 +1,6 @@
 <template>
   <div class="app-item"
-    :class="'app-item-' + item.type"
+    :class="getClass()"
     :style="{ 
       backgroundColor: item.bgcolor, 
       gridColumnEnd: item.width ? 'span ' + item.width : 'span 1' 
@@ -66,6 +66,16 @@ export default {
     'app-item-regions': BaseItemRegions,
     'app-item-position': BaseItemPosition,
   },
+
+  methods: {
+    getClass() {
+      const classList = {}
+      classList['app-item-' + this.item.type] = true
+      classList['app-item-action-toggled'] = this.item.toggle && this.item.toggled
+      return classList
+      //{ 'app-item' + app-item-type: true, 'app-item-action-toggled': item.toggle && item.toggled }
+    }
+  }
 }
 </script>
 

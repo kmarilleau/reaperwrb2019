@@ -1,10 +1,12 @@
 <template>
-  <a @click="onClick" class="app-item-action-container">
+  <a class="app-item-action-container"
+    @click="onClick"
+  >
 
     <div class="app-item-action-icon">
       <font-awesome-icon 
         v-if="item.icon"
-        :icon="item.icon" size="5x"
+        :icon="itemIcon()" size="5x"
         :style="{ color: item.textcolor }" 
       />
     </div>
@@ -23,16 +25,25 @@ export default {
   props: ['item'],
 
   methods: {
-    onClick: function() {
-      if(this.$store.state.reaper.ready) {
-        console.log("ReaperWRB: Trigger Action: %s", this.item.label)
-        wwr_req(this.item.action)
-      }
-    }
+    onClick() {
+      //if(this.$store.state.reaper.ready) {
+        if(this.item.toggle) {
+          this.item.toggled = this.item.toggled ? false : true
+        }
+        //wwr_req(this.item.action)
+      //}
+    },
+
+    itemIcon() {
+      if(!this.item.toggle)
+        return this.item.icon
+      else 
+        return this.item.toggled && this.item.toggleicon ? this.item.toggleicon : this.item.icon
+    },
   },
 
   computed: {
-    labelClass: function() {
+    labelClass() {
       // FIXME needs testing
       let classes = []
 

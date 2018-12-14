@@ -222,7 +222,6 @@ label {
 .app-item-transport-container a {
   text-align: center;
   line-height: calc(100vh / 6);
-  opacity: 0.8;
 }
 
 .app-item-transport-container a:active {
@@ -297,6 +296,10 @@ label {
 }
 
 .app-item-action:active {
+  box-shadow: inset 0 0 20px #0f0f0f;
+}
+
+.app-item-action-toggled {
   box-shadow: inset 0 0 20px #0f0f0f;
 }
 
