@@ -22,7 +22,7 @@ export default {
 
   methods: {
 
-    onItemEdit: function(event) {
+    onItemEdit(event) {
       let commit = {
         data: this.item,
         row: this.row,
@@ -32,7 +32,7 @@ export default {
       this.$store.commit('edit_item', commit)
     },
 
-    onItemBulkEdit: function(event) {
+    onItemBulkEdit(event) {
       let commit = {
         item: this.item,
         row: this.row,
@@ -43,7 +43,7 @@ export default {
         this.$store.commit('bulk_edit_add', commit) : this.$store.commit('bulk_edit_remove', commit)
     },
     
-    onItemDelete: function(event) {
+    onItemDelete(event) {
       // FIXME ask for confirmation
       let commit = {
         data: this.item,
@@ -66,7 +66,6 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
 }
-
 a.app-item-edit-button {
   background: #424242;
   opacity: 0.5;

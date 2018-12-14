@@ -1,5 +1,5 @@
 <template>
-    <div class="app-icon-picker" v-once></div>
+  <div class="app-icon-picker" v-once></div>
 </template>
 
 <script>
@@ -15,29 +15,29 @@ library.add(fas, far, fab)
 dom.watch()
 
 export default {
-    props: ['toggle'],
+  props: ['toggle'],
 
-    mounted: function() {
-        let self = this
-        $(this.$el).iconpicker({
-            
-        })
-        $(this.$el).on('iconpickerSelected', function(event) {
-            let f = event.iconpickerValue.substr(0, 3)
-            let i = event.iconpickerValue.substr(7)
-            let icon = [f, i]
-            self.updateIcon(icon)
-        })
-    },
+  mounted() {
+    let self = this
+    $(this.$el).iconpicker({
+        
+    })
+    $(this.$el).on('iconpickerSelected', function(event) {
+      let f = event.iconpickerValue.substr(0, 3)
+      let i = event.iconpickerValue.substr(7)
+      let icon = [f, i]
+      self.updateIcon(icon)
+    })
+  },
 
-    methods: {
-        updateIcon: function(icon) {
-            if(!this.toggle)
-                this.$store.commit('update_item', { key: 'icon', val: icon })
-            else
-                this.$store.commit('update_item', { key: 'toggleicon', val: icon })
-        }
+  methods: {
+    updateIcon(icon) {
+      if(!this.toggle)
+        this.$store.commit('update_item', { key: 'icon', val: icon })
+      else
+        this.$store.commit('update_item', { key: 'toggleicon', val: icon })
     }
+  }
 }
 </script>
 

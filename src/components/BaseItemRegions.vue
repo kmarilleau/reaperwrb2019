@@ -33,7 +33,7 @@ export default {
   props: ['item', 'regions'],
 
   methods: {
-    onPreviousRegion: function(event) {
+    onPreviousRegion(event) {
       console.log("previous region")
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
@@ -44,7 +44,7 @@ export default {
         wwr_req('SET/POS_STR/r' + id)
     },
 
-    onNextRegion: function(event) {
+    onNextRegion(event) {
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
       this.$store.state.reaper.region = region + 1 == regions.length ? 0 : region + 1
@@ -54,13 +54,13 @@ export default {
         wwr_req('SET/POS_STR/r' + id)   
     },
 
-    onRefresh: function(event) {
+    onRefresh(event) {
       if(this.$store.state.reaper.ready)
         wwr_req("REGION")
     }
   },
 
-  beforeMount: function() {
+  beforeMount() {
     if(this.$store.state.reaper.ready)
       wwr_req("REGION")
   },

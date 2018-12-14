@@ -27,10 +27,10 @@ export default {
   },
 
   methods: {
-    onSelectTab: function(tab) {
+    onSelectTab(tab) {
       this.$emit('e-select-tab', tab)
     },
-    classScroll: function() {
+    classScroll() {
       return this.$store.state.editor.enabled ? 'app-view-scroll' : false
     }
   }

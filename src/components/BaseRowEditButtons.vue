@@ -27,17 +27,17 @@ export default {
   props: ['row'],
 
   methods: {
-    onAddItem: function(event) {
+    onAddItem(event) {
       this.$store.commit('switch_row', this.row)
       this.$store.commit('show_editor')
       this.$store.commit('show_menu')
     },
 
-    onAddRow: function(event) {
+    onAddRow(event) {
       this.$store.commit('add_row', this.row)
     },
 
-    onDeleteRow: function(event) {
+    onDeleteRow(event) {
       let commit = {
         data: {
           type: 'row',

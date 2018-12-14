@@ -36,7 +36,7 @@ export default {
   },
 
   methods: {
-    onTabSwitch: function(event) {
+    onTabSwitch(event) {
       this.$store.commit('switch_tab', this.index)
     }
   }

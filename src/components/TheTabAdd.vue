@@ -12,7 +12,7 @@
 <script>
 export default {
   methods: {
-    onTabAdd: function(event) {
+    onTabAdd(event) {
       this.$store.commit('add_tab')
     }
   }

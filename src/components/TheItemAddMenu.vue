@@ -15,11 +15,11 @@
 <script>
 export default {
   methods: {
-    onAdd: function(type) {
+    onAdd(type) {
       document.getElementById('app-item-add-menu').classList.add('hidden')
       this.$store.commit('add_item', type)
     },
-    onCancel: function(event) {
+    onCancel(event) {
       this.$store.commit('add_item_cancel')
     }
   }

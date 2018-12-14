@@ -16,7 +16,7 @@ export default {
   },
 
   methods: {
-    updateValue: function(event) {
+    updateValue(event) {
       if(this.$store.state.editor.bulk_edit)
         this.$store.commit('update_items', { key: 'textcolor', val: event.hex })
       else

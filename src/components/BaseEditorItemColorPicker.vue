@@ -14,9 +14,9 @@ export default {
   props: ['color'],
 
   data() {
-      return {
-        colors: this.color
-      }
+    return {
+      colors: this.color
+    }
   },
 
   components: {
@@ -25,7 +25,7 @@ export default {
   },
 
   methods: {
-    updateValue: function(event) {
+    updateValue(event) {
       if(this.$store.state.editor.bulk_edit)
         this.$store.commit('update_items', {key: 'bgcolor', val:event.hex })
       else 
@@ -49,5 +49,4 @@ export default {
   background: #f0f0f0;
   width: inherit;
 }
-
 </style>

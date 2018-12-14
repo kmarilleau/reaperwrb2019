@@ -22,7 +22,7 @@ export default {
   props: ['item'],
 
   computed: {
-    labelClass: function() {
+    labelClass() {
       // FIXME needs testing
       if(!this.item.icon)
         return 'app-item-noicon'

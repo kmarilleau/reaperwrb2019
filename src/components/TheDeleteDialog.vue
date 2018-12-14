@@ -26,7 +26,7 @@
 <script>
 export default {
   methods: {
-    showKeepItems: function() {
+    showKeepItems() {
       switch(this.$store.state.delete_item.data.type) {
         case 'tab':
           // should never be triggered because we can't delete the last row
@@ -37,10 +37,10 @@ export default {
           return false
       }
     },
-    onDelete: function(keepItems) {
+    onDelete(keepItems) {
       this.$store.commit('delete_item', keepItems)
     },
-    onCancel: function(event) {
+    onCancel(event) {
       this.$store.commit('cancel_delete')
     }
   }

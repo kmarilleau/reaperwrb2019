@@ -10,13 +10,13 @@
 export default {
   props: ['item', 'transport'],
 
-  beforeMount: function() {
+  beforeMount() {
     // FIXME only do this once!
     if(this.$store.state.reaper.ready)
       wwr_req_recur('TRANSPORT', 20)
   },
 
-  beforeDestroy: function() {
+  beforeDestroy() {
     if(this.$store.state.reaper.ready)
       wwr_req_recur_cancel('TRANSPORT')
   }

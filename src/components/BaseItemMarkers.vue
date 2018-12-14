@@ -34,7 +34,7 @@ export default {
   props: ['item', 'markers'],
 
   methods: {
-    onPreviousMarker: function(event) {
+    onPreviousMarker(event) {
       console.log("previous region")
       const markers  = this.$store.state.reaper.markers
       const marker = this.$store.state.reaper.marker
@@ -45,7 +45,7 @@ export default {
         wwr_req('SET/POS_STR/m' + id)
     },
 
-    onNextMarker: function(event) {
+    onNextMarker(event) {
       const markers  = this.$store.state.reaper.markers
       console.log(markers)
       const marker = this.$store.state.reaper.marker
@@ -55,13 +55,13 @@ export default {
         wwr_req('SET/POS_STR/m' + id)   
     },
 
-    onRefresh: function(event) {
+    onRefresh(event) {
       if(this.$store.state.reaper.ready)
         wwr_req("MARKER")
     }
   },
 
-  beforeMount: function() {
+  beforeMount() {
     if(this.$store.state.reaper.ready)
       wwr_req("MARKER")
   },
