@@ -372,6 +372,11 @@ const store = new Vuex.Store({
       Vue.set(state.tabs[state.active_tab].rows, data.row, data.value)
     },
 
+    update_tabs: (state, data) => {
+      console.log(data)
+      Vue.set(state, 'tabs', data)
+    },
+
     reaper_onreply: (state, result) => {
       console.log(result)
 

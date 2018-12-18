@@ -54,36 +54,26 @@
         />
         <app-item-color-picker 
           v-if="typeof(item.type) !== 'undefined' || this.$store.state.editor.bulk_edit" 
-          :color="typeof(item.bgcolor) !== 'undefined' ? item.bgcolor : '#222222'" 
+          :color="typeof(item.bgcolor) !== 'undefined' ? item.bgcolor : '#ffff00'" 
         />
       </div>
 
       <!-- EDITOR OPTIONS PANEL -->
-      <div class="app-editor-panel"
-        v-if="showOptionsPanel && !editor.bulk_edit"
-      >
+      <div class="app-editor-panel" v-if="showOptionsPanel && !editor.bulk_edit">
 
         <template v-if="item.type === 'action'">
-          <label>Action </label>
-          <input type="text"
-            @input="onEditAction"
-            :value="item.action"
-          >
+          <label>Action</label>
+          <input type="text" v-model="item.action">
         </template>
 
         <template v-if="item.type === 'action' || item.type === 'tab'">
           <label>Label</label>
-          <input type="text"
-            @input="onEditLabel" 
-            :value="item.label"
-          autofocus>
+          <input type="text" v-model="item.label" autofocus>
         </template>
 
         <template v-if="item.type === 'action'">
           <label>Label Position</label>
-          <select
-            v-model="item.labelpos"
-          >
+          <select v-model="item.labelpos">
             <option value="0">below icon</option>
             <option value="1">above icon</option>
           </select>
@@ -98,7 +88,11 @@
 
         <template>
           <label>Width</label>
-          <app-item-width-slider v-model="item.width" :min="item.minwidth === undefined ? 1 : item.minwidth" :max="parseInt(this.$store.state.options.columns.desktop)" :width="400" :piecewise="true" />
+          <app-item-width-slider
+            v-model="item.width" 
+            :min="item.minwidth === undefined ? 1 : item.minwidth" 
+            :max="parseInt(this.$store.state.options.columns.desktop)" 
+            :width="400" :piecewise="true" />
         </template>
 
         <template v-if="item.type === 'action'">
@@ -195,22 +189,6 @@ export default {
       this.$store.commit('cancel_edit_item')
     },
     
-    onEditLabel(event) {
-      this.$store.commit('update_item', { key: 'label', val: event.target.value })
-    },
-
-    onEditAction(event) {
-      this.$store.commit('update_item', { key: 'action', val: event.target.value })
-    },
-
-    onEditWidth(event) {
-      // console.log(event.target.value)
-    },
-
-    onEditToggle(event) {
-      //this.$store.commit('update_item', { key: 'toggle', val: event.target.checked })
-    },
-
     onClearIcons(event) {
       this.$store.commit('update_item', { key: 'icon', val: null })
       this.$store.commit('update_item', { key: 'toggleicon', val: null })

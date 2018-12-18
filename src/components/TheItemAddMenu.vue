@@ -35,6 +35,7 @@ export default {
   right: 0;
   bottom: 0;
   width: inherit;
+  z-index: 1000;
 }
 
 .app-item-add-menu-items {
