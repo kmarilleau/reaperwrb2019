@@ -6,8 +6,8 @@
       <h1>Permanently Delete?</h1>
 
       <button
-        @click.stop="onDelete(false)"
-      ><font-awesome-icon icon="trash" size="1x" /> Delete</button>
+        @click.stop="onCancel"
+      ><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
 
       <button
         v-if="showKeepItems()"
@@ -16,8 +16,8 @@
       </button>
 
       <button
-        @click.stop="onCancel"
-      ><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
+        @click.stop="onDelete(false)"
+      ><font-awesome-icon icon="trash" size="1x" /> Delete</button>
 
     </div>
   </div>

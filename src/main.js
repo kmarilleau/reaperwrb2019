@@ -60,7 +60,9 @@ const store = new Vuex.Store({
       // FIXME niceify
       menu: false,
       delete_dialog: false,
-      bulk_edit: false
+      bulk_edit: false,
+      item_move_copy: false,
+      item_move_target_tab: false
     },
     // FIXME move to editor
     options: {
@@ -251,6 +253,27 @@ const store = new Vuex.Store({
       state.editor.menu = false
     },
 
+    set_item_move_copy: (state, data) => {
+      if(data) {
+        state.editor.item_move_copy = state.tabs[state.active_tab].rows[data.row][data.index]
+        state.editor.item_move_target_tab = data.target_tab
+      } else {
+        state.editor.item_move_copy = false
+        state.editor.item_move_target_tab = false
+      }
+    },
+
+    move_item: (state) => {
+      if(state.active_tab !== state.editor.item_move_target_tab && state.editor.item_move_copy) {
+        const tab = state.editor.item_move_target_tab
+        const row = state.tabs[tab].rows.length - 1
+        state.tabs[tab].rows[row].push(state.editor.item_move_copy)
+        state.active_tab = tab
+        state.editor.item_move_copy = false
+        state.editor.item_move_target_tab = false
+      }
+    },
+
     edit_item: (state, item) => {
       state.clearEditHighlight()
       item.el.classList.add('app-highlight-edit')
@@ -373,7 +396,6 @@ const store = new Vuex.Store({
     },
 
     update_tabs: (state, data) => {
-      console.log(data)
       Vue.set(state, 'tabs', data)
     },
 

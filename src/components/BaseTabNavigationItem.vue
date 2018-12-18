@@ -3,6 +3,7 @@
     :style="{ backgroundColor: tab.bgcolor }"
     :class="{ active: this.index == this.$store.state.active_tab }"
     @click.stop="onTabSwitch"
+    :tab="index"
   >
 
     <app-tab-edit-buttons 

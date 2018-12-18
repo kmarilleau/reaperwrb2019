@@ -36,12 +36,12 @@ export default {
 
   methods: {
     onClick() {
-      if(this.item.toggle) {
+
+      if(this.item.toggle)
         this.item.toggled = this.item.toggled ? false : true
-      }
-      if(this.$store.state.reaper.ready) {
+      
+      if(this.$store.state.reaper.ready)
         wwr_req(this.item.action)
-      }
     },
 
     itemIcon() {

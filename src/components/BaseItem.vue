@@ -5,6 +5,9 @@
       backgroundColor: item.bgcolor, 
       gridColumnEnd: item.width ? 'span ' + item.width : 'span 1' 
     }"
+    :row="row"
+    :index="index"
+    :item="item"
   >
     <app-item-edit-buttons 
       :row="row" 

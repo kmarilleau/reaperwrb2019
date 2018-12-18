@@ -5,9 +5,11 @@
     :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.options.columns.desktop + ', 1fr)' }"
     :options="{ 
       draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
-      group: 'tabs',
-      sort: this.$store.state.editor.enabled 
+      group: { name: 'tabs', put: ['items'] },
+      sort: this.$store.state.editor.enabled,
     }"
+    @start="onDraggableStart"
+    @add="onDraggableAdd"
     @end="onDraggableEnd"
   >
     <app-tab-navigation-item
@@ -27,6 +29,7 @@ import BaseTabNavigationItem from '@/components/BaseTabNavigationItem.vue';
 import TheTabAdd from '@/components/TheTabAdd.vue'
 
 export default {
+
   components: {
     'draggable': draggable,
     'app-tab-navigation-item': BaseTabNavigationItem,
@@ -39,14 +42,22 @@ export default {
         return this.$store.state.tabs
       },
       set(value) {
-        this.$store.commit('update_tabs', value)
+        // only set on sort, when length doesn't change
+        if(value.length === this.$store.state.tabs.length)
+          this.$store.commit('update_tabs', value)
       }
     }
   },
 
   methods: {
+    onDraggableStart(event) {
+      document.querySelector('.sortable-ghost').style.display = 'block'
+    },
     onDraggableEnd(event) {
       this.$store.commit('switch_tab', event.newIndex)
+    },
+    onDraggableAdd(event) {
+      this.$store.commit('move_item')
     }
   }
 };

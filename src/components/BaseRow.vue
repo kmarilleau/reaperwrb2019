@@ -10,6 +10,7 @@
       :class="'app-row'"
       :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.options.columns.desktop + ', 1fr)' }"
       @start="onDraggableStart"
+      :move="onDraggableMove"
     >
 
       <app-item
@@ -47,7 +48,8 @@ export default {
         return this.$store.state.tabs[this.$store.state.active_tab].rows[this.row]
       },
       set(value) {
-        this.$store.commit('update_row', {row: this.row, value: value })
+        if(this.$store.state.editor.item_move_copy === false)
+          this.$store.commit('update_row', {row: this.row, value: value })
       }
     }
   },
@@ -59,7 +61,40 @@ export default {
 
     onDraggableStart() {
       this.$store.commit('clear_highlight')
-    }
+    },
+
+    onDraggableMove(event, originalEvent) {
+      // hacky way to decide if an item is to be moved to another tab
+      if(event.related.classList.contains('app-tab-navigation-item')) {
+
+        this.$store.commit('set_item_move_copy', { 
+          row: parseInt(event.dragged.attributes.row.value),
+          index: parseInt(event.dragged.attributes.index.value), 
+          target_tab: parseInt(event.related.attributes.tab.value)
+        })
+
+        // FIXME use query selector
+        const el = document.querySelectorAll('app-item-drop')
+        if(el.length > 0) {
+          for(let i = 0; i < el.length; i++)
+            el[i].classList.remove('app-item-drop')
+        }
+
+        if(parseInt(event.related.attributes.tab.value) !== this.$store.state.active_tab) {
+          event.related.classList.add('app-item-drop')
+        }
+
+      } else {
+        const el = document.querySelectorAll('app-item-drop')
+        if(el.length > 0) {
+          for(let i = 0; i < el.length; i++)
+            el[i].classList.remove('app-item-drop')
+        }
+        this.$store.commit('set_item_move_copy', false)
+        if(originalEvent.target.classList.contains('app-tab-navigation'))
+          return false
+      } 
+    },
   }
 };
 </script>

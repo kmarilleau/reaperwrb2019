@@ -72,10 +72,28 @@ button, input {
   opacity: 0.7;
 }
 
+.sortable-drag {
+  cursor: move !important;
+  box-shadow: none !important;
+}
+
+.app-tab-navigation .sortable-ghost {
+  display: none;
+}
+
 @keyframes blinker {
   50% {
     opacity: 0.5;
   }
+}
+
+@keyframes dropper {
+  0% { background-color: #fff; }
+  100% { background-color: #424242; }
+}
+
+.app-item-drop {
+  animation: dropper 0.2s linear infinite;
 }
 
 .app-highlight-edit[class*="app-item"],
