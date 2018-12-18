@@ -179,6 +179,7 @@ const store = new Vuex.Store({
           item = {
             type: 'action',
             label: 'label',
+            labelpos: 0,
             action: 0,
             color: '#f0f0f0',
             bgcolor: '#424242',

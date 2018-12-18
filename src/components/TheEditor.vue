@@ -79,6 +79,16 @@
           autofocus>
         </template>
 
+        <template v-if="item.type === 'action'">
+          <label>Label Position</label>
+          <select
+            v-model="item.labelpos"
+          >
+            <option value="0">below icon</option>
+            <option value="1">above icon</option>
+          </select>
+        </template>
+
         <template v-if="item.type === 'action' && item.desc !== ''">
           <label>Info</label>
           <div class="app-item-desc">
@@ -686,7 +696,8 @@ export default {
           item.label =
             item.desc.length > 20
               ? item.desc.substr(0, 20) + '[...]'
-              : item.desc;
+              : item.desc
+          item.labelpos = 0
           item.bgcolor = '#424242'
           item.textcolor = '#f0f0f0'
           item.toggle = false
@@ -802,6 +813,7 @@ export default {
                 if(item.type === 'action') {
                   item.toggleicon = false
                   item.toggled = false
+                  item.labelpos = 0
                 }
 
                 return item

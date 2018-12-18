@@ -3,6 +3,15 @@
     @click="onClick"
   >
 
+    <div class="app-item-label"
+      v-if="parseInt(item.labelpos) === 1"
+      :style="{ color: item.textcolor }"
+      :class="labelClass"
+    >
+      <span>{{item.label}}</span>
+    </div>
+
+
     <div class="app-item-action-icon">
       <font-awesome-icon 
         v-if="item.icon"
@@ -12,6 +21,7 @@
     </div>
 
     <div class="app-item-label"
+      v-if="parseInt(item.labelpos) === 0"
       :style="{ color: item.textcolor }"
       :class="labelClass"
     >
