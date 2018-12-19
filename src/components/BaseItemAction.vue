@@ -11,11 +11,10 @@
       <span>{{item.label}}</span>
     </div>
 
-
     <div class="app-item-action-icon">
       <font-awesome-icon 
         v-if="item.icon"
-        :icon="itemIcon()" size="5x"
+        :icon="itemIcon()" size="4x"
         :style="{ color: item.textcolor }" 
       />
     </div>

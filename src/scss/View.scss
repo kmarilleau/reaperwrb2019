@@ -31,11 +31,12 @@
 }
 
 .app-tab-navigation-item {
-  line-height: $g-tab-navigation-item-line-height;
   opacity: $g-opacity-inactive;
-
+  line-height: $g-tab-navigation-item-line-height;
+  
   .app-item-label {
-    margin: auto 1vh;
+    margin: auto 1.2vh;
+    height: inherit;
   }
 }
 
@@ -54,13 +55,10 @@
 }
 
 .app-item-label {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
+  display: grid;
 
   span {
-    padding: 0.4vh 0.2vh;
+    margin: 0.4vh;
     text-align: center;
   }
 }

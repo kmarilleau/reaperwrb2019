@@ -43,8 +43,6 @@
           <button class="pure-button pure-button-primary" @click="onSave">Save</button>
         </template>
 
-
-
       </div>
 
       <div class="app-editor-panel"
@@ -78,7 +76,7 @@
 
         <template v-if="item.type === 'action' || item.type === 'tab'">
           <label>Label</label>
-          <input type="text" v-model="item.label" autofocus>
+          <input type="text" v-model="item.label" maxlength="30" autofocus>
         </template>
 
         <template v-if="item.type === 'action'">
@@ -116,11 +114,14 @@
         >
         <template>
           <div class="app-item-action-preview">
-            <label>Preview Icon</label>
-            <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete"><font-awesome-icon icon="trash" size="1x" /></button>
-            <div class="app-item app-item-action" :style="{ backgroundColor: item.bgcolor }">
-              <app-item-action :item="item" />
+            <label>Icon</label>
+            <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
+              <font-awesome-icon icon="trash" />
+            </button>
+            <div class="app-item-icon-preview">
+              <font-awesome-icon :icon="item.icon" size="5x" />
             </div>
+            
             <app-icon-picker :toggle="false" />
           </div>
         </template>
@@ -131,9 +132,9 @@
       >
         <template>
           <div class="app-item-action-preview">
-            <label>Preview Toggle</label>
-            <div class="app-item app-item-action" :style="{ backgroundColor: item.bgcolor }">
-              <app-item-action-toggle :item="item" />
+            <label>Toggle Icon</label>
+            <div class="app-item-icon-preview">
+              <font-awesome-icon :icon="item.toggleicon ? item.toggleicon : item.icon" size="5x" />
             </div>
             <app-icon-picker :toggle="true" />
           </div>
@@ -151,7 +152,6 @@ import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
 import TheItemAddMenu from '@/components/TheItemAddMenu.vue'
 import TheDeleteDialog from '@/components/TheDeleteDialog.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
-import BaseItemActionToggle from '@/components/BaseItemActionToggle.vue'
 import VueSlider from 'vue-slider-component'
 
 export default {
@@ -164,7 +164,6 @@ export default {
     'app-item-add-menu': TheItemAddMenu,
     'app-delete-dialog': TheDeleteDialog,
     'app-item-action': BaseItemAction,
-    'app-item-action-toggle': BaseItemActionToggle,
     'app-item-width-slider': VueSlider
   },
   computed: {
@@ -754,6 +753,10 @@ export default {
 
     onSetColumns(event) {
       this.$store.commit('set_columns')
+    },
+
+    getIcon(event) {
+      return this.item.icon
     },
 
     fixJSON(tabs) {
