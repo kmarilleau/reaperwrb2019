@@ -183,7 +183,7 @@ const store = new Vuex.Store({
             label: 'label',
             labelpos: 0,
             action: 0,
-            color: '#f0f0f0',
+            textcolor: '#f0f0f0',
             bgcolor: '#424242',
             toggle: false,
             toggled: false,

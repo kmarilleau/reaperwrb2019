@@ -69,14 +69,13 @@
 
     a {
       display: block;
-      margin: 10px;
       font-size: 125%;
       /* FIXME */
       cursor: pointer;
       border: 1px solid $c-editor-border;
       background: $bg-editor-alt;
       border-radius: $g-border-radius;
-      padding: 20px;
+      padding: 10px;
       text-align: center;
       opacity: 0.5;
     }
@@ -89,6 +88,8 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       padding: 20px;
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
     }
   }
 
