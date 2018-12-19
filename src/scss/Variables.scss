@@ -7,12 +7,13 @@ $c-editor-alt: #424242;
 $bg-editor-hl-delete: #cdcdcd;
 $c-editor-hl-edit: #f0f0f0;
 $g-border-radius: 3px;
-$g-tab-navigation-item-line-height: 30px;
+$g-tab-navigation-item-line-height: 4vh;
+$g-editor-item-edit-button-height: 4vh;
 $g-opacity-inactive: 0.5;
-$g-item-margin: 2px;
-$g-item-height: 160px;
+$g-item-margin: 0.3vh;
+$g-item-height: calc(100vh / 6);
 $g-editor-view-width: 1024px;
-$g-editor-line-height: 40px;
+$g-editor-line-height: 4vh;
 
 %editor-dialog-shared {
   position: absolute;

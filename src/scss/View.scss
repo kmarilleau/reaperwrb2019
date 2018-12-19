@@ -15,6 +15,9 @@
 .app-row,
 .app-tab-navigation {
   display: grid;
+  grid-column-gap: $g-item-margin;
+  grid-row-gap: $g-item-margin;
+  margin: 0 0 $g-item-margin 0;
 }
 
 .app-item { 
@@ -23,7 +26,6 @@
 
 .app-item,
 .app-tab-navigation-item {
-  margin: $g-item-margin;
   border-radius: $g-border-radius;
   cursor: pointer;
 }
@@ -31,23 +33,36 @@
 .app-tab-navigation-item {
   line-height: $g-tab-navigation-item-line-height;
   opacity: $g-opacity-inactive;
+
+  .app-item-label {
+    margin: auto 1vh;
+  }
 }
 
 .app-tab-navigation-item-active {
   opacity: 1;
 }
 
-.app-item-action-container,
 .app-item-container {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
+  display: grid;
+  height: 100%;
+}
+
+.app-item-action-container {
+  display: grid;
+  grid-template-rows: 0.75fr 1fr 1fr;
 }
 
 .app-item-label {
-  text-align: center;
-  justify-self: center;
-  margin: auto 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+
+  span {
+    padding: 0.4vh 0.2vh;
+    text-align: center;
+  }
 }
 
 /* ACTION */
@@ -81,8 +96,6 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  font-size: 500%;
-  /* FIXME */
   width: 100%;
   height: 100%;
   
@@ -104,16 +117,21 @@
 }
 .app-item-markers-info *,
 .app-item-regions-info * {
-  font-size: 5em;
   /* FIXME */
 }
 
 /* ICONS */
-.app-item-action-icon,
+.app-item-action-icon {
+  margin: auto;
+  grid-row-end: span 2;
+  margin: 2vh auto 0 auto;
+  opacity: 0.8;
+}
+
 .app-item-markers-icon,
 .app-item-regions-icon,
 .app-item-transport-icon {
-  margin: 20px auto 10px auto;
+  margin: auto;
   opacity: 0.8;
 }
 

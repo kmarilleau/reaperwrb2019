@@ -13,7 +13,6 @@
   color: $c-editor-primary;
 
   label {
-    font-weight: bold;
     color: $c-editor-primary;
     display: block;
     margin: 15px 0;
@@ -49,7 +48,6 @@
   }
 
   .app-editor-dialog-info {
-    font-size: 150%;
     margin: 0 0 20px 0;
   }
 
@@ -69,8 +67,6 @@
 
     a {
       display: block;
-      font-size: 125%;
-      /* FIXME */
       cursor: pointer;
       border: 1px solid $c-editor-border;
       background: $bg-editor-alt;
@@ -142,7 +138,6 @@
     text-align: center;
 
     span {
-      font-size: 100%;
       margin-left: 10px;
     }
   }
@@ -183,7 +178,7 @@
     background: $bg-editor-alt;
     opacity: 0.5;
     display: inline-block;
-    height: 30px; 
+    height: $g-editor-item-edit-button-height; 
     width: 30px;
     text-align: center;
     z-index: 1000;

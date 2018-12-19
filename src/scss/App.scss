@@ -1,10 +1,17 @@
 
 @import "@/scss/Variables.scss";
 
+html {
+  font-size: 1.6vh;
+}
+
 body {
+  background: $bg-primary;
   margin: 0;
   padding: 0;
-  background: $bg-primary;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a, p, span, svg, div, img, input, button {
@@ -18,9 +25,6 @@ a, p, span, svg, div, img, input, button {
 }
 
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   #reaperwrb-json {
     display: none;
   }
