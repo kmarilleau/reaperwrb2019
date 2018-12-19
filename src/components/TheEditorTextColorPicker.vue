@@ -26,15 +26,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.app-text-color-picker {
-  width: inherit;
-}
-.vc-grayscale {
-  width: 98%;
-  background: none;
-  margin: 0;
-  padding: 5px;
-  background: #f9f9f9;
-}
+<style>
 </style>

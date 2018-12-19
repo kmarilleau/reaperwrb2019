@@ -1,0 +1,253 @@
+@import "@/scss/purecss/_buttons.scss";
+@import "@/scss/purecss/_forms.scss";
+
+.app-container-editor {
+  grid-template-columns: $g-editor-view-width auto;
+}
+
+.app-editor {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr 4fr;
+  color: $c-editor-primary;
+
+  label {
+    font-weight: bold;
+    color: $c-editor-primary;
+    display: block;
+    margin: 15px 0;
+  }
+
+  button.app-editor-icon-delete {
+    position: absolute;
+    margin: 40px;
+  }
+
+  .app-editor-panel {
+    margin: 0px 10px 10px 10px;
+    .pure-button {
+      margin: 0 0 5px 0;
+    }
+    .pure-button-secondary {
+      background: rgb(66, 184, 221);
+    }
+  }
+
+  input[type=text] {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    width: 95%;
+  }
+
+  input[type=text]:focus, textarea:focus {
+    box-shadow: 0 0 10px rgb(255, 70, 70);
+    border: 1px solid rgb(255, 70, 70);
+  }
+
+  .app-editor-dialog-info {
+    font-size: 150%;
+    margin: 0 0 20px 0;
+  }
+
+  #app-item-delete-dialog {
+    @extend %editor-dialog-shared;
+    background: $bg-editor-alt;
+    text-align: center;
+  }
+
+  #app-item-add-menu {
+    @extend %editor-dialog-shared;
+    background: $bg-primary;
+    
+    button {
+      margin: 20px;
+    }
+
+    a {
+      display: block;
+      margin: 10px;
+      font-size: 125%;
+      /* FIXME */
+      cursor: pointer;
+      border: 1px solid $c-editor-border;
+      background: $bg-editor-alt;
+      border-radius: $g-border-radius;
+      padding: 20px;
+      text-align: center;
+      opacity: 0.5;
+    }
+
+    a:hover {
+      opacity: 1;
+    }
+
+    .app-item-add-menu-items {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 20px;
+    }
+  }
+
+  .app-item-desc {
+    background-color: #cdcdcd !important;
+    color: #0f0f0f !important;
+    width: 95%;
+  }
+
+  .vue-slider-component {
+    margin-top: 30px !important;
+  }
+
+  .app-item-action-preview {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    background: $bg-editor-alt;
+    border-radius: $g-border-radius;
+    
+    .app-item-action {
+      width: calc(($g-editor-view-width / 6) - 4px);
+      /* FIXME */
+    }
+  }
+}
+
+.app-tab-add {
+  text-align: center;
+  margin: 2px;
+  height: 30px;
+  line-height: $g-tab-navigation-item-line-height;
+
+  a {
+    display: block;
+    width: 100%;
+  }
+}
+
+.app-row-edit-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 4px;
+  padding: 2px;
+
+  .app-row-edit-button {
+    border-radius: $g-border-radius;
+    background: $bg-editor-alt;
+    padding: 2px 8px;
+    text-align: center;
+
+    span {
+      font-size: 100%;
+      margin-left: 10px;
+    }
+  }
+}
+
+.app-item-add,
+.app-tab-add,
+.app-row-edit-buttons {
+  background: $bg-editor-alt;
+  color: $c-editor-alt;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.app-item-add:hover,
+.app-tab-add:hover,
+.app-row-edit-buttons:hover {
+  opacity: 1;
+}
+
+.app-item-add:hover,
+.app-tab-add:hover,
+.app-row-edit-button:hover {
+  color: $c-editor-primary;
+}
+
+/* item edit buttons */
+.app-item-edit-buttons {
+  position: relative;
+  height: 0;
+  display: flex;
+  line-height: $g-tab-navigation-item-line-height;
+  flex-direction: row;
+  justify-content: flex-end;
+  color: $c-editor-primary;
+
+  .app-item-edit-button {
+    background: $bg-editor-alt;
+    opacity: 0.5;
+    display: inline-block;
+    height: 30px; 
+    width: 30px;
+    text-align: center;
+    z-index: 1000;
+    visibility: hidden;
+  }
+  .app-item-edit-button:hover {
+    opacity: 1;
+  }
+}
+.app-item:hover .app-item-edit-button,
+.app-tab-navigation-item:hover .app-item-edit-button {
+  visibility: visible;
+}
+
+/* layout */
+::-webkit-scrollbar {
+  width: 12px;
+}
+  
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgb(68, 68, 68); 
+  border-radius: $g-border-radius;
+}
+  
+/* UTILITIES */
+.hidden { display: none !important; }
+
+.sortable-ghost {
+  opacity: 0.7;
+}
+
+.sortable-drag {
+  cursor: move !important;
+  box-shadow: none !important;
+}
+
+.app-tab-navigation .sortable-ghost {
+  display: none;
+}
+
+.app-highlight-edit[class*="app-item"],
+.app-highlight-edit[class*="app-tab-navigation-item"] {
+  animation: blinker 1s linear infinite;
+  box-shadow: inset 0 0 20px $c-editor-hl-edit;
+}
+
+.app-highlight-delete[class*="app-item"],
+.app-highlight-delete[class*="app-tab"] {
+  animation: blinker 1s linear infinite;
+  background: $bg-editor-hl-delete !important;
+  opacity: 1  !important;
+}
+
+.app-highlight-delete[class*="app-row"] * {
+  animation: blinker 1s linear infinite;
+  background: $bg-editor-hl-delete !important;
+}
+
+.app-reaper-status {
+
+  .app-reaper-not-ready * {
+    color: #ff2828;
+  }
+  .app-reaper-ready * {
+    color: #28ff45;
+  }
+}

@@ -3,19 +3,19 @@
   v-if="this.$store.state.editor.delete_dialog"
   :class="{ hidden: !this.$store.state.editor.delete_dialog }">
     <div>
-      <h1>Permanently Delete?</h1>
+      <div class="app-editor-dialog-info">Permanently Delete?</div>
 
-      <button
+      <button class="pure-button"
         @click.stop="onCancel"
       ><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
 
-      <button
+      <button class="pure-button"
         v-if="showKeepItems()"
         @click.stop="onDelete(true)">
         <font-awesome-icon icon="trash" size="1x" /> Keep Items
       </button>
 
-      <button
+      <button class="pure-button"
         @click.stop="onDelete(false)"
       ><font-awesome-icon icon="trash" size="1x" /> Delete</button>
 
@@ -48,17 +48,4 @@ export default {
 </script>
 
 <style scoped>
-#app-item-delete-dialog {
-  background: #121212;
-  position: absolute;
-  top: 0;
-  left: 1024px;
-  right: 0;
-  bottom: 0;
-  width: inherit;
-  z-index: 1000;
-  text-align: center;
-}
-
-button { width: 25%; line-height: 100px; font-size: 150%; }
 </style>

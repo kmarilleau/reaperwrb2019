@@ -1,0 +1,26 @@
+$bg-primary: #0f0f0f;
+$bg-editor-input: #f0f0f0;
+$bg-editor-alt: #191919;
+$c-editor-border: #222222;
+$c-editor-primary: #f0f0f0;
+$c-editor-alt: #424242;
+$bg-editor-hl-delete: #cdcdcd;
+$c-editor-hl-edit: #f0f0f0;
+$g-border-radius: 3px;
+$g-tab-navigation-item-line-height: 30px;
+$g-opacity-inactive: 0.5;
+$g-item-margin: 2px;
+$g-item-height: 160px;
+$g-editor-view-width: 1024px;
+$g-editor-line-height: 40px;
+
+%editor-dialog-shared {
+  position: absolute;
+  top: 0;
+  left: 1024px;
+  right: 0;
+  bottom: 0;
+  width: inherit;
+  z-index: 1000;
+  padding-top: 20px;
+}

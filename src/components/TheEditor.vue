@@ -1,48 +1,58 @@
 <template>
-  <div class="app-editor">
+  <div class="app-editor pure-form">
 
       <!-- EDITOR MAIN FUNCTIONS -->
       <div class="app-editor-panel">
 
-        <label>ReaperWRB {{ this.$store.state.version }} </label>
+        <label>ReaperWRB {{ this.$store.state.version }} 
+          <span class="app-reaper-status">
+            <template v-if="this.$store.state.reaper.ready === false">
+              <font-awesome-icon class="app-reaper-not-ready" icon="exclamation-circle"/> Reaper Not Ready
+            </template>
+            <template v-if="this.$store.state.reaper.ready === true">
+              <font-awesome-icon class="app-reaper-ready" icon="check-circle" /> Reaper Ready
+            </template>
+         </span>
+        </label>
 
-        <template v-if="this.$store.state.tabs.length === 0">
-          <button @click="onNew">New</button>
-          <button @click="onLoadExample">Load Example</button>
-          <button @click="onTriggerLoadHTML">Load HTML</button>
-          <input @change="onLoadFile($event, 'html')" type="file" id="app-file-input-html" name="files" class="hidden" accept=".html" />
+        <template>
+          <template v-if="this.$store.state.tabs.length === 0">
+            <button class="pure-button" @click="onNew">
+              <font-awesome-icon icon="file" />
+            </button>
+            <button class="pure-button" @click="onLoadExample">
+              <font-awesome-icon icon="folder-open" /> Example
+            </button>
+            <button class="pure-button" @click="onTriggerLoadHTML">
+              <font-awesome-icon icon="folder-open" /> HTML
+            </button>
+            <input @change="onLoadFile($event, 'html')" type="file" id="app-file-input-html" name="files" class="hidden" accept=".html" />
+          </template>
+          
+          <button class="pure-button" @click="onTriggerLoadToolbar">
+            <font-awesome-icon icon="folder-open" />Toolbar(s)
+          </button>
+          <input @change="onLoadFile($event, 'txt')" type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt" multiple />
         </template>
-
-        <button @click="onTriggerLoadToolbar">Load Toolbar(s)</button>
-        <input @change="onLoadFile($event, 'txt')" type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt" multiple />
         
         <template v-if="this.$store.state.tabs.length > 0">
-          <button @click="onClearEditor">Clear Editor</button>
-          <button @click="onSave">Save</button>
+          <button class="pure-button" @click="onToggleBulkEdit($event)"
+            :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
+          >Bulk Edit</button>
+          <button class="pure-button" @click="onClearEditor">Clear</button>
+          <button class="pure-button pure-button-primary" @click="onSave">Save</button>
         </template>
 
-        <template v-if="this.$store.state.tabs.length > 0 && this.$store.state.tabs[this.$store.state.active_tab].rows.length > 0">
-          <button @click="onToggleBulkEdit">Bulk Edit</button>
-        </template>
 
-        <button class="app-reaper-status-offline" 
-          v-if="this.$store.state.reaper.ready === false"
-          @click="onDisableEditor()"
-        >
-          <font-awesome-icon icon="exclamation-circle" size="2x" />
-        </button>
-
-        <input @change="onToggleBulkEdit($event)" class="app-editor-checkbox" type="checkbox" />Toggle Bulk Edit
 
       </div>
 
-      <div class="app-editor-panel">
-        <label>Options</label>
+      <div class="app-editor-panel"
+        v-if="this.$store.state.tabs.length > 0"
+      >
+        <label>&nbsp;</label>
 
-        <button 
-          v-if="this.$store.state.edit_item !== false"
-          @click.stop="onEditCancel()">Cancel
-        </button>
+
         
       </div>
 
@@ -74,16 +84,14 @@
         <template v-if="item.type === 'action'">
           <label>Label Position</label>
           <select v-model="item.labelpos">
-            <option value="0">below icon</option>
-            <option value="1">above icon</option>
+            <option value="0">bottom</option>
+            <option value="1">top</option>
           </select>
         </template>
 
-        <template v-if="item.type === 'action' && item.desc !== ''">
-          <label>Info</label>
-          <div class="app-item-desc">
-            {{item.desc}}
-          </div>
+        <template v-if="item.type === 'action'">
+          <label>Action Description</label>
+          <input class="app-item-desc" :value="item.desc ? item.desc : 'none'">
         </template>
 
         <template>
@@ -109,7 +117,7 @@
         <template>
           <div class="app-item-action-preview">
             <label>Preview Icon</label>
-            <button @click.stop="onClearIcons(item)" class="app-editor-icon-delete"><font-awesome-icon icon="trash" size="1x" /></button>
+            <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete"><font-awesome-icon icon="trash" size="1x" /></button>
             <div class="app-item app-item-action" :style="{ backgroundColor: item.bgcolor }">
               <app-item-action :item="item" />
             </div>
@@ -741,7 +749,7 @@ export default {
     },
 
     onToggleBulkEdit(event) {
-      this.$store.commit('toggle_bulk_edit', event.target.checked)
+      this.$store.commit('toggle_bulk_edit')
     },
 
     onSave(event) {

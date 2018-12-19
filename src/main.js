@@ -12,7 +12,7 @@ import { fab, faBlogger } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
-import { saveAs } from 'file-saver/FileSaver' 
+import { saveAs } from 'file-saver/FileSaver'
 
 library.add(fas, far, fab)
 
@@ -140,11 +140,11 @@ const store = new Vuex.Store({
     show_editor: (state) => state.editor.toggle = true, 
     enable_editor: (state, enabled) => state.editor.enabled = enabled,
 
-    toggle_bulk_edit: (state, bulk_edit) => {
+    toggle_bulk_edit: (state) => {
       state.clearEditHighlight()
       state.edit_item = false
       state.edit_items = []
-      state.editor.bulk_edit = bulk_edit;
+      state.editor.bulk_edit = state.editor.bulk_edit ? false : true;
     },
 
     bulk_edit_add: (state, data) => {

@@ -20,8 +20,4 @@ export default {
 </script>
 
 <style scoped>
-.app-tab-add a {
-  display: block;
-  width: 100%;
-}
 </style>

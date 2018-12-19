@@ -41,49 +41,8 @@ export default {
 }
 </script>
 
-<style>
-.iconpicker-container {
-    margin: 10px 0 30px 0;
-}
-.iconpicker-search {
-    line-height: 30px;
-    border-radius: 3px;
-    padding-left: 10px;
-    width: 100%;
-    margin-bottom: 5px; 
-    border: 1px solid #424242;
-}
+<style lang="scss">
+@import "@/scss/Variables.scss";
 
-.iconpicker-items {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 1fr;
-    height: 170px;
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    justify-items: center;
-    background: #f0f0f0;
-}
 
-.iconpicker-item {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    margin: 2px;
-    text-align: center;
-    border-radius: 2px;
-    font-size: 150%;
-    background: #dddddd;
-    border: 1px solid #aaaaaa;
-    opacity: 0.7;
-}
-.iconpicker-item * {
-    justify-self: center;
-    color: #525252;
-}
-.iconpicker-item:hover {
-    background: #fff;
-    opacity: 1;
-}
 </style>

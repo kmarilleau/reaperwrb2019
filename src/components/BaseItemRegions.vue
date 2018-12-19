@@ -69,16 +69,4 @@ export default {
 </script>
 
 <style scoped>
-.app-item-regions-nav {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
-  margin: 20px 0 0 0;
-}
-.app-item-regions-info,
-.app-item-regions-icon {
-  margin: auto;
-}
-.app-item-regions-info * {
-  font-size: 5em;
-}
 </style>

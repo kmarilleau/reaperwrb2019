@@ -69,16 +69,4 @@ export default {
 </script>
 
 <style scoped>
-.app-item-markers-nav {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
-  margin: 20px 0 0 0;
-}
-.app-item-markers-info,
-.app-item-markers-icon {
-  margin: auto;
-}
-.app-item-markers-info * {
-  font-size: 5em;
-}
 </style>

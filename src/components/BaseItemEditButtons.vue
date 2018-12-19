@@ -57,30 +57,5 @@ export default {
 }
 </script>
 
-<style >
-.app-item-edit-buttons {
-  position: relative;
-  height: 0;
-  display: flex;
-  line-height: 30px;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-a.app-item-edit-button {
-  background: #424242;
-  opacity: 0.5;
-  display: inline-block;
-  height: 30px; 
-  width: 30px;
-  text-align: center;
-  z-index: 1000;
-  visibility: hidden;
-}
-.app-item:hover .app-item-edit-button,
-.app-tab-navigation-item:hover .app-item-edit-button {
-  visibility: visible;
-}
-.app-item-edit-button:hover {
-  opacity: 1;
-}
+<style>
 </style>

@@ -1,0 +1,18 @@
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes dropper {
+  0% { background-color: #fff; }
+  100% { background-color: #424242; }
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+.app-item-drop {
+  animation: dropper 0.2s linear infinite;
+}

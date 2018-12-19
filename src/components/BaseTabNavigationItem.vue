@@ -1,7 +1,7 @@
 <template>
   <div class="app-tab-navigation-item"
     :style="{ backgroundColor: tab.bgcolor }"
-    :class="{ active: this.index == this.$store.state.active_tab }"
+    :class="{ 'app-tab-navigation-item-active': this.index == this.$store.state.active_tab }"
     @click.stop="onTabSwitch"
     :tab="index"
   >
@@ -46,10 +46,4 @@ export default {
 </script>
 
 <style scoped>
-.app-tab-navigation-item {
-  opacity: 0.5;
-}
-.active {
-  opacity: 1;
-}
 </style>

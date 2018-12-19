@@ -35,18 +35,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.vc-slider {
-  width: inherit;
-  background: #f0f0f0;
-  border-radius: 2px;
-  padding: 5px;
-  margin: 11px 0 22px 0;
-}
-.vc-compact {
-  margin: 0 0 16px 0;
-  padding: 5px;
-  background: #f0f0f0;
-  width: inherit;
-}
+<style>
 </style>
