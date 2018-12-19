@@ -626,10 +626,6 @@ export default {
       this.$store.commit('import', this.fixJSON(tabs))
     },
 
-    onDisableEditor(event) {
-      this.$store.commit('enable_editor', false)
-    },
-
     onTriggerLoadToolbar(event) {
       // FIXME ?
       document.getElementById('app-file-input-toolbar').click();
