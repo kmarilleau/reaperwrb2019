@@ -182,7 +182,7 @@ const store = new Vuex.Store({
             bgcolor: 'rgb(22, 165, 165)',
             textcolor: '#f0f0f0',
             width: 4,
-            minwidth: 3,
+            minwidth: 4,
           }
           break
 

@@ -7,8 +7,10 @@
         </a>
       </div>
       <div class="app-item-regions-info">
-        <span :style="{ color: item.textcolor }">Region: {{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
-        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].name }}</span>
+        <template v-if="this.$store.state.reaper.regions.length > 0">
+          <span :style="{ color: item.textcolor }">Region: {{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
+          <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].name }}</span>
+        </template>
       </div>
       <div class="app-item-regions-icon">
         <a @click.stop="onRefresh()">

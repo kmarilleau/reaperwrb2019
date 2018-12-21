@@ -55,6 +55,7 @@ export default {
   },
 
   methods: {
+
     classRow() {
       return this.$store.state.editor.enabled ? 'app-editor-grid' : 'app-view-grid'
     },

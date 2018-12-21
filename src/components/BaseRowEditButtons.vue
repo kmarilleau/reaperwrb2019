@@ -26,8 +26,20 @@
 export default {
   props: ['row'],
 
+  // FIXME works only once
+  mounted() {
+    const self = this
+    this.$el.addEventListener('mouseover', function() {
+      self.$parent.$el.style.backgroundColor = '#121212'
+    })
+    this.$el.addEventListener('mouseout', function() {
+      self.$parent.$el.style.backgroundColor = ''
+    })
+  },
+
   methods: {
     onAddItem(event) {
+      this.$parent.$el.style.backgroundColor = ''
       this.$store.commit('clearEditHighlight')
       this.$store.commit('switchRow', this.row)
       this.$store.commit('showEditor')

@@ -28,7 +28,7 @@ export default {
   // FIXME display loading bar or sth.
   mounted() {
     const div = document.getElementById('reaperwrb-json')
-    if(typoef(div) !== 'undefined' && div !== null) {
+    if(typeof(div) !== 'undefined' && div !== null) {
       const json = JSON.parse(div.innerHTML)
       this.$store.replaceState(json)
     }

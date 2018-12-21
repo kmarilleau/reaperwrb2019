@@ -8,8 +8,10 @@
         </a>
       </div>
       <div class="app-item-markers-info">
-        <span :style="{ color: item.textcolor }">Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].id }}</span>
-        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
+        <template v-if="this.$store.state.reaper.markers.length > 0">
+          <span :style="{ color: item.textcolor }">Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].id }}</span>
+          <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
+        </template>
       </div>
       <div class="app-item-markers-icon">
         <a @click.stop="onRefresh()">
