@@ -19,10 +19,10 @@ export default {
   methods: {
     onAdd(type) {
       document.getElementById('app-item-add-menu').classList.add('hidden')
-      this.$store.commit('add_item', type)
+      this.$store.commit('addItem', type)
     },
     onCancel(event) {
-      this.$store.commit('add_item_cancel')
+      this.$store.commit('cancelAddItem')
     }
   }
 }

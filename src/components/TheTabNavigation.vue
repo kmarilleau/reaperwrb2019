@@ -2,7 +2,7 @@
   <draggable 
     :class="'app-tab-navigation'"
     v-model="tabs"
-    :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.options.columns.desktop + ', 1fr)' }"
+    :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.columns + ', 1fr)' }"
     :options="{ 
       draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
@@ -44,7 +44,7 @@ export default {
       set(value) {
         // only set on sort, when length doesn't change
         if(value.length === this.$store.state.tabs.length)
-          this.$store.commit('update_tabs', value)
+          this.$store.commit('updateTabs', value)
       }
     }
   },
@@ -54,10 +54,10 @@ export default {
       document.querySelector('.sortable-ghost').style.display = 'block'
     },
     onDraggableEnd(event) {
-      this.$store.commit('switch_tab', event.newIndex)
+      this.$store.commit('switchTab', event.newIndex)
     },
     onDraggableAdd(event) {
-      this.$store.commit('move_item')
+      this.$store.commit('moveItem')
     }
   }
 };

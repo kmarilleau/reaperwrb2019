@@ -34,75 +34,42 @@ const store = new Vuex.Store({
           position_string: '0.0',
           position_string_beats: 0
       },
-      markers: [
-        // FIXME remove me
-        { name: 'maker 1', id: 0, pos: '1', color: '#424242' },
-        { name: 'maker 2', id: 1, pos: '2', color: '#424242' },
-        { name: 'maker 3', id: 2, pos: '3', color: '#424242' },
-        { name: 'maker 4', id: 3, pos: '4', color: '#424242' },
-        { name: 'maker 5', id: 4, pos: '5', color: '#424242' },
-        { name: 'maker 6', id: 5, pos: '6', color: '#424242' },
-      ],
+      markers: [],
       marker: 0,
-      regions: [
-        { name: 'region 1', id: 0, pos: '1', color: '#424242' },
-        { name: 'region 2', id: 1, pos: '2', color: '#424242' },
-        { name: 'region 3', id: 2, pos: '3', color: '#424242' },
-        { name: 'region 4', id: 3, pos: '4', color: '#424242' },
-        { name: 'region 5', id: 4, pos: '5', color: '#424242' },
-        { name: 'region 6', id: 5, pos: '6', color: '#424242' },
-      ],
+      regions: [],
       region: 0,
     }, 
     editor: {
       enabled: true,
-      toggle: false,
-      // FIXME niceify
       menu: false,
       delete_dialog: false,
       bulk_edit: false,
-      item_move_copy: false,
-      item_move_target_tab: false
+      move_item: false,
+      edit_item: false,
+      edit_items: [],
+      delete_item: false,
     },
-    // FIXME move to editor
-    options: {
-      columns: {
-        desktop: 9,
-        tablet: 6,
-        mobile: 4
-      }
-    },
+    columns: 8,
     active_tab: 0,
     active_row: 0,
-    edit_item: false,
-    edit_items: [],
-    delete_item: false,
     tabs: [],
-    clearEditHighlight: () => {
+  },
+
+  getters: {
+
+  },
+
+  mutations: {
+
+    clearEditHighlight: (state) => {
       let el = document.getElementsByClassName('app-highlight-edit')
       for(var i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
       }
     },
-  },
 
-  mutations: {
-    set_reaper_api: (state, ready) => state.reaper.ready = ready,
+    setReaperReady: (state, ready) => state.reaper.ready = ready,
 
-    save_html: (state) => {
-      console.log("SAVING WEB REMOTE ")
-      const saveState = cloneDeep(state)
-      saveState.editor.enabled = false
-      const json = JSON.stringify(saveState)
-      let html = `<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>ReaperWRB</title><meta name=viewport content="width=device-width,initial-scale=1"><script src=main.js></script><link href=/reaperwrb/css/app.css rel=stylesheet></head><body><div id=reaperwrb-json>${ json }</div><div id=app></div><script type=text/javascript src=/reaperwrb/js/manifest.js></script><script type=text/javascript src=/reaperwrb/js/vendor.js></script><script type=text/javascript src=/reaperwrb/js/app.js></script></body></html>`
-      let blob = new Blob([html], { type: "text/html;charset=utf-8" })
-      saveAs(blob, "mywebremote.html")
-    },
-
-    load_state: (state, data) => {
-      state = data
-    },
-    
     new: (state) => {
       state.tabs.push({
         type: 'tab',
@@ -113,6 +80,16 @@ const store = new Vuex.Store({
       })
     },
 
+    save: (state) => {
+      console.log("SAVING WEB REMOTE ")
+      const saveState = cloneDeep(state)
+      saveState.editor.enabled = false
+      const json = JSON.stringify(saveState)
+      let html = `<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>ReaperWRB</title><meta name=viewport content="width=device-width,initial-scale=1"><script src=main.js></script><link href=/reaperwrb/css/app.css rel=stylesheet></head><body><div id=reaperwrb-json>${ json }</div><div id=app></div><script type=text/javascript src=/reaperwrb/js/manifest.js></script><script type=text/javascript src=/reaperwrb/js/vendor.js></script><script type=text/javascript src=/reaperwrb/js/app.js></script></body></html>`
+      let blob = new Blob([html], { type: "text/html;charset=utf-8" })
+      saveAs(blob, "mywebremote.html")
+    },
+    
     import: (state, data) => {
       if(state.tabs.length <= 0)
         state.tabs = data
@@ -120,10 +97,8 @@ const store = new Vuex.Store({
         data.forEach(tab => state.tabs.push(tab))
     },
 
-    switch_tab: (state, tab) => {
-      state.edit_item = false
-      // FIXME can't be part of the state / move function elsewhere
-      state.clearEditHighlight() // FIXME use store commit instead
+    switchTab: (state, tab) => {
+      state.editor.edit_item = false
 
       if(state.editor.delete_dialog)
         store.commit('cancel_delete')
@@ -135,44 +110,43 @@ const store = new Vuex.Store({
       state.active_tab = tab
     },
 
-    switch_row: (state, row) => state.active_row = row,
-    toggle_editor: (state) => state.editor.toggle = state.editor.toggle ? false : true,
-    show_editor: (state) => state.editor.toggle = true, 
-    enable_editor: (state, enabled) => state.editor.enabled = enabled,
+    switchRow: (state, row) => state.active_row = row,
+    showEditor: (state) => state.editor.toggle = true, 
+    enableEditor: (state, enabled) => state.editor.enabled = enabled,
 
-    toggle_bulk_edit: (state) => {
-      state.clearEditHighlight()
-      state.edit_item = false
-      state.edit_items = []
+    toggleBulkEdit: (state) => {
+      state.editor.edit_item = false
+      state.editor.edit_items = []
       state.editor.bulk_edit = state.editor.bulk_edit ? false : true;
     },
 
-    bulk_edit_add: (state, data) => {
-      state.edit_items.push(data)
+    bulkEditAdd: (state, data) => {
+      state.editor.edit_items.push(data)
     },
 
-    bulk_edit_remove: (state, data) => {
-      state.edit_items = state.edit_items.filter((item) => {
+    bulkEditRemove: (state, data) => {
+      state.editor.edit_items = state.editor.edit_items.filter((item) => {
         return item.index == data.index && item.row == data.row ? false : true
       })
     },
 
-    show_menu: (state) => {
-      state.clearEditHighlight()
+    showItemMenu: (state) => {
       state.editor.menu = true
     },
 
-    set_columns: (state, data) => {
-      state.options.columns.desktop = 2
+    // FIXME
+    setColumns: (state, columns) => {
+      state.columns.desktop = columns
     },
     
     clear: state => {
       state.tabs = []
       state.active_tab = 0
-      state.edit_item = { bgcolor: '', textcolor: ''}
+      // FIXME
+      state.editor.edit_item = { bgcolor: '', textcolor: ''}
     },
 
-    add_item: (state, type) => {
+    addItem: (state, type) => {
       let item = {}
 
       switch(type) {
@@ -245,17 +219,17 @@ const store = new Vuex.Store({
       
       const row = state.tabs[state.active_tab].rows[state.active_row]
       row.push(item)
-      state.edit_item = row[row.length - 1  ]
+      state.editor.edit_item = row[row.length - 1  ]
       state.editor.menu = false
     },
 
-    add_item_cancel: (state) => {
+    cancelAddItem: (state) => {
       state.editor.menu = false
     },
 
-    set_item_move_copy: (state, data) => {
+    setItemMoveCopy: (state, data) => {
       if(data) {
-        state.editor.item_move_copy = {
+        state.editor.move_item = {
           row: data.row,
           index: data.index,
           target_tab: data.target_tab,
@@ -263,41 +237,35 @@ const store = new Vuex.Store({
         }
         state.editor.item_move_target_tab = data.target_tab
       } else {
-        state.editor.item_move_copy = false
+        state.editor.move_item = false
       }
     },
 
-    move_item: (state) => {
-      if(state.active_tab !== state.editor.item_move_copy.target_tab && state.editor.item_move_copy) {
-        const tab = state.editor.item_move_copy.target_tab
+    moveItem: (state) => {
+      if(state.active_tab !== state.editor.move_item.target_tab && state.editor.move_item) {
+        const tab = state.editor.move_item.target_tab
         const row = state.tabs[tab].rows.length - 1
-        state.tabs[tab].rows[row].push(state.editor.item_move_copy.item)
-        state.tabs[state.active_tab].rows[state.editor.item_move_copy.row].splice(state.editor.item_move_copy.index, 1)
+        state.tabs[tab].rows[row].push(state.editor.move_item.item)
+        state.tabs[state.active_tab].rows[state.editor.move_item.row].splice(state.editor.move_item.index, 1)
         state.active_tab = tab
-        state.editor.item_move_copy = false
+        state.editor.move_item = false
       }
     },
 
-    edit_item: (state, item) => {
-      state.clearEditHighlight()
-      item.el.classList.add('app-highlight-edit')
-      if(item.data.type === 'tab') {
-        state.edit_item = state.tabs[item.index]
-        state.active_tab = item.index
+    edit: (state, data) => {
+      data.el.classList.add('app-highlight-edit')
+      if(data.item.type === 'tab') {
+        state.editor.edit_item = state.tabs[data.index]
+        state.active_tab = data.index
       } else {
-        state.edit_item = state.tabs[state.active_tab].rows[item.row][item.index]
+        state.editor.edit_item = state.tabs[state.active_tab].rows[data.row][data.index]
       }
     },
 
-    cancel_edit_item: (state, item) => {
-      state.clearEditHighlight()
-      state.edit_item = false
-    },
-
-    show_delete_dialog: (state, item) => {
+    showDeleteDialog: (state, item) => {
       state.editor.delete_dialog = true
-      state.delete_item = item
-      state.delete_item.el.classList.add('app-highlight-delete')
+      state.editor.delete_item = item
+      state.editor.delete_item.el.classList.add('app-highlight-delete')
       if(item.data.type === 'tab') {
         let el = document.getElementsByClassName('app-item')
         for(var i = 0; i < el.length; i++) {
@@ -306,22 +274,22 @@ const store = new Vuex.Store({
       }
     },
 
-    cancel_delete: (state) => {
+    cancelDelete: (state) => {
       // FIXME clean-up
-      state.delete_item.el.classList.remove('app-highlight-delete')
+      state.editor.delete_item.el.classList.remove('app-highlight-delete')
       let el = document.getElementsByClassName('app-item')
       for(var i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
       }
-      state.delete_item = false,
+      state.editor.delete_item = false,
       state.editor.delete_dialog = false
     },
 
-    delete_item: (state, keepItems) => {
+    delete: (state, keepItems) => {
 
-      state.delete_item.el.classList.remove('app-highlight-delete')
+      state.editor.delete_item.el.classList.remove('app-highlight-delete')
 
-      switch(state.delete_item.data.type) {
+      switch(state.editor.delete_item.data.type) {
         
         case 'tab':
           // FIXME not working when first tab ist deleted
@@ -332,13 +300,13 @@ const store = new Vuex.Store({
 
           let rows
           if(keepItems) {
-            let tab = state.delete_item.index
+            let tab = state.editor.delete_item.index
             rows = state.tabs[tab].rows
             if(tab >= 1) {
               rows.forEach(row => { state.tabs[tab - 1].rows.push(row)})
             }
           }
-          state.tabs.splice(state.delete_item.index, 1)
+          state.tabs.splice(state.editor.delete_item.index, 1)
           state.active_tab = state.tabs.length - 1
           break
 
@@ -346,9 +314,9 @@ const store = new Vuex.Store({
 
           let items = false
           if(keepItems)
-            items = state.tabs[state.active_tab].rows[state.delete_item.row]
+            items = state.tabs[state.active_tab].rows[state.editor.delete_item.row]
 
-          state.tabs[state.active_tab].rows.splice(state.delete_item.row, 1)
+          state.tabs[state.active_tab].rows.splice(state.editor.delete_item.row, 1)
           if(state.tabs[state.active_tab].rows.length === 0)
             state.tabs[state.active_tab].rows.push([])
           
@@ -358,19 +326,19 @@ const store = new Vuex.Store({
           break
 
         default:
-          state.tabs[state.active_tab].rows[state.delete_item.row].splice(state.delete_item.index, 1)
+          state.tabs[state.active_tab].rows[state.editor.delete_item.row].splice(state.editor.delete_item.index, 1)
           break
         }
 
-        state.edit_item = false
+        state.editor.edit_item = false
         state.editor.delete_dialog = false
       },
 
-    add_row: (state, row) => {
+    addRow: (state, row) => {
       state.tabs[state.active_tab].rows.splice(row + 1, 0, [])
     },
 
-    add_tab: (state, tab) => {
+    addTab: (state, tab) => {
       state.tabs.push({
         type: 'tab',
         label: 'new',
@@ -380,30 +348,24 @@ const store = new Vuex.Store({
       })
 
       state.active_tab = state.tabs.length - 1
-      state.edit_item = state.tabs[state.active_tab]
+      state.editor.edit_item = state.tabs[state.active_tab]
     },
 
-    clear_highlight: (state, data) => {
-      state.clearEditHighlight()
-      state.edit_item = false
+    updateItem: (state, data) => state.editor.edit_item[data.key] = data.val,
+
+    updateItems: (state, data) => {
+      state.editor.edit_items.forEach(item => item.item[data.key] = data.val)
     },
 
-    update_item: (state, data) => state.edit_item[data.key] = data.val,
-
-    update_items: (state, data) => {
-      state.edit_items.forEach(item => item.item[data.key] = data.val)
-    },
-
-    update_row: (state, data) => {
-      state.clearEditHighlight()
+    updateRow: (state, data) => {
       Vue.set(state.tabs[state.active_tab].rows, data.row, data.value)
     },
 
-    update_tabs: (state, data) => {
+    updateTabs: (state, data) => {
       Vue.set(state, 'tabs', data)
     },
 
-    reaper_onreply: (state, result) => {
+    onReply: (state, result) => {
       console.log(result)
 
       if(result.match('TRANSPORT')) {
@@ -462,12 +424,12 @@ const app = new Vue({
   components: { App },
   template: '<App/>',
   created: function() {
-    const reaper_api = typeof(wwr_start) === 'function' ? true : false
-    if(reaper_api) {
+    const reaperReady = typeof(wwr_start) === 'function' ? true : false
+    if(reaperReady) {
       console.log("ReaperWRB: REAPER API READY")
       wwr_start()
-      window.wwr_onreply = (result) => this.$store.commit('reaper_onreply', result)
-      this.$store.commit('set_reaper_api', reaper_api)
+      window.wwr_onreply = (result) => this.$store.commit('onReply', result)
+      this.$store.commit('setReaperReady', reaperReady)
     } else {
       console.log('ReaperWRB ERROR: REAPER API NOT READY')
     }

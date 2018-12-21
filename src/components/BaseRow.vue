@@ -8,7 +8,7 @@
         sort: this.$store.state.editor.enabled 
       }"
       :class="'app-row'"
-      :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.options.columns.desktop + ', 1fr)' }"
+      :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.columns + ', 1fr)' }"
       @start="onDraggableStart"
       :move="onDraggableMove"
     >
@@ -48,8 +48,8 @@ export default {
         return this.$store.state.tabs[this.$store.state.active_tab].rows[this.row]
       },
       set(value) {
-        if(this.$store.state.editor.item_move_copy === false)
-          this.$store.commit('update_row', {row: this.row, value: value })
+        if(this.$store.state.editor.move_item === false)
+          this.$store.commit('updateRow', {row: this.row, value: value })
       }
     }
   },
@@ -60,14 +60,14 @@ export default {
     },
 
     onDraggableStart() {
-      this.$store.commit('clear_highlight')
+      this.$store.commit('clearEditHighlight')
     },
 
     onDraggableMove(event, originalEvent) {
       // hacky way to decide if an item is to be moved to another tab
       if(event.related.classList.contains('app-tab-navigation-item')) {
 
-        this.$store.commit('set_item_move_copy', { 
+        this.$store.commit('setItemMoveCopy', { 
           row: parseInt(event.dragged.attributes.row.value),
           index: parseInt(event.dragged.attributes.index.value), 
           target_tab: parseInt(event.related.attributes.tab.value)
@@ -90,7 +90,7 @@ export default {
           for(let i = 0; i < el.length; i++)
             el[i].classList.remove('app-item-drop')
         }
-        this.$store.commit('set_item_move_copy', false)
+        this.$store.commit('setItemMoveCopy', false)
         if(originalEvent.target.classList.contains('app-tab-navigation'))
           return false
       } 

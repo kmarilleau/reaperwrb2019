@@ -38,8 +38,10 @@ export default {
 
   methods: {
     onTabSwitch(event) {
-      if(!this.$store.state.editor.bulk_edit)
+      if(!this.$store.state.editor.bulk_edit) {
+        this.$store.commit('clearEditHighlight')
         this.$store.commit('switch_tab', this.index)
+      }
     }
   }
 };

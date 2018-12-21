@@ -23,13 +23,14 @@ export default {
   methods: {
 
     onItemEdit(event) {
-      let commit = {
-        data: this.item,
+      let data = {
+        item: this.item,
         row: this.row,
         index: this.index,
         el: this.$parent.$el
       }
-      this.$store.commit('edit_item', commit)
+      this.$store.commit('clearEditHighlight')
+      this.$store.commit('edit', data)
     },
 
     onItemBulkEdit(event) {
@@ -39,19 +40,20 @@ export default {
         index: this.index
       }
 
+      this.$store.commit('clearEditHighlight')
       event.target.checked ? 
-        this.$store.commit('bulk_edit_add', commit) : this.$store.commit('bulk_edit_remove', commit)
+        this.$store.commit('bulkEditAdd', commit) : this.$store.commit('bulkEditRemove', commit)
     },
     
     onItemDelete(event) {
-      // FIXME ask for confirmation
       let commit = {
         data: this.item,
         row: this.row,
         index: this.index,
         el: this.$parent.$el
       }
-      this.$store.commit('show_delete_dialog', commit)
+      this.$store.commit('clearEditHighlight')
+      this.$store.commit('showDeleteDialog', commit)
     }
   }
 }

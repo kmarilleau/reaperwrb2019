@@ -8,7 +8,7 @@
     />
     <app-editor 
       v-if="this.$store.state.editor.enabled"
-      :item="this.$store.state.edit_item"
+      :item="this.$store.state.editor.edit_item"
       :options="this.$store.state.options"
       :editor="this.$store.state.editor"
     />
@@ -28,7 +28,7 @@ export default {
   // FIXME display loading bar or sth.
   mounted() {
     const div = document.getElementById('reaperwrb-json')
-    if(div !== 'undefined' && div !== null) {
+    if(typoef(div) !== 'undefined' && div !== null) {
       const json = JSON.parse(div.innerHTML)
       this.$store.replaceState(json)
     }

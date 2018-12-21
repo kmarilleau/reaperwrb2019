@@ -28,13 +28,14 @@ export default {
 
   methods: {
     onAddItem(event) {
-      this.$store.commit('switch_row', this.row)
-      this.$store.commit('show_editor')
-      this.$store.commit('show_menu')
+      this.$store.commit('clearEditHighlight')
+      this.$store.commit('switchRow', this.row)
+      this.$store.commit('showEditor')
+      this.$store.commit('showItemMenu')
     },
 
     onAddRow(event) {
-      this.$store.commit('add_row', this.row)
+      this.$store.commit('addRow', this.row)
     },
 
     onDeleteRow(event) {
@@ -46,7 +47,8 @@ export default {
         index: this.index,
         el: this.$parent.$children[0].$el
       }
-      this.$store.commit('show_delete_dialog', commit)
+      this.$store.commit('clearEditHighlight')
+      this.$store.commit('showDeleteDialog', commit)
     }
   }
 }

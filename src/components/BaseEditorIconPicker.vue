@@ -33,9 +33,9 @@ export default {
   methods: {
     updateIcon(icon) {
       if(!this.toggle)
-        this.$store.commit('update_item', { key: 'icon', val: icon })
+        this.$store.commit('updateItem', { key: 'icon', val: icon })
       else
-        this.$store.commit('update_item', { key: 'toggleicon', val: icon })
+        this.$store.commit('updateItem', { key: 'toggleicon', val: icon })
     }
   }
 }

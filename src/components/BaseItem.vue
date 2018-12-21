@@ -76,7 +76,6 @@ export default {
       classList['app-item-' + this.item.type] = true
       classList['app-item-action-toggled'] = this.item.toggle && this.item.toggled
       return classList
-      //{ 'app-item' + app-item-type: true, 'app-item-action-toggled': item.toggle && item.toggled }
     }
   }
 }

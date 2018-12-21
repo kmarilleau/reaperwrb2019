@@ -27,21 +27,24 @@
 export default {
   methods: {
     showKeepItems() {
-      switch(this.$store.state.delete_item.data.type) {
+      const active_tab = this.$store.state.active_tab
+      const row = this.$store.state.editor.delete_item.row
+      
+      switch(this.$store.state.editor.delete_item.data.type) {
         case 'tab':
           // should never be triggered because we can't delete the last row
-          return this.$store.state.tabs[this.$store.state.active_tab].rows.length > 0 ? true : false
+          return this.$store.state.tabs[active_tab].rows.length > 0 ? true : false
         case 'row':
-          return this.$store.state.tabs[this.$store.state.active_tab].rows[this.$store.state.delete_item.row].length > 0 ? true : false
+          return this.$store.state.tabs[active_tab].rows[row].length > 0 ? true : false
         default:
           return false
       }
     },
     onDelete(keepItems) {
-      this.$store.commit('delete_item', keepItems)
+      this.$store.commit('delete', keepItems)
     },
     onCancel(event) {
-      this.$store.commit('cancel_delete')
+      this.$store.commit('cancelDelete')
     }
   }
 }

@@ -8,11 +8,6 @@
   overflow-y: scroll;
 }
 
-
-// .app-row {
-//   min-height: $g-item-height;
-// }
-
 @media (orientation: landscape) {
 
   .app-row,
@@ -21,6 +16,10 @@
     grid-column-gap: $g-item-margin-landscape;
     grid-row-gap: $g-item-margin-landscape;
     margin: 0 0 $g-item-margin-landscape 0;
+  }
+
+  .app-row {
+    min-height: $g-item-height-landscape;
   }
 
   .app-item { 
@@ -52,6 +51,10 @@
     grid-column-gap: $g-item-margin-portrait;
     grid-row-gap: $g-item-margin-portrait;
     margin: 0 0 $g-item-margin-portrait 0;
+  }
+
+  .app-row {
+    min-height: $g-item-height-portrait;
   }
 
   .app-item {

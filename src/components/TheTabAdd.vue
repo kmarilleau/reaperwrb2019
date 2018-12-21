@@ -13,7 +13,7 @@
 export default {
   methods: {
     onTabAdd(event) {
-      this.$store.commit('add_tab')
+      this.$store.commit('addTab')
     }
   }
 }
