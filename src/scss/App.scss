@@ -31,12 +31,10 @@ a, p, span, svg, div, img, input, button {
           user-select: none; /* Non-prefixed version, currently
                               supported by Chrome and Opera */
 }
-
+#reaperwrb-json {
+  display: none;
+}
 #app {
-  #reaperwrb-json {
-    display: none;
-  }
-  
   .app-container {
     display: grid;
     grid-template-rows: 1fr;
