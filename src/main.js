@@ -67,7 +67,7 @@ const store = new Vuex.Store({
     // FIXME move to editor
     options: {
       columns: {
-        desktop: 8,
+        desktop: 9,
         tablet: 6,
         mobile: 4
       }
@@ -227,8 +227,8 @@ const store = new Vuex.Store({
             type: 'markers',
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
-            width: 3,
-            minwidth: 3,
+            width: 4,
+            minwidth: 4,
           }
           break
 
@@ -237,8 +237,8 @@ const store = new Vuex.Store({
             type: 'regions',
             bgcolor: '#424242',
             textcolor: '#f0f0f0',
-            width: 3,
-            minwidth: 3,
+            width: 4,
+            minwidth: 4,
           }
           break
       }
@@ -255,22 +255,26 @@ const store = new Vuex.Store({
 
     set_item_move_copy: (state, data) => {
       if(data) {
-        state.editor.item_move_copy = state.tabs[state.active_tab].rows[data.row][data.index]
+        state.editor.item_move_copy = {
+          row: data.row,
+          index: data.index,
+          target_tab: data.target_tab,
+          item: state.tabs[state.active_tab].rows[data.row][data.index]
+        }
         state.editor.item_move_target_tab = data.target_tab
       } else {
         state.editor.item_move_copy = false
-        state.editor.item_move_target_tab = false
       }
     },
 
     move_item: (state) => {
-      if(state.active_tab !== state.editor.item_move_target_tab && state.editor.item_move_copy) {
-        const tab = state.editor.item_move_target_tab
+      if(state.active_tab !== state.editor.item_move_copy.target_tab && state.editor.item_move_copy) {
+        const tab = state.editor.item_move_copy.target_tab
         const row = state.tabs[tab].rows.length - 1
-        state.tabs[tab].rows[row].push(state.editor.item_move_copy)
+        state.tabs[tab].rows[row].push(state.editor.item_move_copy.item)
+        state.tabs[state.active_tab].rows[state.editor.item_move_copy.row].splice(state.editor.item_move_copy.index, 1)
         state.active_tab = tab
         state.editor.item_move_copy = false
-        state.editor.item_move_target_tab = false
       }
     },
 

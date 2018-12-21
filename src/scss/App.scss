@@ -1,8 +1,16 @@
 
 @import "@/scss/Variables.scss";
 
-html {
-  font-size: 1.6vh;
+@media (orientation: portrait) {
+  html {
+    font-size: 1.4vw;
+  }
+}
+
+@media (orientation: landscape) {
+  html {
+    font-size: 0.85vw;
+  }
 }
 
 body {

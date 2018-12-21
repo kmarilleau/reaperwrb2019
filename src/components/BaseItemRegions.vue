@@ -7,7 +7,8 @@
         </a>
       </div>
       <div class="app-item-regions-info">
-        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
+        <span :style="{ color: item.textcolor }">Region: {{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
+        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].name }}</span>
       </div>
       <div class="app-item-regions-icon">
         <a @click.stop="onRefresh()">
@@ -19,10 +20,6 @@
         <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
         </a>
       </div>
-    </div>
-
-    <div class="app-item-label">
-      <span :style="{ color: item.textcolor }">Region: {{ this.$store.state.reaper.regions[this.$store.state.reaper.region].name }}</span>
     </div>
 
   </div>

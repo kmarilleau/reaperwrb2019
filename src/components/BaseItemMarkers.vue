@@ -8,7 +8,8 @@
         </a>
       </div>
       <div class="app-item-markers-info">
-        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].id }}</span>
+        <span :style="{ color: item.textcolor }">Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].id }}</span>
+        <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
       </div>
       <div class="app-item-markers-icon">
         <a @click.stop="onRefresh()">
@@ -20,10 +21,6 @@
         <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
         </a>
       </div>
-    </div>
-
-    <div class="app-item-label">
-      <span :style="{ color: item.textcolor }">Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
     </div>
 
   </div>

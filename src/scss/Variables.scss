@@ -11,8 +11,11 @@ $g-tab-navigation-item-line-height: 3vh;
 $g-editor-item-edit-button-height: 3vh;
 $g-editor-line-height: 3vh;
 $g-opacity-inactive: 0.5;
-$g-item-margin: 0.3vh;
-$g-item-height: calc(100vh / 7.5);
+$g-editor-edit-buttons-margin: 0.3vh;
+$g-item-margin-landscape: 0.15vw;
+$g-item-margin-portrait: 0.15vh;
+$g-item-height-landscape: calc(100vw / 14);
+$g-item-height-portrait: calc(100vw / 7.5);
 $g-editor-view-width: 1024px;
 
 %editor-dialog-shared {

@@ -15,12 +15,12 @@
   label {
     color: $c-editor-primary;
     display: block;
-    margin: 15px 0;
+    margin: 1vh 0;
   }
 
   button.app-editor-icon-delete {
     position: absolute;
-    margin: 40px;
+    margin: 2.5vh !important;
   }
 
   .app-editor-panel {
@@ -62,16 +62,15 @@
     background: $bg-primary;
     
     button {
-      margin: 20px;
+      margin: 2vh;
     }
 
     a {
       display: block;
       cursor: pointer;
-      border: 1px solid $c-editor-border;
       background: $bg-editor-alt;
       border-radius: $g-border-radius;
-      padding: 10px;
+      padding: 1vh;
       text-align: center;
       opacity: 0.5;
     }
@@ -83,9 +82,9 @@
     .app-item-add-menu-items {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      padding: 20px;
-      grid-column-gap: 20px;
-      grid-row-gap: 20px;
+      padding: 2vh;
+      grid-column-gap: $g-editor-edit-buttons-margin;
+      grid-row-gap: $g-editor-edit-buttons-margin;
     }
   }
 
@@ -99,16 +98,24 @@
     margin-top: 30px !important;
   }
 
-  .app-item-action-preview {
+  .app-item-icon-preview {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
     background: $bg-editor-alt;
     border-radius: $g-border-radius;
-    
-    .app-item-action {
-      width: calc(($g-editor-view-width / 6) - 4px);
-      /* FIXME */
+
+    .app-item-icon {
+      height: 8vh;
+      width: 8vh;
+      border-radius: $g-border-radius;
+      background: $bg-primary;
+      padding: 2vh;
+      display: flex;
+      
+      * {
+        margin: auto;
+      }
     }
   }
 }
@@ -128,17 +135,17 @@
 .app-row-edit-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 4px;
-  padding: 2px;
-
+  grid-column-gap: $g-editor-edit-buttons-margin;
+  margin-bottom: $g-editor-edit-buttons-margin;
+  background: $bg-primary !important;
+  
   .app-row-edit-button {
-    border-radius: $g-border-radius;
     background: $bg-editor-alt;
-    padding: 2px 8px;
     text-align: center;
+    padding: 0.5vh;
 
     span {
-      margin-left: 10px;
+      margin-left: 1vh;
     }
   }
 }

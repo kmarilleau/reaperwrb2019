@@ -113,13 +113,13 @@
         :class="classIconPicker()"
         >
         <template>
-          <div class="app-item-action-preview">
+          <div class="app-item-icon-preview">
             <label>Icon</label>
             <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
               <font-awesome-icon icon="trash" />
             </button>
-            <div class="app-item-icon-preview">
-              <font-awesome-icon :icon="item.icon" size="5x" />
+            <div class="app-item-icon" :style="{ backgroundColor: item.bgcolor }">
+              <font-awesome-icon :icon="item.icon" size="4x" />
             </div>
             
             <app-icon-picker :toggle="false" />
@@ -131,10 +131,10 @@
         :class="classToggleIconPicker()"
       >
         <template>
-          <div class="app-item-action-preview">
+          <div class="app-item-icon-preview">
             <label>Toggle Icon</label>
-            <div class="app-item-icon-preview">
-              <font-awesome-icon :icon="item.toggleicon ? item.toggleicon : item.icon" size="5x" />
+            <div class="app-item-icon" :style="{ backgroundColor: item.bgcolor }">
+              <font-awesome-icon :icon="item.toggleicon ? item.toggleicon : item.icon" size="4x" />
             </div>
             <app-icon-picker :toggle="true" />
           </div>
