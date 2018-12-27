@@ -632,29 +632,33 @@ export default {
 
     async onLoadFile(event, type) {
       // FIXME handle failed files
-      const filesFailed = [];
-      const files = event.target.files;
+      const filesFailed = []
+      const files = event.target.files
 
-      let tabs = [];
+      let tabs = []
 
       for (let i = 0; i < files.length; i++) {
-        const text = await this.readFileAsText(files[i]);
-        let tab = [];
+        const text = await this.readFileAsText(files[i])
+        let tab = []
 
         // load toolbar
         if (type === 'txt') {
-          tab = this.parseToolbar(text, files[i].name);
+          tab = this.parseToolbar(text, files[i].name)
           // FIXME handle failed files
-          if (tab.rows.length > 0) tabs.push(tab);
-          else failedFiles.push(e.target.files[i]);
+          if (tab.rows.length > 0)
+            tabs.push(tab)
+          else 
+            failedFiles.push(e.target.files[i])
+
+          this.$store.commit('switchTab', this.$store.state.tabs.length)
           
         // load html file
         } else if (type === 'html' && i === 0) {
-          tabs = this.parseHTML(text);
+          tabs = this.parseHTML(text)
         }
       }
       this.$store.commit('import', tabs)
-      event.target.value = '';
+      event.target.value = ''
     },
 
 
@@ -672,7 +676,7 @@ export default {
           item.desc = r[1].replace(/ /g, ' ')
           item.label =
             item.desc.length > 20
-              ? item.desc.substr(0, 20) + '[...]'
+              ? item.desc.substr(0, 20).replace(/_/g, ' ') + '[...]'
               : item.desc
           item.labelpos = 0
           item.bgcolor = '#424242'
