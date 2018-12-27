@@ -295,22 +295,38 @@ const store = new Vuex.Store({
       switch(state.editor.delete_item.data.type) {
         
         case 'tab':
-          // FIXME not working when first tab ist deleted
           let el = document.getElementsByClassName('app-item')
           for(var i = 0; i < el.length; i++) {
             el[i].classList.remove('app-highlight-delete')
           }
 
           let rows
+          let tab = state.editor.delete_item.index
+
           if(keepItems) {
-            let tab = state.editor.delete_item.index
             rows = state.tabs[tab].rows
-            if(tab >= 1) {
-              rows.forEach(row => { state.tabs[tab - 1].rows.push(row)})
-            }
+            const targetTab = tab >= 1 ? tab - 1 : state.tabs.length - 1
+            rows.forEach(row => { state.tabs[targetTab].rows.push(row)})
           }
+
+          // delete the tab
           state.tabs.splice(state.editor.delete_item.index, 1)
-          state.active_tab = state.tabs.length - 1
+          
+          // switch to correct tab
+          if(keepItems) {
+            if(tab === 0)
+              state.active_tab = state.tabs.length - 1
+            else
+              state.active_tab = tab - 1
+          } else {
+            if(tab > 0 && tab < state.tabs.length)
+              state.active_tab = tab
+            else if(tab >= state.tabs.length)
+              state.active_tab = state.tabs.length -1
+            else
+              state.active_tab = 0
+          }
+
           break
 
         case 'row':

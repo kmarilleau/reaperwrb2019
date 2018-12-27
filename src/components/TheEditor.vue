@@ -49,8 +49,6 @@
         v-if="this.$store.state.tabs.length > 0"
       >
         <label>&nbsp;</label>
-
-
         
       </div>
 
@@ -92,7 +90,9 @@
           <input class="app-item-desc" :value="item.desc ? item.desc : 'none'">
         </template>
 
-        <template>
+        <template
+          v-if="item.type !== 'tab'"
+        >
           <label>Width</label>
           <app-item-width-slider
             v-model="item.width"

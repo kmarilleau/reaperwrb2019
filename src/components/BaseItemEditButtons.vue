@@ -7,7 +7,11 @@
         v-if="!this.$store.state.editor.bulk_edit"
       >
         <a class="app-item-edit-button" @click.stop="onItemEdit"><font-awesome-icon icon="pen" size="1x" /></a>
-        <a class="app-item-edit-button" @click.stop="onItemDelete"><font-awesome-icon icon="trash" size="1x" /></a>
+        <a class="app-item-edit-button"
+          v-if="item.type === 'tab' && this.$store.state.tabs.length === 1 ? false : true" 
+          @click.stop="onItemDelete">
+          <font-awesome-icon icon="trash" size="1x" />
+        </a>
       </template>
 
       <template v-if="this.$store.state.editor.bulk_edit">
