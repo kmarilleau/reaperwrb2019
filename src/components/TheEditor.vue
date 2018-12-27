@@ -123,7 +123,7 @@
               <font-awesome-icon icon="trash" />
             </button>
             <div class="app-item-icon" :style="{ backgroundColor: item.bgcolor }">
-              <font-awesome-icon :style="{color: item.textcolor }" :icon="item.icon" size="4x" />
+              <font-awesome-icon :style="{color: item.textcolor }" icon="trash" size="4x" />
             </div>
             
             <app-icon-picker :toggle="false" />

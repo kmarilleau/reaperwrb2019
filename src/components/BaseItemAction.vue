@@ -44,8 +44,9 @@ export default {
       if(this.item.toggle && !this.$store.state.reaper.ready && this.$store.state.editor.enabled)
         this.item.state = this.item.state < 1 ? 1 : 0
       
-      if(this.$store.state.reaper.ready)
-        wwr_req(this.item.action)
+      if(this.$store.state.reaper.ready) {
+        this.$store.commit('execAction', this.item)
+      }
     },
 
     itemIcon() {

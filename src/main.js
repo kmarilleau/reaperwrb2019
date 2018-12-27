@@ -384,6 +384,15 @@ const store = new Vuex.Store({
       Vue.set(state, 'tabs', data)
     },
 
+    execAction: (state, item) => {
+      if(state.reaper.ready) {
+        wwr_req(item.action)
+        // update toggle state
+        if(item.toggle)
+          wwr_req('GET/' + item.action)
+      }
+    },
+
     getCmdStates: (state) => {
 
       if(state.reaper.ready) {
@@ -457,18 +466,17 @@ const store = new Vuex.Store({
           }
         })
 
-        state.tabs.forEach((tab) => {
-          tab.rows.forEach((row) => {
-            row.forEach((item) => {
-              if(item.type === 'action') {
-                actionStates.forEach((action) => {
-                  if(action.action === item.action) {
-                    console.log('action: %s - state: %s', item.label, action.state)
-                    item.state = action.state
-                  }
-                })
-              }
-            })
+        // check state of all actions of the current tab if they are toggles
+        state.tabs[state.active_tab].rows.forEach((row) => {
+          row.forEach((item) => {
+            if(item.type === 'action' && item.toggle) {
+              actionStates.forEach((action) => {
+
+                if(action.action === item.action)
+                  item.state = action.state
+
+              })
+            }
           })
         })
 
