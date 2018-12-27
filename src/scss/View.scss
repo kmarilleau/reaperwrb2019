@@ -237,11 +237,16 @@
 .app-item-markers-icon,
 .app-item-regions-icon,
 .app-item-transport-icon {
-  opacity: 0.8;
+  * { opacity: 0.8; }
 }
 
 .app-item-action:active .app-item-action-icon,
-.app-item-markers-icon:active,
-.app-item-regions-icon:active {
+.app-item-action-toggled .app-item-action-icon {
   opacity: 1;
+}
+
+.app-item-markers-icon:active,
+.app-item-regions-icon:active,
+.app-item-transport-icon:active {
+  * { opacity: 1; }
 }

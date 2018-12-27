@@ -1,27 +1,27 @@
 <template>
   <div class="app-item-container app-item-regions">
     <div class="app-item-regions-nav">
-      <div class="app-item-regions-icon">
-        <a @click.stop="onPreviousRegion()">
-          <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
-        </a>
-      </div>
+      <a class="app-item-regions-icon" 
+        @click.stop="onPreviousRegion()"
+      >
+        <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
+      </a>
       <div class="app-item-regions-info">
         <template v-if="this.$store.state.reaper.regions.length > 0">
           <span :style="{ color: item.textcolor }">Region: {{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
           <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].name }}</span>
         </template>
       </div>
-      <div class="app-item-regions-icon">
-        <a @click.stop="onRefresh()">
+      <a class="app-item-regions-icon" 
+        @click.stop="onRefresh()"
+      >
         <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="4x" />
-        </a>
-      </div>
-      <div class="app-item-regions-icon">
-        <a @click.stop="onNextRegion()">
+      </a>
+      <a class="app-item-regions-icon" 
+        @click.stop="onNextRegion()"
+      >
         <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
-        </a>
-      </div>
+      </a>
     </div>
 
   </div>
@@ -33,7 +33,6 @@ export default {
 
   methods: {
     onPreviousRegion(event) {
-      console.log("previous region")
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
       this.$store.state.reaper.region = region - 1 < 0 ? regions.length - 1 : region - 1
