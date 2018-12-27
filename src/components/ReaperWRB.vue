@@ -9,7 +9,7 @@
     <app-editor 
       v-if="this.$store.state.editor.enabled"
       :item="this.$store.state.editor.edit_item"
-      :options="this.$store.state.options"
+      :columns="this.$store.state.columns"
       :editor="this.$store.state.editor"
     />
   </div>

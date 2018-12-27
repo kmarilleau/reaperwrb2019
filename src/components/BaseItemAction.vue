@@ -56,12 +56,21 @@ export default {
     getClass() {
       const classes = {}
       if(this.item.icon === false) {
-        if(this.item.label.length === 1)
+        if(this.item.label.length === 1) {
+          classes['font-bold'] = true
           classes['font-xxxl'] = true
-        if(this.item.label.length < 3)
+        }
+
+        else if(this.item.label.length < 3) {
+          classes['font-bold'] = true
           classes['font-xxl'] = true
-        else if (this.item.label.length < 5)
+        }
+
+        else if (this.item.label.length < 5) {
+          classes['font-bold'] = true
           classes['font-xl'] = true
+        }
+
         else if (this.item.label.length < 7)
           classes['font-l'] = true
       }

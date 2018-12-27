@@ -124,7 +124,7 @@
   text-align: center;
   margin: 2px;
   height: 30px;
-  line-height: $g-tab-navigation-item-line-height;
+  line-height: calc($g-item-height-landscape / 2);
 
   a {
     display: block;
@@ -176,7 +176,7 @@
   position: relative;
   height: 0;
   display: flex;
-  line-height: $g-tab-navigation-item-line-height;
+  line-height: 3vh;
   flex-direction: row;
   justify-content: flex-end;
   color: $c-editor-primary;

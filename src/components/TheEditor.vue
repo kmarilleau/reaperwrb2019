@@ -48,8 +48,12 @@
       <div class="app-editor-panel"
         v-if="this.$store.state.tabs.length > 0"
       >
-        <label>&nbsp;</label>
-        
+        <label>Columns</label>
+        <app-item-width-slider
+          v-model="columns"
+          :min="4" 
+          :max="10" 
+          :width="400" :piecewise="true" />
       </div>
 
       <!-- EDITOR COLORS -->
@@ -93,7 +97,7 @@
         <template
           v-if="item.type !== 'tab'"
         >
-          <label>Width</label>
+          <label>Item Width</label>
           <app-item-width-slider
             v-model="item.width"
             :min="item.minwidth === undefined ? 1 : item.minwidth" 
@@ -155,7 +159,7 @@ import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
 
 export default {
-  props: ['item', 'options', 'editor'],
+  props: ['item', 'columns', 'editor'],
 
   components: {
     'app-item-color-picker': BaseEditorItemColorPicker,
@@ -709,14 +713,13 @@ export default {
       const div = tmp.getElementById('reaperwrb-json');
       if (div) {
         const json = JSON.parse(div.innerHTML);
-        if (typeof json.tabs !== 'undefined') {
-          return this.fixJSON(json.tabs)
+        if (typeof(json.version) !== 'undefined') {
+          return json.tabs
         } else {
-          // FIXME handle new format
-          return json
+          return this.fixJSON(json.tabs)
         }
       } else {
-        // FIXME handle error
+        console.log("ERROR: Couldn't load HTML")
         return [];
       }
     },
@@ -772,6 +775,7 @@ export default {
             rows: tab.rows.map((row) => {
               return row.map((item) => {
 
+                console.log(item.icon)
                 if(item.icon) {
                   const icon = ['fa', item.icon.replace('fa-', '')]
                   item.icon = icon
