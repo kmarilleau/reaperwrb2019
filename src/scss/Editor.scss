@@ -20,7 +20,7 @@
 
   button.app-editor-icon-delete {
     position: absolute;
-    margin: 2.5vh !important;
+    margin: 4vh 2.5vh !important;
   }
 
   .app-editor-panel {
@@ -118,6 +118,14 @@
       }
     }
   }
+}
+
+input[type=checkbox] {
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  margin: 0.25vw;
 }
 
 .app-tab-add {

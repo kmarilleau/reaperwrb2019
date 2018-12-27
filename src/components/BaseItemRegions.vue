@@ -39,8 +39,7 @@ export default {
       this.$store.state.reaper.region = region - 1 < 0 ? regions.length - 1 : region - 1
       const id = regions[region].id
 
-      if(this.$store.state.reaper.ready)
-        wwr_req('SET/POS_STR/r' + id)
+      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + id })
     },
 
     onNextRegion(event) {
@@ -49,19 +48,17 @@ export default {
       this.$store.state.reaper.region = region + 1 == regions.length ? 0 : region + 1
       const id = regions[region].id
 
-      if(this.$store.state.reaper.ready)
-        wwr_req('SET/POS_STR/r' + id)   
+      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + id })
     },
 
     onRefresh(event) {
-      if(this.$store.state.reaper.ready)
-        wwr_req("REGION")
+      this.$store.commmit('execAction', { action: 'REGION' })
     }
   },
 
   beforeMount() {
     if(this.$store.state.reaper.ready)
-      wwr_req("REGION")
+      this.$store.commmit('execAction', { action: 'REGION' })
   },
 
 }

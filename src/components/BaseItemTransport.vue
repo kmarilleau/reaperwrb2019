@@ -32,11 +32,11 @@ export default {
   props: ['item', 'transport'],
 
   methods: {
-    onPlay() { wwr_req(1007) },
-    onStop() { wwr_req(1016) },
-    onPause() { wwr_req(1008) },
-    onRecord() { wwr_req(1013) },
-    onToggleRepeat() { wwr_req('SET/REPEAT/-1') },
+    onPlay() { this.$store.commit('execAction', { action: 1007 }) },
+    onStop() { this.$store.commit('execAction', { action: 1016 }) },
+    onPause() { this.$store.commit('execAction', { action: 1008 }) },
+    onRecord() { this.$store.commit('execAction', { action: 1013 }) },
+    onToggleRepeat() { this.$store.commit('execAction', { action: 'SET/REPEAT/-1' }) },
   },
 }
 </script>

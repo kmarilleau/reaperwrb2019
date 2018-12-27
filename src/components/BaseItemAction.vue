@@ -45,7 +45,7 @@ export default {
         this.item.state = this.item.state < 1 ? 1 : 0
       
       if(this.$store.state.reaper.ready) {
-        this.$store.commit('execAction', this.item)
+        this.$store.commit('execAction', { action: this.item.action, toggle: this.item.toggle })
       }
     },
 

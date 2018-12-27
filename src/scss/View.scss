@@ -36,10 +36,18 @@
     height: $g-item-height-landscape !important;
   }
 
+  .app-item-transport-container {
+    height: $g-item-height-landscape;
+  }
+
   .app-item-markers-info,
-  .app-item-regions-info {
+  .app-item-regions-info, {
     font-size: 1.8vw;
     max-height: $g-item-height-landscape !important;
+  }
+
+  .app-item-position-info {
+    font-size: 5vw;
   }
 
   .font-xxxl {
@@ -80,10 +88,18 @@
     height: $g-item-height-portrait !important;
   }
 
+  .app-item-transport-container {
+    height: $g-item-height-portrait;
+  }
+
   .app-item-markers-info *,
   .app-item-regions-info * {
     font-size: 1.3vh;
     max-height: $g-item-height-portrait !important;
+  }
+
+  .app-item-position-info {
+    font-size: 5vh;
   }
 
   .font-xxxl {
@@ -157,15 +173,15 @@
 .app-item-transport {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
+
 .app-item-transport-container {
+  justify-self: center;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  width: 100% !important;
-  margin: auto;
 
   a {
+    margin: auto;
     text-align: center;
   }
 
@@ -182,7 +198,9 @@
   width: 100%;
   height: 100%;
   
-  * { margin: auto; }
+  * {
+    margin: auto;
+  }
 }
 
 /* MARKERS & REGIONS */

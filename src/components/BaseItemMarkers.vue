@@ -40,8 +40,7 @@ export default {
       this.$store.state.reaper.marker = marker - 1 < 0 ? markers.length - 1 : marker - 1
       const id = markers[marker].id
 
-      if(this.$store.state.reaper.ready)
-        wwr_req('SET/POS_STR/m' + id)
+      this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
     },
 
     onNextMarker(event) {
@@ -50,19 +49,17 @@ export default {
       const marker = this.$store.state.reaper.marker
       this.$store.state.reaper.marker = marker + 1 == markers.length ? 0 : marker + 1
       const id = markers[marker].id
-      if(this.$store.state.reaper.ready)
-        wwr_req('SET/POS_STR/m' + id)   
+
+      this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
     },
 
     onRefresh(event) {
-      if(this.$store.state.reaper.ready)
-        wwr_req("MARKER")
+      this.$store.commit('execAction', { action: 'MARKER' })
     }
   },
 
   beforeMount() {
-    if(this.$store.state.reaper.ready)
-      wwr_req("MARKER")
+    this.$store.commit('execAction', { action: 'MARKER' })
   },
 }
 </script>

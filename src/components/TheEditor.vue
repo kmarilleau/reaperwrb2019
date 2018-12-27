@@ -117,11 +117,11 @@
         :class="classIconPicker()"
         >
         <template>
+          <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
+            <font-awesome-icon icon="trash" />
+          </button>
           <div class="app-item-icon-preview">
             <label>Icon</label>
-            <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
-              <font-awesome-icon icon="trash" />
-            </button>
             <div class="app-item-icon" :style="{ backgroundColor: item.bgcolor }">
               <font-awesome-icon :style="{color: item.textcolor }" icon="trash" size="4x" />
             </div>

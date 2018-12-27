@@ -182,8 +182,8 @@ const store = new Vuex.Store({
         case 'transport':
           item = {
             type: 'transport',
-            bgcolor: 'rgb(22, 165, 165)',
-            textcolor: '#f0f0f0',
+            bgcolor: '#009CE0',
+            textcolor: '#FFFFFF',
             width: 4,
             minwidth: 4,
           }
@@ -192,8 +192,8 @@ const store = new Vuex.Store({
         case 'position':
           item = {
             type: 'position',
-            bgcolor: 'rgb(22, 165, 165)',
-            textcolor: '#f0f0f0',
+            bgcolor: '#009CE0',
+            textcolor: '#FFFFFF',
             width: 4,
             minwidth: 4,
           }
@@ -202,8 +202,8 @@ const store = new Vuex.Store({
         case 'markers':
           item = {
             type: 'markers',
-            bgcolor: '#424242',
-            textcolor: '#f0f0f0',
+            bgcolor: '#A4DD00',
+            textcolor: '#FFFFFF',
             width: 4,
             minwidth: 4,
           }
@@ -212,8 +212,8 @@ const store = new Vuex.Store({
         case 'regions':
           item = {
             type: 'regions',
-            bgcolor: '#424242',
-            textcolor: '#f0f0f0',
+            bgcolor: '#AEA1FF',
+            textcolor: '#FFFFFF',
             width: 4,
             minwidth: 4,
           }
@@ -384,13 +384,21 @@ const store = new Vuex.Store({
       Vue.set(state, 'tabs', data)
     },
 
-    execAction: (state, item) => {
+    execAction: (state, data) => {
       if(state.reaper.ready) {
-        wwr_req(item.action)
+        if(data.recur)
+          wwr_req_recur(data.action, data.recur)
+        else
+          wwr_req(data.action)
         // update toggle state
-        if(item.toggle)
-          wwr_req('GET/' + item.action)
+        if(data.toggle)
+          wwr_req('GET/' + data.action)
       }
+    },
+
+    cancelAction: (state, data) => {
+      if(state.reaper.ready)
+        wwr_req_recur_cancel(data.action)
     },
 
     getCmdStates: (state) => {

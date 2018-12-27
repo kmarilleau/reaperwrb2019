@@ -1,7 +1,7 @@
 <template>
   <div class="app-text-color-picker">
     <label>Text Color</label>
-    <app-text-color-picker :value="color" @input="updateValue" />
+    <app-text-color-picker v-model="value" @input="updateValue" />
   </div>
 </template>
 
@@ -10,6 +10,12 @@ import { Grayscale } from "vue-color";
 
 export default {
   props: ['color'],
+
+  data() {
+    return {
+      value: this.color
+    }
+  },
 
   components: {
     "app-text-color-picker": Grayscale
