@@ -31,8 +31,8 @@ const store = new Vuex.Store({
           playstate: 0,
           position_seconds: 0,
           repeat: 0,
-          position_string: '0.0',
-          position_string_beats: 0
+          position_string: '',
+          position_string_beats: ''
       },
       markers: [],
       marker: 0,
