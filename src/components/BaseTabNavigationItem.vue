@@ -40,7 +40,7 @@ export default {
     onTabSwitch(event) {
       if(!this.$store.state.editor.bulk_edit) {
         this.$store.commit('clearEditHighlight')
-        this.$store.commit('switch_tab', this.index)
+        this.$store.commit('switchTab', this.index)
       }
     }
   }

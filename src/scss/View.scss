@@ -26,16 +26,6 @@
     height: $g-item-height-landscape !important;
   }
 
-  .app-item-action-icon {
-    margin: 1vw auto 0 auto;
-  }
-
-  .app-item-label {
-    span {
-      margin: 0.25vw;
-    }
-  }
-
   .app-item-markers-info,
   .app-item-regions-info {
     font-size: 1.8vw;
@@ -59,16 +49,6 @@
 
   .app-item {
     height: $g-item-height-portrait !important;
-  }
-
-  .app-item-action-icon {
-    margin: 1vh auto 0 auto;
-  }
-
-  .app-item-label {
-    span {
-      margin: 0.35vh;
-    }
   }
 
   .app-item-markers-info *,
@@ -104,14 +84,25 @@
 }
 
 .app-item-action-container {
-  display: grid;
-  grid-template-rows: 0.75fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.app-item-action-icon {
+  margin: auto;
 }
 
 .app-item-label {
-  display: grid;
+  display: block;
+  width: 100%;
+  margin: auto;
+  justify-self: flex-end;
 
-  span {
+  span { 
+    margin: auto 0.1vw;
+    display: block; 
     text-align: center;
   }
 }
