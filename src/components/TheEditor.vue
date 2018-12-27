@@ -689,7 +689,7 @@ export default {
         })
 
       const tab = {
-        label: filename.replace('.ReaperMenu', ''),
+        label: filename.replace(/\.ReaperMenu|\.txt/g, ''),
         bgcolor: '#424242',
         textcolor: '#f0f0f0',
         type: 'tab',
