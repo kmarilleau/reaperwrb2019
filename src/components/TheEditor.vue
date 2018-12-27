@@ -194,8 +194,8 @@ export default {
     },
 
     onClearIcons(event) {
-      this.$store.commit('updateItem', { key: 'icon', val: null })
-      this.$store.commit('updateItem', { key: 'toggleicon', val: null })
+      this.$store.commit('updateItem', { key: 'icon', val: false })
+      this.$store.commit('updateItem', { key: 'toggleicon', val: false })
     },
 
     onNew(event) {

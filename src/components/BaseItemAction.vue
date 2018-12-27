@@ -11,20 +11,23 @@
       <span>{{item.label}}</span>
     </div>
 
-    <div class="app-item-action-icon">
+    <div class="app-item-action-icon"
+      :style="getStyle()"
+    >
       <font-awesome-icon 
         v-if="item.icon"
         :icon="itemIcon()" size="4x"
-        :style="{ color: item.textcolor }" 
+        :style="{ color: this.item.textcolor }" 
       />
     </div>
 
     <div class="app-item-label"
       v-if="parseInt(item.labelpos) === 0"
       :style="{ color: item.textcolor }"
-      :class="labelClass"
     >
-      <span>{{item.label}}</span>
+      <span
+      :class="getClass()"
+      >{{item.label}}</span>
     </div>
   </a>
 </template>
@@ -49,18 +52,33 @@ export default {
       else 
         return this.item.toggled && this.item.toggleicon ? this.item.toggleicon : this.item.icon
     },
-  },
 
-  computed: {
-    labelClass() {
-      // FIXME needs testing
-      let classes = []
+    getClass() {
+      const classes = {}
+      if(this.item.icon === false) {
+        if(this.item.label.length === 1)
+          classes['font-xxxl'] = true
+        if(this.item.label.length < 3)
+          classes['font-xxl'] = true
+        else if (this.item.label.length < 5)
+          classes['font-xl'] = true
+        else if (this.item.label.length < 7)
+          classes['font-l'] = true
+      }
 
-      if(!this.item.icon)
-        classes.push('app-item-noicon')
-
-      // FIXME check string length
+      return classes
     },
+
+    getStyle() {
+      const style = { }
+      if(parseInt(this.item.labelpos) === 0) {
+        style.margin = '1.5vh auto -1.5vh auto'
+      } else {
+        style.margin = 'auto auto 1.5vh auto'
+      }
+      return style
+    }
+
   },
 }
 </script>

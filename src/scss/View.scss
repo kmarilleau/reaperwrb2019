@@ -90,10 +90,6 @@
   height: 100%;
 }
 
-.app-item-action-icon {
-  margin: auto;
-}
-
 .app-item-label {
   display: block;
   width: 100%;
@@ -104,6 +100,20 @@
     margin: auto 0.1vw;
     display: block; 
     text-align: center;
+  }
+
+  .font-xxxl {
+    font-size: 5vw !important;
+  }
+
+  .font-xxl {
+    font-size: 3vw;
+  }
+  .font-xl {
+    font-size: 2vw;
+  }
+  .font-l {
+    font-size: 1.5vw;
   }
 }
 
