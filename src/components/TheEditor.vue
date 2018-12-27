@@ -657,6 +657,8 @@ export default {
       event.target.value = '';
     },
 
+
+    // FIXME pre load item defaults
     parseToolbar(text, filename) {
       const items = text
         .split("\n")
@@ -767,25 +769,20 @@ export default {
               return row.map((item) => {
 
                 if(item.icon) {
-                  // Attempt to fix icon names
-                  let icon = item.icon.replace('fa-', '')
-                  let shimmed = false
+                  const icon = ['fa', item.icon.replace('fa-', '')]
+                  item.icon = icon
 
                   fa4shims.map((shim) => {
-                    if(icon === shim[0]) {
-                      if(shim[1] !== null) {
-                        shimmed = true
-                        item.icon = [shim[1], shim[2]]
-                      } else {
-                        item.icon = ['fas', shim[2]]
-                        shimmed = true
-                      }
-                    }
+                    // does the icon name match a shim
+                    if(icon[1] === shim[0]) {
+                    // does it get a new name
+                    if(shim[2] !== null)
+                      item.icon[1] = shim[2]
+                    // does it get a different prefix
+                    if(shim[1] !== null)
+                      item.icon[0] = shim[1]
+                    } 
                   })
-
-                  if(!shimmed) {
-                    item.icon = ['fas', icon]
-                  }
                 }
 
                 if(item.type === 'action') {

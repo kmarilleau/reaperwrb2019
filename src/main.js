@@ -144,6 +144,8 @@ const store = new Vuex.Store({
       state.active_tab = 0
       // FIXME
       state.editor.edit_item = { bgcolor: '', textcolor: ''}
+      state.editor.edit_items = []
+      state.editor.bulk_edit = false
     },
 
     addItem: (state, type) => {
@@ -151,6 +153,7 @@ const store = new Vuex.Store({
 
       switch(type) {
 
+        // FIXME load from defaults file
         case 'action':
           item = {
             type: 'action',
