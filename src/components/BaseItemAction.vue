@@ -37,10 +37,12 @@ export default {
   props: ['item'],
 
   methods: {
+
     onClick() {
 
-      if(this.item.toggle)
-        this.item.toggled = this.item.toggled ? false : true
+      // simulate state changes in editor
+      if(this.item.toggle && !this.$store.state.reaper.ready && this.$store.state.editor.enabled)
+        this.item.state = this.item.state < 1 ? 1 : 0
       
       if(this.$store.state.reaper.ready)
         wwr_req(this.item.action)
@@ -50,7 +52,7 @@ export default {
       if(!this.item.toggle)
         return this.item.icon
       else 
-        return this.item.toggled && this.item.toggleicon ? this.item.toggleicon : this.item.icon
+        return this.item.state > 0 && this.item.toggleicon ? this.item.toggleicon : this.item.icon
     },
 
     getClass() {

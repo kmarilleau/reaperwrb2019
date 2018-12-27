@@ -160,12 +160,12 @@ const store = new Vuex.Store({
             label: 'label',
             labelpos: 0,
             action: 0,
+            state: -1,
             textcolor: '#f0f0f0',
             bgcolor: '#424242',
             toggle: false,
-            toggled: false,
-            icon: null,
-            toggleicon: null,
+            icon: false,
+            toggleicon: false,
             desc: '',
             width: 1
           }
@@ -384,8 +384,22 @@ const store = new Vuex.Store({
       Vue.set(state, 'tabs', data)
     },
 
+    getCmdStates: (state) => {
+
+      if(state.reaper.ready) {
+        
+        state.tabs[state.active_tab].rows.forEach((row) => {
+          row.forEach((item) => {
+            if(item.type === 'action')
+              wwr_req('GET/' + item.action)
+          })
+        })
+
+      }
+    },
+
     onReply: (state, result) => {
-      console.log(result)
+      //console.log(result)
 
       if(result.match('TRANSPORT')) {
         const data = result.trim().split("\n")[0].split("\t")
@@ -402,10 +416,10 @@ const store = new Vuex.Store({
       if(result.match('MARKER_LIST')) {
         const data = result.trim().split("\n")
         state.reaper.markers = data
-          .filter(function (item) {
+          .filter((item) => {
             return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END')
           })
-          .map(function (item) {
+          .map((item) => {
             let data = item.split('\t')
             return {
               name: data[1],
@@ -419,10 +433,10 @@ const store = new Vuex.Store({
       if(result.match('REGION_LIST')) {
         const data = result.trim().split("\n")
         state.reaper.regions = data
-          .filter(function (item) {
+          .filter((item) => {
             return !item.match('REGION_LIST') && !item.match('REGION_LIST_END')
           })
-          .map(function (item) {
+          .map((item) => {
             let data = item.split('\t')
             return {
               name: data[1],
@@ -431,6 +445,33 @@ const store = new Vuex.Store({
               color: data[4]
             }
           })
+      }
+
+      if(result.match('CMDSTATE')) {
+        const data = result.trim().split("\n")
+        const actionStates = data.map((cmd) => {
+          let data = cmd.split('\t')
+          return {
+            action: data[1],
+            state: data[2]
+          }
+        })
+
+        state.tabs.forEach((tab) => {
+          tab.rows.forEach((row) => {
+            row.forEach((item) => {
+              if(item.type === 'action') {
+                actionStates.forEach((action) => {
+                  if(action.action === item.action) {
+                    console.log('action: %s - state: %s', item.label, action.state)
+                    item.state = action.state
+                  }
+                })
+              }
+            })
+          })
+        })
+
       }
     },
   }

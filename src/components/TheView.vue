@@ -21,6 +21,10 @@ import TheTab from '@/components/TheTab.vue';
 export default {
   props: ['tabs', 'tab'],
 
+  updated() {
+    this.$store.commit('getCmdStates')
+  },
+
   components: {
     'app-tab-navigation': TheTabNavigation,
     'app-tab': TheTab

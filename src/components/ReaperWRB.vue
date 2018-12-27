@@ -25,7 +25,6 @@ export default {
     'app-editor': TheEditor
   },
 
-  // FIXME display loading bar or sth.
   mounted() {
     const div = document.getElementById('reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {

@@ -19,8 +19,6 @@
     <app-item-action 
       v-if="item.type === 'action'" 
       :item="item"
-      :preview="preview"
-      :toggle="toggle"
     />
     
     <app-item-transport 
@@ -74,7 +72,7 @@ export default {
     getClass() {
       const classList = {}
       classList['app-item-' + this.item.type] = true
-      classList['app-item-action-toggled'] = this.item.toggle && this.item.toggled
+      classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0
       return classList
     }
   }

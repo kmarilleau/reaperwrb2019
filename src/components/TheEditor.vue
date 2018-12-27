@@ -48,9 +48,9 @@
       <div class="app-editor-panel"
         v-if="this.$store.state.tabs.length > 0"
       >
-        <label>Columns</label>
+        <label>Grid Columns</label>
         <app-item-width-slider
-          v-model="columns"
+          v-model="$store.state.columns"
           :min="4" 
           :max="10" 
           :width="400" :piecewise="true" />
@@ -686,9 +686,9 @@ export default {
           item.bgcolor = '#424242'
           item.textcolor = '#f0f0f0'
           item.toggle = false
-          item.toggled = false
           item.icon = false
           item.toggleicon = false
+          item.state = -1
           return item
         })
 
@@ -775,7 +775,6 @@ export default {
             rows: tab.rows.map((row) => {
               return row.map((item) => {
 
-                console.log(item.icon)
                 if(item.icon) {
                   const icon = ['fa', item.icon.replace('fa-', '')]
                   item.icon = icon
@@ -795,8 +794,8 @@ export default {
 
                 if(item.type === 'action') {
                   item.toggleicon = false
-                  item.toggled = false
                   item.labelpos = 0
+                  item.state = -1
                 }
 
                 return item

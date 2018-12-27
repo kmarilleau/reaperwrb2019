@@ -1,5 +1,5 @@
 <template>
-  <div class="app-tab-add"
+  <div class="app-tab-navigation-item app-tab-add"
     v-if="this.$store.state.editor.enabled 
     && this.$store.state.editor.menu === false
     && !this.$store.state.editor.bulk_edit"

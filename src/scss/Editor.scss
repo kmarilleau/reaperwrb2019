@@ -122,11 +122,10 @@
 
 .app-tab-add {
   text-align: center;
-  margin: 2px;
-  height: 30px;
-  line-height: calc($g-item-height-landscape / 2);
+  height: $g-nav-item-height-landscape;
 
   a {
+    margin: auto;
     display: block;
     width: 100%;
   }

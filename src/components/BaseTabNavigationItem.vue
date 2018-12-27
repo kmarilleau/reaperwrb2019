@@ -41,6 +41,7 @@ export default {
       if(!this.$store.state.editor.bulk_edit) {
         this.$store.commit('clearEditHighlight')
         this.$store.commit('switchTab', this.index)
+        this.$store.commit('getCmdStates')
       }
     }
   }
