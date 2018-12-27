@@ -137,7 +137,10 @@
         <template>
           <div class="app-item-icon-preview">
             <label>Toggle Icon</label>
-            <div class="app-item-icon" :style="{ backgroundColor: item.bgcolor }">
+            <div class="app-item-icon"
+              v-if="item.toggle" 
+              :style="{ backgroundColor: item.bgcolor }"
+            >
               <font-awesome-icon :style="{color: item.textcolor }" :icon="item.toggleicon ? item.toggleicon : item.icon" size="4x" />
             </div>
             <app-icon-picker :toggle="true" />
