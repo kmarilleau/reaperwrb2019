@@ -31,6 +31,21 @@
     font-size: 1.8vw;
     max-height: $g-item-height-landscape !important;
   }
+
+  .app-item-label {
+    .font-xxxl {
+      font-size: 5vw !important;
+    }
+    .font-xxl {
+      font-size: 3vw;
+    }
+    .font-xl {
+      font-size: 2vw;
+    }
+    .font-l {
+      font-size: 1.5vw;
+    }
+  }
 }
 
 @media (orientation: portrait) {
@@ -55,6 +70,21 @@
   .app-item-regions-info * {
     font-size: 1.3vh;
     max-height: $g-item-height-portrait !important;
+  }
+
+  .app-item-label {
+    .font-xxxl {
+      font-size: 5vh !important;
+    }
+    .font-xxl {
+      font-size: 3vh;
+    }
+    .font-xl {
+      font-size: 2vh;
+    }
+    .font-l {
+      font-size: 1.5vh;
+    }
   }
 }
 
@@ -100,20 +130,6 @@
     margin: auto 0.1vw;
     display: block; 
     text-align: center;
-  }
-
-  .font-xxxl {
-    font-size: 5vw !important;
-  }
-
-  .font-xxl {
-    font-size: 3vw;
-  }
-  .font-xl {
-    font-size: 2vw;
-  }
-  .font-l {
-    font-size: 1.5vw;
   }
 }
 
