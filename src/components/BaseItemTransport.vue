@@ -16,7 +16,7 @@
 
       <a @click.stop="onRecord()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 5 }"
-        :style="{ color: parseInt(transport.playstate) === 5 ? '#F44E3B' : this.textcolor }"
+        :style="{ color: parseInt(transport.playstate) === 5 ? '#F44E3B' : item.textcolor }"
       >
         <font-awesome-icon icon="circle" size="4x" />
       </a>
@@ -24,7 +24,7 @@
       <a 
         @click.stop="onToggleRepeat()" 
         class="app-item-transport-icon"
-        :style="{ color: parseInt(transport.repeat) > 0 ? '#4ef442' : this.textcolor }"
+        :style="{ color: parseInt(transport.repeat) > 0 ? '#4ef442' : item.textcolor }"
       >
         <font-awesome-icon icon="sync-alt" size="4x" />
       </a>

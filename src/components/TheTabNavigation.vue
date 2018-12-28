@@ -52,12 +52,14 @@ export default {
   methods: {
     onDraggableStart(event) {
       document.querySelector('.sortable-ghost').style.display = 'block'
+      this.$store.commit('clearEditItem')
     },
     onDraggableEnd(event) {
       this.$store.commit('switchTab', event.newIndex)
     },
     onDraggableAdd(event) {
       this.$store.commit('moveItem')
+      this.$store.commit('clearEditHighlight')
     }
   }
 };

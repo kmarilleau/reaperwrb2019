@@ -34,20 +34,25 @@ export default {
 
   methods: {
     onPreviousMarker(event) {
-      const markers  = this.$store.state.reaper.markers
-      markers.forEach((marker) => console.log("id %s name %s", marker.id, marker.name))
-      const marker = this.$store.state.reaper.marker
-      this.$store.state.reaper.marker = marker - 1 < 0 ? markers.length - 1 : marker - 1
-      const id = markers[marker].id
-      this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
+      if(this.$store.state.reaper.ready) {
+        const markers  = this.$store.state.reaper.markers
+        markers.forEach((marker) => console.log(marker.id, marker.name))
+        markers.forEach((marker) => console.log("id %s name %s", marker.id, marker.name))
+        const marker = this.$store.state.reaper.marker
+        this.$store.state.reaper.marker = marker - 1 < 0 ? markers.length - 1 : marker - 1
+        const id = markers[marker].id
+        this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
+      }
     },
 
     onNextMarker(event) {
-      const markers  = this.$store.state.reaper.markers
-      const marker = this.$store.state.reaper.marker
-      this.$store.state.reaper.marker = marker + 1 == markers.length ? 0 : marker + 1
-      const id = markers[marker].id
-      this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
+      if(this.$store.state.reaper.ready) {
+        const markers  = this.$store.state.reaper.markers
+        const marker = this.$store.state.reaper.marker
+        this.$store.state.reaper.marker = marker + 1 == markers.length ? 0 : marker + 1
+        const id = markers[marker].id
+        this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
+      }
     },
 
     onRefresh(event) {

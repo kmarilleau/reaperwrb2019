@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
+import defaults from '@/defaults'
 
 library.add(fas, far, fab)
 
@@ -21,6 +22,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
 Vue.use(Vuex)
+
+console.log(defaults)
 
 const store = new Vuex.Store({
   state: {
@@ -63,23 +66,26 @@ const store = new Vuex.Store({
   mutations: {
 
     clearEditHighlight: (state) => {
-      let el = document.getElementsByClassName('app-highlight-edit')
+      let el = document.querySelectorAll('.app-highlight-edit')
       for(var i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
       }
     },
 
+    clearDropHighlight: (state) => {
+      const el = document.querySelectorAll('.app-item-drop')
+      if(el.length > 0) {
+        for(let i = 0; i < el.length; i++)
+          el[i].classList.remove('app-item-drop')
+      }
+    },
+
+    clearEditItem: (state) => state.editor.edit_item = false,
+
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
     new: (state) => {
-      state.tabs.push({
-        type: 'tab',
-        label: 'new',
-        bgcolor: '#666666',
-        textcolor: '#FFFFFF',
-        rows: [[]]
-      })
-
+      state.tabs.push(defaults.tab)
       state.editor.edit_item = state.tabs[0]
     },
 
@@ -148,77 +154,7 @@ const store = new Vuex.Store({
     },
 
     addItem: (state, type) => {
-      let item = {}
-
-      switch(type) {
-
-        // FIXME load from defaults file
-        case 'action':
-          item = {
-            type: 'action',
-            label: 'label',
-            labelpos: 0,
-            action: 0,
-            state: -1,
-            textcolor: '#f0f0f0',
-            bgcolor: '#424242',
-            toggle: false,
-            icon: false,
-            toggleicon: false,
-            desc: '',
-            width: 1
-          }
-          break
-
-        case 'spacer':
-          item = {
-            type: 'spacer',
-            bgcolor: '#424242',
-            width: 1,
-          }
-          break
-
-        case 'transport':
-          item = {
-            type: 'transport',
-            bgcolor: '#009CE0',
-            textcolor: '#FFFFFF',
-            width: 4,
-            minwidth: 4,
-          }
-          break
-
-        case 'position':
-          item = {
-            type: 'position',
-            bgcolor: '#009CE0',
-            textcolor: '#FFFFFF',
-            width: 4,
-            minwidth: 4,
-          }
-          break
-
-        case 'markers':
-          item = {
-            type: 'markers',
-            bgcolor: '#A4DD00',
-            textcolor: '#FFFFFF',
-            width: 4,
-            minwidth: 4,
-          }
-          break
-
-        case 'regions':
-          item = {
-            type: 'regions',
-            bgcolor: '#AEA1FF',
-            textcolor: '#FFFFFF',
-            width: 4,
-            minwidth: 4,
-          }
-          break
-      }
-      
+      const item = defaults[type]
       const row = state.tabs[state.active_tab].rows[state.active_row]
       row.push(item)
       state.editor.edit_item = row[row.length - 1 ]
@@ -269,7 +205,7 @@ const store = new Vuex.Store({
       state.editor.delete_item = item
       state.editor.delete_item.el.classList.add('app-highlight-delete')
       if(item.data.type === 'tab') {
-        let el = document.getElementsByClassName('app-item')
+        let el = document.querySelectorAll('.app-item')
         for(var i = 0; i < el.length; i++) {
           el[i].classList.add('app-highlight-delete')
         }
@@ -277,9 +213,8 @@ const store = new Vuex.Store({
     },
 
     cancelDelete: (state) => {
-      // FIXME clean-up
       state.editor.delete_item.el.classList.remove('app-highlight-delete')
-      let el = document.getElementsByClassName('app-item')
+      let el = document.querySelectorAll('.app-item')
       for(var i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
       }
@@ -294,7 +229,7 @@ const store = new Vuex.Store({
       switch(state.editor.delete_item.data.type) {
         
         case 'tab':
-          let el = document.getElementsByClassName('app-item')
+          let el = document.querySelectorAll('.app-item')
           for(var i = 0; i < el.length; i++) {
             el[i].classList.remove('app-highlight-delete')
           }
@@ -357,14 +292,7 @@ const store = new Vuex.Store({
     },
 
     addTab: (state, tab) => {
-      state.tabs.push({
-        type: 'tab',
-        label: 'new',
-        bgcolor: '#666666',
-        textcolor: '#FFFFFF',
-        rows: [[]]  
-      })
-
+      state.tabs.push(defaults.tab)
       state.active_tab = state.tabs.length - 1
       state.editor.edit_item = state.tabs[state.active_tab]
     },
@@ -510,10 +438,9 @@ const app = new Vue({
       console.log('ReaperWRB ERROR: REAPER API NOT READY')
     }
 
-    let json = document.getElementById('reaperwrb-json')
-    if(typeof(div) !== 'undefined') {
-      // FIXME load stored data
-      let data = JSON.parse(document.getElementById('reaperwrb-json').innerHTML)
+    let json = document.querySelector('#reaperwrb-json')
+    if(json !== null) {
+      let data = JSON.parse(document.querySelector('#reaperwrb-json').innerHTML)
       this.$store.commit('import', data.tabs)
       this.$store.commit('enable_editor', false)
     }

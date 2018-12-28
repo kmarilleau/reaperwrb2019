@@ -6,7 +6,6 @@
     <div class="app-item-label"
       v-if="parseInt(item.labelpos) === 1"
       :style="{ color: item.textcolor }"
-      :class="labelClass"
     >
       <span>{{item.label}}</span>
     </div>

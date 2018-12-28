@@ -62,35 +62,28 @@ export default {
 
     onDraggableStart() {
       this.$store.commit('clearEditHighlight')
+      this.$store.commit('clearEditItem')
     },
 
     onDraggableMove(event, originalEvent) {
       // hacky way to decide if an item is to be moved to another tab
-      if(event.related.classList.contains('app-tab-navigation-item')) {
+      if(event.related.classList.contains('app-tab-navigation-item') && typeof(event.related.attributes.tab) !== undefined) {
 
         this.$store.commit('setItemMoveCopy', { 
           row: parseInt(event.dragged.attributes.row.value),
-          index: parseInt(event.dragged.attributes.index.value), 
+          index: parseInt(event.dragged.attributes.index.value),
+          // FIXME 
           target_tab: parseInt(event.related.attributes.tab.value)
         })
 
-        // FIXME use query selector
-        const el = document.querySelectorAll('app-item-drop')
-        if(el.length > 0) {
-          for(let i = 0; i < el.length; i++)
-            el[i].classList.remove('app-item-drop')
-        }
+        this.$store.commit('clearDropHighlight')
 
         if(parseInt(event.related.attributes.tab.value) !== this.$store.state.active_tab) {
           event.related.classList.add('app-item-drop')
         }
 
       } else {
-        const el = document.querySelectorAll('app-item-drop')
-        if(el.length > 0) {
-          for(let i = 0; i < el.length; i++)
-            el[i].classList.remove('app-item-drop')
-        }
+        this.$store.commit('clearDropHighlight')
         this.$store.commit('setItemMoveCopy', false)
         if(originalEvent.target.classList.contains('app-tab-navigation'))
           return false
