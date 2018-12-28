@@ -23,11 +23,9 @@ Vue.config.productionTip = false
 
 Vue.use(Vuex)
 
-console.log(defaults)
-
 const store = new Vuex.Store({
   state: {
-    version: '2018.1',
+    version: '2019.1',
     reaper: {
       ready: false,
       transport: {
@@ -358,11 +356,12 @@ const store = new Vuex.Store({
         }
       }
 
+      // FIXME?
       if(result.match('MARKER_LIST')) {
         const data = result.trim().split("\n")
         state.reaper.markers = data
           .filter((item) => {
-            return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END')
+            return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END') && !item.match('CMDSTATE')
           })
           .map((item) => {
             let data = item.split('\t')
@@ -373,13 +372,15 @@ const store = new Vuex.Store({
               color: data[4]
             }
           })
+
       }
 
+      // FIXME?
       if(result.match('REGION_LIST')) {
         const data = result.trim().split("\n")
         state.reaper.regions = data
           .filter((item) => {
-            return !item.match('REGION_LIST') && !item.match('REGION_LIST_END')
+            return !item.match('REGION_LIST') && !item.match('REGION_LIST_END') && !item.match('CMDSTATE')
           })
           .map((item) => {
             let data = item.split('\t')

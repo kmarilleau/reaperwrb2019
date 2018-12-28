@@ -8,8 +8,8 @@
       </a>
       <div class="app-item-regions-info">
         <template v-if="this.$store.state.reaper.regions.length > 0">
-          <span :style="{ color: item.textcolor }">Region: {{ this.$store.state.reaper.regions[this.$store.state.reaper.region].id }}</span>
-          <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.regions[this.$store.state.reaper.region].name }}</span>
+          <span :style="{ color: item.textcolor }">Region: {{ id }}</span>
+          <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
       </div>
       <a class="app-item-regions-icon" 
@@ -31,33 +31,40 @@
 export default {
   props: ['item', 'regions'],
 
+  data() {
+    return {
+      id: 0,
+      name: '',
+    }
+  },
+
   methods: {
     onPreviousRegion(event) {
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
       this.$store.state.reaper.region = region - 1 < 0 ? regions.length - 1 : region - 1
-      const id = regions[region].id
-
-      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + id })
+      this.id = regions[region].id
+      this.name = regions[region].name
+      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + this.id })
     },
 
     onNextRegion(event) {
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
-      this.$store.state.reaper.region = region + 1 == regions.length ? 0 : region + 1
-      const id = regions[region].id
-
-      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + id })
+      this.$store.state.reaper.region = (region + 1 === regions.length) ? 0 : region + 1
+      this.id = regions[region].id
+      this.name = regions[region].name 
+      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + this.id })
     },
 
     onRefresh(event) {
-      this.$store.commmit('execAction', { action: 'REGION' })
+      this.$store.commit('execAction', { action: 'REGION' })
     }
   },
 
   beforeMount() {
     if(this.$store.state.reaper.ready)
-      this.$store.commmit('execAction', { action: 'REGION' })
+      this.$store.commit('execAction', { action: 'REGION' })
   },
 
 }

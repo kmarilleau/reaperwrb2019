@@ -9,8 +9,8 @@
       </a>
       <div class="app-item-markers-info">
         <template v-if="this.$store.state.reaper.markers.length > 0">
-          <span :style="{ color: item.textcolor }">Marker: {{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].id }}</span>
-          <span :style="{ color: item.textcolor }">{{ this.$store.state.reaper.markers[this.$store.state.reaper.marker].name }}</span>
+          <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
+          <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
       </div>
       <a class="app-item-markers-icon"
@@ -32,16 +32,22 @@
 export default {
   props: ['item', 'markers'],
 
+  data() {
+    return {
+      id: 0,
+      name: '',
+    }
+  },
+
   methods: {
     onPreviousMarker(event) {
       if(this.$store.state.reaper.ready) {
         const markers  = this.$store.state.reaper.markers
-        markers.forEach((marker) => console.log(marker.id, marker.name))
-        markers.forEach((marker) => console.log("id %s name %s", marker.id, marker.name))
         const marker = this.$store.state.reaper.marker
         this.$store.state.reaper.marker = marker - 1 < 0 ? markers.length - 1 : marker - 1
-        const id = markers[marker].id
-        this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
+        this.id = markers[marker].id
+        this.name = markers[marker].name
+        this.$store.commit('execAction', { action: 'SET/POS_STR/m' + this.id })
       }
     },
 
@@ -49,15 +55,16 @@ export default {
       if(this.$store.state.reaper.ready) {
         const markers  = this.$store.state.reaper.markers
         const marker = this.$store.state.reaper.marker
-        this.$store.state.reaper.marker = marker + 1 == markers.length ? 0 : marker + 1
-        const id = markers[marker].id
-        this.$store.commit('execAction', { action: 'SET/POS_STR/m' + id })
+        this.$store.state.reaper.marker = (marker + 1 === markers.length) ? 0 : marker + 1
+        this.id = markers[marker].id
+        this.name = markers[marker].name
+        this.$store.commit('execAction', { action: 'SET/POS_STR/m' + this.id })
       }
     },
 
     onRefresh(event) {
       this.$store.commit('execAction', { action: 'MARKER' })
-    }
+    },
   },
 
   beforeMount() {
