@@ -34,8 +34,9 @@ export default {
 
   data() {
     return {
-      id: 0,
+      id: '',
       name: '',
+      current: 0,
     }
   },
 
@@ -43,10 +44,9 @@ export default {
     onPreviousMarker(event) {
       if(this.$store.state.reaper.ready) {
         const markers  = this.$store.state.reaper.markers
-        const marker = this.$store.state.reaper.marker
-        this.$store.state.reaper.marker = marker - 1 < 0 ? markers.length - 1 : marker - 1
-        this.id = markers[marker].id
-        this.name = markers[marker].name
+        this.current = this.current - 1 < 0 ? markers.length - 1 : this.current - 1
+        this.id = markers[this.current].id
+        this.name = markers[this.current].name
         this.$store.commit('execAction', { action: 'SET/POS_STR/m' + this.id })
       }
     },
@@ -54,10 +54,9 @@ export default {
     onNextMarker(event) {
       if(this.$store.state.reaper.ready) {
         const markers  = this.$store.state.reaper.markers
-        const marker = this.$store.state.reaper.marker
-        this.$store.state.reaper.marker = (marker + 1 === markers.length) ? 0 : marker + 1
-        this.id = markers[marker].id
-        this.name = markers[marker].name
+        this.current = (this.current + 1 === markers.length) ? 0 : this.current + 1
+        this.id = markers[this.current].id
+        this.name = markers[this.current].name
         this.$store.commit('execAction', { action: 'SET/POS_STR/m' + this.id })
       }
     },

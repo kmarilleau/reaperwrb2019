@@ -37,7 +37,6 @@ const store = new Vuex.Store({
         position_string_beats: ''
       },
       markers: [],
-      marker: 0,
       regions: [],
       region: 0,
     }, 
