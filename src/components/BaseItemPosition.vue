@@ -1,19 +1,30 @@
 <template>
-  <div class="app-item-position-info" 
+  <div class="app-item-position" 
     :style="{ color: item.textcolor }"
     @click="onClick()"  
   >
-    <span>{{transport.position_string}}</span>
+    <span class="app-item-position-mode">{{getMode()}}</span>
+    <span class="app-item-position-info">{{getPosition()}}</span>
   </div>
 </template>
 
 <script>
+
+const modes = ['AUTO', 'BEAT', 'SEC']
+
 export default {
   props: ['item', 'transport'],
 
+  data() {
+    return {
+      mode: 0,
+    }
+  },
+
   beforeMount() {
     // FIXME only do this once!
-    this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
+    if(!this.$store.state.reaper.transport.online)
+      this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
   },
 
   beforeDestroy() {
@@ -21,9 +32,37 @@ export default {
   },
 
   methods: {
+
     onClick(event) {
       console.log("POSITION CYCLE MODE")
+      this.mode = (this.mode+1) % 3
+    },
+
+    getMode() {
+      return modes[this.mode]
+    },
+
+    getPosition() {
+      if(!this.$store.state.reaper.ready) {
+        return '0.0.00'
+      } else {
+        switch(modes[this.mode]) {
+          case 'AUTO':
+            return this.$store.state.reaper.transport.position_string
+            break
+          case 'BEAT':
+            return this.$store.state.reaper.transport.position_string_beats
+            break
+          case 'SEC':
+            return this.$store.state.reaper.transport.position_seconds
+            break
+          default:
+            return this.$store.state.reaper.transport.position_string
+            break
+        }
+      }
     }
+
   }
 }
 </script>

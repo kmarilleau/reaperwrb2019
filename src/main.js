@@ -421,9 +421,10 @@ const store = new Vuex.Store({
         const data = result.trim().split("\n")[0].split("\t")
         data.splice(0,1)
         state.reaper.transport = {
+          online: true,
           playstate: parseInt(data[0]), // 
-          position_seconds: data[1],
           repeat: parseInt(data[2]),
+          position_seconds: parseFloat(data[1]).toFixed(2),
           position_string: data[3],
           position_string_beats: data[4]
         }
