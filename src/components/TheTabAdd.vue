@@ -13,6 +13,7 @@
 export default {
   methods: {
     onTabAdd(event) {
+      this.$store.commit('clearEditHighlight')
       this.$store.commit('addTab')
     }
   }

@@ -28,11 +28,12 @@ const store = new Vuex.Store({
     reaper: {
       ready: false,
       transport: {
-          playstate: 0,
-          position_seconds: 0,
-          repeat: 0,
-          position_string: '',
-          position_string_beats: ''
+        online: false,
+        playstate: 0,
+        position_seconds: 0,
+        repeat: 0,
+        position_string: '',
+        position_string_beats: ''
       },
       markers: [],
       marker: 0,
@@ -74,10 +75,12 @@ const store = new Vuex.Store({
       state.tabs.push({
         type: 'tab',
         label: 'new',
-        bgcolor: '#525252',
-        textcolor: '#f0f0f0',
+        bgcolor: '#666666',
+        textcolor: '#FFFFFF',
         rows: [[]]
       })
+
+      state.editor.edit_item = state.tabs[0]
     },
 
     save: (state) => {
@@ -103,10 +106,6 @@ const store = new Vuex.Store({
       if(state.editor.delete_dialog)
         store.commit('cancel_delete')
 
-      let el = document.getElementsByClassName('app-highlight-edit')
-      for(var i = 0; i < el.length; i++) {
-        el[i].classList.remove('app-highlight-edit')
-      }
       state.active_tab = tab
     },
 
@@ -222,7 +221,7 @@ const store = new Vuex.Store({
       
       const row = state.tabs[state.active_tab].rows[state.active_row]
       row.push(item)
-      state.editor.edit_item = row[row.length - 1  ]
+      state.editor.edit_item = row[row.length - 1 ]
       state.editor.menu = false
     },
 
@@ -361,8 +360,8 @@ const store = new Vuex.Store({
       state.tabs.push({
         type: 'tab',
         label: 'new',
-        bgcolor: '#424242',
-        textcolor: '#f0f0f0f',
+        bgcolor: '#666666',
+        textcolor: '#FFFFFF',
         rows: [[]]  
       })
 

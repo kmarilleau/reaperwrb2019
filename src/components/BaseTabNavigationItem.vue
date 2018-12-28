@@ -1,7 +1,7 @@
 <template>
   <div class="app-tab-navigation-item"
     :style="{ backgroundColor: tab.bgcolor }"
-    :class="{ 'app-tab-navigation-item-active': this.index == this.$store.state.active_tab }"
+    :class="getClass()"
     @click.stop="onTabSwitch"
     :tab="index"
   >
@@ -37,6 +37,18 @@ export default {
   },
 
   methods: {
+    getClass() {
+      const classes = { 'app-tab-navigation-item-active': this.index == this.$store.state.active_tab }
+
+      if(this.$store.state.editor.enabled
+        && this.$store.state.editor.edit_item.type === 'tab'
+        && this.$store.state.active_tab === this.index
+      ) {
+        classes['app-highlight-edit'] = true
+      }
+      return classes
+    },
+
     onTabSwitch(event) {
       if(!this.$store.state.editor.bulk_edit) {
         this.$store.commit('clearEditHighlight')
