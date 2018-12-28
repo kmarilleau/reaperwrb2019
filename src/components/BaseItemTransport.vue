@@ -2,6 +2,10 @@
   <div :style="{ color: item.textcolor }">
     <div class="app-item-transport-container">
 
+      <a @click.stop="onStop()" class="app-item-transport-icon">
+        <font-awesome-icon icon="stop" size="4x" />
+      </a>
+
       <a @click.stop="onPlay()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 1 }"
       >
@@ -27,10 +31,6 @@
         :style="{ color: parseInt(transport.repeat) > 0 ? '#4ef442' : item.textcolor }"
       >
         <font-awesome-icon icon="sync-alt" size="4x" />
-      </a>
-
-      <a @click.stop="onStop()" class="app-item-transport-icon">
-        <font-awesome-icon icon="stop" size="4x" />
       </a>
 
     </div>
