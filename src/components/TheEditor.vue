@@ -119,7 +119,7 @@
 
       <!-- EDITOR ICON -->
       <div class="app-editor-panel"
-        :class="classIconPicker()"
+        :class="{ 'hidden' : item.type !== 'action' }"
         >
         <template>
           <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
@@ -137,7 +137,7 @@
       </div>
 
       <div class="app-editor-panel"
-        :class="classToggleIconPicker()"
+        :class="{ 'hidden' : item.toggle !== true }"
       >
         <template>
           <div class="app-item-icon-preview">
@@ -199,15 +199,6 @@ export default {
   },
 
   methods: {
-    classIconPicker(event) {
-      if (typeof(this.item.icon) === 'undefined' )
-        return 'hidden'
-    },
-
-    classToggleIconPicker(event) {
-      if (this.item.toggle !== true)
-        return 'hidden'
-    },
 
     onClearIcons(event) {
       this.$store.commit('updateItem', { key: 'icon', val: false })
