@@ -13,6 +13,7 @@ const defaults = {
     toggleicon: false,
     desc: '',
     width: 1,
+    minwidth: 1,
   },
 
   spacer: {

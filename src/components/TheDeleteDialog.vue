@@ -27,6 +27,10 @@
 export default {
   methods: {
     showKeepItems() {
+
+      if(this.$store.state.editor.bulk_edit)
+        return false
+
       const active_tab = this.$store.state.active_tab
       const row = this.$store.state.editor.delete_item.row
       
@@ -41,10 +45,16 @@ export default {
       }
     },
     onDelete(keepItems) {
-      this.$store.commit('delete', keepItems)
+      if(this.$store.state.editor.bulk_edit)
+        this.$store.commit('bulkDelete')
+      else
+        this.$store.commit('delete', keepItems)
     },
     onCancel(event) {
-      this.$store.commit('cancelDelete')
+      if(this.$store.state.editor.bulk_edit)
+        this.$store.commit('cancelBulkDelete')
+      else
+        this.$store.commit('cancelDelete')
     }
   }
 }

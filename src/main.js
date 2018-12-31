@@ -64,7 +64,7 @@ const store = new Vuex.Store({
 
     clearEditHighlight: (state) => {
       let el = document.querySelectorAll('.app-highlight-edit')
-      for(var i = 0; i < el.length; i++) {
+      for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
       }
     },
@@ -201,21 +201,47 @@ const store = new Vuex.Store({
       state.editor.delete_dialog = true
       state.editor.delete_item = item
       state.editor.delete_item.el.classList.add('app-highlight-delete')
+
       if(item.data.type === 'tab') {
         let el = document.querySelectorAll('.app-item')
-        for(var i = 0; i < el.length; i++) {
+        for(let i = 0; i < el.length; i++) {
           el[i].classList.add('app-highlight-delete')
         }
       }
     },
 
+    showBulkDeleteDialog: (state) => {
+      state.editor.delete_dialog = true
+      state.editor.edit_items.forEach(item => item.el.classList.add('app-highlight-delete'))
+    },
+
     cancelDelete: (state) => {
       state.editor.delete_item.el.classList.remove('app-highlight-delete')
       let el = document.querySelectorAll('.app-item')
-      for(var i = 0; i < el.length; i++) {
+      for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
       }
       state.editor.delete_item = false,
+      state.editor.delete_dialog = false
+    },
+
+    cancelBulkDelete: (state) => {
+      state.editor.edit_items.forEach(item => item.el.classList.remove('app-highlight-delete'))
+      state.editor.delete_dialog = false
+    },
+
+    bulkDelete: (state) => {
+      state.editor.edit_items.forEach(item => item.el.classList.remove('app-highlight-delete'))
+
+      state.editor.edit_items.forEach(item => {
+        state.tabs[state.active_tab].rows[item.row].splice(item.index, 1)
+      })
+
+      const el = document.querySelectorAll('.app-editor-checkbox')
+      for(let i = 0; i < el.length; i++) {
+        el[i].checked = false
+      }
+      state.editor.edit_items = []
       state.editor.delete_dialog = false
     },
 
@@ -227,7 +253,7 @@ const store = new Vuex.Store({
         
         case 'tab':
           let el = document.querySelectorAll('.app-item')
-          for(var i = 0; i < el.length; i++) {
+          for(let i = 0; i < el.length; i++) {
             el[i].classList.remove('app-highlight-delete')
           }
 

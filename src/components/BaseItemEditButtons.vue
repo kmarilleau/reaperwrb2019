@@ -18,7 +18,7 @@
       </template>
 
       <template v-if="this.$store.state.editor.bulk_edit">
-        <input @change="onItemBulkEdit($event)" class="app-editor-checkbox" type="checkbox" />
+        <input @change="onItemBulkEdit($event)" class="app-editor-checkbox" type="checkbox">
       </template>
     </div>
 </template>
@@ -44,7 +44,8 @@ export default {
       let commit = {
         item: this.item,
         row: this.row,
-        index: this.index
+        index: this.index,
+        el: this.$parent.$el
       }
 
       this.$store.commit('clearEditHighlight')
