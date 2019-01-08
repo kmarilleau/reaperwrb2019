@@ -82,7 +82,8 @@ const store = new Vuex.Store({
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
     new: (state) => {
-      state.tabs.push(defaults.tab)
+      const newTab = JSON.parse(JSON.stringify(defaults.tab))
+      state.tabs.push(newTab)
       state.editor.edit_item = state.tabs[0]
     },
 
@@ -136,7 +137,6 @@ const store = new Vuex.Store({
       state.editor.menu = true
     },
 
-    // FIXME
     setColumns: (state, columns) => {
       state.columns.desktop = columns
     },
@@ -144,17 +144,16 @@ const store = new Vuex.Store({
     clear: state => {
       state.tabs = []
       state.active_tab = 0
-      // FIXME
-      state.editor.edit_item = { bgcolor: '', textcolor: ''}
+      state.editor.edit_item = false
       state.editor.edit_items = []
       state.editor.bulk_edit = false
     },
 
     addItem: (state, type) => {
-      const item = defaults[type]
+      const item = JSON.parse(JSON.stringify(defaults[type]))
       const row = state.tabs[state.active_tab].rows[state.active_row]
       row.push(item)
-      state.editor.edit_item = row[row.length - 1 ]
+      state.editor.edit_item = row[row.length - 1]
       state.editor.menu = false
     },
 
@@ -315,7 +314,8 @@ const store = new Vuex.Store({
     },
 
     addTab: (state, tab) => {
-      state.tabs.push(defaults.tab)
+      const newTab = JSON.parse(JSON.stringify(defaults.tab))
+      state.tabs.push(newTab)
       state.active_tab = state.tabs.length - 1
       state.editor.edit_item = state.tabs[state.active_tab]
     },

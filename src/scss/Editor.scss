@@ -74,9 +74,11 @@
       cursor: pointer;
       background: $bg-editor-alt;
       border-radius: $g-border-radius;
+      height: $g-nav-item-height-landscape;
       padding: 1vh;
-      text-align: center;
       opacity: 0.5;
+      display: flex;
+      * { margin: auto; }
     }
 
     a:hover {

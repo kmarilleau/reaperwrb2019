@@ -59,11 +59,11 @@
       <!-- EDITOR COLORS -->
       <div class="app-editor-panel">
         <app-text-color-picker 
-          v-if="typeof(item.type) !== 'undefined' || this.$store.state.editor.bulk_edit" 
+          v-if="typeof(item.textcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
           :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 
         />
         <app-item-color-picker 
-          v-if="typeof(item.type) !== 'undefined' || this.$store.state.editor.bulk_edit" 
+          v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
           :color="typeof(item.bgcolor) !== 'undefined' ? item.bgcolor : '#ffff00'" 
         />
         <template v-if="this.$store.state.editor.bulk_edit">
@@ -326,6 +326,7 @@ export default {
     },
 
     onClearEditor(event) {
+      // FIXME not working
       this.$store.commit('clear')
     },
 
