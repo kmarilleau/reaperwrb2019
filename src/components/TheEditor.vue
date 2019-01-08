@@ -246,10 +246,10 @@ export default {
         if (type === 'txt') {
           tab = this.parseToolbar(text, files[i].name)
           // FIXME handle failed files
-          if (tab.rows.length > 0)
+          if (tab)
             tabs.push(tab)
           else 
-            failedFiles.push(e.target.files[i])
+            filesFailed.push(files[i].name)
 
           this.$store.commit('switchTab', this.$store.state.tabs.length)
           
@@ -260,6 +260,8 @@ export default {
       }
       this.$store.commit('import', tabs)
       event.target.value = ''
+
+      // FIXME display failed files?
     },
 
 
@@ -271,7 +273,7 @@ export default {
         .filter(line => !line.match('-1'))
         .map(line => {
           const r = line.split('=')[1].split(/ (.+)/)
-          let item = defaults.action
+          let item = JSON.parse(JSON.stringify(defaults.action))
           item.action = r[0]
           item.desc = r[1].replace(/ /g, ' ')
           item.label =
@@ -281,14 +283,21 @@ export default {
           return item
         })
 
-      const tab = defaults.tab
+      const tab = JSON.parse(JSON.stringify(defaults.tab))
       tab.label = filename.replace(/\.ReaperMenu|\.txt/g, '')
 
-      while (items.length) {
-        tab.rows.push(items.splice(0, 6))
+      console.log(items.length)
+
+      if(items.length > 0) {
+        while (items.length) {
+          tab.rows.push(items.splice(0, 6))
+        }
+        return tab
+      } else {
+        console.log("REAPERWRB ERROR: File \"%s\" didn't contain any items!", filename)
+        return false
       }
 
-      return tab
     },
 
     parseHTML(text) {
