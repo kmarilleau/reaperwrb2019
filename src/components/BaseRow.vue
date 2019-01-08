@@ -3,9 +3,10 @@
     <draggable 
       v-model="items"
       :options="{ 
-        draggable: this.$store.state.editor.enabled ? '.app-item' : false, 
+        draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-item' : false, 
         group: 'items',
-        sort: this.$store.state.editor.enabled 
+        sort: this.$store.state.editor.enabled,
+        disabled: disableSort()
       }"
       :class="'app-row'"
       :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.columns + ', 1fr)' }"
@@ -55,6 +56,17 @@ export default {
   },
 
   methods: {
+
+    disableSort() {
+      if(this.$store.state.editor.enabled) {
+        if(this.$store.state.editor.bulk_edit)
+          return true
+        else
+          return false
+      } else {
+        return true
+      }
+    },
 
     classRow() {
       return this.$store.state.editor.enabled ? 'app-editor-grid' : 'app-view-grid'
