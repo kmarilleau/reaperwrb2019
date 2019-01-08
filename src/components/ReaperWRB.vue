@@ -11,6 +11,7 @@
       :item="this.$store.state.editor.edit_item"
       :columns="this.$store.state.columns"
       :editor="this.$store.state.editor"
+      :reaper="this.$store.state.reaper"
     />
   </div>
 </template>

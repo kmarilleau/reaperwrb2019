@@ -42,6 +42,7 @@ const store = new Vuex.Store({
     }, 
     editor: {
       enabled: true,
+      exec_actions: false,
       menu: false,
       delete_dialog: false,
       bulk_edit: false,
@@ -335,6 +336,10 @@ const store = new Vuex.Store({
     },
 
     execAction: (state, data) => {
+
+      if(state.editor.enabled && !state.editor.exec_actions)
+        return
+
       if(state.reaper.ready) {
         if(data.recur)
           wwr_req_recur(data.action, data.recur)
@@ -353,8 +358,8 @@ const store = new Vuex.Store({
 
     getCmdStates: (state) => {
 
-      if(state.reaper.ready) {
-        
+      if(state.reaper.ready && state.tabs[state.active_tab] !== undefined) {
+        console.log("REAPERWRB INFO: FETCHING COMMAND STATES!")
         state.tabs[state.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action')

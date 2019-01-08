@@ -6,12 +6,16 @@
 
         <label>ReaperWRB {{ this.$store.state.version }} 
           <span class="app-reaper-status">
-            <template v-if="this.$store.state.reaper.ready === false">
+            <template v-if="!reaper.ready">
               <font-awesome-icon class="app-reaper-not-ready" icon="exclamation-circle"/> Reaper Not Ready
             </template>
-            <template v-if="this.$store.state.reaper.ready === true">
+            <template v-if="reaper.ready">
               <font-awesome-icon class="app-reaper-ready" icon="check-circle" /> Reaper Ready
             </template>
+            <label v-if="reaper.ready">
+              <input type="checkbox" v-model="execActions">
+              Execute Actions
+            </label>
          </span>
         </label>
 
@@ -170,7 +174,7 @@ import fa4shims from '@/fa4shims'
 import exampleJSON from '@/example'
 
 export default {
-  props: ['item', 'columns', 'editor'],
+  props: ['item', 'columns', 'editor', 'reaper'],
 
   components: {
     'app-item-color-picker': BaseEditorItemColorPicker,
@@ -183,6 +187,16 @@ export default {
   },
 
   computed: {
+
+    execActions: {
+      get() {
+        return this.editor.exec_actions
+      },
+      set(value) {
+        this.editor.exec_actions = value
+        this.$store.commit('getCmdStates')
+      }
+    },
     
     showOptionsPanel() {
       if(this.$store.state.tabs.length > 0 && ( 
@@ -220,7 +234,8 @@ export default {
 
     onLoadExample(event) {
       // FIXME replace with new example
-      this.$store.commit('import', this.fixJSON(exampleJSON))
+      const json = JSON.parse(JSON.stringify(exampleJSON))
+      this.$store.commit('import', this.fixJSON(json))
     },
 
     onTriggerLoadToolbar(event) {
@@ -260,7 +275,6 @@ export default {
       }
       this.$store.commit('import', tabs)
       event.target.value = ''
-
       // FIXME display failed files?
     },
 
@@ -357,7 +371,6 @@ export default {
     },
 
     fixJSON(tabs) {
-      // fontawesome 4 shims
       
       return tabs.map((tab) => {
           // FIXME use defaults
@@ -373,6 +386,7 @@ export default {
                   const icon = ['fa', item.icon.replace('fa-', '')]
                   item.icon = icon
 
+                  // fontawesome 4 shims
                   fa4shims.map((shim) => {
                     // does the icon name match a shim
                     if(icon[1] === shim[0]) {

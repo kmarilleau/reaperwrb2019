@@ -42,10 +42,8 @@ export default {
       // simulate state changes in editor
       if(this.item.toggle && !this.$store.state.reaper.ready && this.$store.state.editor.enabled)
         this.item.state = this.item.state < 1 ? 1 : 0
-      
-      if(this.$store.state.reaper.ready) {
-        this.$store.commit('execAction', { action: this.item.action, toggle: this.item.toggle })
-      }
+
+      this.$store.commit('execAction', { action: this.item.action, toggle: this.item.toggle })
     },
 
     itemIcon() {
