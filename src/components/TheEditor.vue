@@ -12,7 +12,7 @@
             <template v-if="reaper.ready">
               <font-awesome-icon class="app-reaper-ready" icon="check-circle" /> Reaper Ready
             </template>
-            <label v-if="reaper.ready">
+            <label>
               <input type="checkbox" v-model="execActions">
               Execute Actions
             </label>

@@ -37,7 +37,10 @@ const store = new Vuex.Store({
         position_string_beats: ''
       },
       markers: [],
-      regions: [],
+      regions: [
+        { name : 'this ', id: 1 },
+        { name: 'this is some long as name', id: 2}
+      ],
       region: 0,
     }, 
     editor: {
@@ -337,7 +340,7 @@ const store = new Vuex.Store({
 
     execAction: (state, data) => {
 
-      if(state.editor.enabled && !state.editor.exec_actions)
+      if(state.editor.enabled && !state.editor.exec_actions && !data.recur)
         return
 
       if(state.reaper.ready) {

@@ -43,7 +43,7 @@
   .app-item-markers-info,
   .app-item-regions-info, {
     font-size: 1.8vw;
-    max-height: $g-item-height-landscape !important;
+    width: 9vw !important;
   }
 
   .app-item-position-info {
@@ -100,7 +100,7 @@
   .app-item-markers-info *,
   .app-item-regions-info * {
     font-size: 1.3vh;
-    max-height: $g-item-height-portrait !important;
+    width: 9vh !important;
   }
 
   .app-item-position-info {
@@ -224,13 +224,14 @@
 .app-item-markers-info,
 .app-item-regions-info {
   width: 100%;
-  overflow: hidden !important;
+  overflow-x: hidden;
 }
 
 .app-item-markers-info *,
 .app-item-regions-info * {
+  margin: .25vw 0.5vw;
   display: block;
-  overflow: hidden;
+  white-space: nowrap;
 }
 
 /* ICONS */
