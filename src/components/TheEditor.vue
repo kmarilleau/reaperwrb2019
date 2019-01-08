@@ -64,7 +64,7 @@
         />
         <app-item-color-picker 
           v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
-          :color="typeof(item.bgcolor) !== 'undefined' ? item.bgcolor : '#ffff00'" 
+          :color="this.$store.state.editor.edit_item.bgcolor" 
         />
         <template v-if="this.$store.state.editor.bulk_edit">
           <button @click="onBulkClearIcons()" class="pure-button pure-button-secondary"><font-awesome-icon icon="eraser" /> Delete Icons</button>

@@ -1,8 +1,8 @@
 <template>
   <div class="app-item-color-picker">
-    <label>Background Color</label>
-    <app-item-color-picker-swatches v-model="value" @input="updateValue" />
-    <app-item-color-picker-slider v-model="value" @input="updateValue" />
+    <label>Background Color: {{color}}</label>
+    <app-item-color-picker-swatches v-model="getColor" @input="updateValue" />
+    <app-item-color-picker-slider v-model="getColor" @input="updateValue" />
   </div>
 </template>
 
@@ -13,10 +13,8 @@ import { Compact } from 'vue-color'
 export default {
   props: ['color'],
 
-  data() {
-    return {
-      value: this.color
-    }
+  computed: {
+    getColor() { return this.color }
   },
 
   components: {
