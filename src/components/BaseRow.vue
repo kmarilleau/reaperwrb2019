@@ -3,7 +3,7 @@
     <draggable 
       v-model="items"
       :options="{ 
-        draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-item' : false, 
+        draggable: this.$store.state.editor.enabled ? '.app-item' : false, 
         group: 'items',
         sort: this.$store.state.editor.enabled 
       }"

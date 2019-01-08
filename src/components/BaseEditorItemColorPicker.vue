@@ -16,7 +16,9 @@ export default {
   computed: {
     getColor: { 
       get() { 
-        return this.color
+        return {
+          hex: this.color
+        }
       },
       set(value) {
         if(this.$store.state.editor.bulk_edit)
