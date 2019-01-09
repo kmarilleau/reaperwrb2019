@@ -67,6 +67,7 @@ const store = new Vuex.Store({
   mutations: {
 
     clearEditHighlight: (state) => {
+      // FIXME use el in edit_item reference
       let el = document.querySelectorAll('.app-highlight-edit')
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
@@ -92,7 +93,7 @@ const store = new Vuex.Store({
     },
 
     save: (state) => {
-      console.log("SAVING WEB REMOTE ")
+      console.log("REAPERWRB: SAVING WEB REMOTE!")
       const saveState = cloneDeep(state)
       saveState.editor.enabled = false
       const json = JSON.stringify(saveState)
@@ -240,16 +241,24 @@ const store = new Vuex.Store({
     },
 
     bulkDelete: (state) => {
-      state.editor.edit_items.forEach(item => item.el.classList.remove('app-highlight-delete'))
+      state.editor.edit_items.forEach(edit_item => {
+        edit_item.el.classList.remove('app-highlight-delete')
+        edit_item.el.querySelector('.app-editor-checkbox').checked = false
 
-      state.editor.edit_items.forEach(item => {
-        state.tabs[state.active_tab].rows[item.row].splice(item.index, 1)
+        state.tabs[state.active_tab].rows[edit_item.row].forEach((del, index) => {
+          // compare items if all keys match remove
+          if(edit_item.item.type === del.type) {
+            let remove = true
+            for(const key in del) {
+              if(del[key] !== edit_item.item[key])
+                remove = false
+            }
+            if(remove)
+              state.tabs[state.active_tab].rows[edit_item.row].splice(index, 1)
+          }
+        })
       })
 
-      const el = document.querySelectorAll('.app-editor-checkbox')
-      for(let i = 0; i < el.length; i++) {
-        el[i].checked = false
-      }
       state.editor.edit_items = []
       state.editor.delete_dialog = false
     },
@@ -306,7 +315,7 @@ const store = new Vuex.Store({
             state.tabs[state.active_tab].rows.push([])
           
           if(items)
-            items.forEach(item => { state.tabs[state.active_tab].rows[0].push(item)})
+            items.forEach(item => { state.tabs[state.active_tab].rows[0].push(item) })
           
           break
 
