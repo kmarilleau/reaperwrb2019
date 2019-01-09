@@ -356,6 +356,7 @@ export default {
     },
 
     onSave(event) {
+      this.$store.commit('clearEditHighlight')
       this.$store.commit('save')
     },
 
