@@ -37,10 +37,7 @@ const store = new Vuex.Store({
         position_string_beats: ''
       },
       markers: [],
-      regions: [
-        { name : 'this ', id: 1 },
-        { name: 'this is some long as name', id: 2}
-      ],
+      regions: [],
       region: 0,
     }, 
     editor: {
@@ -106,6 +103,11 @@ const store = new Vuex.Store({
       <script src=main.js></script><link href=/reaperwrb/css/app.css rel=stylesheet></head><body><div id=reaperwrb-json>${ json }</div><div id=app></div><script type=text/javascript src=/reaperwrb/js/manifest.js></script><script type=text/javascript src=/reaperwrb/js/vendor.js></script><script type=text/javascript src=/reaperwrb/js/app.js></script></body></html>`
       let blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, "mywebremote.html")
+    },
+
+    logState: (state) => {
+      const logState = cloneDeep(state)
+      console.log(JSON.stringify(logState))
     },
     
     import: (state, data) => {
