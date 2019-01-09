@@ -46,10 +46,6 @@ export default {
       this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
   },
 
-  beforeDestroy() {
-    this.$store.commit('cancelAction', { action: 'TRANSPORT' })
-  },
-
   methods: {
     onPlay() { this.$store.commit('execAction', { action: 1007 }) },
     onStop() { this.$store.commit('execAction', { action: 1016 }) },

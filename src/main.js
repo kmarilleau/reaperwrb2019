@@ -89,9 +89,13 @@ const store = new Vuex.Store({
     },
 
     save: (state) => {
+      // FIXME ugly
       console.log("REAPERWRB: SAVING WEB REMOTE!")
       const saveState = cloneDeep(state)
       saveState.editor.enabled = false
+      saveState.editor.edit_item = false
+      saveState.editor.edit_items = []
+      saveState.active_tab = 0
       const json = JSON.stringify(saveState)
       let html = `<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>ReaperWRB</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="manifest" href="reaperwrb/manifest.json"/><meta name="apple-mobile-web-app-capable" content="yes">
       <link rel="apple-touch-icon" href="reaperwrb/icons/icon-72x72.png">

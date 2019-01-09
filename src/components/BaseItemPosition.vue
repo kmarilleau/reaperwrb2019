@@ -22,18 +22,13 @@ export default {
   },
 
   beforeMount() {
-    if(!this.$store.state.reaper.transport.online)
+    if(!this.$store.state.reaper.transport.online) 
       this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
-  },
-
-  beforeDestroy() {
-    this.$store.commit('cancelAction', { action: 'TRANSPORT' })
   },
 
   methods: {
 
     onClick(event) {
-      console.log("POSITION CYCLE MODE")
       this.mode = (this.mode+1) % 3
     },
 
@@ -67,5 +62,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
