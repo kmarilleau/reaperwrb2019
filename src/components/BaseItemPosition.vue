@@ -1,5 +1,5 @@
 <template>
-  <div class="app-item-position" 
+  <div class="app-item-position-container" 
     :style="{ color: item.textcolor }"
     @click="onClick()"  
   >
@@ -22,7 +22,6 @@ export default {
   },
 
   beforeMount() {
-    // FIXME only do this once!
     if(!this.$store.state.reaper.transport.online)
       this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
   },

@@ -186,16 +186,6 @@ export default {
     'app-item-width-slider': VueSlider
   },
 
-  updated() {
-    // if(this.$store.state.editor.edit_item !== false 
-    // && this.$store.state.editor.edit_item.type !== 'tab'
-    // && this.$store.state.editor.edit_item.row === this.$store.state.editor.active_row) {
-    //   const el = document.querySelectorAll('.app-row')[this.$store.state.active_row].childNodes
-    //   el[el.length - 1].classList.add('app-highlight-edit')
-    //   console.log("HI")
-    // }
-  },
-
   computed: {
 
     execActions: {
