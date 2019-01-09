@@ -57,9 +57,7 @@ const store = new Vuex.Store({
     tabs: [],
   },
 
-  getters: {
-
-  },
+  getters: {},
 
   mutations: {
 
@@ -338,6 +336,7 @@ const store = new Vuex.Store({
 
     addTab: (state, tab) => {
       const newTab = JSON.parse(JSON.stringify(defaults.tab))
+      newTab.rows.push([])
       state.tabs.push(newTab)
       state.active_tab = state.tabs.length - 1
       state.editor.edit_item = state.tabs[state.active_tab]
