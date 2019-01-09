@@ -239,7 +239,7 @@ export default {
     },
 
     onTriggerLoadToolbar(event) {
-      document.getElementById('app-file-input-toolbar').click();
+      document.querySelector('#app-file-input-toolbar').click();
     },
 
     onTriggerLoadHTML(event) {
@@ -299,8 +299,6 @@ export default {
 
       const tab = JSON.parse(JSON.stringify(defaults.tab))
       tab.label = filename.replace(/\.ReaperMenu|\.txt/g, '')
-
-      console.log(items.length)
 
       if(items.length > 0) {
         while (items.length) {

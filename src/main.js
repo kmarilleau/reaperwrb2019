@@ -88,6 +88,7 @@ const store = new Vuex.Store({
 
     new: (state) => {
       const newTab = JSON.parse(JSON.stringify(defaults.tab))
+      newTab.rows.push([])
       state.tabs.push(newTab)
       state.editor.edit_item = state.tabs[0]
     },
@@ -108,6 +109,7 @@ const store = new Vuex.Store({
     },
     
     import: (state, data) => {
+      document.querySelector('.app-view').classList.remove('loading')
       if(state.tabs.length <= 0)
         state.tabs = data
       else

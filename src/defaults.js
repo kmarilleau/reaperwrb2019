@@ -27,7 +27,7 @@ const defaults = {
     label: 'tab',
     bgcolor: '#666666',
     textcolor: '#FFFFFF',
-    rows: [[]],
+    rows: [],
   },
 
   transport: {
