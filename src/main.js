@@ -105,9 +105,9 @@ const store = new Vuex.Store({
       saveAs(blob, "mywebremote.html")
     },
 
-    logState: (state) => {
-      const logState = cloneDeep(state)
-      console.log(JSON.stringify(logState))
+    logTabs: (state) => {
+      const tabs = cloneDeep(state.tabs)
+      console.log(JSON.stringify(tabs))
     },
     
     import: (state, data) => {
