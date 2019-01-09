@@ -96,7 +96,12 @@ const store = new Vuex.Store({
       const saveState = cloneDeep(state)
       saveState.editor.enabled = false
       const json = JSON.stringify(saveState)
-      let html = `<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>ReaperWRB</title><meta name=viewport content="width=device-width,initial-scale=1"><script src=main.js></script><link href=/reaperwrb/css/app.css rel=stylesheet></head><body><div id=reaperwrb-json>${ json }</div><div id=app></div><script type=text/javascript src=/reaperwrb/js/manifest.js></script><script type=text/javascript src=/reaperwrb/js/vendor.js></script><script type=text/javascript src=/reaperwrb/js/app.js></script></body></html>`
+      let html = `<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>ReaperWRB</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="manifest" href="reaperwrb/manifest.json"/><meta name="apple-mobile-web-app-capable" content="yes">
+      <link rel="apple-touch-icon" href="reaperwrb/icons/icon-72x72.png">
+<link rel="apple-touch-icon" sizes="152x152" href="reaperwrb/icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="reaperwrb/icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="167x167" href="reaperwrb/icons/icon-192x192.png">
+      <script src=main.js></script><link href=/reaperwrb/css/app.css rel=stylesheet></head><body><div id=reaperwrb-json>${ json }</div><div id=app></div><script type=text/javascript src=/reaperwrb/js/manifest.js></script><script type=text/javascript src=/reaperwrb/js/vendor.js></script><script type=text/javascript src=/reaperwrb/js/app.js></script></body></html>`
       let blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, "mywebremote.html")
     },
@@ -196,6 +201,7 @@ const store = new Vuex.Store({
         state.editor.edit_item = state.tabs[data.index]
         state.active_tab = data.index
       } else {
+        state.active_row = data.row
         state.editor.edit_item = state.tabs[state.active_tab].rows[data.row][data.index]
       }
     },

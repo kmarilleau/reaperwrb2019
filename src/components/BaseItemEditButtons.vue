@@ -48,9 +48,14 @@ export default {
         el: this.$parent.$el
       }
 
-      this.$store.commit('clearEditHighlight')
-      event.target.checked ? 
-        this.$store.commit('bulkEditAdd', commit) : this.$store.commit('bulkEditRemove', commit)
+      //this.$store.commit('clearEditHighlight')
+      if(event.target.checked) {
+        this.$parent.$el.classList.add('app-highlight-edit')
+        this.$store.commit('bulkEditAdd', commit)
+      } else {
+        this.$parent.$el.classList.remove('app-highlight-edit')
+        this.$store.commit('bulkEditRemove', commit)
+      }
     },
     
     onItemDelete(event) {

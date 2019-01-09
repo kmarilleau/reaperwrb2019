@@ -21,10 +21,6 @@ export default {
     }
   },
 
-  updated() {
-    console.log("UPDATED")
-  },
-
   beforeMount() {
     // FIXME only do this once!
     if(!this.$store.state.reaper.transport.online)

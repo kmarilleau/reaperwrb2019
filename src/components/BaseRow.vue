@@ -43,6 +43,18 @@ export default {
     'app-item': BaseItem,
   },
 
+  updated() {
+    if(this.$store.state.editor.edit_item !== false && this.$store.state.editor.edit_item.type !== 'tab') {
+      if(this.row === this.$store.state.active_row) {
+        const el = this.$el.querySelectorAll('.app-highlight-edit')
+        if(el.length === 0) {
+          const el = this.$el.querySelectorAll('.app-item')
+          el[el.length - 1].classList.add('app-highlight-edit')
+        }
+      }
+    }
+  },
+
   computed: {
     items: {
       get() {

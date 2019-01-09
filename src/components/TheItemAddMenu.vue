@@ -20,6 +20,7 @@ export default {
     onAdd(type) {
       document.querySelector('#app-item-add-menu').classList.add('hidden')
       this.$store.commit('addItem', type)
+      this.$store.commit('clearEditHighlight')
     },
     onCancel(event) {
       this.$store.commit('cancelAddItem')

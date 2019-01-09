@@ -49,6 +49,8 @@ export default {
         this.$store.commit('bulkDelete')
       else
         this.$store.commit('delete', keepItems)
+
+      this.$store.commit('clearEditHighlight')
     },
     onCancel(event) {
       if(this.$store.state.editor.bulk_edit)
