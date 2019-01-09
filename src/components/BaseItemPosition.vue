@@ -3,7 +3,7 @@
     :style="{ color: item.textcolor }"
     @click="onClick()"  
   >
-    <span class="app-item-position-mode">{{getMode()}}</span>
+    <div class="app-item-position-mode"><span>{{getMode()}}</span></div>
     <span class="app-item-position-info">{{getPosition()}}</span>
   </div>
 </template>
