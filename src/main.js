@@ -97,12 +97,13 @@ const store = new Vuex.Store({
       saveState.editor.edit_items = []
       saveState.active_tab = 0
       const json = JSON.stringify(saveState)
-      let html = `<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>ReaperWRB</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="manifest" href="reaperwrb/manifest.json"/><meta name="apple-mobile-web-app-capable" content="yes">
+      let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>ReaperWRB</title><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="manifest" href="reaperwrb/manifest.json"/>
+      <meta name="apple-mobile-web-app-capable" content="yes">
       <link rel="apple-touch-icon" href="reaperwrb/icons/icon-72x72.png">
-<link rel="apple-touch-icon" sizes="152x152" href="reaperwrb/icons/icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="reaperwrb/icons/icon-192x192.png">
-<link rel="apple-touch-icon" sizes="167x167" href="reaperwrb/icons/icon-192x192.png">
-      <script src=main.js></script><link href=/reaperwrb/css/app.css rel=stylesheet></head><body><div id=reaperwrb-json>${ json }</div><div id=app></div><script type=text/javascript src=/reaperwrb/js/manifest.js></script><script type=text/javascript src=/reaperwrb/js/vendor.js></script><script type=text/javascript src=/reaperwrb/js/app.js></script></body></html>`
+      <link rel="apple-touch-icon" sizes="152x152" href="reaperwrb/icons/icon-152x152.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="reaperwrb/icons/icon-192x192.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="reaperwrb/icons/icon-192x192.png">
+      <script src="main.js"></script><link href="/reaperwrb/css/app.css" rel="stylesheet"><style type="text/css">body{background: #0f0f0f;padding: 0;margin: 0;}#loader { display: flex;justify-content: center;height: 100vh;width: 100vw;}.lds-ellipsis {display: inline-block;position: relative;margin: auto;width: 64px;height: 64px;}.lds-ellipsis div {position: absolute;top: 27px;width: 11px;height: 11px;border-radius: 50%;background: #fff;animation-timing-function: cubic-bezier(0, 1, 1, 0);}.lds-ellipsis div:nth-child(1) {left: 6px;animation: lds-ellipsis1 0.6s infinite;}.lds-ellipsis div:nth-child(2) {left: 6px;animation: lds-ellipsis2 0.6s infinite;}.lds-ellipsis div:nth-child(3) {left: 26px;animation: lds-ellipsis2 0.6s infinite;}.lds-ellipsis div:nth-child(4) {left: 45px;animation: lds-ellipsis3 0.6s infinite;}@keyframes lds-ellipsis1 {0% {transform: scale(0);}100% {transform: scale(1);}}@keyframes lds-ellipsis3 {0% {transform: scale(1);}100% {transform: scale(0);}}@keyframes lds-ellipsis2 {0% {transform: translate(0, 0);}100% {transform: translate(19px, 0);}}</style></head><body><div id="reaperwrb-json">${ json }</div><div id="app"><div id="loader"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div></div><script type="text/javascript" src="/reaperwrb/js/manifest.js"></script><script type="text/javascript" src="/reaperwrb/js/vendor.js"></script><script type="text/javascript" src="/reaperwrb/js/app.js"></script></body></html>`
       let blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, "mywebremote.html")
     },
@@ -415,10 +416,11 @@ const store = new Vuex.Store({
         const data = result.trim().split("\n")
         state.reaper.markers = data
           .filter((item) => {
-            return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END') && !item.match('CMDSTATE')
+            return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END') && item.match('MARKER')
           })
           .map((item) => {
             let data = item.split('\t')
+            // check data length
             return {
               name: data[1],
               id: data[2],
@@ -426,7 +428,6 @@ const store = new Vuex.Store({
               color: data[4]
             }
           })
-
       }
 
       // FIXME?
@@ -434,7 +435,7 @@ const store = new Vuex.Store({
         const data = result.trim().split("\n")
         state.reaper.regions = data
           .filter((item) => {
-            return !item.match('REGION_LIST') && !item.match('REGION_LIST_END') && !item.match('CMDSTATE')
+            return !item.match('REGION_LIST') && !item.match('REGION_LIST_END') && item.match('REGION')
           })
           .map((item) => {
             let data = item.split('\t')
