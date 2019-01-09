@@ -233,9 +233,8 @@ export default {
     },
 
     onLoadExample(event) {
-      // FIXME replace with new example
       const json = JSON.parse(JSON.stringify(exampleJSON))
-      this.$store.commit('import', this.fixJSON(json))
+      this.$store.commit('import', json)
     },
 
     onTriggerLoadToolbar(event) {
