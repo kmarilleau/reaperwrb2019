@@ -5,18 +5,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
 import router from './router'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fab, faBlogger } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
 import defaults from '@/defaults'
 import webremote from '@/webremote'
-
-library.add(fas, far, fab)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
