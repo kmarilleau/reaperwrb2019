@@ -379,7 +379,7 @@ const store = new Vuex.Store({
     getCmdStates: (state) => {
 
       if(state.reaper.ready && state.tabs[state.active_tab] !== undefined) {
-        console.log("REAPERWRB INFO: FETCHING COMMAND STATES!")
+        console.log("REAPERWRB: UPDATING COMMAND STATES!")
         state.tabs[state.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action')
