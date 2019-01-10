@@ -43,19 +43,23 @@ export default {
     onPreviousRegion(event) {
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
-      this.current = this.current - 1 < 0 ? regions.length - 1 : this.current - 1
-      this.id = regions[this.current].id
-      this.name = regions[this.current].name
-      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + this.id })
+      if(regions.length > 0) {
+        this.current = this.current - 1 < 0 ? regions.length - 1 : this.current - 1
+        this.id = regions[this.current].id
+        this.name = regions[this.current].name
+        this.$store.commit('execAction', { action: 'SET/POS_STR/r' + this.id })
+      }
     },
 
     onNextRegion(event) {
       const regions  = this.$store.state.reaper.regions
       const region = this.$store.state.reaper.region
-      this.current = (this.current + 1 === regions.length) ? 0 : this.current + 1
-      this.id = regions[this.current].id
-      this.name = regions[this.current].name 
-      this.$store.commit('execAction', { action: 'SET/POS_STR/r' + this.id })
+      if(regions.length > 0) {
+        this.current = (this.current + 1 === regions.length) ? 0 : this.current + 1
+        this.id = regions[this.current].id
+        this.name = regions[this.current].name 
+        this.$store.commit('execAction', { action: 'SET/POS_STR/r' + this.id })
+      }
     },
 
     onRefresh(event) {

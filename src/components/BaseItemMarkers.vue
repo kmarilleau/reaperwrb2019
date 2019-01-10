@@ -42,8 +42,8 @@ export default {
 
   methods: {
     onPreviousMarker(event) {
-      if(this.$store.state.reaper.ready) {
-        const markers  = this.$store.state.reaper.markers
+      const markers  = this.$store.state.reaper.markers
+      if(markers.length > 0) {
         this.current = this.current - 1 < 0 ? markers.length - 1 : this.current - 1
         this.id = markers[this.current].id
         this.name = markers[this.current].name
@@ -52,8 +52,8 @@ export default {
     },
 
     onNextMarker(event) {
-      if(this.$store.state.reaper.ready) {
-        const markers  = this.$store.state.reaper.markers
+      const markers  = this.$store.state.reaper.markers
+      if(markers.length > 0) {
         this.current = (this.current + 1 === markers.length) ? 0 : this.current + 1
         this.id = markers[this.current].id
         this.name = markers[this.current].name
