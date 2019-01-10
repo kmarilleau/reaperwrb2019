@@ -3,11 +3,11 @@
 
     <div class="app-editor-panel app-reaper-status">
       <template v-if="!reaper.ready">
-        <img src="/static/icons/icon-reaper-offline-32x32.png" />
+        <img src="/reaperwrb/icons/icon-reaper-offline-32x32.png" />
         <span>OFFLINE</span>
       </template>
       <template v-if="reaper.ready">
-        <img src="/static/icons/icon-reaper-online-32x32.png" />
+        <img src="/reaperwrb/icons/icon-reaper-online-32x32.png" />
         <span>ONLINE</span>
       </template>
     </div>
