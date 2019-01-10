@@ -1,39 +1,43 @@
 <template>
   <div class="app-editor pure-form">
 
+    <div class="app-editor-panel app-reaper-status">
+      <template v-if="!reaper.ready">
+        <img src="/static/icons/icon-reaper-offline-32x32.png" />
+        <span>OFFLINE</span>
+      </template>
+      <template v-if="reaper.ready">
+        <img src="/static/icons/icon-reaper-online-32x32.png" />
+        <span>ONLINE</span>
+      </template>
+    </div>
+
       <!-- EDITOR MAIN FUNCTIONS -->
       <div class="app-editor-panel">
-
-        <label>ReaperWRB {{ this.$store.state.version }} 
-          <span class="app-reaper-status">
-            <template v-if="!reaper.ready">
-              <font-awesome-icon class="app-reaper-not-ready" icon="exclamation-circle"/> Reaper Not Ready
-            </template>
-            <template v-if="reaper.ready">
-              <font-awesome-icon class="app-reaper-ready" icon="check-circle" /> Reaper Ready
-            </template>
-            <label>
-              <input type="checkbox" v-model="execActions">
-              Execute Actions
-            </label>
-         </span>
+          
+        <label>
+          <input type="checkbox" v-model="execActions">
+          Execute Actions
         </label>
 
         <template>
           <template v-if="this.$store.state.tabs.length === 0">
-            <button class="pure-button" @click="onNew">
+            <button class="pure-button app-editor-button-new" @click="onNew">
               <font-awesome-icon icon="file" />
             </button>
-            <button class="pure-button" @click="onLoadExample">
+            <button class="pure-button app-editor-button-example" @click="onLoadExample">
               <font-awesome-icon icon="folder-open" /> Example
             </button>
-            <button class="pure-button" @click="onTriggerLoadHTML">
+            <button class="pure-button app-editor-button-html" @click="onTriggerLoadHTML">
               <font-awesome-icon icon="folder-open" /> HTML
             </button>
             <input @change="onLoadFile($event, 'html')" type="file" id="app-file-input-html" name="files" class="hidden" accept=".html">
           </template>
           
-          <button class="pure-button" @click="onTriggerLoadToolbar">
+          <button class="pure-button" 
+            :class="{ 'app-editor-button-toolbar': this.$store.state.tabs.length === 0 }"
+            @click="onTriggerLoadToolbar"
+          >
             <font-awesome-icon icon="folder-open" />Toolbar(s)
           </button>
           <input @change="onLoadFile($event, 'txt')" type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt" multiple>
@@ -52,7 +56,7 @@
       <div class="app-editor-panel"
         v-if="this.$store.state.tabs.length > 0"
       >
-        <label>Grid Columns</label>
+        <label>Global Grid Columns</label>
         <app-item-width-slider
           v-model="$store.state.columns"
           :min="4" 

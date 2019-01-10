@@ -11,12 +11,16 @@
         :rows="tabs[this.tab].rows"
       ></app-tab>
     </template>
+
+    <app-help v-if="tabs.length === 0" :version="this.$store.state.version" />
+
   </div>
 </template>
 
 <script>
-import TheTabNavigation from '@/components/TheTabNavigation.vue';
-import TheTab from '@/components/TheTab.vue';
+import TheTabNavigation from '@/components/TheTabNavigation.vue'
+import TheTab from '@/components/TheTab.vue'
+import TheHelp from '@/components/TheHelp.vue'
 
 export default {
   props: ['tabs', 'tab'],
@@ -27,7 +31,8 @@ export default {
 
   components: {
     'app-tab-navigation': TheTabNavigation,
-    'app-tab': TheTab
+    'app-tab': TheTab,
+    'app-help': TheHelp
   },
 
   methods: {

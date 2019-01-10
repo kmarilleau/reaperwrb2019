@@ -6,11 +6,35 @@
 }
 
 .app-editor {
-  height: 100vh;
+  height: 95vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 3fr 4fr;
   color: $c-editor-primary;
+
+  padding-top: 5vh;
+
+  .pure-button-secondary {
+    background: $c-editor-button-secondary;
+    color: $c-editor-primary;
+  }
+  
+  .pure-button-warning {
+    color: $c-editor-primary;
+    background: $c-editor-button-warning;
+  }
+
+  .app-editor-button-new { background: $c-help-button-new; }
+  .app-editor-button-example { background: $c-help-button-example; }
+  .app-editor-button-html { background: $c-help-button-html; }
+  .app-editor-button-toolbar { background: $c-help-button-toolbar; }
+
+  .app-editor-button-new:hover,
+  .app-editor-button-example:hover,
+  .app-editor-button-html:hover,
+  .app-editor-button-toolbar:hover {
+    opacity: 0.9;
+  }
 
   label {
     color: $c-editor-primary;
@@ -28,13 +52,6 @@
     .pure-button {
       margin: 0 0 5px 0;
     }
-    .pure-button-secondary {
-      background: rgb(66, 184, 221);
-    }
-
-    .pure-button-warning {
-      background: #FCC400;
-    }
   }
 
   input[type=text] {
@@ -47,8 +64,8 @@
   }
 
   input[type=text]:focus, textarea:focus {
-    box-shadow: 0 0 10px rgb(255, 70, 70);
-    border: 1px solid rgb(255, 70, 70);
+    box-shadow: 0 0 10px $c-editor-button-warning;
+    border: 1px solid $c-editor-button-warning;
   }
 
   .app-editor-dialog-info {
@@ -260,11 +277,10 @@ input[type=checkbox] {
 }
 
 .app-reaper-status {
-
-  .app-reaper-not-ready * {
-    color: #ff2828;
-  }
-  .app-reaper-ready * {
-    color: #28ff45;
-  }
+  font-size: 3vh;
+  position: absolute;
+  display: flex;
+  top: 1.25vh;
+  * { margin: auto; }
+  img { margin-right: 0.4vw; }
 }

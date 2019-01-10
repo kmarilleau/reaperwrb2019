@@ -1,0 +1,39 @@
+.app-help {
+  color: $c-editor-primary;
+  h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+  h1 { font-size: 6vh; margin: 0 0 4vh 0;  }
+  h2 { font-size: 4vh; margin: 5vh 0 3vh 0; }
+  line-height: 3vh;
+
+  a { color: $c-editor-primary; }
+
+  header {
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    * { margin: auto 0;}
+  }
+  .app-help-tip { 
+    padding: .3vw .5vw; border-radius: 3px;
+    color: $bg-editor-alt;
+    margin: 0 0 1vh 0;
+    font-weight: bold;
+  }
+
+  .app-help-icon {
+    background: $bg-editor-alt;
+    padding: 0.3vw;
+    margin: 0 0 -0.3vw 0;
+  }
+
+  .app-help-footer {
+    margin: 10vh 0;
+  }
+  
+  .app-help-button-new { background: $c-help-button-new; }
+  .app-help-button-example { background: $c-help-button-example; }
+  .app-help-button-html { background: $c-help-button-html; }
+  .app-help-button-toolbar { background: $c-help-button-toolbar; }
+  .app-help-container {
+    margin: 4vh;
+  }
+}

@@ -18,6 +18,13 @@ $g-nav-item-height-landscape: calc(100vw / 28);
 $g-item-height-portrait: calc(100vw / 7.5);
 $g-nav-item-height-portrait: calc(100vw / 15);
 $g-editor-view-width: 1024px;
+$c-help-button-new: #F4F7FC;
+$c-help-button-example: #42b8dd;
+$c-help-button-html: #FCC400;
+$c-help-button-toolbar: #cdcdcd;
+$c-editor-button-warning: #FCC400;
+$c-editor-button-okay: #0078e7;
+$c-editor-button-secondary: #42b8dd;
 
 %editor-dialog-shared {
   position: absolute;

@@ -5,7 +5,7 @@
     <div>
       <div class="app-editor-dialog-info">Permanently Delete?</div>
 
-      <button class="pure-button"
+      <button class="pure-button pure-button-secondary"
         @click.stop="onCancel"
       ><font-awesome-icon icon="ban" size="1x" /> Cancel</button>
 
@@ -15,7 +15,7 @@
         <font-awesome-icon icon="trash" size="1x" /> Keep Items
       </button>
 
-      <button class="pure-button"
+      <button class="pure-button pure-button-warning"
         @click.stop="onDelete(false)"
       ><font-awesome-icon icon="trash" size="1x" /> Delete</button>
 
