@@ -33,15 +33,15 @@ const webremote = { html: (json) => `<!DOCTYPE html>
 
     <script src="main.js"></script>
     
+    <link href="/reaperwrb/css/loader.css" rel="stylesheet">
     <link href="/reaperwrb/css/app.css" rel="stylesheet">
-    <style type="text/css">body{padding:0;margin:0;}#loader{background:#f0f0f0!important;display:flex;justify-content:center;flex-direction:column;height:100vh;width:100vw;}.lds-ellipsis{display:inline-block;position:relative;margin:auto;width:64px;height:64px;}.lds-ellipsis div{position:absolute;top:27px;width:11px;height:11px;border-radius:50%;background:#0f0f0f;animation-timing-function:cubic-bezier(0,1,1,0);}.lds-ellipsis div:nth-child(1){left: 6px;animation:lds-ellipsis1 0.6s infinite;}.lds-ellipsis div:nth-child(2){left: 6px;animation:lds-ellipsis2 0.6s infinite;}.lds-ellipsis div:nth-child(3){left:26px;animation: lds-ellipsis2 0.6s infinite;}.lds-ellipsis div:nth-child(4){left:45px;animation:lds-ellipsis3 0.6s infinite;}@keyframes lds-ellipsis1{0%{transform:scale(0);}100%{transform:scale(1);}}@keyframes lds-ellipsis3{0%{transform: cale(1);}100%{transform:scale(0);}}@keyframes lds-ellipsis2{0%{transform:translate(0,0);}100%{transform:translate(19px,0);}}</style>
   </head>
   <body>
     <div id="reaperwrb-json">${ json }</div>
     <div id="app">
       <div id="loader">
         <div style="margin: auto;text-align: center;">
-        <div style="margin: auto;"><img src="/reaperwrb/icons/icon-180x180.png" /></div>
+        <div style="margin: auto;"><img class="logo" src="/reaperwrb/icons/icon-180x180.png" /></div>
         <div class="lds-ellipsis" style="margin: auto;"><div></div><div></div><div></div><div></div></div>
       </div>
     </div>
