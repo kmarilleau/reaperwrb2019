@@ -7,6 +7,7 @@
       draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
       sort: this.$store.state.editor.enabled,
+      disabled: disableSort()
     }"
     @start="onDraggableStart"
     @add="onDraggableAdd"
@@ -50,6 +51,16 @@ export default {
   },
 
   methods: {
+    disableSort() {
+      if(this.$store.state.editor.enabled) {
+        if(this.$store.state.editor.bulk_edit)
+          return true
+        else
+          return false
+      } else {
+        return true
+      }
+    },
     onDraggableStart(event) {
       document.querySelector('.sortable-ghost').style.display = 'block'
       this.$store.commit('clearEditItem')
