@@ -14,7 +14,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    height: 20vh;
+    height: 16vh;
     width: 100% !important;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -24,15 +24,19 @@
   
   .iconpicker-item {
     cursor: pointer;
-    height: 5.9vh;
-    width: 5.9vh;
-    margin: 0.25vh;
-    line-height: 50px;
-    border-radius: 2px;
+    width: 19%;
+    margin: .5%;
+    height: auto;
+    border-radius: $g-border-radius;
     opacity: 0.7;
-    font-size: 3.5vh;
+    line-height: 1vh;
     text-align: center;
-    line-height: 6vh;
+    display: flex;
+    justify-content: center;
+    * { 
+      margin: 1vh; font-size: 3vh;
+      overflow: hidden !important; 
+    }
   }
   .iconpicker-item * {
     color: $c-editor-primary !important;

@@ -119,8 +119,8 @@
         </template>
 
         <template v-if="item.type === 'action'">
-          <label>Toggle</label>
           <input type="checkbox" class="app-editor-checkbox" v-model="item.toggle">
+          Toggle
         </template>
         
       </div>
