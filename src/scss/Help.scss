@@ -27,6 +27,10 @@
 
   .app-help-footer {
     margin: 10vh 0;
+    .app-help-social {
+      margin: 1vh 0;
+      font-size: 5vh;
+    }
   }
   
   .app-help-button-new { background: $c-help-button-new; }

@@ -47,7 +47,7 @@
         <h2>Saving And Installation</h2>
         <p>
           When you save a webremote, make sure to save the resulting file into the <em>reaper_www_root</em> folder.
-          Then configure a new web remote in REAPER's control surface setting and select the saved <em>.html</em> of your webremote.
+          If you haven't already, configure a new web remote in REAPER's control surface setting and select the saved <em>.html</em> of your webremote as default page.
         </p>
         <h2>Add To Homescreen</h2>
         <p>
@@ -56,7 +56,11 @@
         </p>
       </section>
       <div class="app-help-footer">
-        &copy; 2019 - 2119 <a href="https://twitter.com/michael_klier" target="_blank">Michael Klier</a>
+        &copy; 2019 - 2119 Michael Klier
+        <div class="app-help-social">
+          <a href="https://m-klier.de" target="_blank"><i class="fas fa-home"></i></a>
+          <a href="https://twitter.com/michael_klier" target="_blank"><i class="fab fa-twitter-square"></i></a>
+        </div>
       </div>
     </div>
   </div>

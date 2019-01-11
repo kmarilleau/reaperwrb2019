@@ -21,8 +21,9 @@
     background: $bg-primary;
     border-radius: $g-border-radius;
   }
-
+  
   .iconpicker-item {
+    cursor: pointer;
     height: 5.9vh;
     width: 5.9vh;
     margin: 0.25vh;

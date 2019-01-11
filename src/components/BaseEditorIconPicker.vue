@@ -10,9 +10,9 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import $ from 'jquery'
 
-library.add(fas, far, fab)
+//library.add(fas, far, fab)
 
-dom.watch()
+//dom.watch()
 
 export default {
   props: ['toggle'],
@@ -20,9 +20,12 @@ export default {
   mounted() {
     let self = this
     $(this.$el).iconpicker({
-        
+      templates: {
+        iconpickerItem: '<span class="iconpicker-item"><i></i></span>'
+      }
     })
     $(this.$el).on('iconpickerSelected', function(event) {
+      console.log(event.iconpickerValue)
       let f = event.iconpickerValue.substr(0, 3)
       let i = event.iconpickerValue.substr(7)
       let icon = [f, i]
@@ -42,7 +45,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/scss/Variables.scss";
-
-
 </style>

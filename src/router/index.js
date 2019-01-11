@@ -9,7 +9,8 @@ export default new Router({
     {
       path: '/',
       name: 'ReaperWRB',
-      component: ReaperWRB
+      component: ReaperWRB,
+      alias: '*'
     }
   ]
 })

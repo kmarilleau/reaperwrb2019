@@ -5,13 +5,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
 import router from './router'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
 import defaults from '@/defaults'
 import webremote from '@/webremote'
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+library.add(fas, far, fab)
+dom.watch()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false

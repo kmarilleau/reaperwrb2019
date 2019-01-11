@@ -242,6 +242,7 @@ export default {
     },
 
     onTriggerLoadToolbar(event) {
+      this.$store.commit('clearEditHighlight')
       document.querySelector('#app-file-input-toolbar').click();
     },
 
