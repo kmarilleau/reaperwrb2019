@@ -391,7 +391,7 @@ const store = new Vuex.Store({
     },
 
     onReply: (state, result) => {
-      //console.log(result)
+      console.log(result)
 
       if(result.match('TRANSPORT')) {
         const data = result.trim().split("\n")[0].split("\t")

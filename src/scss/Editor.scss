@@ -54,7 +54,6 @@
   }
 
   input, select {
-    padding: .75vh;
     font-size: 100%;
   }
 
@@ -148,16 +147,31 @@
     margin-top: 4vh !important;
     width: 98% !important;
     background: $bg-editor-input;
+    padding: .5vw .75vw !important;
     border-radius: $g-border-radius;
+  }
+  .vue-slider-tooltip {
+    font-size: inherit;
+    min-width: 1vw;
+  }
+  .vue-slider-dot-handle {
+    background-color: $bg-editor-alt !important;
   }
 }
 
 input[type=checkbox] {
-  -ms-transform: scale(1.5); /* IE */
-  -moz-transform: scale(1.5); /* FF */
-  -webkit-transform: scale(1.5); /* Safari and Chrome */
-  -o-transform: scale(1.5); /* Opera */
-  margin: 1.5vh .5vh 2vh .5vh;
+  cursor: pointer;
+}
+
+@media (min-width: 1440px) {
+  input[type=checkbox] {
+    cursor: pointer;
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.51); /* Opera */
+    margin: 0.5vw 0.5vw;
+  }
 }
 
 .app-tab-add {
@@ -215,20 +229,22 @@ input[type=checkbox] {
   position: relative;
   height: 0;
   display: flex;
-  line-height: 3vh;
   flex-direction: row;
   justify-content: flex-end;
   color: $c-editor-primary;
 
   .app-item-edit-button {
-    background: $bg-editor-alt;
     opacity: 0.5;
-    display: inline-block;
-    height: $g-editor-item-edit-button-height; 
-    width: 3vh;
+    height: auto;
     text-align: center;
     z-index: 1000;
     visibility: hidden;
+    display: flex;
+    * { 
+      background: $bg-editor-alt;
+      margin: auto;
+      padding: .5vw;
+    }
   }
   .app-item-edit-button:hover {
     opacity: 1;

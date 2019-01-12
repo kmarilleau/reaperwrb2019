@@ -14,6 +14,9 @@
 
       <!-- EDITOR MAIN FUNCTIONS -->
       <div class="app-editor-panel">
+
+        <button @click="saveExtState()">save state test</button>
+        <button @click="loadExtState()">load state test</button>
           
         <label>
           <input type="checkbox" v-model="execActions">
@@ -217,6 +220,162 @@ export default {
   },
 
   methods: {
+
+    saveExtState(event) {
+      let json = JSON.stringify([
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'shit'
+          }
+        },
+        {
+        name: 'test',
+        age: 12,
+        weight: 200,
+        data: {
+          more: 'end'
+          }
+        },
+      ]) 
+      //JSON.stringify(exampleJSON)
+      console.log(json)
+      wwr_req('SET/EXTSTATEPERSIST/reaperwrb/data/' + json)
+    },
+
+    loadExtState(event) {
+      wwr_req('GET/EXTSTATE/reaperwrb/data')
+    },
 
     onClearIcons(event) {
       this.$store.commit('updateItem', { key: 'icon', val: false })
