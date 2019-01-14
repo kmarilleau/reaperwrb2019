@@ -7,13 +7,13 @@
 
     <template v-if="!this.$store.state.startup">
       <app-view 
-        :tabs="this.$store.state.tabs" 
-        :tab="this.$store.state.active_tab"
+        :tabs="this.$store.state.webremote.tabs" 
+        :tab="this.$store.state.webremote.active_tab"
       />
       <app-editor 
         v-if="this.$store.state.editor.enabled"
         :item="this.$store.state.editor.edit_item"
-        :columns="this.$store.state.columns"
+        :columns="this.$store.state.webremote.columns"
         :editor="this.$store.state.editor"
         :reaper="this.$store.state.reaper"
       />

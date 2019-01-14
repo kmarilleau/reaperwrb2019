@@ -2,7 +2,7 @@
   <draggable 
     :class="'app-tab-navigation'"
     v-model="tabs"
-    :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.columns + ', 1fr)' }"
+    :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.webremote.columns + ', 1fr)' }"
     :options="{ 
       draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
@@ -40,11 +40,11 @@ export default {
   computed: {
     tabs: {
       get() {
-        return this.$store.state.tabs
+        return this.$store.state.webremote.tabs
       },
       set(value) {
         // only set on sort, when length doesn't change
-        if(value.length === this.$store.state.tabs.length)
+        if(value.length === this.$store.state.webremote.tabs.length)
           this.$store.commit('updateTabs', value)
       }
     }

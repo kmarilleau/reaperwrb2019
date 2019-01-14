@@ -9,18 +9,19 @@
         disabled: disableSort()
       }"
       :class="'app-row'"
-      :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.columns + ', 1fr)' }"
+      :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.webremote.columns + ', 1fr)' }"
       @start="onDraggableStart"
       :move="onDraggableMove"
     >
 
+    <template v-if="items.length > 0">
       <app-item
-        v-if="items.length > 0"
         v-for="(item, index) in items" :key="index"
         :row="row"
         :item="item"
         :index="index"
       />
+    </template>
     
     </draggable>
 
@@ -45,7 +46,7 @@ export default {
 
   updated() {
     if(this.$store.state.editor.edit_item !== false && this.$store.state.editor.edit_item.type !== 'tab') {
-      if(this.row === this.$store.state.active_row) {
+      if(this.row === this.$store.state.editor.active_row) {
         const el = this.$el.querySelectorAll('.app-highlight-edit')
         if(el.length === 0) {
           const el = this.$el.querySelectorAll('.app-item')
@@ -58,7 +59,7 @@ export default {
   computed: {
     items: {
       get() {
-        return this.$store.state.tabs[this.$store.state.active_tab].rows[this.row]
+        return this.$store.state.webremote.tabs[this.$store.state.webremote.active_tab].rows[this.row]
       },
       set(value) {
         if(this.$store.state.editor.move_item === false)
@@ -102,7 +103,7 @@ export default {
 
         this.$store.commit('clearDropHighlight')
 
-        if(parseInt(event.related.attributes.tab.value) !== this.$store.state.active_tab) {
+        if(parseInt(event.related.attributes.tab.value) !== this.$store.state.webremote.active_tab) {
           event.related.classList.add('app-item-drop')
         }
 

@@ -14,7 +14,7 @@
       <span>Row</span>
     </a>
     <a @click.stop="onDeleteRow()" class="app-row-edit-button"
-      v-if="this.$store.state.tabs[this.$store.state.active_tab].rows.length > 1"
+      v-if="this.$store.state.webremote.tabs[this.$store.state.webremote.active_tab].rows.length > 1"
     >
       <font-awesome-icon icon="trash" size="1x" />
       <span>Row</span>

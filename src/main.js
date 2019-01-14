@@ -60,17 +60,11 @@ const store = new Vuex.Store({
       timeout: 100,
       data: []
     },
-    // FIXME move to webremote sub object
     webremote: {
       columns: 8,
       active_tab: 0,
-      active_row: 0, // needed in editor only?
       tabs: []
     },
-    columns: 8,
-    active_tab: 0,
-    active_row: 0,
-    tabs: [],
   },
 
   getters: {},
@@ -104,10 +98,12 @@ const store = new Vuex.Store({
     },
 
     new: (state) => {
+      const newWebremote = JSON.parse(JSON.stringify(defaults.webremote))
       const newTab = JSON.parse(JSON.stringify(defaults.tab))
       newTab.rows.push([])
-      state.tabs.push(newTab)
-      state.editor.edit_item = state.tabs[0]
+      newWebremote.tabs.push(newTab)
+      state.webremote = newWebremote
+      state.editor.edit_item = state.webremote.tabs[0]
     },
 
     showSaveDialog: (state) => {
@@ -125,7 +121,7 @@ const store = new Vuex.Store({
       saveState.editor.enabled = false
       saveState.editor.edit_item = false
       saveState.editor.edit_items = []
-      saveState.active_tab = 0
+      savestate.webremote.active_tab = 0
       const json = JSON.stringify(saveState)
       const html = webremote.html(json).replace(/\n|/g, '').replace(/>\s+</g, '><')
       let blob = new Blob([html], { type: "text/html;charset=utf-8" })
@@ -156,15 +152,15 @@ const store = new Vuex.Store({
     },
 
     logTabs: (state) => {
-      const tabs = cloneDeep(state.tabs)
+      const tabs = cloneDeep(state.webremote.tabs)
       console.log(JSON.stringify(tabs))
     },
     
     import: (state, data) => {
-      if(state.tabs.length <= 0)
-        state.tabs = data
+      if(state.webremote.tabs.length <= 0)
+        state.webremote.tabs = data
       else
-        data.forEach(tab => state.tabs.push(tab))
+        data.forEach(tab => state.webremote.tabs.push(tab))
     },
 
     switchTab: (state, tab) => {
@@ -173,10 +169,10 @@ const store = new Vuex.Store({
       if(state.editor.delete_dialog)
         store.commit('cancel_delete')
 
-      state.active_tab = tab
+      state.webremote.active_tab = tab
     },
 
-    switchRow: (state, row) => state.active_row = row,
+    switchRow: (state, row) => state.editor.active_row = row,
     showEditor: (state) => state.editor.toggle = true, 
     enableEditor: (state, enabled) => state.editor.enabled = enabled,
 
@@ -200,13 +196,9 @@ const store = new Vuex.Store({
       state.editor.menu = true
     },
 
-    setColumns: (state, columns) => {
-      state.columns.desktop = columns
-    },
-    
     clear: state => {
-      state.tabs = []
-      state.active_tab = 0
+      state.webremote.tabs = []
+      state.webremote.active_tab = 0
       state.editor.edit_item = false
       state.editor.edit_items = []
       state.editor.bulk_edit = false
@@ -214,7 +206,7 @@ const store = new Vuex.Store({
 
     addItem: (state, type) => {
       const item = JSON.parse(JSON.stringify(defaults[type]))
-      const row = state.tabs[state.active_tab].rows[state.active_row]
+      const row = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.active_row]
       row.push(item)
       state.editor.edit_item = row[row.length - 1]
       state.editor.menu = false
@@ -230,7 +222,7 @@ const store = new Vuex.Store({
           row: data.row,
           index: data.index,
           target_tab: data.target_tab,
-          item: state.tabs[state.active_tab].rows[data.row][data.index]
+          item: state.webremote.tabs[state.webremote.active_tab].rows[data.row][data.index]
         }
         state.editor.item_move_target_tab = data.target_tab
       } else {
@@ -239,12 +231,12 @@ const store = new Vuex.Store({
     },
 
     moveItem: (state) => {
-      if(state.active_tab !== state.editor.move_item.target_tab && state.editor.move_item) {
+      if(state.webremote.active_tab !== state.editor.move_item.target_tab && state.editor.move_item) {
         const tab = state.editor.move_item.target_tab
-        const row = state.tabs[tab].rows.length - 1
-        state.tabs[tab].rows[row].push(state.editor.move_item.item)
-        state.tabs[state.active_tab].rows[state.editor.move_item.row].splice(state.editor.move_item.index, 1)
-        state.active_tab = tab
+        const row = state.webremote.tabs[tab].rows.length - 1
+        state.webremote.tabs[tab].rows[row].push(state.editor.move_item.item)
+        state.webremote.tabs[state.webremote.active_tab].rows[state.editor.move_item.row].splice(state.editor.move_item.index, 1)
+        state.webremote.active_tab = tab
         state.editor.move_item = false
       }
     },
@@ -252,11 +244,11 @@ const store = new Vuex.Store({
     edit: (state, data) => {
       data.el.classList.add('app-highlight-edit')
       if(data.item.type === 'tab') {
-        state.editor.edit_item = state.tabs[data.index]
-        state.active_tab = data.index
+        state.editor.edit_item = state.webremote.tabs[data.index]
+        state.webremote.active_tab = data.index
       } else {
-        state.active_row = data.row
-        state.editor.edit_item = state.tabs[state.active_tab].rows[data.row][data.index]
+        state.editor.active_row = data.row
+        state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab].rows[data.row][data.index]
       }
     },
 
@@ -298,7 +290,7 @@ const store = new Vuex.Store({
         edit_item.el.classList.remove('app-highlight-delete')
         edit_item.el.querySelector('.app-editor-checkbox').checked = false
 
-        state.tabs[state.active_tab].rows[edit_item.row].forEach((del, index) => {
+        state.webremote.tabs[state.webremote.active_tab].rows[edit_item.row].forEach((del, index) => {
           // compare items if all keys match remove
           if(edit_item.item.type === del.type) {
             let remove = true
@@ -307,7 +299,7 @@ const store = new Vuex.Store({
                 remove = false
             }
             if(remove)
-              state.tabs[state.active_tab].rows[edit_item.row].splice(index, 1)
+              state.webremote.tabs[state.webremote.active_tab].rows[edit_item.row].splice(index, 1)
           }
         })
       })
@@ -332,27 +324,27 @@ const store = new Vuex.Store({
           let tab = state.editor.delete_item.index
 
           if(keepItems) {
-            rows = state.tabs[tab].rows
-            const targetTab = tab >= 1 ? tab - 1 : state.tabs.length - 1
-            rows.forEach(row => { state.tabs[targetTab].rows.push(row)})
+            rows = state.webremote.tabs[tab].rows
+            const targetTab = tab >= 1 ? tab - 1 : state.webremote.tabs.length - 1
+            rows.forEach(row => { state.webremote.tabs[targetTab].rows.push(row)})
           }
 
           // delete the tab
-          state.tabs.splice(state.editor.delete_item.index, 1)
+          state.webremote.tabs.splice(state.editor.delete_item.index, 1)
           
           // switch to correct tab
           if(keepItems) {
             if(tab === 0)
-              state.active_tab = state.tabs.length - 1
+              state.webremote.active_tab = state.webremote.tabs.length - 1
             else
-              state.active_tab = tab - 1
+              state.webremote.active_tab = tab - 1
           } else {
-            if(tab > 0 && tab < state.tabs.length)
-              state.active_tab = tab
-            else if(tab >= state.tabs.length)
-              state.active_tab = state.tabs.length -1
+            if(tab > 0 && tab < state.webremote.tabs.length)
+              state.webremote.active_tab = tab
+            else if(tab >= state.webremote.tabs.length)
+              state.webremote.active_tab = state.webremote.tabs.length -1
             else
-              state.active_tab = 0
+              state.webremote.active_tab = 0
           }
 
           break
@@ -361,19 +353,19 @@ const store = new Vuex.Store({
 
           let items = false
           if(keepItems)
-            items = state.tabs[state.active_tab].rows[state.editor.delete_item.row]
+            items = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.delete_item.row]
 
-          state.tabs[state.active_tab].rows.splice(state.editor.delete_item.row, 1)
-          if(state.tabs[state.active_tab].rows.length === 0)
-            state.tabs[state.active_tab].rows.push([])
+          state.webremote.tabs[state.webremote.active_tab].rows.splice(state.editor.delete_item.row, 1)
+          if(state.webremote.tabs[state.webremote.active_tab].rows.length === 0)
+            state.webremote.tabs[state.webremote.active_tab].rows.push([])
           
           if(items)
-            items.forEach(item => { state.tabs[state.active_tab].rows[0].push(item) })
+            items.forEach(item => { state.webremote.tabs[state.webremote.active_tab].rows[0].push(item) })
           
           break
 
         default:
-          state.tabs[state.active_tab].rows[state.editor.delete_item.row].splice(state.editor.delete_item.index, 1)
+          state.webremote.tabs[state.webremote.active_tab].rows[state.editor.delete_item.row].splice(state.editor.delete_item.index, 1)
           break
         }
 
@@ -382,15 +374,15 @@ const store = new Vuex.Store({
       },
 
     addRow: (state, row) => {
-      state.tabs[state.active_tab].rows.splice(row + 1, 0, [])
+      state.webremote.tabs[state.webremote.active_tab].rows.splice(row + 1, 0, [])
     },
 
     addTab: (state, tab) => {
       const newTab = JSON.parse(JSON.stringify(defaults.tab))
       newTab.rows.push([])
-      state.tabs.push(newTab)
-      state.active_tab = state.tabs.length - 1
-      state.editor.edit_item = state.tabs[state.active_tab]
+      state.webremote.tabs.push(newTab)
+      state.webremote.active_tab = state.webremote.tabs.length - 1
+      state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab]
     },
 
     updateItem: (state, data) => state.editor.edit_item[data.key] = data.val,
@@ -400,7 +392,7 @@ const store = new Vuex.Store({
     },
 
     updateRow: (state, data) => {
-      Vue.set(state.tabs[state.active_tab].rows, data.row, data.value)
+      Vue.set(state.webremote.tabs[state.webremote.active_tab].rows, data.row, data.value)
     },
 
     updateTabs: (state, data) => {
@@ -430,9 +422,9 @@ const store = new Vuex.Store({
 
     getCmdStates: (state) => {
 
-      if(state.reaper.ready && state.tabs[state.active_tab] !== undefined) {
+      if(state.reaper.ready && state.webremote.tabs[state.webremote.active_tab] !== undefined) {
         console.log('REAPERWRB: UPDATING COMMAND STATES!')
-        state.tabs[state.active_tab].rows.forEach((row) => {
+        state.webremote.tabs[state.webremote.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action')
               wwr_req('GET/' + item.action)
@@ -443,7 +435,7 @@ const store = new Vuex.Store({
 
     // saveExtState: (state) => {
     //   let items = []
-    //   state.tabs.forEach((tab, tabindex) => {
+    //   state.webremote.tabs.forEach((tab, tabindex) => {
 
     //     let t = {}
     //     Object.keys(tab).forEach(key => {
@@ -589,7 +581,7 @@ const store = new Vuex.Store({
         })
 
         // check state of all actions of the current tab if they are toggles
-        state.tabs[state.active_tab].rows.forEach((row) => {
+        state.webremote.tabs[state.webremote.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action' && item.toggle) {
               actionStates.forEach((action) => {

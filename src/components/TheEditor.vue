@@ -21,7 +21,7 @@
         </label>
 
         <template>
-          <template v-if="this.$store.state.tabs.length === 0">
+          <template v-if="this.$store.state.webremote.tabs.length === 0">
             <button class="pure-button app-editor-button-new" @click="onNew">
               <font-awesome-icon icon="file" />
             </button>
@@ -35,7 +35,7 @@
           </template>
           
           <button class="pure-button" 
-            :class="{ 'app-editor-button-toolbar': this.$store.state.tabs.length === 0 }"
+            :class="{ 'app-editor-button-toolbar': this.$store.state.webremote.tabs.length === 0 }"
             @click="onTriggerLoadToolbar"
           >
             <font-awesome-icon icon="folder-open" />Toolbar(s)
@@ -43,7 +43,7 @@
           <input @change="onLoadFile($event, 'txt')" type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt" multiple>
         </template>
         
-        <template v-if="this.$store.state.tabs.length > 0">
+        <template v-if="this.$store.state.webremote.tabs.length > 0">
           <button class="pure-button" @click="onToggleBulkEdit($event)"
             :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
           >Bulk Edit</button>
@@ -54,11 +54,11 @@
       </div>
 
       <div class="app-editor-panel"
-        v-if="this.$store.state.tabs.length > 0"
+        v-if="this.$store.state.webremote.tabs.length > 0"
       >
         <label>Global Grid Columns</label>
         <app-item-width-slider
-          v-model="$store.state.columns"
+          v-model="$store.state.webremote.columns"
           :min="4" 
           :max="10" 
           :width="400" :piecewise="true" />
@@ -206,7 +206,7 @@ export default {
     },
     
     showOptionsPanel() {
-      if(this.$store.state.tabs.length > 0 && ( 
+      if(this.$store.state.webremote.tabs.length > 0 && ( 
         this.$store.state.editor.edit_item.label ||
         this.$store.state.editor.edit_item.desc ||
         this.$store.state.editor.edit_item.action ||
@@ -273,7 +273,7 @@ export default {
           else 
             filesFailed.push(files[i].name)
 
-          this.$store.commit('switchTab', this.$store.state.tabs.length)
+          this.$store.commit('switchTab', this.$store.state.webremote.tabs.length)
           
         // load html file
         } else if (type === 'html' && i === 0) {
