@@ -1,5 +1,13 @@
 const defaults = {
   
+  webremote: {
+    name: '',
+    dateCreated: null,
+    columns: 8,
+    active_tab: 0,
+    tabs: []
+  },
+
   action: {
     type: 'action',
     label: 'label',

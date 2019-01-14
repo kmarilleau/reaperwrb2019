@@ -27,6 +27,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     version: '2019.1',
+    startup: true,
     reaper: {
       ready: false,
       transport: {
@@ -42,7 +43,7 @@ const store = new Vuex.Store({
       region: 0,
     }, 
     editor: {
-      enabled: true,
+      enabled: false,
       exec_actions: false,
       menu: false,
       delete_dialog: false,
@@ -52,11 +53,19 @@ const store = new Vuex.Store({
       edit_item: false,
       edit_items: [],
       delete_item: false,
+      active_row: 0,
     },
     transfer: {
       okay: false,
       timeout: 100,
       data: []
+    },
+    // FIXME move to webremote sub object
+    webremote: {
+      columns: 8,
+      active_tab: 0,
+      active_row: 0, // needed in editor only?
+      tabs: []
     },
     columns: 8,
     active_tab: 0,
@@ -89,6 +98,11 @@ const store = new Vuex.Store({
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
+    launchEditor: (state) => {
+      state.startup = false
+      state.editor.enabled = true
+    },
+
     new: (state) => {
       const newTab = JSON.parse(JSON.stringify(defaults.tab))
       newTab.rows.push([])
@@ -106,7 +120,7 @@ const store = new Vuex.Store({
 
     saveHTML: (state) => {
       // FIXME ugly
-      console.log("REAPERWRB: SAVING WEB REMOTE!")
+      console.log('REAPERWRB: SAVING WEB REMOTE!')
       const saveState = cloneDeep(state)
       saveState.editor.enabled = false
       saveState.editor.edit_item = false
@@ -128,6 +142,17 @@ const store = new Vuex.Store({
       // check if we have a local storage already
       // check if a webremote with the same name exists
       // add data
+      if(typeof(Storage) !== 'undefined') {
+        console.log('REAPERWRB: Saving to Local Storage.')
+        if(!localStorage.getItem('REAPERWRB')) {
+          console.log('REAPERWRB: No Local Storage Instance. Creating new.')
+        } else {
+          // check if a webremote with the same name already exists
+          // update / save new
+        }
+      } else {
+        console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
+      }
     },
 
     logTabs: (state) => {
@@ -406,7 +431,7 @@ const store = new Vuex.Store({
     getCmdStates: (state) => {
 
       if(state.reaper.ready && state.tabs[state.active_tab] !== undefined) {
-        console.log("REAPERWRB: UPDATING COMMAND STATES!")
+        console.log('REAPERWRB: UPDATING COMMAND STATES!')
         state.tabs[state.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action')
@@ -591,7 +616,7 @@ const app = new Vue({
   created: function() {
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
     if(reaperReady) {
-      console.log("ReaperWRB: REAPER API READY")
+      console.log('ReaperWRB: REAPER API READY')
       wwr_start()
       window.wwr_onreply = (result) => this.$store.commit('onReply', result)
       this.$store.commit('setReaperReady', reaperReady)
