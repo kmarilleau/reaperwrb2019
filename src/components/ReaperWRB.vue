@@ -39,7 +39,7 @@ export default {
     const div = document.getElementById('reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
       const data = JSON.parse(div.innerHTML)
-      this.$store.commit('skipStartup')
+      this.$store.commit('hideStartup')
       this.$store.commit('import', data)
     }
   },

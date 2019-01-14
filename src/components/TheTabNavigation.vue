@@ -21,6 +21,17 @@
 
     <app-tab-add />
 
+    <div class="app-tab-navigation-item app-tab-navigation-special"
+      v-if="!this.$store.state.editor.enabled"
+    >
+      <div @click.stop="onHome()">
+        <font-awesome-icon icon="home" />
+      </div>
+      <div @click.stop="onEdit()">
+        <font-awesome-icon icon="pen" />
+      </div>
+    </div>
+
   </draggable>
 </template>
 
@@ -51,6 +62,16 @@ export default {
   },
 
   methods: {
+
+    onHome() {
+      this.$store.commit('showStartup')
+      this.$store.commit('unload')
+    },
+
+    onEdit() {
+      this.$store.commit('enableEditor', true)
+    },
+
     disableSort() {
       if(this.$store.state.editor.enabled) {
         if(this.$store.state.editor.bulk_edit)

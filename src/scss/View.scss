@@ -30,6 +30,10 @@
     overflow: hidden;
   }
 
+  .app-tab-navigation-special {
+    grid-column-gap: $g-item-margin-landscape;
+  }
+
   .app-row {
     min-height: $g-item-height-landscape;
   }
@@ -80,6 +84,10 @@
     line-height: $g-nav-item-height-portrait;
     line-height: $g-nav-item-height-portrait;
     overflow: hidden;
+  }
+
+  .app-tab-navigation-special {
+    grid-column-gap: $g-item-margin-portrait;
   }
 
   .app-row {
@@ -135,6 +143,24 @@
 
 .app-tab-navigation-item-active {
   opacity: 1;
+}
+
+.app-tab-navigation-special {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  opacity: 1;
+  
+  div {
+    background: $c-editor-button-okay;
+    border-radius: $g-border-radius;
+    color: $c-editor-primary;
+    opacity: 0.95;
+    font-size: 200%;
+  }
+  div:hover {
+    opacity: 1;
+  }
 }
 
 .app-item-container {

@@ -21,6 +21,11 @@
         </label>
 
         <template>
+
+          <button class="pure-button pure-button-primary" @click="onHome()">
+            <font-awesome-icon icon="home" />
+          </button>
+
           <template v-if="this.$store.state.webremote.tabs.length === 0">
             <button class="pure-button app-editor-button-new" @click="onNew">
               <font-awesome-icon icon="file" />
@@ -221,6 +226,13 @@ export default {
   },
 
   methods: {
+
+    onHome(event) {
+      // FIXME ask for unsaved changes
+      this.$store.commit('enableEditor', false)
+      this.$store.commit('showStartup')
+      this.$store.commit('unload')
+    },
 
     onClearIcons(event) {
       this.$store.commit('updateItem', { key: 'icon', val: false })

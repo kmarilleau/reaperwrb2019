@@ -1,5 +1,6 @@
 .app-startup {
   color: $c-editor-primary;
+  background: $bg-editor-input;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -7,16 +8,37 @@
   flex-direction: row;
   justify-content: flex-start;
 
+  .logo,
+  button {
+    border-radius: $g-border-radius;
+    margin: 0.1vw;
+    width: 19.8vw;
+    max-height: 19.8vw;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    background: $bg-editor-input;
+    img { 
+      margin: auto !important;
+      height: 10vw;
+      width: 10vw;
+    }
+  }
+
   button {
     border-radius: $g-border-radius;
     font-size: 2vw;
-    width: 19.8vw;
-    margin: 0.1vw;
     text-align: center;
     cursor: pointer;
     border: none;
-    max-height: 19.8vw;
-    
+    opacity: 1;
+  }
+
+  button.app-button-local-storage {
+    background: $c-editor-button-secondary;
+    color: $c-editor-primary;
   }
   button:hover {
     opacity: 0.97;

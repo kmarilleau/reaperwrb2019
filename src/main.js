@@ -62,6 +62,8 @@ const store = new Vuex.Store({
       data: []
     },
     webremote: {
+      label: 'new webremote',
+      time_created: null,
       columns: 8,
       active_tab: 0,
       tabs: []
@@ -108,6 +110,11 @@ const store = new Vuex.Store({
       state.editor.edit_item = state.webremote.tabs[0]
     },
 
+    unload: (state) => {
+      console.log('REAPERWRB: Unloading webremote.')
+      state.webremote = cloneDeep(defaults.webremote)
+    },
+
     showSaveDialog: (state) => {
       state.editor.save_dialog = true
     },
@@ -116,7 +123,11 @@ const store = new Vuex.Store({
       state.editor.save_dialog = false
     },
 
-    skipStartup: (state) => {
+    showStartup: (state) => {
+      state.startup = true
+    },
+
+    hideStartup: (state) => {
       state.startup = false
     },
 
