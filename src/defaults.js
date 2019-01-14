@@ -6,7 +6,7 @@ const defaults = {
 
   webremote: {
     label: 'new webremote',
-    dateCreated: null,
+    time_created: null,
     columns: 8,
     active_tab: 0,
     tabs: []

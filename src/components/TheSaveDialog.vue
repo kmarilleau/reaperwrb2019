@@ -16,6 +16,7 @@
       </button>  
 
       <button class="pure-button pure-button-primary"
+        v-if="this.$store.state.has_local_storage"
         @click.stop="onSaveLocalStorage()">
         <font-awesome-icon icon="save" /> Save Local
       </button>

@@ -34,11 +34,13 @@ export default {
   },
 
   mounted() {
+
     // check if we're running from inside a HTML
     const div = document.getElementById('reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
-      const json = JSON.parse(div.innerHTML)
-      this.$store.replaceState(json)
+      const data = JSON.parse(div.innerHTML)
+      this.$store.commit('skipStartup')
+      this.$store.commit('import', data)
     }
   },
 

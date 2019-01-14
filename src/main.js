@@ -28,6 +28,7 @@ const store = new Vuex.Store({
   state: {
     version: '2019.1',
     startup: true,
+    has_local_storage: false,
     reaper: {
       ready: false,
       transport: {
@@ -65,6 +66,7 @@ const store = new Vuex.Store({
       active_tab: 0,
       tabs: []
     },
+    local_storage: {}
   },
 
   getters: {},
@@ -114,6 +116,10 @@ const store = new Vuex.Store({
       state.editor.save_dialog = false
     },
 
+    skipStartup: (state) => {
+      state.startup = false
+    },
+
     saveHTML: (state) => {
       // FIXME ugly
       console.log('REAPERWRB: SAVING WEB REMOTE!')
@@ -134,23 +140,46 @@ const store = new Vuex.Store({
       // add data
     },
 
+    checkLocalStorageSupport: (state) => {
+      if(typeof(Storage) !== 'undefined') {
+        state.has_local_storage = true
+        console.log('REAPERWRB: Local storage support enabled.')
+        if(!localStorage.getItem('REAPERWRB')) {
+          console.log('REAPERWRB: No Local Storage Instance. Creating new.')
+          const storage = cloneDeep(defaults.storage)
+          localStorage.setItem('REAPERWRB', JSON.stringify(storage))
+        } else {
+          console.log('REAPERWRB: Loading Local Storage.')
+          state.local_storage = JSON.parse(localStorage.getItem('REAPERWRB'))
+        }
+      } else {
+        state.has_local_storage = false
+        console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
+      }
+    },
+
     saveLocalStorage: (state) => {
       // check if we have a local storage already
       // check if a webremote with the same name exists
       // add data
-      if(typeof(Storage) !== 'undefined') {
+      if(state.has_local_storage) {
         console.log('REAPERWRB: Saving to Local Storage.')
-        if(!localStorage.getItem('REAPERWRB')) {
-          console.log('REAPERWRB: No Local Storage Instance. Creating new.')
-          const storage = cloneDeep(defaults.storage)
-          const webremote = cloneDeep(state.webremote)
-        } else {
-          // check if a webremote with the same name already exists
-          // update / save new
-        }
-      } else {
-        console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
+        //const local = JSON.parse(localStorage.getItem('REAPERWRB'))
+        //console.log(local)
+        const webremote = cloneDeep(state.webremote)
+        // FIXME check if a webremote with the same name already exists
+        //const labels = state.local_storage.webremotes.map(webremote => webremote.label)
+        //console.log(labels)
+
+        const d = new Date()
+        webremote.time_created = d.getTime()
+        state.local_storage.webremotes.push(webremote)
+        localStorage.setItem('REAPERWRB', JSON.stringify(state.local_storage))
       }
+    },
+
+    deleteLocalStorage: (state, label) => {
+      localStorage.removeItem('REAPERWRB')
     },
 
     logTabs: (state) => {
@@ -160,7 +189,8 @@ const store = new Vuex.Store({
     
     // FIXME
     import: (state, data) => {
-      if(state.webremote.tabs.length <= 0)
+      console.log("REAPERWRB: Importing data.")
+      if(state.webremote.tabs.length === 0)
         state.webremote = data
       else
         data.tabs.forEach(tab => state.webremote.tabs.push(tab))
@@ -609,6 +639,9 @@ const app = new Vue({
   components: { App },
   template: '<App/>',
   created: function() {
+
+    this.$store.commit('checkLocalStorageSupport')
+
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
     if(reaperReady) {
       console.log('ReaperWRB: REAPER API READY')
@@ -617,13 +650,6 @@ const app = new Vue({
       this.$store.commit('setReaperReady', reaperReady)
     } else {
       console.log('ReaperWRB ERROR: REAPER API NOT READY')
-    }
-
-    let json = document.querySelector('#reaperwrb-json')
-    if(json !== null) {
-      let data = JSON.parse(document.querySelector('#reaperwrb-json').innerHTML)
-      this.$store.commit('import', data.tabs)
-      this.$store.commit('enable_editor', false)
     }
   }
 })

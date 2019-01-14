@@ -3,13 +3,22 @@
   height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
 
   button {
-    margin: auto;
-    height: 10vw;
-    width: 10vw;
+    border-radius: $g-border-radius;
     font-size: 2vw;
+    width: 19.8vw;
+    margin: 0.1vw;
     text-align: center;
+    cursor: pointer;
+    border: none;
+    max-height: 19.8vw;
+    
+  }
+  button:hover {
+    opacity: 0.97;
   }
 }
