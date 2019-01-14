@@ -15,9 +15,6 @@
       <!-- EDITOR MAIN FUNCTIONS -->
       <div class="app-editor-panel">
 
-        <button @click="saveExtState()">save state test</button>
-        <button @click="loadExtState()">load state test</button>
-          
         <label>
           <input type="checkbox" v-model="execActions">
           Execute Actions
@@ -165,6 +162,7 @@
       </div>
     <app-item-add-menu />
     <app-delete-dialog />
+    <app-save-dialog />
   </div>
 </template>
 
@@ -174,6 +172,7 @@ import TheEditorTextColorPicker from '@/components/TheEditorTextColorPicker.vue'
 import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
 import TheItemAddMenu from '@/components/TheItemAddMenu.vue'
 import TheDeleteDialog from '@/components/TheDeleteDialog.vue'
+import TheSaveDialog from '@/components/TheSaveDialog.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
 import defaults from '@/defaults'
@@ -189,6 +188,7 @@ export default {
     'app-icon-picker': BaseEditorIconPicker,
     'app-item-add-menu': TheItemAddMenu,
     'app-delete-dialog': TheDeleteDialog,
+    'app-save-dialog': TheSaveDialog,
     'app-item-action': BaseItemAction,
     'app-item-width-slider': VueSlider
   },
@@ -220,162 +220,6 @@ export default {
   },
 
   methods: {
-
-    saveExtState(event) {
-      let json = JSON.stringify([
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'shit'
-          }
-        },
-        {
-        name: 'test',
-        age: 12,
-        weight: 200,
-        data: {
-          more: 'end'
-          }
-        },
-      ]) 
-      //JSON.stringify(exampleJSON)
-      console.log(json)
-      wwr_req('SET/EXTSTATEPERSIST/reaperwrb/data/' + json)
-    },
-
-    loadExtState(event) {
-      wwr_req('GET/EXTSTATE/reaperwrb/data')
-    },
 
     onClearIcons(event) {
       this.$store.commit('updateItem', { key: 'icon', val: false })
@@ -472,7 +316,6 @@ export default {
         console.log("REAPERWRB ERROR: File \"%s\" didn't contain any items!", filename)
         return false
       }
-
     },
 
     parseHTML(text) {
@@ -521,7 +364,10 @@ export default {
 
     onSave(event) {
       this.$store.commit('clearEditHighlight')
-      this.$store.commit('save')
+      this.$store.commit('clearEditItem')
+      if(this.$store.state.editor.bulk_edit)
+        this.$store.commit('toggleBulkEdit')
+      this.$store.commit('showSaveDialog')
     },
 
     onSetColumns(event) {

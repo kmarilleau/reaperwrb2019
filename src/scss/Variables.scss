@@ -18,6 +18,7 @@ $g-nav-item-height-landscape: calc(100vw / 28);
 $g-item-height-portrait: calc(100vw / 7.5);
 $g-nav-item-height-portrait: calc(100vw / 15);
 $g-editor-view-width: 55vw;
+$g-editor-panel-width: 45vw;
 $c-help-button-new: #F4F7FC;
 $c-help-button-example: #42b8dd;
 $c-help-button-html: #FCC400;
@@ -29,10 +30,9 @@ $c-editor-button-secondary: #42b8dd;
 %editor-dialog-shared {
   position: absolute;
   top: 0;
-  left: 1024px;
-  right: 0;
+  left: $g-editor-view-width; 
   bottom: 0;
-  width: inherit;
+  width: $g-editor-panel-width;
   z-index: 1000;
   padding-top: 20px;
 }

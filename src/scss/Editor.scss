@@ -77,7 +77,8 @@
     margin: 0 0 1vh 0;
   }
 
-  #app-item-delete-dialog {
+  #app-item-delete-dialog,
+  #app-item-save-dialog {
     @extend %editor-dialog-shared;
     background: $bg-editor-alt;
     text-align: center;

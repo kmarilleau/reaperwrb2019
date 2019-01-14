@@ -46,11 +46,17 @@ const store = new Vuex.Store({
       exec_actions: false,
       menu: false,
       delete_dialog: false,
+      save_dialog: false,
       bulk_edit: false,
       move_item: false,
       edit_item: false,
       edit_items: [],
       delete_item: false,
+    },
+    transfer: {
+      okay: false,
+      timeout: 100,
+      data: []
     },
     columns: 8,
     active_tab: 0,
@@ -79,6 +85,7 @@ const store = new Vuex.Store({
     },
 
     clearEditItem: (state) => state.editor.edit_item = false,
+    clearEditItems: (state) => state.editor.edit_items = [],
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
@@ -89,7 +96,15 @@ const store = new Vuex.Store({
       state.editor.edit_item = state.tabs[0]
     },
 
-    save: (state) => {
+    showSaveDialog: (state) => {
+      state.editor.save_dialog = true
+    },
+
+    cancelSave: (state) => {
+      state.editor.save_dialog = false
+    },
+
+    saveHTML: (state) => {
       // FIXME ugly
       console.log("REAPERWRB: SAVING WEB REMOTE!")
       const saveState = cloneDeep(state)
@@ -101,6 +116,18 @@ const store = new Vuex.Store({
       const html = webremote.html(json).replace(/\n|/g, '').replace(/>\s+</g, '><')
       let blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, "mywebremote.html")
+    },
+
+    saveJSON: (state) => {
+      // check if we already have a JSON file
+      // check if webremote with same name exists already
+      // add data
+    },
+
+    saveLocalStorage: (state) => {
+      // check if we have a local storage already
+      // check if a webremote with the same name exists
+      // add data
     },
 
     logTabs: (state) => {
@@ -386,12 +413,95 @@ const store = new Vuex.Store({
               wwr_req('GET/' + item.action)
           })
         })
-
       }
     },
 
+    // saveExtState: (state) => {
+    //   let items = []
+    //   state.tabs.forEach((tab, tabindex) => {
+
+    //     let t = {}
+    //     Object.keys(tab).forEach(key => {
+    //       if(key !== 'rows')
+    //         t[key] = tab[key]
+    //     })
+
+    //     items.push(encodeURIComponent(JSON.stringify(t)))
+
+    //     tab.rows.forEach((row, rowindex) => {
+    //       row.forEach((item, itemindex) => {
+    //         item.row = rowindex
+    //         item.tab = tabindex
+    //         items.push(encodeURIComponent(JSON.stringify(item)))
+    //       })
+    //     })
+    //   })
+
+    //   wwr_req('SET/EXTSTATE/REAPERWRB_TRANSFER/INFO/' + encodeURIComponent(JSON.stringify({
+    //     items: items.length
+    //   })))
+
+    //   let c = -1
+    //   let f = function() {
+    //     c++
+    //     if(c < items.length) {
+    //       wwr_req('SET/EXTSTATE/REAPERWRB_TRANSFER/ITEM_' + c + '/' + items[c])
+    //       setTimeout(f, state.transfer.timeout)
+    //     }
+    //   }
+    //   f()
+    // },
+
+    // readExtState: (state, key) => {
+    //   state.transfer.okay = false
+    //   state.transfer.data = []
+
+    //   wwr_req('GET/EXTSTATE/REAPERWRB_TRANSFER/INFO')
+
+    //   let f = function() {
+    //     if(!state.transfer.okay) {
+    //       setTimeout(f, state.transfer.timeout)
+    //     } else {
+    //       console.log("REAPERWRB: TRANSFER FINISHED IMPORTING DATA")
+    //       state.transfer.data.forEach(item => {
+    //         console.log(item)
+    //       })
+    //     }
+    //   }
+    //   f()
+    // },
+
     onReply: (state, result) => {
-      console.log(result)
+      //console.log(result)
+
+      if(result.match('EXTSTATE')) {
+        const data = result.trim().split("\n")
+                      .filter(line => !line.match('TRANSPORT'))[0]
+                      .split("\t")
+        console.log(data)
+
+        if(data[1] === 'REAPERWRB_TRANSFER') {
+          if(data[2] === 'INFO') {
+
+            let info = JSON.parse(data[3])
+            console.log(info)
+            let c = -1
+            let r = function() {
+              c++
+              if(c < info.items) {
+                wwr_req('GET/EXTSTATE/REAPERWRB_TRANSFER/ITEM_' + c)
+                setTimeout(r, state.transfer.timeout)
+              } else {
+                state.transfer.okay = true
+              }
+            }
+            r()
+          } else if (data[2].match('ITEM')) {
+            //console.log(JSON.parse(data[3]))
+            state.transfer.data.push(JSON.parse(data[3]))
+          }
+        }
+      }
 
       if(result.match('TRANSPORT')) {
         const data = result.trim().split("\n")[0].split("\t")
