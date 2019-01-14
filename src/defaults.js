@@ -1,7 +1,11 @@
 const defaults = {
   
+  storage: {
+    webremotes: []
+  },
+
   webremote: {
-    name: '',
+    label: 'new webremote',
     dateCreated: null,
     columns: 8,
     active_tab: 0,

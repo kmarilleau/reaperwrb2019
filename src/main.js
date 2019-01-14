@@ -98,8 +98,8 @@ const store = new Vuex.Store({
     },
 
     new: (state) => {
-      const newWebremote = JSON.parse(JSON.stringify(defaults.webremote))
-      const newTab = JSON.parse(JSON.stringify(defaults.tab))
+      const newWebremote = cloneDeep(defaults.webremote)
+      const newTab = cloneDeep(defaults.tab)
       newTab.rows.push([])
       newWebremote.tabs.push(newTab)
       state.webremote = newWebremote
@@ -142,6 +142,8 @@ const store = new Vuex.Store({
         console.log('REAPERWRB: Saving to Local Storage.')
         if(!localStorage.getItem('REAPERWRB')) {
           console.log('REAPERWRB: No Local Storage Instance. Creating new.')
+          const storage = cloneDeep(defaults.storage)
+          const webremote = cloneDeep(state.webremote)
         } else {
           // check if a webremote with the same name already exists
           // update / save new
@@ -153,14 +155,15 @@ const store = new Vuex.Store({
 
     logTabs: (state) => {
       const tabs = cloneDeep(state.webremote.tabs)
-      console.log(JSON.stringify(tabs))
+      console.log(JSON.stringify(cloneDeep(tabs)))
     },
     
+    // FIXME
     import: (state, data) => {
       if(state.webremote.tabs.length <= 0)
-        state.webremote.tabs = data
+        state.webremote = data
       else
-        data.forEach(tab => state.webremote.tabs.push(tab))
+        data.tabs.forEach(tab => state.webremote.tabs.push(tab))
     },
 
     switchTab: (state, tab) => {
@@ -205,7 +208,7 @@ const store = new Vuex.Store({
     },
 
     addItem: (state, type) => {
-      const item = JSON.parse(JSON.stringify(defaults[type]))
+      const item = cloneDeep(defaults[type])
       const row = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.active_row]
       row.push(item)
       state.editor.edit_item = row[row.length - 1]
@@ -378,7 +381,7 @@ const store = new Vuex.Store({
     },
 
     addTab: (state, tab) => {
-      const newTab = JSON.parse(JSON.stringify(defaults.tab))
+      const newTab = cloneDeep(defaults.tab)
       newTab.rows.push([])
       state.webremote.tabs.push(newTab)
       state.webremote.active_tab = state.webremote.tabs.length - 1

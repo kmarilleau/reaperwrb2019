@@ -167,6 +167,7 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep'
 import BaseEditorItemColorPicker from '@/components/BaseEditorItemColorPicker.vue'
 import TheEditorTextColorPicker from '@/components/TheEditorTextColorPicker.vue'
 import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
@@ -240,8 +241,8 @@ export default {
     },
 
     onLoadExample(event) {
-      const json = JSON.parse(JSON.stringify(exampleJSON))
-      this.$store.commit('import', json)
+      const webremote = cloneDeep(exampleJSON)
+      this.$store.commit('import', webremote)
     },
 
     onTriggerLoadToolbar(event) {

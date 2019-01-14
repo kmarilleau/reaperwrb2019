@@ -15,9 +15,6 @@ import BaseRow from '@/components/BaseRow.vue';
 
 export default {
   props: ['rows'],
-  beforeMount() {
-    console.log(this.rows)
-  },
   components: {
     'app-row': BaseRow
   }
