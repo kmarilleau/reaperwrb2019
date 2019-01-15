@@ -6,10 +6,12 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import cloneDeep from 'lodash/cloneDeep'
+//import isMobile from 'ismobilejs'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
 import defaults from '@/defaults'
 import webremote from '@/webremote'
+import example from '@/example'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
@@ -151,6 +153,20 @@ const store = new Vuex.Store({
       // add data
     },
 
+    fadeInLoader: (state) => {
+      const loader = document.querySelector('#loader')
+      loader.classList.remove('fadeOut')
+      loader.classList.remove('hidden')
+      loader.classList.add('fadeIn')
+    },
+
+    fadeOutLoader: (state) => {
+      const loader = document.querySelector('#loader')
+      loader.classList.remove('fadeIn')
+      loader.classList.add('fadeOut')
+      setTimeout(function(){ document.querySelector('#loader').classList.add('hidden') }, 1000)
+    },
+
     checkLocalStorageSupport: (state) => {
       if(typeof(Storage) !== 'undefined') {
         state.has_local_storage = true
@@ -205,6 +221,9 @@ const store = new Vuex.Store({
         state.webremote = data
       else
         data.tabs.forEach(tab => state.webremote.tabs.push(tab))
+
+      // FIXME hide startup
+      state.startup = false
     },
 
     switchTab: (state, tab) => {
@@ -651,6 +670,7 @@ const app = new Vue({
   template: '<App/>',
   created: function() {
 
+    // check for local storage support
     this.$store.commit('checkLocalStorageSupport')
 
     const reaperReady = typeof(wwr_start) === 'function' ? true : false

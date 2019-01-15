@@ -2,7 +2,6 @@
   <div class="app-container"
     :class="classContainerEditor()"
   >
-
     <app-startup v-if="this.$store.state.startup" />
 
     <template v-if="!this.$store.state.startup">
@@ -30,7 +29,7 @@ export default {
   components: {
     'app-startup': TheStartup,
     'app-view': TheView,
-    'app-editor': TheEditor
+    'app-editor': TheEditor,
   },
 
   mounted() {
@@ -42,6 +41,8 @@ export default {
       this.$store.commit('hideStartup')
       this.$store.commit('import', data)
     }
+
+    this.$store.commit('fadeOutLoader')
   },
 
   methods: {

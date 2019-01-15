@@ -69,6 +69,7 @@ export default {
     },
 
     onEdit() {
+      this.$store.commit('fadeInLoader')
       this.$store.commit('enableEditor', true)
     },
 

@@ -3,7 +3,7 @@
     <!-- <div><img src="/static/icons/icon-96x96.png" /></div> -->
 
     <div class="logo">
-      <img src="/reaperwrb/icons/icon-192x192.png" />
+      <img src="/reaperwrb/icons/icon-512x512.png" />
     </div>
 
     <button class="pure-button pure-button-primary" 
@@ -11,8 +11,14 @@
       <span>Editor</span>
     </button>
 
+    <button class="pure-button pure-button-warning"
+      @click="onLoadDefault()"
+    >
+      <span>Default</span>
+    </button>
+
     <template
-      v-if="this.$store.state.has_local_storage && this.$store.state.local_storage.webremotes.length > 0"
+      v-if="this.$store.state.has_local_storage && typeof(this.$store.state.local_storage.webremotes) !== 'undefined'"
     >
       <button class="app-button-local-storage"
         v-for="(webremote,index) in this.$store.state.local_storage.webremotes" :key="index"
@@ -26,10 +32,17 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep'
+import example from '@/example'
 export default {
   methods: {
     onLaunchEditor() {
+      this.$store.commit('fadeInLoader')
       this.$store.commit('launchEditor')
+    },
+    onLoadDefault() {
+      const webremote = cloneDeep(example)
+      this.$store.commit('import', webremote)
     },
     onLoadLocal(label) {
       this.$store.commit('hideStartup')

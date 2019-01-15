@@ -183,7 +183,6 @@ import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
 import defaults from '@/defaults'
 import fa4shims from '@/fa4shims'
-import exampleJSON from '@/example'
 
 export default {
   props: ['item', 'columns', 'editor', 'reaper'],
@@ -197,6 +196,10 @@ export default {
     'app-save-dialog': TheSaveDialog,
     'app-item-action': BaseItemAction,
     'app-item-width-slider': VueSlider
+  },
+
+  mounted() {
+    this.$store.commit('fadeOutLoader')
   },
 
   computed: {
@@ -253,7 +256,7 @@ export default {
     },
 
     onLoadExample(event) {
-      const webremote = cloneDeep(exampleJSON)
+      const webremote = cloneDeep(example)
       this.$store.commit('import', webremote)
     },
 

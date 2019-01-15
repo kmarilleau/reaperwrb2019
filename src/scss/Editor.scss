@@ -5,6 +5,16 @@
   grid-template-columns: $g-editor-view-width auto;
 }
 
+.pure-button-secondary {
+  background: $c-editor-button-secondary;
+  color: $c-editor-primary;
+}
+
+.pure-button-warning {
+  color: $c-editor-primary;
+  background: $c-editor-button-warning;
+}
+
 .app-editor {
   height: 95vh;
   display: grid;
@@ -12,16 +22,6 @@
   grid-template-rows: 1fr 3fr 4fr;
   color: $c-editor-primary;
   padding: 5vh 0 0 0;
-
-  .pure-button-secondary {
-    background: $c-editor-button-secondary;
-    color: $c-editor-primary;
-  }
-  
-  .pure-button-warning {
-    color: $c-editor-primary;
-    background: $c-editor-button-warning;
-  }
 
   .app-editor-button-new { background: $c-help-button-new; }
   .app-editor-button-example { background: $c-help-button-example; }
