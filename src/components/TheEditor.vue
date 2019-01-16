@@ -16,7 +16,7 @@
       <div class="app-editor-panel">
 
         <label>
-          <input type="checkbox" v-model="execActions">
+          <input type="checkbox" name="execActions" v-model="execActions">
           Execute Actions
         </label>
 
@@ -90,12 +90,12 @@
 
         <template v-if="item.type === 'action'">
           <label>Action</label>
-          <input type="text" v-model="item.action">
+          <input type="text" name="item-action" v-model="item.action">
         </template>
 
         <template v-if="item.type === 'action' || item.type === 'tab'">
           <label>Label</label>
-          <input type="text" v-model="item.label" maxlength="30" autofocus>
+          <input type="text" name="item-label" v-model="item.label" maxlength="30" autofocus>
         </template>
 
         <template v-if="item.type === 'action'">
@@ -108,7 +108,7 @@
 
         <template v-if="item.type === 'action'">
           <label>Action Description</label>
-          <input class="app-item-desc" :value="item.desc ? item.desc : 'none'">
+          <input class="app-item-desc" name="item-desc" :value="item.desc ? item.desc : 'none'">
         </template>
 
         <template
@@ -124,7 +124,7 @@
         </template>
 
         <template v-if="item.type === 'action'">
-          <input type="checkbox" class="app-editor-checkbox" v-model="item.toggle">
+          <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="item.toggle">
           Toggle
         </template>
         
