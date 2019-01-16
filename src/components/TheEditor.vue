@@ -1,7 +1,7 @@
 <template>
   <div class="app-editor pure-form">
 
-    <div class="app-editor-panel app-reaper-status">
+    <!-- <div class="app-editor-panel app-reaper-status">
       <template v-if="!reaper.ready">
         <img src="/reaperwrb/icons/icon-reaper-offline-32x32.png" />
         <span>OFFLINE</span>
@@ -10,15 +10,15 @@
         <img src="/reaperwrb/icons/icon-reaper-online-32x32.png" />
         <span>ONLINE</span>
       </template>
-    </div>
+    </div> -->
 
       <!-- EDITOR MAIN FUNCTIONS -->
-      <div class="app-editor-panel">
+      <div class="app-editor-panel app-editor-main-menu">
 
-        <label>
+        <!-- <label>
           <input type="checkbox" name="execActions" v-model="execActions">
           Execute Actions
-        </label>
+        </label> -->
 
         <template>
 
@@ -58,19 +58,20 @@
 
       </div>
 
-      <div class="app-editor-panel"
-        v-if="this.$store.state.webremote.tabs.length > 0"
-      >
-        <label>Global Grid Columns</label>
-        <app-item-width-slider
-          v-model="$store.state.webremote.columns"
-          :min="4" 
-          :max="10" 
-          :width="400" :piecewise="true" />
-      </div>
-
       <!-- EDITOR COLORS -->
       <div class="app-editor-panel">
+
+        <template
+          v-if="this.$store.state.webremote.tabs.length > 0"
+        >
+          <label>Global Grid Columns</label>
+          <app-item-width-slider
+            v-model="$store.state.webremote.columns"
+            :min="4" 
+            :max="10" 
+            :width="400" :piecewise="true" />
+        </template>
+
         <app-text-color-picker 
           v-if="typeof(item.textcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
           :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 

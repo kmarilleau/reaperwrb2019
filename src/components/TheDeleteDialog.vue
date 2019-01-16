@@ -2,9 +2,7 @@
   <div id="app-item-delete-dialog" 
   v-if="this.$store.state.editor.delete_dialog"
   :class="{ hidden: !this.$store.state.editor.delete_dialog }">
-    <div>
-      <div class="app-editor-dialog-info">Permanently Delete?</div>
-
+    <div class="app-editor-main-menu">
       <button class="pure-button pure-button-secondary"
         @click.stop="onCancel"
       ><font-awesome-icon icon="ban" size="1x" /> Cancel</button>

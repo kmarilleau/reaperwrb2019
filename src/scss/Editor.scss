@@ -19,9 +19,16 @@
   height: 95vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 3fr 4fr;
+  grid-template-rows: 0.5fr 3fr 4fr;
   color: $c-editor-primary;
-  padding: 5vh 0 0 0;
+
+  .app-editor-main-menu {
+    padding: 0.5vw 0 0 0;
+    grid-column-end: span 2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 0.5vw;
+  }
 
   .app-editor-button-new { background: $c-help-button-new; }
   .app-editor-button-example { background: $c-help-button-example; }
@@ -81,7 +88,7 @@
   #app-item-save-dialog {
     @extend %editor-dialog-shared;
     background: $bg-editor-alt;
-    text-align: center;
+    display: grid;
   }
 
   #app-item-add-menu {

@@ -30,9 +30,11 @@ $c-editor-button-secondary: #42b8dd;
 %editor-dialog-shared {
   position: absolute;
   top: 0;
-  left: $g-editor-view-width; 
+  left: $g-editor-view-width;
   bottom: 0;
   width: $g-editor-panel-width;
   z-index: 1000;
-  padding-top: 20px;
+  display: grid;
+  grid-template-rows: 0.5fr 3fr 4fr;
+  grid-column-gap: 0.5vw;
 }
