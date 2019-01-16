@@ -275,6 +275,8 @@ export default {
       const filesFailed = []
       const files = event.target.files
 
+      console.log(files);
+
       let tabs = []
 
       for (let i = 0; i < files.length; i++) {
@@ -290,7 +292,7 @@ export default {
           else 
             filesFailed.push(files[i].name)
 
-          this.$store.commit('switchTab', this.$store.state.webremote.tabs.length)
+          //this.$store.commit('switchTab', this.$store.state.webremote.tabs.length)
           
         // load html file
         } else if (type === 'html' && i === 0) {

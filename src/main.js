@@ -214,16 +214,16 @@ const store = new Vuex.Store({
       console.log(JSON.stringify(cloneDeep(tabs)))
     },
     
-    // FIXME
+    // FIXME unsaafe
     import: (state, data) => {
       console.log("REAPERWRB: Importing data.")
-      if(state.webremote.tabs.length === 0)
-        state.webremote = data
-      else
-        data.tabs.forEach(tab => state.webremote.tabs.push(tab))
-
-      // FIXME hide startup
-      state.startup = false
+      if(typeof(data.tabs) !== 'undefined') {
+        state.webremote = cloneDeep(data)
+        state.startup = false
+      } else {
+        data.forEach(tab => state.webremote.tabs.push(tab))
+        state.webremote.active_tab = state.webremote.tabs.length - 1
+      } 
     },
 
     switchTab: (state, tab) => {
