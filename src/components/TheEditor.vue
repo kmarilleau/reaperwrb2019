@@ -182,6 +182,7 @@ import TheSaveDialog from '@/components/TheSaveDialog.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
 import defaults from '@/defaults'
+import example from '@/example'
 import fa4shims from '@/fa4shims'
 
 export default {
