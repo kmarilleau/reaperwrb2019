@@ -1,5 +1,7 @@
 <template>
-  <div class="app-row-edit-buttons">
+  <div class="app-row-edit-buttons"
+    :class="{ 'hidden': this.$store.getters.isEditorBulkEdit }"
+  >
     <a class="app-row-edit-button"
       @click.stop="onShowItemAddMenu()" 
     >

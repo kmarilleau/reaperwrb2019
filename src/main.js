@@ -194,6 +194,7 @@ const store = new Vuex.Store({
     },
     onShowItemAddMenu({ commit, state}, row) {
       commit('clearEditHighlight')
+      commit('clearEditItem')
       commit('switchRow', row)
       commit('setEditorModeAdd')
     },

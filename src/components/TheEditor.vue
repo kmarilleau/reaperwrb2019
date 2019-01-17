@@ -20,18 +20,24 @@
             :width="400" :piecewise="true" />
         </template>
 
-        <app-text-color-picker 
-          v-if="typeof(item.textcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
-          :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 
-        />
-        <app-item-color-picker 
-          v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
-          :color="this.$store.state.editor.edit_item.bgcolor" 
-        />
+        <template
+          v-if="!this.$store.getters.isEditorModeDelete"
+        >
+          <app-text-color-picker 
+            v-if="typeof(item.textcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
+            :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 
+          />
+          <app-item-color-picker 
+            v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
+            :color="this.$store.state.editor.edit_item.bgcolor" 
+          />
+        </template>
       </div>
 
       <!-- EDITOR OPTIONS PANEL -->
-      <div class="app-editor-panel" v-if="showOptionsPanel && !this.$store.getters.isEditorBulkEdit">
+      <div class="app-editor-panel" 
+        v-if="showOptionsPanel && !this.$store.getters.isEditorBulkEdit && !this.$store.getters.isEditorModeDelete"
+      >
 
         <template
           v-if="item.type !== 'tab'"
@@ -84,7 +90,7 @@
 
       <!-- EDITOR ICON -->
       <div class="app-editor-panel"
-        :class="{ 'hidden' : item.type !== 'action' }"
+        :class="{ 'hidden' : item.type !== 'action' || this.$store.getters.isEditorModeDelete }"
         >
         <template>
           <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
