@@ -1,4 +1,4 @@
-const webremote = { html: (json) => `<!DOCTYPE html>
+const htmlTemplate = { html: (json) => `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -54,4 +54,4 @@ const webremote = { html: (json) => `<!DOCTYPE html>
   </html>`
 }
 
-export default webremote
+export default htmlTemplate

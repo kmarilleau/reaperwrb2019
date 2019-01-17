@@ -24,12 +24,9 @@
       <font-awesome-icon icon="save" /> JSON
     </button>
 
-
     <div class="app-editor-webremote-title">
-      <label>
-        Webremote Title
-        <input name="title" v-model="webremoteTitle">
-      </label>
+      <label>Webremote Title</label>
+      <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus>
     </div>
   </div>
 </template>
@@ -50,17 +47,29 @@ export default {
   methods: {
     onCancel() { this.$store.commit('setEditorModeMain') },
     onSaveHTML() { 
-      this.$store.commit('saveHTML') 
-      this.$store.commit('setEditorModeMain')
+      if(this.webremoteTitle === '') {
+        document.querySelector('#app-webremote-title').focus()
+      } else {
+        this.$store.commit('saveHTML') 
+        this.$store.commit('setEditorModeMain')
+      }
     },
     onSaveLocalStorage() { 
-      this.$store.commit('saveLocalStorage')
-      this.$store.commit('setEditorModeMain')
-      this.$store.commit('setModeStartup')
+      if(this.webremoteTitle === '') {
+        document.querySelector('#app-webremote-title').focus()
+      } else {
+        this.$store.commit('saveLocalStorage')
+        this.$store.commit('setEditorModeMain')
+        this.$store.commit('setModeStartup')
+      }
     },
     onSaveJSON() { 
-      this.$store.commit('saveJSON') 
-      this.$store.commit('setEditorModeMain')
+      if(this.webremoteTitle === '') {
+        document.querySelector('#app-webremote-title').focus()
+      } else {
+        this.$store.commit('saveJSON') 
+        this.$store.commit('setEditorModeMain')
+      }
     },
   }
 }

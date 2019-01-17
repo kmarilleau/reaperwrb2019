@@ -10,7 +10,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
 import defaults from '@/defaults'
-import webremote from '@/webremote'
+import htmlTemplate from '@/htmlTemplate'
 import example from '@/example'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -94,7 +94,6 @@ const store = new Vuex.Store({
     isEditorModeAdd: (state, getters) => state.editor.mode === editorModes.ADD,
     isEditorModeSave: (state, getters) => state.editor.mode === editorModes.SAVE,
     isEditorModeDelete: (state, getters) => state.editor.mode === editorModes.DELETE,
-
     isEditorBulkEdit: (state, getters) => state.editor.bulk_edit,
     isEditorExecActions: (state, getters) => state.editor.execAction,
 
@@ -296,8 +295,8 @@ const store = new Vuex.Store({
       const webremote = cloneDeep(state.webremote)
       webremote.active_tab = 0
       const d = new Date()
-      webremote.timestamp = d.getTime()
-      const html = webremote.html(JSON.stringify(webremote)).replace(/\n|/g, '').replace(/>\s+</g, '><')
+      webremote.timestamp = d.getTime();
+      const html = htmlTemplate.html(JSON.stringify(webremote)).replace(/\n|/g, '').replace(/>\s+</g, '><')
       const blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, webremote.title + '.html')
     },
@@ -482,7 +481,10 @@ const store = new Vuex.Store({
     },
     
     cancelBulkDelete: (state) => {
-      state.editor.edit_items.forEach(item => item.el.classList.remove('app-highlight-delete'))
+      state.editor.edit_items.forEach(edit_item => {
+        edit_item.el.classList.remove('app-highlight-delete')
+        //edit_item.el.querySelector('.app-editor-checkbox').checked = true
+      })
       state.editor.mode = editorModes.MAIN
     },
 

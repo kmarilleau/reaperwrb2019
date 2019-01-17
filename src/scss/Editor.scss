@@ -160,6 +160,7 @@
 
 input[type=checkbox] {
   cursor: pointer;
+  z-index: 1000;
 }
 
 .app-editor-panel {
@@ -269,10 +270,10 @@ input[type=checkbox] {
 
 .app-editor-webremote-title {
   grid-row-start: 2;
-  input {
-    margin-top: 0.5vw;
-  }
+  grid-column-start: span 4;
 }
+
+
 
 /* layout */
 ::-webkit-scrollbar {

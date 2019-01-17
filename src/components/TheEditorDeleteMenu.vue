@@ -8,12 +8,16 @@
       <font-awesome-icon icon="ban" size="1x" /> Cancel
     </button>
 
-    <button class="pure-button"
-      v-if="this.$store.getters.deleteCanKeepItems"
-      @click.stop="onDelete(true)">
-      <font-awesome-icon icon="trash" size="1x" /> Keep Items
-    </button>
-
+    <template 
+      v-if="!this.$store.getters.isEditorBulkEdit"
+    >
+      <button class="pure-button"
+        v-if="this.$store.getters.deleteCanKeepItems"
+        @click.stop="onDelete(true)">
+        <font-awesome-icon icon="trash" size="1x" /> Keep Items
+      </button>
+    </template>
+    
     <button class="pure-button pure-button-warning"
       @click.stop="onDelete(false)"
     >
