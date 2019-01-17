@@ -1,8 +1,5 @@
 <template>
-    <div class="app-item-edit-buttons"
-      v-if="this.$store.state.editor.enabled"
-      :class="getClass()"
-    >
+    <div class="app-item-edit-buttons">
       <template 
         v-if="!this.$store.state.editor.bulk_edit"
       >
@@ -28,14 +25,6 @@ export default {
   props: ['row', 'item', 'index'],
 
   methods: {
-
-    getClass() {
-      if(this.$store.state.editor.bulkd_edit 
-      || this.$store.state.editor.delete_dialog
-      || this.$store.state.editor.save_dialog) {
-        return { hidden: true }
-        }
-    },
 
     onItemEdit(event) {
       let data = {

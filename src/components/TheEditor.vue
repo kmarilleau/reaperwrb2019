@@ -13,56 +13,22 @@
     </div> -->
 
       <!-- EDITOR MAIN FUNCTIONS -->
-      <div class="app-editor-panel app-editor-main-menu">
-
         <!-- <label>
           <input type="checkbox" name="execActions" v-model="execActions">
           Execute Actions
         </label> -->
 
-        <template>
+      <app-main-menu class="app-editor-panel" />
+      <app-add-menu class="app-editor-panel" />
+      <app-save-menu class="app-editor-panel" />
+      <app-delete-menu class="app-editor-panel" />
 
-          <button class="pure-button pure-button-primary" @click="onHome()">
-            <font-awesome-icon icon="home" />
-          </button>
-
-          <template v-if="this.$store.state.webremote.tabs.length === 0">
-            <button class="pure-button app-editor-button-new" @click="onNew">
-              <font-awesome-icon icon="file" />
-            </button>
-            <button class="pure-button app-editor-button-example" @click="onLoadExample">
-              <font-awesome-icon icon="folder-open" /> Example
-            </button>
-            <button class="pure-button app-editor-button-html" @click="onTriggerLoadHTML">
-              <font-awesome-icon icon="folder-open" /> HTML
-            </button>
-            <input @change="onLoadFile($event, 'html')" type="file" id="app-file-input-html" name="files" class="hidden" accept=".html">
-          </template>
-          
-          <button class="pure-button" 
-            :class="{ 'app-editor-button-toolbar': this.$store.state.webremote.tabs.length === 0 }"
-            @click="onTriggerLoadToolbar"
-          >
-            <font-awesome-icon icon="folder-open" />Toolbar(s)
-          </button>
-          <input @change="onLoadFile($event, 'txt')" type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt" multiple>
-        </template>
-        
-        <template v-if="this.$store.state.webremote.tabs.length > 0">
-          <button class="pure-button" @click="onToggleBulkEdit($event)"
-            :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
-          >Bulk Edit</button>
-          <button class="pure-button" @click="onClearEditor">Clear</button>
-          <button class="pure-button pure-button-primary" @click="onSave">Save</button>
-        </template>
-
-      </div>
 
       <!-- EDITOR COLORS -->
       <div class="app-editor-panel">
 
         <template
-          v-if="this.$store.state.webremote.tabs.length > 0"
+          v-if="this.$store.getters.hasTabs && this.$store.getters.isEditorModeMain"
         >
           <label>Global Grid Columns</label>
           <app-item-width-slider
@@ -80,14 +46,22 @@
           v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
           :color="this.$store.state.editor.edit_item.bgcolor" 
         />
-        <template v-if="this.$store.state.editor.bulk_edit">
-          <button @click="onBulkClearIcons()" class="pure-button pure-button-secondary"><font-awesome-icon icon="eraser" /> Delete Icons</button>
-          <button @click="onBulkDeleteItems()" class="pure-button pure-button-warning"><font-awesome-icon icon="trash" /> Delete</button>
-        </template>
       </div>
 
       <!-- EDITOR OPTIONS PANEL -->
       <div class="app-editor-panel" v-if="showOptionsPanel && !editor.bulk_edit">
+
+        <template
+          v-if="item.type !== 'tab'"
+        >
+          <label>Item Width {{ item.width }}</label>
+          <app-item-width-slider
+            v-model="item.width"
+            :min="item.minwidth === undefined ? 1 : item.minwidth" 
+            :max="parseInt(this.$store.state.columns)" 
+            :width="400" :piecewise="true"
+            />
+        </template>
 
         <template v-if="item.type === 'action'">
           <label>Action</label>
@@ -112,23 +86,18 @@
           <input class="app-item-desc" name="item-desc" :value="item.desc ? item.desc : 'none'">
         </template>
 
-        <template
-          v-if="item.type !== 'tab'"
-        >
-          <label>Item Width {{ item.width }}</label>
-          <app-item-width-slider
-            v-model="item.width"
-            :min="item.minwidth === undefined ? 1 : item.minwidth" 
-            :max="parseInt(this.$store.state.columns)" 
-            :width="400" :piecewise="true"
-            />
-        </template>
-
         <template v-if="item.type === 'action'">
           <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="item.toggle">
           Toggle
         </template>
         
+      </div>
+
+      <div class="app-editor-panel app-editor-menu" 
+        v-if="this.$store.getters.showEditorBulkEditButtons"
+      >
+        <button @click="onBulkClearIcons()" class="pure-button pure-button-secondary"><font-awesome-icon icon="eraser" /> Clear Icons</button>
+        <button @click="onBulkDeleteItems()" class="pure-button pure-button-warning"><font-awesome-icon icon="trash" /> Delete</button>
       </div>
 
       <!-- EDITOR ICON -->
@@ -166,25 +135,19 @@
           </div>
         </template>
       </div>
-    <app-item-add-menu />
-    <app-delete-dialog />
-    <app-save-dialog />
   </div>
 </template>
 
 <script>
-import cloneDeep from 'lodash/cloneDeep'
 import BaseEditorItemColorPicker from '@/components/BaseEditorItemColorPicker.vue'
 import TheEditorTextColorPicker from '@/components/TheEditorTextColorPicker.vue'
 import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
-import TheItemAddMenu from '@/components/TheItemAddMenu.vue'
-import TheDeleteDialog from '@/components/TheDeleteDialog.vue'
-import TheSaveDialog from '@/components/TheSaveDialog.vue'
+import TheMainMenu from '@/components/TheEditorMainMenu.vue'
+import TheAddMenu from '@/components/TheEditorAddMenu.vue'
+import TheDeleteMenu from '@/components/TheEditorDeleteMenu.vue'
+import TheSaveMenu from '@/components/TheEditorSaveMenu.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
-import defaults from '@/defaults'
-import example from '@/example'
-import fa4shims from '@/fa4shims'
 
 export default {
   props: ['item', 'columns', 'editor', 'reaper'],
@@ -193,9 +156,10 @@ export default {
     'app-item-color-picker': BaseEditorItemColorPicker,
     'app-text-color-picker': TheEditorTextColorPicker,
     'app-icon-picker': BaseEditorIconPicker,
-    'app-item-add-menu': TheItemAddMenu,
-    'app-delete-dialog': TheDeleteDialog,
-    'app-save-dialog': TheSaveDialog,
+    'app-main-menu': TheMainMenu,
+    'app-add-menu': TheAddMenu,
+    'app-delete-menu': TheDeleteMenu,
+    'app-save-menu': TheSaveMenu,
     'app-item-action': BaseItemAction,
     'app-item-width-slider': VueSlider
   },
@@ -217,7 +181,8 @@ export default {
     },
     
     showOptionsPanel() {
-      if(this.$store.state.webremote.tabs.length > 0 && ( 
+      // FIXME custom getter
+      if(this.$store.getters.hasTabs && ( 
         this.$store.state.editor.edit_item.label ||
         this.$store.state.editor.edit_item.desc ||
         this.$store.state.editor.edit_item.action ||
@@ -231,13 +196,6 @@ export default {
   },
 
   methods: {
-
-    onHome(event) {
-      // FIXME ask for unsaved changes
-      this.$store.commit('enableEditor', false)
-      this.$store.commit('showStartup')
-      this.$store.commit('unload')
-    },
 
     onClearIcons(event) {
       this.$store.commit('updateItem', { key: 'icon', val: false })
@@ -253,143 +211,6 @@ export default {
       this.$store.commit('showBulkDeleteDialog')
     },
 
-    onNew(event) {
-      this.$store.commit('new')
-    },
-
-    onLoadExample(event) {
-      const webremote = cloneDeep(example)
-      this.$store.commit('import', webremote)
-    },
-
-    onTriggerLoadToolbar(event) {
-      this.$store.commit('clearEditHighlight')
-      document.querySelector('#app-file-input-toolbar').click();
-    },
-
-    onTriggerLoadHTML(event) {
-      document.getElementById('app-file-input-html').click();
-    },
-
-    async onLoadFile(event, type) {
-      // FIXME handle failed files
-      const filesFailed = []
-      const files = event.target.files
-
-      console.log(files);
-
-      let tabs = []
-
-      for (let i = 0; i < files.length; i++) {
-        const text = await this.readFileAsText(files[i])
-        let tab = []
-
-        // load toolbar
-        if (type === 'txt') {
-          tab = this.parseToolbar(text, files[i].name)
-          // FIXME handle failed files
-          if (tab)
-            tabs.push(tab)
-          else 
-            filesFailed.push(files[i].name)
-
-          //this.$store.commit('switchTab', this.$store.state.webremote.tabs.length)
-          
-        // load html file
-        } else if (type === 'html' && i === 0) {
-          tabs = this.parseHTML(text)
-        }
-      }
-      this.$store.commit('import', tabs)
-      event.target.value = ''
-      // FIXME display failed files?
-    },
-
-
-    // FIXME pre load item defaults
-    parseToolbar(text, filename) {
-      const items = text
-        .split("\n")
-        .filter(line => line.startsWith('item'))
-        .filter(line => !line.match('-1'))
-        .map(line => {
-          const r = line.split('=')[1].split(/ (.+)/)
-          let item = JSON.parse(JSON.stringify(defaults.action))
-          item.action = r[0]
-          item.desc = r[1].replace(/ /g, ' ')
-          item.label =
-            item.desc.length > 20
-              ? item.desc.substr(0, 20).replace(/_/g, ' ') + '[...]'
-              : item.desc
-          return item
-        })
-
-      const tab = JSON.parse(JSON.stringify(defaults.tab))
-      tab.label = filename.replace(/\.ReaperMenu|\.txt/g, '')
-
-      if(items.length > 0) {
-        while (items.length) {
-          tab.rows.push(items.splice(0, 6))
-        }
-        return tab
-      } else {
-        console.log("REAPERWRB ERROR: File \"%s\" didn't contain any items!", filename)
-        return false
-      }
-    },
-
-    parseHTML(text) {
-      let tmp = document.implementation.createHTMLDocument();
-      tmp.body.innerHTML = text;
-      const div = tmp.getElementById('reaperwrb-json');
-      if (div) {
-        const json = JSON.parse(div.innerHTML);
-        if (typeof(json.version) !== 'undefined') {
-          return json.tabs
-        } else {
-          return this.fixJSON(json.tabs)
-        }
-      } else {
-        console.log("ERROR: Couldn't load HTML")
-        return []
-      }
-    },
-
-    readFileAsText(file) {
-      const fileReader = new FileReader();
-
-      return new Promise((resolve, reject) => {
-        fileReader.onerror = () => {
-          fileReader.abort()
-          reject(fileReader.error)
-        };
-
-        fileReader.onload = () => {
-          resolve(fileReader.result)
-        }
-
-        fileReader.readAsText(file)
-      })
-    },
-
-    onClearEditor(event) {
-      // FIXME not working
-      this.$store.commit('clear')
-    },
-
-    onToggleBulkEdit(event) {
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('toggleBulkEdit')
-    },
-
-    onSave(event) {
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('clearEditItem')
-      if(this.$store.state.editor.bulk_edit)
-        this.$store.commit('toggleBulkEdit')
-      this.$store.commit('showSaveDialog')
-    },
-
     onSetColumns(event) {
       this.$store.commit('setColumns')
     },
@@ -397,52 +218,7 @@ export default {
     getIcon(event) {
       return this.item.icon
     },
-
-    fixJSON(tabs) {
-      
-      return tabs.map((tab) => {
-          // FIXME use defaults
-          return {
-            bgcolor: tab.bgcolor,
-            textcolor: tab.textcolor,
-            label: tab.label,
-            type: 'tab',
-            rows: tab.rows.map((row) => {
-              return row.map((item) => {
-
-                if(item.icon) {
-                  const icon = ['fa', item.icon.replace('fa-', '')]
-                  item.icon = icon
-
-                  // fontawesome 4 shims
-                  fa4shims.map((shim) => {
-                    // does the icon name match a shim
-                    if(icon[1] === shim[0]) {
-                    // does it get a new name
-                    if(shim[2] !== null)
-                      item.icon[1] = shim[2]
-                    // does it get a different prefix
-                    if(shim[1] !== null)
-                      item.icon[0] = shim[1]
-                    } 
-                  })
-                }
-
-                if(item.type === 'action') {
-                  item.toggleicon = false
-                  item.labelpos = 0
-                  item.state = -1
-
-                  if(item.wide)
-                    item.width = 2
-                }
-
-                return item
-              })
-            })
-          }
-        })
-    }
+ 
   }
 };
 </script>

@@ -40,7 +40,7 @@ export default {
       this.$emit('e-select-tab', tab)
     },
     classScroll() {
-      return this.$store.state.editor.enabled ? 'app-view-scroll' : false
+      return this.$store.getters.isModeEditor ? 'app-view-scroll' : false
     }
   }
 };

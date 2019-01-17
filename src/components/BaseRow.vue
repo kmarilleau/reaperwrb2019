@@ -3,9 +3,9 @@
     <draggable 
       v-model="items"
       :options="{ 
-        draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-item' : false, 
+        draggable: this.$store.getters.isModeEditor && !this.$store.state.editor.bulk_edit ? '.app-item' : false, 
         group: 'items',
-        sort: this.$store.state.editor.enabled,
+        sort: this.$store.getters.isModeEditor,
         disabled: disableSort()
       }"
       :class="'app-row'"
@@ -71,7 +71,7 @@ export default {
   methods: {
 
     disableSort() {
-      if(this.$store.state.editor.enabled) {
+      if(this.$store.getters.isModeEditor) {
         if(this.$store.state.editor.bulk_edit)
           return true
         else
@@ -82,7 +82,7 @@ export default {
     },
 
     classRow() {
-      return this.$store.state.editor.enabled ? 'app-editor-grid' : 'app-view-grid'
+      return this.$store.getters.isModeEditor ? 'app-editor-grid' : 'app-view-grid'
     },
 
     onDraggableStart() {

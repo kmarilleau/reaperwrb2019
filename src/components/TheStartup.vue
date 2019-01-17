@@ -38,14 +38,15 @@ export default {
   methods: {
     onLaunchEditor() {
       this.$store.commit('fadeInLoader')
-      this.$store.commit('launchEditor')
+      this.$store.commit('setModeEditor')
     },
     onLoadDefault() {
       const webremote = cloneDeep(example)
       this.$store.commit('import', webremote)
+      this.$store.commit('setModeRemote')
     },
     onLoadLocal(label) {
-      this.$store.commit('hideStartup')
+      this.$store.commit('setModeRemote')
       this.$store.state.local_storage.webremotes.forEach((webremote, index) => {
         if(webremote.label === label)
           this.$store.commit('import', this.$store.state.local_storage.webremotes[index])

@@ -15,6 +15,22 @@
   background: $c-editor-button-warning;
 }
 
+.vue-slider-component {
+  margin-top: 4vh !important;
+  width: inherit !important;
+  background: $bg-editor-input;
+  padding: .5vw .75vw !important;
+  border-radius: $g-border-radius;
+}
+
+.vue-slider-tooltip {
+  font-size: inherit;
+  min-width: 1vw;
+}
+.vue-slider-dot-handle {
+  background-color: $bg-editor-alt !important;
+}
+
 .app-editor {
   height: 95vh;
   display: grid;
@@ -22,12 +38,23 @@
   grid-template-rows: 0.5fr 3fr 4fr;
   color: $c-editor-primary;
 
-  .app-editor-main-menu {
+  .app-editor-menu {
     padding: 0.5vw 0 0 0;
     grid-column-end: span 2;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-column-gap: 0.5vw;
+    grid-column-gap: 0.3vw;
+    grid-row-gap: 0.15vw;
+    button { 
+      height: $g-nav-item-height-landscape; 
+    }
+
+    .app-editor-menu-home-button {
+      display: flex;
+      a, div {
+        width: 50%;
+      }
+    }
   }
 
   .app-editor-button-new { background: $c-help-button-new; }
@@ -72,7 +99,7 @@
     outline: none;
     display: block;
     margin: 0;
-    width: 98%;
+    width: 100%;
   }
 
   input[type=text]:focus, textarea:focus {
@@ -80,54 +107,10 @@
     border: .3vh solid $c-editor-button-warning;
   }
 
-  .app-editor-dialog-info {
-    margin: 0 0 1vh 0;
-  }
-
-  #app-item-delete-dialog,
-  #app-item-save-dialog {
-    @extend %editor-dialog-shared;
-    background: $bg-editor-alt;
-    display: grid;
-  }
-
-  #app-item-add-menu {
-    @extend %editor-dialog-shared;
-    background: $bg-primary;
-    
-    button {
-      margin: 2vh;
-    }
-
-    a {
-      display: block;
-      cursor: pointer;
-      background: $bg-editor-alt;
-      border-radius: $g-border-radius;
-      height: $g-nav-item-height-landscape;
-      padding: 1vh;
-      opacity: 0.5;
-      display: flex;
-      * { margin: auto; }
-    }
-
-    a:hover {
-      opacity: 1;
-    }
-
-    .app-item-add-menu-items {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      padding: 2vh;
-      grid-column-gap: $g-editor-edit-buttons-margin;
-      grid-row-gap: $g-editor-edit-buttons-margin;
-    }
-  }
-
   .app-item-desc {
     background-color: #cdcdcd !important;
     color: #0f0f0f !important;
-    width: 98%;
+    width: 100%;
   }
 
   .app-item-icon-preview {
@@ -151,20 +134,7 @@
     }
   }
 
-  .vue-slider-component {
-    margin-top: 4vh !important;
-    width: 98% !important;
-    background: $bg-editor-input;
-    padding: .5vw .75vw !important;
-    border-radius: $g-border-radius;
-  }
-  .vue-slider-tooltip {
-    font-size: inherit;
-    min-width: 1vw;
-  }
-  .vue-slider-dot-handle {
-    background-color: $bg-editor-alt !important;
-  }
+  
 }
 
 input[type=checkbox] {
@@ -307,13 +277,4 @@ input[type=checkbox] {
 .app-highlight-delete[class*="app-row"] * {
   animation: blinker 1s linear infinite;
   background: $bg-editor-hl-delete !important;
-}
-
-.app-reaper-status {
-  font-size: 3vh;
-  position: absolute;
-  display: flex;
-  top: 1.25vh;
-  * { margin: auto; }
-  img { margin-right: 0.4vw; }
 }

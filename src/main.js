@@ -26,11 +26,25 @@ Vue.config.productionTip = false
 
 Vue.use(Vuex)
 
+const modes = {
+  STARTUP: 0,
+  REMOTE: 1,
+  EDITOR: 2,
+}
+
+const editorModes = {
+  MAIN: 0,
+  ADD: 1,
+  DELETE: 2,
+  SAVE: 3,
+}
+
 const store = new Vuex.Store({
   state: {
     version: '2019.1',
     startup: true,
     has_local_storage: false,
+    mode: modes.STARTUP,
     reaper: {
       ready: false,
       transport: {
@@ -46,11 +60,8 @@ const store = new Vuex.Store({
       region: 0,
     }, 
     editor: {
-      enabled: false,
+      mode: editorModes.MAIN,
       exec_actions: false,
-      menu: false,
-      delete_dialog: false,
-      save_dialog: false,
       bulk_edit: false,
       move_item: false,
       edit_item: false,
@@ -73,9 +84,37 @@ const store = new Vuex.Store({
     local_storage: {}
   },
 
-  getters: {},
+  getters: {
+    reaperRead: (state, getters) => state.reaper.ready,
+
+    isModeStartup: (state, getters) => state.mode === modes.STARTUP,
+    isModeRemote: (state, getters) => state.mode === modes.REMOTE,
+    isModeEditor: (state, getters) => state.mode === modes.EDITOR,
+
+    isEditorModeMain: (state, getters) => state.editor.mode === editorModes.MAIN,
+    isEditorModeAdd: (state, getters) => state.editor.mode === editorModes.ADD,
+    isEditorModeSave: (state, getters) => state.editor.mode === editorModes.SAVE,
+    isEditorModeDelete: (state, getters) => state.editor.mode === editorModes.DELETE,
+
+    showEditorBulkEditButtons: (state, getters) => {
+      return state.editor.bulk_edit 
+        && state.editor.mode !== editorModes.DELETE
+        && state.editor.edit_items.length > 0
+    },
+
+    hasTabs: (state, getters) => state.webremote.tabs.length > 0,
+    hasNoTabs: (state, getters) => state.webremote.tabs.length === 0,
+  },
 
   mutations: {
+    setModeStartup: (state) => state.mode = modes.STARTUP,
+    setModeRemote: (state) => state.mode = modes.REMOTE,
+    setModeEditor: (state) => state.mode = modes.EDITOR,
+
+    setEditorModeMain: (state) => state.editor.mode = editorModes.MAIN,
+    setEditorModeAdd: (state) => state.editor.mode = editorModes.ADD,
+    setEditorModeDelete: (state) => state.editor.mode = editorModes.DELETE,
+    setEditorModeSave: (state) => state.editor.mode = editorModes.SAVE,
 
     clearEditHighlight: (state) => {
       // FIXME use el in edit_item reference
@@ -98,11 +137,6 @@ const store = new Vuex.Store({
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
-    launchEditor: (state) => {
-      state.startup = false
-      state.editor.enabled = true
-    },
-
     new: (state) => {
       const newWebremote = cloneDeep(defaults.webremote)
       const newTab = cloneDeep(defaults.tab)
@@ -119,18 +153,6 @@ const store = new Vuex.Store({
 
     showSaveDialog: (state) => {
       state.editor.save_dialog = true
-    },
-
-    cancelSave: (state) => {
-      state.editor.save_dialog = false
-    },
-
-    showStartup: (state) => {
-      state.startup = true
-    },
-
-    hideStartup: (state) => {
-      state.startup = false
     },
 
     saveHTML: (state) => {
@@ -236,8 +258,6 @@ const store = new Vuex.Store({
     },
 
     switchRow: (state, row) => state.editor.active_row = row,
-    showEditor: (state) => state.editor.toggle = true, 
-    enableEditor: (state, enabled) => state.editor.enabled = enabled,
 
     toggleBulkEdit: (state) => {
       state.editor.edit_item = false
@@ -253,10 +273,6 @@ const store = new Vuex.Store({
       state.editor.edit_items = state.editor.edit_items.filter((item) => {
         return item.index == data.index && item.row == data.row ? false : true
       })
-    },
-
-    showItemMenu: (state) => {
-      state.editor.menu = true
     },
 
     clear: state => {
@@ -316,7 +332,7 @@ const store = new Vuex.Store({
     },
 
     showDeleteDialog: (state, item) => {
-      state.editor.delete_dialog = true
+      state.editor.mode = editorModes.DELETE
       state.editor.delete_item = item
       state.editor.delete_item.el.classList.add('app-highlight-delete')
 
@@ -329,7 +345,7 @@ const store = new Vuex.Store({
     },
 
     showBulkDeleteDialog: (state) => {
-      state.editor.delete_dialog = true
+      state.editor.mode = editorModes.DELETE
       state.editor.edit_items.forEach(item => item.el.classList.add('app-highlight-delete'))
     },
 
@@ -339,13 +355,12 @@ const store = new Vuex.Store({
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
       }
-      state.editor.delete_item = false,
-      state.editor.delete_dialog = false
+      state.editor.mode = editorModes.MAIN
     },
-
+    
     cancelBulkDelete: (state) => {
       state.editor.edit_items.forEach(item => item.el.classList.remove('app-highlight-delete'))
-      state.editor.delete_dialog = false
+      state.editor.mode = editorModes.MAIN
     },
 
     bulkDelete: (state) => {
@@ -368,7 +383,7 @@ const store = new Vuex.Store({
       })
 
       state.editor.edit_items = []
-      state.editor.delete_dialog = false
+      state.editor.mode = editorModes.MAIN
     },
 
     delete: (state, keepItems) => {
@@ -433,7 +448,7 @@ const store = new Vuex.Store({
         }
 
         state.editor.edit_item = false
-        state.editor.delete_dialog = false
+        state.editor.mode = editorModes.MAIN
       },
 
     addRow: (state, row) => {

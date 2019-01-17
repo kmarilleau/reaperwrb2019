@@ -1,10 +1,5 @@
 <template>
-  <div class="app-row-edit-buttons"
-    v-if="this.$store.state.editor.enabled 
-    && this.$store.state.editor.menu === false
-    && !this.$store.state.editor.bulk_edit" 
-    :class="{ hidden: this.$store.state.editor.delete_dialog }"
-  >
+  <div class="app-row-edit-buttons">
     <a @click.stop="onAddItem()" class="app-row-edit-button">
       <font-awesome-icon icon="plus" size="1x" />
       <span>Item</span>
@@ -42,8 +37,7 @@ export default {
       this.$parent.$el.style.backgroundColor = ''
       this.$store.commit('clearEditHighlight')
       this.$store.commit('switchRow', this.row)
-      this.$store.commit('showEditor')
-      this.$store.commit('showItemMenu')
+      this.$store.commit('setEditorModeAdd')
     },
 
     onAddRow(event) {

@@ -7,12 +7,10 @@
   >
 
     <app-tab-edit-buttons 
-      v-if="this.$store.state.editor.enabled
-      && this.$store.state.webremote.active_tab === index
+      v-if="this.$store.state.webremote.active_tab === index
       && !this.$store.state.editor.bulk_edit"
       :item="tab"
       :index="index"
-      :class="{ hidden: this.$store.state.editor.menu }"
     />
 
     <span class="app-item-label font-bold" 
@@ -40,8 +38,7 @@ export default {
     getClass() {
       const classes = { 'app-tab-navigation-item-active': this.index == this.$store.state.webremote.active_tab }
 
-      if(this.$store.state.editor.enabled
-        && this.$store.state.editor.edit_item.type === 'tab'
+      if(this.$store.state.editor.edit_item.type === 'tab'
         && this.$store.state.webremote.active_tab === this.index
       ) {
         classes['app-highlight-edit'] = true

@@ -12,8 +12,7 @@
     <app-item-edit-buttons 
       :row="row" 
       :item="item" 
-      :index="index" 
-      :class="{ hidden: this.$store.state.editor.menu }"
+      :index="index"
     />
 
     <app-item-action 

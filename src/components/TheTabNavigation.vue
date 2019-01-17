@@ -4,9 +4,9 @@
     v-model="tabs"
     :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.webremote.columns + ', 1fr)' }"
     :options="{ 
-      draggable: this.$store.state.editor.enabled && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
+      draggable: this.$store.getters.isModeEditor && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
-      sort: this.$store.state.editor.enabled,
+      sort: this.$store.getters.isModeEditor,
       disabled: disableSort()
     }"
     @start="onDraggableStart"
@@ -22,7 +22,7 @@
     <app-tab-add />
 
     <div class="app-tab-navigation-item app-tab-navigation-special"
-      v-if="!this.$store.state.editor.enabled"
+      v-if="this.$store.getters.isModeRemote"
     >
       <div @click.stop="onHome()">
         <font-awesome-icon icon="home" />
@@ -64,17 +64,17 @@ export default {
   methods: {
 
     onHome() {
-      this.$store.commit('showStartup')
+      this.$store.commit('setModeStartup')
       this.$store.commit('unload')
     },
 
     onEdit() {
       this.$store.commit('fadeInLoader')
-      this.$store.commit('enableEditor', true)
+      this.$store.commit('setModeEditor')
     },
 
     disableSort() {
-      if(this.$store.state.editor.enabled) {
+      if(this.$store.getters.isModeEditor) {
         if(this.$store.state.editor.bulk_edit)
           return true
         else
