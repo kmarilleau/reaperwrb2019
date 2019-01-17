@@ -1,5 +1,6 @@
 <template>
   <div class="app-row-edit-buttons"
+    v-if="this.$store.getters.isModeEditor"
     :class="{ 'hidden': this.$store.getters.isEditorBulkEdit }"
   >
     <a class="app-row-edit-button"

@@ -1,22 +1,24 @@
 <template>
-    <div class="app-item-edit-buttons">
+    <div class="app-item-edit-buttons"
+      v-if="this.$store.getters.isModeEditor"
+    >
       <template 
         v-if="!this.$store.getters.isEditorBulkEdit"
       >
         <a class="app-item-edit-button" 
           @click.stop="onItemEdit"
         >
-          <font-awesome-icon icon="pen" size="1x" />
+          <span><font-awesome-icon icon="pen" size="1x" /></span>
         </a>
         
         <a class="app-item-edit-button"
           v-if="!this.$store.getters.isLastTab(item)" 
           @click.stop="onItemDelete">
-          <font-awesome-icon icon="trash" size="1x" />
+          <span><font-awesome-icon icon="trash" size="1x" /></span>
         </a>
       </template>
 
-      <template v-if="this.$store.getters.isEditorBulkEdit">
+      <template v-if="item.type !== 'tab' && this.$store.getters.isEditorBulkEdit">
         <input @change="onItemBulkEdit($event)" class="app-editor-checkbox" type="checkbox">
       </template>
     </div>

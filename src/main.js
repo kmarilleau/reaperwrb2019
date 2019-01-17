@@ -177,7 +177,7 @@ const store = new Vuex.Store({
       if(getters.isModeEditor)
         return getters.isEditorBulkEdit ? true : false
       else
-        return false
+        return true
     },
   },
 

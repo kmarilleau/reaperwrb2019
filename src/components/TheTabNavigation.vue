@@ -21,7 +21,7 @@
 
     <app-tab-add />
 
-    <div class="app-tab-navigation-item app-tab-navigation-special"
+    <div class="app-tab-navigation-item app-tab-navigation-special font-2x"
       v-if="this.$store.getters.isModeRemote"
     >
       <div @click.stop="onHome()">

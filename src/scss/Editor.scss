@@ -54,6 +54,7 @@
       grid-template-columns: 1fr 1fr;
       grid-column-gap: 0.3vw;
       .app-reaper-status {
+        color: $c-editor-primary;
         display: flex;
         border-radius: 2px;
         * { margin: auto; }
@@ -143,7 +144,6 @@
       }
     }
   }
-
   
 }
 
@@ -218,26 +218,31 @@ input[type=checkbox] {
   height: 0;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  color: $c-editor-primary;
+  color: $c-editor-alt;
 
   .app-item-edit-button {
-    opacity: 0.5;
+    opacity: 0.8;
     height: auto;
     text-align: center;
     z-index: 1000;
     visibility: hidden;
     display: flex;
-    * { 
+    width: 50%;
+    span { 
+      width: 100%;
       background: $bg-editor-alt;
       margin: auto;
-      padding: .5vw;
+      display: flex;
+      justify-content: center;
+      height: $g-nav-item-height-landscape;
+      * { margin: auto;}
     }
   }
   .app-item-edit-button:hover {
     opacity: 1;
   }
 }
+
 .app-item:hover .app-item-edit-button,
 .app-tab-navigation-item:hover .app-item-edit-button {
   visibility: visible;

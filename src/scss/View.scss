@@ -14,6 +14,10 @@
   font-weight: bold;
 }
 
+.font-2x {
+  font-size: 200%;
+}
+
 @media (orientation: landscape) {
 
   .app-row,
@@ -112,18 +116,6 @@
     font-size: 5vh;
   }
 
-  .font-xxxl {
-    font-size: 5vh !important;
-  }
-  .font-xxl {
-    font-size: 3vh;
-  }
-  .font-xl {
-    font-size: 2vh;
-  }
-  .font-l {
-    font-size: 1.5vh;
-  }
 }
 
 .app-item,
@@ -156,7 +148,6 @@
     border-radius: $g-border-radius;
     color: $c-editor-primary;
     opacity: 0.95;
-    font-size: 200%;
   }
   div:hover {
     opacity: 1;

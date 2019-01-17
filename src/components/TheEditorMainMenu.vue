@@ -2,13 +2,13 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeMain"
   >
-    <div class="app-editor-menu-home-button">
+    <div class="app-editor-menu-home-button font-2x">
       <button class="pure-button pure-button-primary" 
         @click="onHome()">
         <font-awesome-icon icon="home" />
       </button>
       <template v-if="!this.$store.getters.reaperReady">
-        <div class="app-reaper-status app-reaper-status-offline">
+        <div class="pure-button app-reaper-status app-reaper-status-offline">
           <font-awesome-icon icon="exclamation-circle" />
         </div>
       </template>
