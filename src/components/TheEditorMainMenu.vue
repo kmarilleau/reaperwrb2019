@@ -13,7 +13,7 @@
         </div>
       </template>
       <template v-if="this.$store.getters.reaperReady">
-        <div class="app-reaper-status app-reaper-status-online">
+        <div class="pure-button app-reaper-status app-reaper-status-online">
           <font-awesome-icon icon="thumbs-up" />
         </div>
       </template>

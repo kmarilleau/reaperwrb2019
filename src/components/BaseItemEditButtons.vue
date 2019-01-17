@@ -1,6 +1,6 @@
 <template>
     <div class="app-item-edit-buttons"
-      v-if="this.$store.getters.isModeEditor && !this.$store.getters.isEditorModeSave"
+      v-if="this.$store.getters.showEditorEditButtons"
     >
       <template 
         v-if="!this.$store.getters.isEditorBulkEdit"

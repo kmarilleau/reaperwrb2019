@@ -35,9 +35,9 @@ export default {
     // check if we're running from inside a HTML
     const div = document.querySelector('#reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
-      const data = JSON.parse(div.innerHTML)
+      const webremote = JSON.parse(div.innerHTML)
       this.$store.commit('setModeRemote')
-      this.$store.commit('import', data)
+      this.$store.commit('import', webremote)
     }
 
     this.$store.commit('fadeOutLoader')

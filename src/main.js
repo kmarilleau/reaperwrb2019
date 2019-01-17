@@ -42,8 +42,6 @@ const editorModes = {
 const store = new Vuex.Store({
   state: {
     version: '2019.1',
-    startup: true,
-    has_local_storage: false,
     mode: modes.STARTUP,
     reaper: {
       ready: false,
@@ -69,17 +67,24 @@ const store = new Vuex.Store({
       active_row: 0,
     },
     webremote: {},
-    local_storage: {}
+    has_local_storage: false,
+    storage: {
+      local: false,
+      json: false
+    }
   },
 
   getters: {
     reaperReady: (state, getters) => state.reaper.ready,
     version: (state, getters) => state.version,
 
-    showLocalStorage: (state, getters) => state.has_local_storage && typeof(state.local_storage.webremotes) !== 'undefined',
+    showLocalStorage: (state, getters) => state.has_local_storage && typeof(state.storage.local.webremotes) !== 'undefined',
     hasLocalStorage: (state, getters) => state.has_local_storage,
-    getLocalStorageWebremotes: (state, getters) => state.local_storage.webremotes,
-    getLocalStorageWebremoteByIndex: (state, getters) => (index) => state.local_storage.webremotes[index],
+    getLocalStorageWebremotes: (state, getters) => state.storage.local.webremotes,
+    getLocalStorageWebremoteByIndex: (state, getters) => (index) => state.storage.local.webremotes[index],
+    
+    getJSONStorageWebremotes: (state, getters) => state.storage.json.webremotes,
+    getJSONStorageWebremoteByIndex: (state, getters) => (index) => state.storage.json.webremotes[index],
 
     isModeStartup: (state, getters) => state.mode === modes.STARTUP,
     isModeRemote: (state, getters) => state.mode === modes.REMOTE,
@@ -98,6 +103,7 @@ const store = new Vuex.Store({
         && state.editor.mode !== editorModes.DELETE
         && state.editor.edit_items.length > 0
     },
+    showEditorEditButtons: (state, getters) => getters.isModeEditor && !getters.isEditorModeSave && !getters.isEditorModeDelete,
     showEditorDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
     showEditorGlobalColumns: (state, getters) => getters.hasTabs && getters.isEditorModeMain,
 
@@ -151,7 +157,6 @@ const store = new Vuex.Store({
           return state.webremote.tabs[getters.activeTab].rows.length > 0 ? true : false
           break
         case 'row':
-        console.log("ROW")
           return state.webremote.tabs[getters.activeTab].rows[getters.deleteItemRow].length > 0 ? true : false
           break
         default:
@@ -182,23 +187,23 @@ const store = new Vuex.Store({
         commit('switchTab', tab)
       }
     },
-    onItemAdd({ commit, state}, type) {
+    onItemAdd({ commit, state }, type) {
       commit('clearEditHighlight')
       commit('addItem', type)
     },
-    onItemEdit({ commit, state}, payload) {
+    onItemEdit({ commit, state }, payload) {
       commit('clearEditHighlight')
       commit('edit', payload)
     },
-    onItemDelete({ commit, state}, payload) {
+    onItemDelete({ commit, state }, payload) {
       commit('clearEditHighlight')
       commit('showDeleteDialog', payload)
     },
-    onDraggableStart({ commit, state}) {
+    onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
       commit('clearEditItem')
     },
-    onShowItemAddMenu({ commit, state}, row) {
+    onShowItemAddMenu({ commit, state }, row) {
       commit('clearEditHighlight')
       commit('clearEditItem')
       commit('switchRow', row)
@@ -208,7 +213,28 @@ const store = new Vuex.Store({
 
   mutations: {
     init: (state) => {
+      
       state.webremote = cloneDeep(defaults.webremote)
+
+      // check JSON storage
+      if(typeof(jsonStorage) !== 'undefined') {
+        console.log("REAPERWRB: Loading json storage.")
+        state.storage.json = cloneDeep(jsonStorage)
+      }
+
+      // check local storage support
+      if(typeof(Storage) !== 'undefined') {
+        state.has_local_storage = true
+        state.storage.local = cloneDeep(defaults.storage)
+        console.log('REAPERWRB: Local storage support enabled.')
+        if(localStorage.getItem('REAPERWRB')) {
+          console.log('REAPERWRB: Loading local storage.')
+          state.storage.local = JSON.parse(localStorage.getItem('REAPERWRB'))
+        }
+      } else {
+        state.has_local_storage = false
+        console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
+      }
     },
 
     setModeStartup: (state) => state.mode = modes.STARTUP,
@@ -266,23 +292,47 @@ const store = new Vuex.Store({
     },
 
     saveHTML: (state) => {
-      // FIXME ugly
-      console.log('REAPERWRB: SAVING WEB REMOTE!')
-      const saveState = cloneDeep(state)
-      saveState.editor.enabled = false
-      saveState.editor.edit_item = false
-      saveState.editor.edit_items = []
-      savestate.webremote.active_tab = 0
-      const json = JSON.stringify(saveState)
-      const html = webremote.html(json).replace(/\n|/g, '').replace(/>\s+</g, '><')
-      let blob = new Blob([html], { type: "text/html;charset=utf-8" })
-      saveAs(blob, "mywebremote.html")
+      console.log('REAPERWRB: Saving to HTML.')
+      const webremote = cloneDeep(state.webremote)
+      webremote.active_tab = 0
+      const d = new Date()
+      webremote.timestamp = d.getTime()
+      const html = webremote.html(JSON.stringify(webremote)).replace(/\n|/g, '').replace(/>\s+</g, '><')
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" })
+      saveAs(blob, webremote.title + '.html')
     },
 
     saveJSON: (state) => {
-      // check if we already have a JSON file
-      // check if webremote with same name exists already
-      // add data
+      console.log('REAPERWRB: Saving to JSON.')
+      const webremote = cloneDeep(state.webremote)
+      webremote.active_tab = 0
+      const d = new Date()
+      webremote.timestamp = d.getTime()
+      
+      if(!state.storage.json)
+        state.storage.json = cloneDeep(defaults.storage)
+
+      state.storage.json.webremotes.push(webremote)
+      const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
+      const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
+      saveAs(blob, "json.js")
+      setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, 500)
+    },
+
+    saveLocalStorage: (state) => {
+      if(state.has_local_storage) {
+        console.log('REAPERWRB: Saving to local storage.')
+        const webremote = cloneDeep(state.webremote)
+        webremote.active_tab = 0
+        const d = new Date()
+        webremote.timestamp = d.getTime()
+        state.storage.local.webremotes.push(webremote)
+        localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
+      }
+    },
+
+    deleteLocalStorage: (state, label) => {
+      localStorage.removeItem('REAPERWRB')
     },
 
     fadeInLoader: (state) => {
@@ -297,39 +347,6 @@ const store = new Vuex.Store({
       loader.classList.remove('fadeIn')
       loader.classList.add('fadeOut')
       setTimeout(function(){ document.querySelector('#loader').classList.add('hidden') }, 1000)
-    },
-
-    checkLocalStorageSupport: (state) => {
-      if(typeof(Storage) !== 'undefined') {
-        state.has_local_storage = true
-        console.log('REAPERWRB: Local storage support enabled.')
-        if(!localStorage.getItem('REAPERWRB')) {
-          console.log('REAPERWRB: No Local Storage Instance. Creating new.')
-          state.local_storage = cloneDeep(defaults.storage)
-          localStorage.setItem('REAPERWRB', JSON.stringify(state.local_storage))
-        } else {
-          console.log('REAPERWRB: Loading Local Storage.')
-          state.local_storage = JSON.parse(localStorage.getItem('REAPERWRB'))
-        }
-      } else {
-        state.has_local_storage = false
-        console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
-      }
-    },
-
-    saveLocalStorage: (state) => {
-      if(state.has_local_storage) {
-        console.log('REAPERWRB: Saving to Local Storage.')
-        const webremote = cloneDeep(state.webremote)
-        const d = new Date()
-        webremote.timestamp = d.getTime()
-        state.local_storage.webremotes.push(webremote)
-        localStorage.setItem('REAPERWRB', JSON.stringify(state.local_storage))
-      }
-    },
-
-    deleteLocalStorage: (state, label) => {
-      localStorage.removeItem('REAPERWRB')
     },
 
     logTabs: (state) => {
@@ -607,7 +624,7 @@ const store = new Vuex.Store({
     getCmdStates: (state) => {
 
       if(state.reaper.ready && state.webremote.tabs[state.webremote.active_tab] !== undefined) {
-        console.log('REAPERWRB: UPDATING COMMAND STATES!')
+        console.log('REAPERWRB: Updating command states!')
         state.webremote.tabs[state.webremote.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action')
@@ -789,21 +806,17 @@ const app = new Vue({
   store,
   components: { App },
   template: '<App/>',
-  created: function() {
-
+  created() {
     this.$store.commit('init')
-
-    // check for local storage support
-    this.$store.commit('checkLocalStorageSupport')
-
+    // check reaper read state
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
     if(reaperReady) {
-      console.log('ReaperWRB: REAPER API READY')
+      console.log('ReaperWRB: REAPER API ready.')
       wwr_start()
       window.wwr_onreply = (result) => this.$store.commit('onReply', result)
       this.$store.commit('setReaperReady', reaperReady)
     } else {
-      console.log('ReaperWRB ERROR: REAPER API NOT READY')
+      console.log('ReaperWRB ERROR: REAPER API not ready!')
     }
   }
 })

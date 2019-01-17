@@ -74,7 +74,8 @@
         background: tomato;
       }
       .app-reaper-status-online {
-        background: springgreen;
+        background: #58D68D;
+        animation: blinker 1s linear infinite;
       }
     }
   }
@@ -158,10 +159,15 @@
 }
 
 input[type=checkbox] {
-  margin-top: 1vw !important;
-  position: relative;
-  top: .1vw;
   cursor: pointer;
+}
+
+.app-editor-panel {
+  input[type=checkbox] {
+    margin-top: 1vw !important;
+    position: relative;
+    top: .1vw;
+  }
 }
 
 @media (min-width: 1440px) {

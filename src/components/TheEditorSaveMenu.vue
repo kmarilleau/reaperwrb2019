@@ -49,13 +49,19 @@ export default {
   },
   methods: {
     onCancel() { this.$store.commit('setEditorModeMain') },
-    onSaveHTML() { this.$store.commit('saveHTML') },
+    onSaveHTML() { 
+      this.$store.commit('saveHTML') 
+      this.$store.commit('setEditorModeMain')
+    },
     onSaveLocalStorage() { 
       this.$store.commit('saveLocalStorage')
       this.$store.commit('setEditorModeMain')
-      this.$store.commit('setModeStartup') 
+      this.$store.commit('setModeStartup')
     },
-    onSaveJSON() { this.$store.commit('saveJSON') },
+    onSaveJSON() { 
+      this.$store.commit('saveJSON') 
+      this.$store.commit('setEditorModeMain')
+    },
   }
 }
 </script>
