@@ -18,10 +18,10 @@
     </button>
 
     <template
-      v-if="this.$store.state.has_local_storage && typeof(this.$store.state.local_storage.webremotes) !== 'undefined'"
+      v-if="this.$store.getters.showLocalStorage"
     >
       <button class="app-button-local-storage"
-        v-for="(webremote,index) in this.$store.state.local_storage.webremotes" :key="index"
+        v-for="(webremote,index) in this.$store.getters.getLocalStorageWebremotes" :key="index"
         @click.stop="onLoadLocal(webremote.label)"
       > 
         <span>LOCAL<br /><br />{{webremote.label}}</span>
@@ -47,9 +47,9 @@ export default {
     },
     onLoadLocal(label) {
       this.$store.commit('setModeRemote')
-      this.$store.state.local_storage.webremotes.forEach((webremote, index) => {
+      this.$store.getters.getLocalStorageWebremotes.forEach((webremote, index) => {
         if(webremote.label === label)
-          this.$store.commit('import', this.$store.state.local_storage.webremotes[index])
+          this.$store.commit('import', this.$store.getters.getLocalStorageWebremoteByIndex(index))
       })
 
       // FIXME handle fail case

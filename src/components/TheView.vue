@@ -12,7 +12,7 @@
       ></app-tab>
     </template>
 
-    <app-help v-if="tabs.length === 0" :version="this.$store.state.version" />
+    <app-help v-if="tabs.length === 0" :version="this.$store.getters.version" />
 
   </div>
 </template>

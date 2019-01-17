@@ -22,7 +22,7 @@ export default {
   },
 
   beforeMount() {
-    if(!this.$store.state.reaper.transport.online) 
+    if(!this.$store.getters.transportOnline) 
       this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
   },
 
@@ -37,21 +37,21 @@ export default {
     },
 
     getPosition() {
-      if(!this.$store.state.reaper.ready) {
+      if(!this.$store.getters.reaperReady) {
         return '0.0.00'
       } else {
         switch(modes[this.mode]) {
           case 'AUTO':
-            return this.$store.state.reaper.transport.position_string
+            return this.$store.getters.transportPosString
             break
           case 'BEAT':
-            return this.$store.state.reaper.transport.position_string_beats
+            return this.$store.getters.transportPosBeats
             break
           case 'SEC':
-            return this.$store.state.reaper.transport.position_seconds
+            return this.$store.getters.transportPosSec
             break
           default:
-            return this.$store.state.reaper.transport.position_string
+            return this.$store.getters.transportPosString
             break
         }
       }

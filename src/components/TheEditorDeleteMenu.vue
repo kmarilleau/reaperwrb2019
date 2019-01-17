@@ -9,7 +9,7 @@
     </button>
 
     <button class="pure-button"
-      v-if="showKeepItems()"
+      v-if="this.$store.getters.deleteCanKeepItems"
       @click.stop="onDelete(true)">
       <font-awesome-icon icon="trash" size="1x" /> Keep Items
     </button>
@@ -26,27 +26,8 @@
 <script>
 export default {
   methods: {
-    showKeepItems() {
-
-      // if(this.$store.state.editor.bulk_edit)
-      //   return false
-
-      // const active_tab = this.$store.state.webremote.active_tab
-      // const row = this.$store.state.editor.delete_item.row
-      
-      // switch(this.$store.state.editor.delete_item.data.type) {
-      //   case 'tab':
-      //     // should never be triggered because we can't delete the last row
-      //     return this.$store.state.webremote.tabs[active_tab].rows.length > 0 ? true : false
-      //   case 'row':
-      //     return this.$store.state.webremote.tabs[active_tab].rows[row].length > 0 ? true : false
-      //   default:
-      //     return false
-      // }
-    },
-
     onDelete(keepItems) {
-      if(this.$store.state.editor.bulk_edit)
+      if(this.$store.getters.isEditorBulkEdit)
         this.$store.commit('bulkDelete')
       else
         this.$store.commit('delete', keepItems)
@@ -55,7 +36,7 @@ export default {
     },
     
     onCancel(event) {
-      if(this.$store.state.editor.bulk_edit)
+      if(this.$store.getters.isEditorBulkEdit)
         this.$store.commit('cancelBulkDelete')
       else
         this.$store.commit('cancelDelete')

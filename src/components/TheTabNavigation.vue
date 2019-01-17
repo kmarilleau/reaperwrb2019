@@ -2,12 +2,12 @@
   <draggable 
     :class="'app-tab-navigation'"
     v-model="tabs"
-    :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.webremote.columns + ', 1fr)' }"
+    :style="{ gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)' }"
     :options="{ 
-      draggable: this.$store.getters.isModeEditor && !this.$store.state.editor.bulk_edit ? '.app-tab-navigation-item' : false, 
+      draggable: this.$store.getters.isModeEditor && !this.$store.getters.isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
       sort: this.$store.getters.isModeEditor,
-      disabled: disableSort()
+      disabled: this.$store.getters.disableSort
     }"
     @start="onDraggableStart"
     @add="onDraggableAdd"
@@ -51,37 +51,24 @@ export default {
   computed: {
     tabs: {
       get() {
-        return this.$store.state.webremote.tabs
+        return this.$store.getters.getTabs
       },
       set(value) {
         // only set on sort, when length doesn't change
-        if(value.length === this.$store.state.webremote.tabs.length)
+        if(value.length === this.$store.getters.getTabs.length)
           this.$store.commit('updateTabs', value)
       }
     }
   },
 
   methods: {
-
     onHome() {
       this.$store.commit('setModeStartup')
       this.$store.commit('unload')
     },
-
     onEdit() {
       this.$store.commit('fadeInLoader')
       this.$store.commit('setModeEditor')
-    },
-
-    disableSort() {
-      if(this.$store.getters.isModeEditor) {
-        if(this.$store.state.editor.bulk_edit)
-          return true
-        else
-          return false
-      } else {
-        return true
-      }
     },
     onDraggableStart(event) {
       document.querySelector('.sortable-ghost').style.display = 'block'

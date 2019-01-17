@@ -70,5 +70,4 @@
 export default {
   props: ['version']
 }
-
 </script>

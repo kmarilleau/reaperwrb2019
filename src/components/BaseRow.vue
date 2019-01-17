@@ -3,13 +3,13 @@
     <draggable 
       v-model="items"
       :options="{ 
-        draggable: this.$store.getters.isModeEditor && !this.$store.state.editor.bulk_edit ? '.app-item' : false, 
+        draggable: this.$store.getters.draggableClass, 
         group: 'items',
         sort: this.$store.getters.isModeEditor,
-        disabled: disableSort()
+        disabled: this.$store.getters.disableSort
       }"
       :class="'app-row'"
-      :style="{ gridTemplateColumns: 'repeat(' + this.$store.state.webremote.columns + ', 1fr)' }"
+      :style="{ gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)' }"
       @start="onDraggableStart"
       :move="onDraggableMove"
     >
@@ -70,29 +70,19 @@ export default {
 
   methods: {
 
-    disableSort() {
-      if(this.$store.getters.isModeEditor) {
-        if(this.$store.state.editor.bulk_edit)
-          return true
-        else
-          return false
-      } else {
-        return true
-      }
-    },
-
     classRow() {
       return this.$store.getters.isModeEditor ? 'app-editor-grid' : 'app-view-grid'
     },
 
     onDraggableStart() {
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('clearEditItem')
+      this.$store.dispatch('onDraggableStart')
     },
 
+    // FIXME dispatch
     onDraggableMove(event, originalEvent) {
       // hacky way to decide if an item is to be moved to another tab
-      if(event.related.classList.contains('app-tab-navigation-item') && typeof(event.related.attributes.tab) !== undefined) {
+      if(event.related.classList.contains('app-tab-navigation-item') 
+      && typeof(event.related.attributes.tab) !== undefined) {
 
         this.$store.commit('setItemMoveCopy', { 
           row: parseInt(event.dragged.attributes.row.value),
@@ -103,7 +93,8 @@ export default {
 
         this.$store.commit('clearDropHighlight')
 
-        if(parseInt(event.related.attributes.tab.value) !== this.$store.state.webremote.active_tab) {
+        if(parseInt(event.related.attributes.tab.value) 
+        !== this.$store.state.webremote.active_tab) {
           event.related.classList.add('app-item-drop')
         }
 
@@ -119,5 +110,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

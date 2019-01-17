@@ -45,14 +45,24 @@
     grid-template-columns: repeat(6, 1fr);
     grid-column-gap: 0.3vw;
     grid-row-gap: 0.15vw;
-    button { 
+    button, div { 
       height: $g-nav-item-height-landscape; 
     }
 
     .app-editor-menu-home-button {
-      display: flex;
-      a, div {
-        width: 50%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 0.3vw;
+      .app-reaper-status {
+        display: flex;
+        border-radius: 2px;
+        * { margin: auto; }
+      }
+      .app-reaper-status-offline {
+        background: tomato;
+      }
+      .app-reaper-status-online {
+        background: springgreen;
       }
     }
   }

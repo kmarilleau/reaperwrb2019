@@ -7,7 +7,7 @@
         <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
       </a>
       <div class="app-item-regions-info">
-        <template v-if="this.$store.state.reaper.regions.length > 0">
+        <template v-if="this.$store.getters.hasRegions">
           <span :style="{ color: item.textcolor }">Region: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
@@ -41,8 +41,7 @@ export default {
 
   methods: {
     onPreviousRegion(event) {
-      const regions  = this.$store.state.reaper.regions
-      const region = this.$store.state.reaper.region
+      const regions  = this.$store.getters.getRegions
       if(regions.length > 0) {
         this.current = this.current - 1 < 0 ? regions.length - 1 : this.current - 1
         this.id = regions[this.current].id
@@ -52,8 +51,7 @@ export default {
     },
 
     onNextRegion(event) {
-      const regions  = this.$store.state.reaper.regions
-      const region = this.$store.state.reaper.region
+      const regions  = this.$store.getters.getRegions
       if(regions.length > 0) {
         this.current = (this.current + 1 === regions.length) ? 0 : this.current + 1
         this.id = regions[this.current].id
@@ -68,7 +66,7 @@ export default {
   },
 
   beforeMount() {
-    if(this.$store.state.reaper.ready)
+    if(this.$store.getters.reaperReady)
       this.$store.commit('execAction', { action: 'REGION' })
   },
 

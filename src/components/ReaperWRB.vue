@@ -35,7 +35,7 @@ export default {
   mounted() {
 
     // check if we're running from inside a HTML
-    const div = document.getElementById('reaperwrb-json')
+    const div = document.querySelector('#reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
       const data = JSON.parse(div.innerHTML)
       this.$store.commit('setModeRemote')

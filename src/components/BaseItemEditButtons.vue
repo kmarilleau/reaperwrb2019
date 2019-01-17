@@ -1,20 +1,22 @@
 <template>
     <div class="app-item-edit-buttons">
       <template 
-        v-if="!this.$store.state.editor.bulk_edit"
+        v-if="!this.$store.getters.isEditorBulkEdit"
       >
-        <a class="app-item-edit-button" @click.stop="onItemEdit">
+        <a class="app-item-edit-button" 
+          @click.stop="onItemEdit"
+        >
           <font-awesome-icon icon="pen" size="1x" />
         </a>
         
         <a class="app-item-edit-button"
-          v-if="item.type === 'tab' && this.$store.state.webremote.tabs.length === 1 ? false : true" 
+          v-if="!this.$store.getters.isLastTab(item)" 
           @click.stop="onItemDelete">
           <font-awesome-icon icon="trash" size="1x" />
         </a>
       </template>
 
-      <template v-if="this.$store.state.editor.bulk_edit">
+      <template v-if="this.$store.getters.isEditorBulkEdit">
         <input @change="onItemBulkEdit($event)" class="app-editor-checkbox" type="checkbox">
       </template>
     </div>
@@ -27,43 +29,40 @@ export default {
   methods: {
 
     onItemEdit(event) {
-      let data = {
+      let payload = {
         item: this.item,
         row: this.row,
         index: this.index,
         el: this.$parent.$el
       }
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('edit', data)
+      this.$store.dispatch('onItemEdit', payload)
     },
 
     onItemBulkEdit(event) {
-      let commit = {
+      let payload = {
         item: this.item,
         row: this.row,
         index: this.index,
         el: this.$parent.$el
       }
 
-      //this.$store.commit('clearEditHighlight')
       if(event.target.checked) {
         this.$parent.$el.classList.add('app-highlight-edit')
-        this.$store.commit('bulkEditAdd', commit)
+        this.$store.commit('bulkEditAdd', payload)
       } else {
         this.$parent.$el.classList.remove('app-highlight-edit')
-        this.$store.commit('bulkEditRemove', commit)
+        this.$store.commit('bulkEditRemove', payload)
       }
     },
     
     onItemDelete(event) {
-      let commit = {
+      let payload = {
         data: this.item,
         row: this.row,
         index: this.index,
         el: this.$parent.$el
       }
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('showDeleteDialog', commit)
+      this.$store.dispatch('onItemDelete', payload)
     }
   }
 }

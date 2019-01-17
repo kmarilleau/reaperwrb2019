@@ -9,22 +9,22 @@
 
     <div style="grid-column-start: span 5;"></div>
 
-    <button @click.stop="onAdd('action')" class="pure-button">
+    <button @click.stop="onItemAdd('action')" class="pure-button">
       <font-awesome-icon icon="plus" /> Action
     </button>
-    <button @click.stop="onAdd('spacer')" class="pure-button">
+    <button @click.stop="onItemAdd('spacer')" class="pure-button">
       <font-awesome-icon icon="plus" /> Spacer
     </button>
-    <button @click.stop="onAdd('transport')" class="pure-button">
+    <button @click.stop="onItemAdd('transport')" class="pure-button">
       <font-awesome-icon icon="plus" /> Transport
     </button>
-    <button @click.stop="onAdd('position')" class="pure-button">
+    <button @click.stop="onItemAdd('position')" class="pure-button">
       <font-awesome-icon icon="plus" /> Position
     </button>
-    <button @click.stop="onAdd('markers')" class="pure-button">
+    <button @click.stop="onItemAdd('markers')" class="pure-button">
       <font-awesome-icon icon="plus" /> Markers
     </button>
-    <button @click.stop="onAdd('regions')"  class="pure-button">
+    <button @click.stop="onItemAdd('regions')"  class="pure-button">
       <font-awesome-icon icon="plus" /> Regions
     </button>
     
@@ -34,9 +34,8 @@
 <script>
 export default {
   methods: {
-    onAdd(type) {
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('addItem', type)
+    onItemAdd(type) {
+      this.$store.dispatch('onItemAdd', type)
     },
     onCancel() {
       this.$store.commit('setEditorModeMain')

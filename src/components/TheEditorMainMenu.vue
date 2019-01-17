@@ -2,23 +2,24 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeMain"
   >
-    <button class="pure-button pure-button-primary app-editor-menu-home-button">
-      <a  @click="onHome()">
+    <div class="app-editor-menu-home-button">
+      <button class="pure-button pure-button-primary" 
+        @click="onHome()">
         <font-awesome-icon icon="home" />
-      </a>
+      </button>
       <template v-if="!this.$store.getters.reaperReady">
-        <div class="app-editor-reaper-offline">
+        <div class="app-reaper-status app-reaper-status-offline">
           <font-awesome-icon icon="exclamation-circle" />
         </div>
       </template>
       <template v-if="this.$store.getters.reaperReady">
-        <img src="/reaperwrb/icons/icon-reaper-online-32x32.png" />
-        <span>ONLINE</span>
+        <div class="app-reaper-status app-reaper-status-online">
+          <font-awesome-icon icon="thumbs-up" />
+        </div>
       </template>
-    </button>
+    </div>
 
     <template v-if="this.$store.getters.hasNoTabs">
-
       <button class="pure-button app-editor-button-new" 
         @click="onNew"
       >
@@ -39,8 +40,7 @@
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
         @change="onLoadFile($event, 'html')" 
-      >
-    
+      > 
     </template>
     
     <button class="pure-button" 
@@ -54,6 +54,11 @@
     multiple>
   
     <template v-if="this.$store.getters.hasTabs">
+
+      <button class="pure-button"
+        @click="onToggleExecActions($event)"
+        :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
+      >Exec Actions</button>
 
       <button class="pure-button" 
         @click="onToggleBulkEdit($event)"
@@ -84,10 +89,8 @@ import defaults from '@/defaults'
 export default {
   methods: {
     onHome(event) {
-      // FIXME ask for unsaved changes
-      this.$store.commit('enableEditor', false)
-      this.$store.commit('setModeStartup')
       this.$store.commit('unload')
+      this.$store.commit('setModeStartup')
     },
 
     onNew(event) {
@@ -102,6 +105,10 @@ export default {
     onLoadExample(event) {
       const webremote = cloneDeep(example)
       this.$store.commit('import', webremote)
+    },
+
+    onToggleExecActions(event) {
+      this.$store.commit('toggleExecActions')
     },
 
     onToggleBulkEdit(event) {

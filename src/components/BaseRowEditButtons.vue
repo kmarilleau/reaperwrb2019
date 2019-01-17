@@ -1,15 +1,20 @@
 <template>
   <div class="app-row-edit-buttons">
-    <a @click.stop="onAddItem()" class="app-row-edit-button">
+    <a class="app-row-edit-button"
+      @click.stop="onShowItemAddMenu()" 
+    >
       <font-awesome-icon icon="plus" size="1x" />
       <span>Item</span>
     </a>
-    <a @click.stop="onAddRow()" class="app-row-edit-button">
+    <a class="app-row-edit-button"
+      @click.stop="onRowAdd()" 
+    >
       <font-awesome-icon icon="plus" size="1x" />
       <span>Row</span>
     </a>
-    <a @click.stop="onDeleteRow()" class="app-row-edit-button"
-      v-if="this.$store.state.webremote.tabs[this.$store.state.webremote.active_tab].rows.length > 1"
+    <a class="app-row-edit-button"
+      @click.stop="onRowDelete()" 
+      v-if="this.$store.getters.showDeleteRowButton"
     >
       <font-awesome-icon icon="trash" size="1x" />
       <span>Row</span>
@@ -21,31 +26,17 @@
 export default {
   props: ['row'],
 
-  // FIXME works only once
-  mounted() {
-    const self = this
-    this.$el.addEventListener('mouseover', function() {
-      self.$parent.$el.style.backgroundColor = '#121212'
-    })
-    this.$el.addEventListener('mouseout', function() {
-      self.$parent.$el.style.backgroundColor = ''
-    })
-  },
-
   methods: {
-    onAddItem(event) {
-      this.$parent.$el.style.backgroundColor = ''
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('switchRow', this.row)
-      this.$store.commit('setEditorModeAdd')
+    onShowItemAddMenu(event) {
+      this.$store.dispatch('onShowItemAddMenu', this.row)
     },
 
-    onAddRow(event) {
+    onRowAdd(event) {
       this.$store.commit('addRow', this.row)
     },
 
-    onDeleteRow(event) {
-      let commit = {
+    onRowDelete(event) {
+      let payload = {
         data: {
           type: 'row',
         },
@@ -53,8 +44,7 @@ export default {
         index: this.index,
         el: this.$parent.$children[0].$el
       }
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('showDeleteDialog', commit)
+      this.$store.dispatch('onItemDelete', payload)
     }
   }
 }

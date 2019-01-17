@@ -21,8 +21,8 @@ export default {
         }
       },
       set(value) {
-        if(this.$store.state.editor.bulk_edit)
-          this.$store.commit('updateItems', {key: 'bgcolor', val:value.hex })
+        if(this.$store.getters.isEditorBulkEdit)
+          this.$store.commit('updateItems', { key: 'bgcolor', val:value.hex })
         else 
           this.$store.commit('updateItem', { key: 'bgcolor', val:value.hex })
       } 

@@ -57,7 +57,6 @@ const store = new Vuex.Store({
       },
       markers: [],
       regions: [],
-      region: 0,
     }, 
     editor: {
       mode: editorModes.MAIN,
@@ -85,7 +84,12 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    reaperRead: (state, getters) => state.reaper.ready,
+    reaperReady: (state, getters) => state.reaper.ready,
+    version: (state, getters) => state.version,
+
+    showLocalStorage: (state, getters) => state.has_local_storage && typeof(state.local_storage.webremotes) !== 'undefined',
+    getLocalStorageWebremotes: (state, getters) => state.local_storage.webremotes,
+    getLocalStorageWebremoteByIndex: (state, getters) => (index) => state.local_storage.webremotes[index],
 
     isModeStartup: (state, getters) => state.mode === modes.STARTUP,
     isModeRemote: (state, getters) => state.mode === modes.REMOTE,
@@ -96,14 +100,103 @@ const store = new Vuex.Store({
     isEditorModeSave: (state, getters) => state.editor.mode === editorModes.SAVE,
     isEditorModeDelete: (state, getters) => state.editor.mode === editorModes.DELETE,
 
+    isEditorBulkEdit: (state, getters) => state.editor.bulk_edit,
+    isEditorExecActions: (state, getters) => state.editor.execAction,
+
     showEditorBulkEditButtons: (state, getters) => {
       return state.editor.bulk_edit 
         && state.editor.mode !== editorModes.DELETE
         && state.editor.edit_items.length > 0
     },
+    showDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
 
+    isActiveTab: (state, getters) => (tab) => state.webremote.active_tab === tab,
+    isTabEdit: (state, getters) => (tab) => { 
+      return state.editor.edit_item.type === 'tab'
+        && state.webremote.active_tab === tab
+    },
+
+    getTabs: (state, getters) => state.webremote.tabs,
     hasTabs: (state, getters) => state.webremote.tabs.length > 0,
     hasNoTabs: (state, getters) => state.webremote.tabs.length === 0,
+    isLastTab: (state, getters) => (item) => item.type === 'tab' && state.webremote.tabs.length === 1,
+
+    hasMarkers: (state, getters) => state.reaper.markers.length > 0,
+    getMarkers: (state, getters) => state.reaper.markers,
+
+    hasRegions: (state, getters) => state.reaper.regions.length > 0,
+    getRegions: (state, getters) => state.reaper.regions,
+
+    transportOnline: (state, getters) => state.reaper.transport.online,
+    transportPosString: (state, getters) => state.reaper.transport.position_string,
+    transportPosBeats: (state, getters) => state.reaper.transport.position_beats,
+    transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
+
+    globalColumns: (state, getters) => state.webremote.columns,
+    activeTab: (state, getters) => state.webremote.active_tab,
+
+    deleteItemType: (state, getters) => state.editor.delete_item.data.type,
+    deleteItemRow: (state, getters) => state.editor.delete_item.row,
+
+    deleteCanKeepItems: (state, getters) => {
+      console.log(getters.deleteItemType)
+      switch(getters.deleteItemType) {
+        case 'tab':
+          return state.webremote.tabs[getters.activeTab].rows.length > 0 ? true : false
+          break
+        case 'row':
+        console.log("ROW")
+          return state.webremote.tabs[getters.activeTab].rows[getters.deleteItemRow].length > 0 ? true : false
+          break
+        default:
+          return false
+          break
+      }
+    },
+
+    draggableClass: (state, getters) => {
+      if(getters.isModeEditor && !getters.isEditorBulkEdit)
+        return '.app-item'
+      else
+        return false
+    },
+
+    disableSort: (state, getters) => {
+      if(getters.isModeEditor)
+        return getters.isEditorBulkEdit ? true : false
+      else
+        return false
+    },
+  },
+
+  actions: {
+    onSwitchTab({ commit, state }, tab) {
+      if(!state.editor.bulk_edit) {
+        commit('clearEditHighlight')
+        commit('switchTab', tab)
+      }
+    },
+    onItemAdd({ commit, state}, type) {
+      commit('clearEditHighlight')
+      commit('addItem', type)
+    },
+    onItemEdit({ commit, state}, payload) {
+      commit('clearEditHighlight')
+      commit('edit', payload)
+    },
+    onItemDelete({ commit, state}, payload) {
+      commit('clearEditHighlight')
+      commit('showDeleteDialog', payload)
+    },
+    onDraggableStart({ commit, state}) {
+      commit('clearEditHighlight')
+      commit('clearEditItem')
+    },
+    onShowItemAddMenu({ commit, state}, row) {
+      commit('clearEditHighlight')
+      commit('switchRow', row)
+      commit('setEditorModeAdd')
+    },
   },
 
   mutations: {
@@ -265,13 +358,15 @@ const store = new Vuex.Store({
       state.editor.bulk_edit = state.editor.bulk_edit ? false : true;
     },
 
-    bulkEditAdd: (state, data) => {
-      state.editor.edit_items.push(data)
+    toggleExecActions: (state) => state.editor.exec_actions = state.editor.exec_actions ? false : true,
+
+    bulkEditAdd: (state, payload) => {
+      state.editor.edit_items.push(payload)
     },
 
-    bulkEditRemove: (state, data) => {
+    bulkEditRemove: (state, payload) => {
       state.editor.edit_items = state.editor.edit_items.filter((item) => {
-        return item.index == data.index && item.row == data.row ? false : true
+        return item.index == payload.index && item.row == payload.row ? false : true
       })
     },
 
@@ -288,7 +383,7 @@ const store = new Vuex.Store({
       const row = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.active_row]
       row.push(item)
       state.editor.edit_item = row[row.length - 1]
-      state.editor.menu = false
+      state.editor.mode = editorModes.MAIN
     },
 
     cancelAddItem: (state) => {
@@ -474,7 +569,7 @@ const store = new Vuex.Store({
     },
 
     updateTabs: (state, data) => {
-      Vue.set(state, 'tabs', data)
+      Vue.set(state.webremote, 'tabs', data)
     },
 
     execAction: (state, data) => {

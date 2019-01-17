@@ -1,14 +1,16 @@
 <template>
   <div class="app-tab-navigation-item"
     :style="{ backgroundColor: tab.bgcolor }"
-    :class="getClass()"
+    :class="{ 
+      'app-tab-navigation-item-active' : this.$store.getters.isActiveTab(index),
+      'app-highlight-edit' : this.$store.getters.isTabEdit(index) 
+    }"
     @click.stop="onTabSwitch"
     :tab="index"
   >
 
     <app-tab-edit-buttons 
-      v-if="this.$store.state.webremote.active_tab === index
-      && !this.$store.state.editor.bulk_edit"
+      v-if="this.$store.getters.isActiveTab(index)"
       :item="tab"
       :index="index"
     />
@@ -35,22 +37,8 @@ export default {
   },
 
   methods: {
-    getClass() {
-      const classes = { 'app-tab-navigation-item-active': this.index == this.$store.state.webremote.active_tab }
-
-      if(this.$store.state.editor.edit_item.type === 'tab'
-        && this.$store.state.webremote.active_tab === this.index
-      ) {
-        classes['app-highlight-edit'] = true
-      }
-      return classes
-    },
-
     onTabSwitch(event) {
-      if(!this.$store.state.editor.bulk_edit) {
-        this.$store.commit('clearEditHighlight')
-        this.$store.commit('switchTab', this.index)
-      }
+      this.$store.dispatch('onSwitchTab', this.index)
     }
   }
 };

@@ -1,28 +1,10 @@
 <template>
   <div class="app-editor pure-form">
 
-    <!-- <div class="app-editor-panel app-reaper-status">
-      <template v-if="!reaper.ready">
-        <img src="/reaperwrb/icons/icon-reaper-offline-32x32.png" />
-        <span>OFFLINE</span>
-      </template>
-      <template v-if="reaper.ready">
-        <img src="/reaperwrb/icons/icon-reaper-online-32x32.png" />
-        <span>ONLINE</span>
-      </template>
-    </div> -->
-
-      <!-- EDITOR MAIN FUNCTIONS -->
-        <!-- <label>
-          <input type="checkbox" name="execActions" v-model="execActions">
-          Execute Actions
-        </label> -->
-
       <app-main-menu class="app-editor-panel" />
       <app-add-menu class="app-editor-panel" />
       <app-save-menu class="app-editor-panel" />
       <app-delete-menu class="app-editor-panel" />
-
 
       <!-- EDITOR COLORS -->
       <div class="app-editor-panel">
@@ -39,17 +21,17 @@
         </template>
 
         <app-text-color-picker 
-          v-if="typeof(item.textcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
+          v-if="typeof(item.textcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
           :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 
         />
         <app-item-color-picker 
-          v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.state.editor.bulk_edit" 
+          v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
           :color="this.$store.state.editor.edit_item.bgcolor" 
         />
       </div>
 
       <!-- EDITOR OPTIONS PANEL -->
-      <div class="app-editor-panel" v-if="showOptionsPanel && !editor.bulk_edit">
+      <div class="app-editor-panel" v-if="showOptionsPanel && !this.$store.getters.isEditorBulkEdit">
 
         <template
           v-if="item.type !== 'tab'"
@@ -58,7 +40,7 @@
           <app-item-width-slider
             v-model="item.width"
             :min="item.minwidth === undefined ? 1 : item.minwidth" 
-            :max="parseInt(this.$store.state.columns)" 
+            :max="parseInt(this.$store.getters.globalColumns)" 
             :width="400" :piecewise="true"
             />
         </template>
