@@ -11,8 +11,6 @@
       />
       <app-editor 
         v-if="this.$store.getters.isModeEditor"
-        :item="this.$store.state.editor.edit_item"
-        :columns="this.$store.state.webremote.columns"
         :editor="this.$store.state.editor"
         :reaper="this.$store.state.reaper"
       />

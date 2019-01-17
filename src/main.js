@@ -108,7 +108,8 @@ const store = new Vuex.Store({
         && state.editor.mode !== editorModes.DELETE
         && state.editor.edit_items.length > 0
     },
-    showDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
+    showEditorDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
+    showEditorGlobalColumns: (state, getters) => getters.hasTabs && getters.isEditorModeMain,
 
     isActiveTab: (state, getters) => (tab) => state.webremote.active_tab === tab,
     isTabEdit: (state, getters) => (tab) => { 
@@ -137,6 +138,17 @@ const store = new Vuex.Store({
 
     deleteItemType: (state, getters) => state.editor.delete_item.data.type,
     deleteItemRow: (state, getters) => state.editor.delete_item.row,
+
+    hasEditItem: (state, getters) => state.editor.edit_item,
+    editItemType: (state, getters) => (type) => state.editor.edit_item.type === type,
+    editItemHasKey: (state, getters) => (key) => typeof(state.editor.edit_item[key]) !== 'undefined',
+    editItemKey: (state, getters) => (key, defaultValue) => {
+      if(getters.editItemHasKey(key) && state.editor.edit_item[key])
+        return state.editor.edit_item[key]
+      else {
+        return defaultValue
+      }
+    },
 
     deleteCanKeepItems: (state, getters) => {
       console.log(getters.deleteItemType)
@@ -224,6 +236,10 @@ const store = new Vuex.Store({
         for(let i = 0; i < el.length; i++)
           el[i].classList.remove('app-item-drop')
       }
+    },
+
+    setGlobalColumns: (state, columns) => {
+      state.webremote.columns = columns
     },
 
     clearEditItem: (state) => state.editor.edit_item = false,

@@ -10,72 +10,87 @@
       <div class="app-editor-panel">
 
         <template
-          v-if="this.$store.getters.hasTabs && this.$store.getters.isEditorModeMain"
+          v-if="this.$store.getters.showEditorGlobalColumns"
         >
           <label>Global Grid Columns</label>
           <app-item-width-slider
-            v-model="$store.state.webremote.columns"
+            v-model="globalColumns"
             :min="4" 
             :max="10" 
-            :width="400" :piecewise="true" />
+            :width="400" :piecewise="true"
+          />
         </template>
 
         <template
           v-if="!this.$store.getters.isEditorModeDelete"
         >
           <app-text-color-picker 
-            v-if="typeof(item.textcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
-            :color="typeof(item.textcolor) !== 'undefined' ? item.textcolor : '#222222'" 
+            v-if="this.$store.getters.editItemHasKey('textcolor') || this.$store.getters.isEditorBulkEdit" 
+            :color="itemTextcolor" 
           />
           <app-item-color-picker 
-            v-if="typeof(item.bgcolor) !== 'undefined' || this.$store.getters.isEditorBulkEdit" 
-            :color="this.$store.state.editor.edit_item.bgcolor" 
+            v-if="this.$store.getters.editItemHasKey('bgcolor') || this.$store.getters.isEditorBulkEdit" 
+            :color="itemBgcolor" 
           />
         </template>
       </div>
 
       <!-- EDITOR OPTIONS PANEL -->
       <div class="app-editor-panel" 
-        v-if="showOptionsPanel && !this.$store.getters.isEditorBulkEdit && !this.$store.getters.isEditorModeDelete"
+        v-if="this.$store.getters.hasEditItem && !this.$store.getters.isEditorBulkEdit && !this.$store.getters.isEditorModeDelete"
       >
 
         <template
-          v-if="item.type !== 'tab'"
+          v-if="!this.$store.getters.editItemType('tab')"
         >
-          <label>Item Width {{ item.width }}</label>
+          <label>Item Width</label>
           <app-item-width-slider
-            v-model="item.width"
-            :min="item.minwidth === undefined ? 1 : item.minwidth" 
-            :max="parseInt(this.$store.getters.globalColumns)" 
+            v-model="itemWidth"
+            :min="itemMinWidth" 
+            :max="itemMaxWidth" 
             :width="400" :piecewise="true"
             />
         </template>
 
-        <template v-if="item.type === 'action'">
+        <!-- ACTION -->
+        <template 
+          v-if="this.$store.getters.editItemHasKey('action')"
+        >
           <label>Action</label>
-          <input type="text" name="item-action" v-model="item.action">
+          <input type="text" name="item-action" v-model="itemAction">
         </template>
 
-        <template v-if="item.type === 'action' || item.type === 'tab'">
+        <!-- LABEL -->
+        <template 
+          v-if="this.$store.getters.editItemHasKey('label')"
+        >
           <label>Label</label>
-          <input type="text" name="item-label" v-model="item.label" maxlength="30" autofocus>
+          <input type="text" name="item-label" v-model="itemLabel" maxlength="30" autofocus>
         </template>
 
-        <template v-if="item.type === 'action'">
+        <!-- LABEL POS -->
+        <template 
+          v-if="this.$store.getters.editItemHasKey('labelpos')"
+        >
           <label>Label Position</label>
-          <select v-model="item.labelpos">
+          <select v-model="itemLabelPos">
             <option value="0">bottom</option>
             <option value="1">top</option>
           </select>
         </template>
 
-        <template v-if="item.type === 'action'">
+        <!-- DESCRIPTION -->
+        <template 
+          v-if="this.$store.getters.editItemHasKey('desc')"
+        >
           <label>Action Description</label>
-          <input class="app-item-desc" name="item-desc" :value="item.desc ? item.desc : 'none'">
+          <input class="app-item-desc" name="item-desc" :value="itemDesc">
         </template>
 
-        <template v-if="item.type === 'action'">
-          <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="item.toggle">
+        <template 
+          v-if="this.$store.getters.editItemHasKey('toggle')"
+        >
+          <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
           Toggle
         </template>
         
@@ -84,22 +99,33 @@
       <div class="app-editor-panel app-editor-menu" 
         v-if="this.$store.getters.showEditorBulkEditButtons"
       >
-        <button @click="onBulkClearIcons()" class="pure-button pure-button-secondary"><font-awesome-icon icon="eraser" /> Clear Icons</button>
-        <button @click="onBulkDeleteItems()" class="pure-button pure-button-warning"><font-awesome-icon icon="trash" /> Delete</button>
+        <button class="pure-button pure-button-secondary"
+          @click="onBulkClearIcons()" 
+        >
+          <font-awesome-icon icon="eraser" /> Clear Icons
+        </button>
+
+        <button class="pure-button pure-button-warning"
+          @click="onBulkDeleteItems()" 
+        >
+          <font-awesome-icon icon="trash" /> Delete
+        </button>
       </div>
 
       <!-- EDITOR ICON -->
       <div class="app-editor-panel"
-        :class="{ 'hidden' : item.type !== 'action' || this.$store.getters.isEditorModeDelete }"
+        :class="{ 'hidden' : !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete }"
         >
         <template>
-          <button @click.stop="onClearIcons(item)" class="pure-button app-editor-icon-delete">
+          <button class="pure-button app-editor-icon-delete"
+            @click.stop="onClearIcons()" 
+          >
             <font-awesome-icon icon="trash" />
           </button>
           <div class="app-item-icon-preview">
             <label>Icon</label>
-            <div class="app-item-icon" :style="{ backgroundColor: item.bgcolor }">
-              <font-awesome-icon :style="{color: item.textcolor }" :icon="item.icon ? item.icon : 'question'" size="4x" />
+            <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor }">
+              <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemIcon" size="4x" />
             </div>
             
             <app-icon-picker :toggle="false" />
@@ -108,16 +134,16 @@
       </div>
 
       <div class="app-editor-panel"
-        :class="{ 'hidden' : item.toggle !== true }"
+        :class="{ 'hidden' : !itemToggle }"
       >
         <template>
           <div class="app-item-icon-preview">
             <label>Toggle Icon</label>
             <div class="app-item-icon"
-              v-if="item.toggle" 
-              :style="{ backgroundColor: item.bgcolor }"
+              v-if="itemToggle" 
+              :style="{ backgroundColor: itemBgcolor }"
             >
-              <font-awesome-icon :style="{color: item.textcolor }" :icon="item.toggleicon ? item.toggleicon : item.icon" size="4x" />
+              <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemToggleIcon" size="4x" />
             </div>
             <app-icon-picker :toggle="true" />
           </div>
@@ -138,7 +164,7 @@ import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
 
 export default {
-  props: ['item', 'columns', 'editor', 'reaper'],
+  props: ['item', 'editor', 'reaper'],
 
   components: {
     'app-item-color-picker': BaseEditorItemColorPicker,
@@ -158,6 +184,99 @@ export default {
 
   computed: {
 
+    itemTextcolor() {
+      return this.$store.getters.editItemKey('textcolor', '#222222')
+    },
+
+    itemBgcolor() {
+      return this.$store.getters.editItemKey('bgcolor', '#222222')
+    },
+
+    itemWidth: {
+      get() {
+        return this.$store.getters.editItemKey('width', 1)
+      },
+      set(value) {
+        if(this.$store.getters.editItemHasKey('width'))
+          this.$store.commit('updateItem', { key: 'width', val: value })
+      }
+    },
+
+    itemMinWidth() {
+      return this.$store.getters.editItemKey('mindwidth', 1)
+    },
+
+    itemMaxWidth() {
+      return parseInt(this.$store.getters.globalColumns)
+    },
+
+    itemAction: {
+      get() {
+        return this.$store.getters.editItemKey('action', false)
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'action', val: value })
+      }
+    },
+
+    itemLabel: {
+      get() {
+        return this.$store.getters.editItemKey('label', '')
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'label', val: value })
+      }
+    },
+
+    itemLabelPos: {
+      get() {
+        return this.$store.getters.editItemKey('labelpos', 0)
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'labelpos', val: value })
+      }
+    },
+
+    itemDesc() {
+      return this.$store.getters.editItemKey('desc', '')
+    },
+
+    itemToggle: {
+      get() {
+        return this.$store.getters.editItemKey('toggle', false)
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'toggle', val: value })
+      }
+    },
+
+    itemIcon: {
+      get() {
+        return this.$store.getters.editItemKey('icon', 'question-circle')
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'icon', val: value })
+      }
+    },
+
+    itemToggleIcon: {
+      get() {
+        return this.$store.getters.editItemKey('toggleicon', this.itemIcon)
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'icon', val: value })
+      }
+    },
+
+    globalColumns: {
+      get() {
+        return this.$store.getters.globalColumns
+      },
+      set(value) {
+        this.$store.commit('setGlobalColumns', value)
+      }
+    },
+
     execActions: {
       get() {
         return this.editor.exec_actions
@@ -169,6 +288,7 @@ export default {
     },
     
     showOptionsPanel() {
+      return false
       // FIXME custom getter
       if(this.$store.getters.hasTabs && ( 
         this.$store.state.editor.edit_item.label ||
@@ -185,7 +305,7 @@ export default {
 
   methods: {
 
-    onClearIcons(event) {
+    onClearIcons() {
       this.$store.commit('updateItem', { key: 'icon', val: false })
       this.$store.commit('updateItem', { key: 'toggleicon', val: false })
     },
@@ -197,16 +317,7 @@ export default {
 
     onBulkDeleteItems(event) {
       this.$store.commit('showBulkDeleteDialog')
-    },
-
-    onSetColumns(event) {
-      this.$store.commit('setColumns')
-    },
-
-    getIcon(event) {
-      return this.item.icon
-    },
- 
+    }, 
   }
 };
 </script>

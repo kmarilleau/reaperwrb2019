@@ -16,7 +16,7 @@
     </a>
     <a class="app-row-edit-button"
       @click.stop="onRowDelete()" 
-      v-if="this.$store.getters.showDeleteRowButton"
+      v-if="this.$store.getters.showEditorDeleteRowButton"
     >
       <font-awesome-icon icon="trash" size="1x" />
       <span>Row</span>
