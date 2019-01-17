@@ -118,6 +118,8 @@ const store = new Vuex.Store({
         && state.webremote.active_tab === tab
     },
 
+    isActiveRow: (state, getters) => (row) => state.editor.active_row === row,
+
     getTabs: (state, getters) => state.webremote.tabs,
     hasTabs: (state, getters) => state.webremote.tabs.length > 0,
     hasNoTabs: (state, getters) => state.webremote.tabs.length === 0,
