@@ -203,7 +203,7 @@ export default {
     },
 
     itemMinWidth() {
-      return this.$store.getters.editItemKey('mindwidth', 1)
+      return this.$store.getters.editItemKey('minwidth', 1)
     },
 
     itemMaxWidth() {

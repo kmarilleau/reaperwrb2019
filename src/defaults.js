@@ -32,6 +32,7 @@ const defaults = {
     type: 'spacer',
     bgcolor: '#666666',
     width: 1,
+    minwidth: 1,
   },
 
   tab: {
