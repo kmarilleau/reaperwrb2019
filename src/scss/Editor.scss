@@ -261,6 +261,13 @@ input[type=checkbox] {
   visibility: visible;
 }
 
+.app-editor-webremote-title {
+  grid-row-start: 2;
+  input {
+    margin-top: 0.5vw;
+  }
+}
+
 /* layout */
 ::-webkit-scrollbar {
   width: 1.25vh;
@@ -278,11 +285,17 @@ input[type=checkbox] {
 
 .sortable-ghost {
   opacity: 0.7;
+  .app-item-edit-buttons {
+    display: none;
+  }
 }
 
 .sortable-drag {
   cursor: move !important;
   box-shadow: none !important;
+  .app-item-edit-buttons {
+    display: none;
+  }
 }
 
 .app-tab-navigation .sortable-ghost {

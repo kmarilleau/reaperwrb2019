@@ -1,6 +1,6 @@
 <template>
   <div class="app-tab-navigation-item app-tab-add"
-    v-if="this.$store.getters.isModeEditor"
+    v-if="this.$store.getters.isModeEditor && !this.$store.getters.isEditorModeSave"
   >
     <a @click.stop="onTabAdd"><font-awesome-icon icon="plus" size="1x" /></a>
   </div>

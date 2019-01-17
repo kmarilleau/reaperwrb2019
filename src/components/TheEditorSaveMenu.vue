@@ -24,15 +24,37 @@
       <font-awesome-icon icon="save" /> JSON
     </button>
 
+
+    <div class="app-editor-webremote-title">
+      <label>
+        Webremote Title
+        <input name="title" v-model="webremoteTitle">
+      </label>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+
+  computed: {
+    webremoteTitle: {
+      get() {
+        return this.$store.getters.webremoteTitle
+      },
+      set(value) {
+        this.$store.commit('setWebremoteTitle', value)
+      },
+    }
+  },
   methods: {
     onCancel() { this.$store.commit('setEditorModeMain') },
     onSaveHTML() { this.$store.commit('saveHTML') },
-    onSaveLocalStorage() { this.$store.commit('saveLocalStorage') },
+    onSaveLocalStorage() { 
+      this.$store.commit('saveLocalStorage')
+      this.$store.commit('setEditorModeMain')
+      this.$store.commit('setModeStartup') 
+    },
     onSaveJSON() { this.$store.commit('saveJSON') },
   }
 }

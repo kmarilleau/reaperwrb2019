@@ -5,8 +5,8 @@ const defaults = {
   },
 
   webremote: {
-    label: 'new webremote',
-    time_created: null,
+    title: 'New Webremote',
+    timestamp: null,
     columns: 8,
     active_tab: 0,
     tabs: []

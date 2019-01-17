@@ -68,18 +68,7 @@ const store = new Vuex.Store({
       delete_item: false,
       active_row: 0,
     },
-    transfer: {
-      okay: false,
-      timeout: 100,
-      data: []
-    },
-    webremote: {
-      label: 'new webremote',
-      time_created: null,
-      columns: 8,
-      active_tab: 0,
-      tabs: []
-    },
+    webremote: {},
     local_storage: {}
   },
 
@@ -111,6 +100,8 @@ const store = new Vuex.Store({
     },
     showEditorDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
     showEditorGlobalColumns: (state, getters) => getters.hasTabs && getters.isEditorModeMain,
+
+    webremoteTitle: (state, getters) => state.webremote.title,
 
     isActiveTab: (state, getters) => (tab) => state.webremote.active_tab === tab,
     isTabEdit: (state, getters) => (tab) => { 
@@ -216,6 +207,10 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    init: (state) => {
+      state.webremote = cloneDeep(defaults.webremote)
+    },
+
     setModeStartup: (state) => state.mode = modes.STARTUP,
     setModeRemote: (state) => state.mode = modes.REMOTE,
     setModeEditor: (state) => state.mode = modes.EDITOR,
@@ -244,6 +239,8 @@ const store = new Vuex.Store({
     setGlobalColumns: (state, columns) => {
       state.webremote.columns = columns
     },
+
+    setWebremoteTitle: (state, title) => state.webremote.title = title,
 
     clearEditItem: (state) => state.editor.edit_item = false,
     clearEditItems: (state) => state.editor.edit_items = [],
@@ -308,8 +305,8 @@ const store = new Vuex.Store({
         console.log('REAPERWRB: Local storage support enabled.')
         if(!localStorage.getItem('REAPERWRB')) {
           console.log('REAPERWRB: No Local Storage Instance. Creating new.')
-          const storage = cloneDeep(defaults.storage)
-          localStorage.setItem('REAPERWRB', JSON.stringify(storage))
+          state.local_storage = cloneDeep(defaults.storage)
+          localStorage.setItem('REAPERWRB', JSON.stringify(state.local_storage))
         } else {
           console.log('REAPERWRB: Loading Local Storage.')
           state.local_storage = JSON.parse(localStorage.getItem('REAPERWRB'))
@@ -321,20 +318,11 @@ const store = new Vuex.Store({
     },
 
     saveLocalStorage: (state) => {
-      // check if we have a local storage already
-      // check if a webremote with the same name exists
-      // add data
       if(state.has_local_storage) {
         console.log('REAPERWRB: Saving to Local Storage.')
-        //const local = JSON.parse(localStorage.getItem('REAPERWRB'))
-        //console.log(local)
         const webremote = cloneDeep(state.webremote)
-        // FIXME check if a webremote with the same name already exists
-        //const labels = state.local_storage.webremotes.map(webremote => webremote.label)
-        //console.log(labels)
-
         const d = new Date()
-        webremote.time_created = d.getTime()
+        webremote.timestamp = d.getTime()
         state.local_storage.webremotes.push(webremote)
         localStorage.setItem('REAPERWRB', JSON.stringify(state.local_storage))
       }
@@ -444,10 +432,12 @@ const store = new Vuex.Store({
         state.editor.active_row = data.row
         state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab].rows[data.row][data.index]
       }
+
     },
 
     showDeleteDialog: (state, item) => {
       state.editor.mode = editorModes.DELETE
+      state.editor.edit_item = false
       state.editor.delete_item = item
       state.editor.delete_item.el.classList.add('app-highlight-delete')
 
@@ -470,6 +460,7 @@ const store = new Vuex.Store({
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
       }
+      state.editor.delete_item = false
       state.editor.mode = editorModes.MAIN
     },
     
@@ -799,6 +790,8 @@ const app = new Vue({
   components: { App },
   template: '<App/>',
   created: function() {
+
+    this.$store.commit('init')
 
     // check for local storage support
     this.$store.commit('checkLocalStorageSupport')

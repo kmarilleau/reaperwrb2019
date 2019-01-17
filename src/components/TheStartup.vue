@@ -22,9 +22,9 @@
     >
       <button class="app-button-local-storage"
         v-for="(webremote,index) in this.$store.getters.getLocalStorageWebremotes" :key="index"
-        @click.stop="onLoadLocal(webremote.label)"
+        @click.stop="onLoadLocal(webremote.title, webremote.timestamp)"
       > 
-        <span>LOCAL<br /><br />{{webremote.label}}</span>
+        <span>LOCAL<br /><br />{{webremote.title}}</span>
       </button>
     </template>
    
@@ -45,14 +45,23 @@ export default {
       this.$store.commit('import', webremote)
       this.$store.commit('setModeRemote')
     },
-    onLoadLocal(label) {
-      this.$store.commit('setModeRemote')
-      this.$store.getters.getLocalStorageWebremotes.forEach((webremote, index) => {
-        if(webremote.label === label)
-          this.$store.commit('import', this.$store.getters.getLocalStorageWebremoteByIndex(index))
-      })
-
-      // FIXME handle fail case
+    onLoadLocal(title, timestamp) {
+      if(this.$store.getters.hasLocalStorage) {
+        this.$store.getters.getLocalStorageWebremotes.forEach((webremote, index) => {
+          console.log(title)
+          console.log(webremote.tile)
+          console.log(timestamp)
+          console.log(webremote.timestamp)
+          if(webremote.title === title
+          && webremote.timestamp === timestamp) {
+            this.$store.commit('import', this.$store.getters.getLocalStorageWebremoteByIndex(index))
+            this.$store.commit('setModeRemote')
+          } else {
+            // FIXME handle fail case
+            console.log("REAPERWRB ERROR: Could not load local storage.")
+          }
+        })
+      }
     }
   }
 }
