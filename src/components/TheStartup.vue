@@ -6,7 +6,7 @@
       <img src="/reaperwrb/icons/icon-512x512.png" />
     </div>
 
-    <button class="pure-button pure-button-primary" 
+    <button class="pure-button pure-button-primary app-button-launch-editor" 
       @click="onLaunchEditor()">
       <span>Editor</span>
     </button>

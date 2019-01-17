@@ -27,7 +27,7 @@
       <div @click.stop="onHome()">
         <font-awesome-icon icon="home" />
       </div>
-      <div @click.stop="onEdit()">
+      <div @click.stop="onEdit()" class="app-button-launch-editor">
         <font-awesome-icon icon="pen" />
       </div>
     </div>

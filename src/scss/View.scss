@@ -18,6 +18,16 @@
   font-size: 200%;
 }
 
+.app-button-launch-editor {
+  display: none;
+}
+
+@media (orientation: landscape) and (min-width: 1024px) {
+  .app-button-launch-editor {
+    display: block;
+  }
+}
+
 @media (orientation: landscape) {
 
   .app-row,

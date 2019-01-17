@@ -88,6 +88,7 @@ const store = new Vuex.Store({
     version: (state, getters) => state.version,
 
     showLocalStorage: (state, getters) => state.has_local_storage && typeof(state.local_storage.webremotes) !== 'undefined',
+    hasLocalStorage: (state, getters) => state.has_local_storage,
     getLocalStorageWebremotes: (state, getters) => state.local_storage.webremotes,
     getLocalStorageWebremoteByIndex: (state, getters) => (index) => state.local_storage.webremotes[index],
 

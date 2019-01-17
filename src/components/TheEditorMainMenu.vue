@@ -32,7 +32,7 @@
         <font-awesome-icon icon="folder-open" /> Example
       </button>
 
-      <button class="pure-button app-editor-button-html" 
+      <button class="pure-button app-editor-button-html"
         @click="onTriggerLoadHTML"
       >
         <font-awesome-icon icon="folder-open" /> HTML
