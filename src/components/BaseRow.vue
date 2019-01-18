@@ -46,7 +46,8 @@ export default {
   },
 
   updated() {
-    if(this.$store.state.editor.edit_item !== false && this.$store.state.editor.edit_item.type !== 'tab') {
+    // FIXME document what is going on here
+    if(this.$store.state.editor.edit_item !== null && this.$store.state.editor.edit_item.type !== 'tab') {
       if(this.row === this.$store.state.editor.active_row) {
         const el = this.$el.querySelectorAll('.app-highlight-edit')
         if(el.length === 0) {
