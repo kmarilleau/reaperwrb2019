@@ -269,7 +269,7 @@ const store = new Vuex.Store({
 
     setWebremoteTitle: (state, title) => state.webremote.title = title,
 
-    clearEditItem: (state) => state.editor.edit_item = false,
+    clearEditItem: (state) => state.editor.edit_item = null,
     clearEditItems: (state) => state.editor.edit_items = [],
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
@@ -387,10 +387,12 @@ const store = new Vuex.Store({
     toggleExecActions: (state) => state.editor.exec_actions = state.editor.exec_actions ? false : true,
 
     bulkEditAdd: (state, payload) => {
+      payload.el.classList.add('app-highlight-edit')
       state.editor.edit_items.push(payload)
     },
 
     bulkEditRemove: (state, payload) => {
+      payload.el.classList.remove('app-highlight-edit')
       state.editor.edit_items = state.editor.edit_items.filter((item) => {
         return item.index == payload.index && item.row == payload.row ? false : true
       })
@@ -485,7 +487,6 @@ const store = new Vuex.Store({
     cancelBulkDelete: (state) => {
       state.editor.edit_items.forEach(edit_item => {
         edit_item.el.classList.remove('app-highlight-delete')
-        //edit_item.el.querySelector('.app-editor-checkbox').checked = true
       })
       state.editor.mode = editorModes.MAIN
     },
@@ -493,8 +494,6 @@ const store = new Vuex.Store({
     bulkDelete: (state) => {
       state.editor.edit_items.forEach(edit_item => {
         edit_item.el.classList.remove('app-highlight-delete')
-        edit_item.el.querySelector('.app-editor-checkbox').checked = false
-
         state.webremote.tabs[state.webremote.active_tab].rows[edit_item.row].forEach((del, index) => {
           // compare items if all keys match remove
           if(edit_item.item.type === del.type) {

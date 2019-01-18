@@ -51,7 +51,7 @@ import BaseItemRegions from '@/components/BaseItemRegions.vue'
 import BaseItemPosition from '@/components/BaseItemPosition.vue'
 
 export default {
-  props: ['row', 'item', 'index', 'preview', 'toggle'],
+  props: ['row', 'item', 'index', 'toggle'],
 
   components: {
     'app-item-action': BaseItemAction,
@@ -59,6 +59,12 @@ export default {
     'app-item-markers': BaseItemMarkers,
     'app-item-regions': BaseItemRegions,
     'app-item-position': BaseItemPosition,
+  },
+
+  data() {
+    return {
+      bulkEdit: false,
+    }
   },
 
   methods: {
@@ -70,16 +76,23 @@ export default {
     },
     onClick() {
       if(this.$store.getters.isModeEditor) {
-        if(!this.$store.getters.isEditorBulkEdit) {
-          const payload = {
+        const payload = {
             item: this.item,
             row: this.row,
             index: this.index,
             el: this.$el,
           }
+        if(!this.$store.getters.isEditorBulkEdit) {
           this.$store.dispatch('onItemEdit', payload)
         } else {
           // FIXME handle add remove from bulk edit
+          if(!this.bulkEdit) {
+            this.$store.commit('bulkEditAdd', payload)
+            this.bulkEdit = true
+          } else {
+            this.$store.commit('bulkEditRemove', payload)
+            this.bulkEdit = false
+          }
         }
           
       }
