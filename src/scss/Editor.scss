@@ -239,10 +239,11 @@ input[type=checkbox] {
   display: flex;
   flex-direction: row;
   color: $c-editor-alt;
+  z-index: 1000;
 
   .app-item-edit-button {
     opacity: 0.8;
-    height: auto;
+    height: $g-nav-item-height-landscape;
     text-align: center;
     z-index: 1000;
     visibility: hidden;

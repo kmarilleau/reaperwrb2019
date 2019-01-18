@@ -1,6 +1,6 @@
 <template>
   <div class="app-view"
-    :class="classScroll()"
+    :class="getClass()"
   >
     <template v-if="tabs.length > 0 && typeof(tabs[this.tab]) !== 'undefined'">
       <app-tab-navigation 
@@ -39,11 +39,11 @@ export default {
     onSelectTab(tab) {
       this.$emit('e-select-tab', tab)
     },
-    classScroll() {
-      return this.$store.getters.isModeEditor ? 'app-view-scroll' : false
+    getClass() {
+      return { 'app-view-scroll' : this.$store.getters.isModeEditor }
     }
   }
-};
+}
 </script>
 
 <style scoped>
