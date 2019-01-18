@@ -129,7 +129,7 @@ const store = new Vuex.Store({
 
     transportOnline: (state, getters) => state.reaper.transport.online,
     transportPosString: (state, getters) => state.reaper.transport.position_string,
-    transportPosBeats: (state, getters) => state.reaper.transport.position_beats,
+    transportPosBeats: (state, getters) => state.reaper.transport.position_string_beats,
     transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
 
     globalColumns: (state, getters) => state.webremote.columns,
@@ -610,9 +610,6 @@ const store = new Vuex.Store({
         && !state.editor.exec_actions 
         && typeof(data.recur) === 'undefined')
         return
-
-      console.log("EXECUTING")
-      console.log(state.editor.exec_actions)
 
       if(state.reaper.ready) {
         if(data.recur)
