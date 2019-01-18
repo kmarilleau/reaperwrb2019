@@ -5,15 +5,11 @@
       backgroundColor: item.bgcolor, 
       gridColumnEnd: item.width ? 'span ' + item.width : 'span 1' 
     }"
+    @click="onClick()"
     :row="row"
     :index="index"
     :item="item"
   >
-    <app-item-edit-buttons 
-      :row="row" 
-      :item="item" 
-      :index="index"
-    />
 
     <app-item-action 
       v-if="item.type === 'action'" 
@@ -48,7 +44,6 @@
 </template>
 
 <script>
-import BaseItemEditButtons from '@/components/BaseItemEditButtons.vue'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
@@ -59,7 +54,6 @@ export default {
   props: ['row', 'item', 'index', 'preview', 'toggle'],
 
   components: {
-    'app-item-edit-buttons': BaseItemEditButtons,
     'app-item-action': BaseItemAction,
     'app-item-transport': BaseItemTransport,
     'app-item-markers': BaseItemMarkers,
@@ -73,7 +67,23 @@ export default {
       classList['app-item-' + this.item.type] = true
       classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
       return classList
-    }
+    },
+    onClick() {
+      if(this.$store.getters.isModeEditor) {
+        if(!this.$store.getters.isEditorBulkEdit) {
+          const payload = {
+            item: this.item,
+            row: this.row,
+            index: this.index,
+            el: this.$el,
+          }
+          this.$store.dispatch('onItemEdit', payload)
+        } else {
+          // FIXME handle add remove from bulk edit
+        }
+          
+      }
+    },
   }
 }
 </script>

@@ -5,16 +5,9 @@
       'app-tab-navigation-item-active' : this.$store.getters.isActiveTab(index),
       'app-highlight-edit' : this.$store.getters.isTabEdit(index) 
     }"
-    @click.stop="onTabSwitch"
+    @click.stop="onClick()"
     :tab="index"
   >
-
-    <app-tab-edit-buttons 
-      v-if="this.$store.getters.isActiveTab(index)"
-      :item="tab"
-      :index="index"
-    />
-
     <span class="app-item-label font-bold" 
       :style="{ color: tab.textcolor }
     ">
@@ -24,21 +17,25 @@
 </template>
 
 <script>
-import BaseItemEditButtons from '@/components/BaseItemEditButtons.vue'
-
 export default {
   props: [
     'tab',
     'index',
   ],
-
-  components: {
-    'app-tab-edit-buttons': BaseItemEditButtons,
-  },
-
   methods: {
-    onTabSwitch(event) {
+    onClick(event) {
       this.$store.dispatch('onSwitchTab', this.index)
+      
+      if(this.$store.getters.isModeEditor) {
+        if(!this.$store.getters.isEditorBulkEdit) {
+          const payload = {
+            item: this.tab,
+            index: this.index,
+            el: this.$el,
+          }
+          this.$store.dispatch('onItemEdit', payload)
+        }
+      }
     }
   }
 };

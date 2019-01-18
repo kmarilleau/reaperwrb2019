@@ -140,7 +140,9 @@ const store = new Vuex.Store({
 
     hasEditItem: (state, getters) => state.editor.edit_item,
     editItemType: (state, getters) => (type) => state.editor.edit_item.type === type,
-    editItemHasKey: (state, getters) => (key) => typeof(state.editor.edit_item[key]) !== 'undefined',
+    editItemHasKey: (state, getters) => (key) => {
+      return typeof(state.editor.edit_item[key]) !== 'undefined'
+    },
     editItemKey: (state, getters) => (key, defaultValue) => {
       if(getters.editItemHasKey(key) && state.editor.edit_item[key])
         return state.editor.edit_item[key]
@@ -439,16 +441,16 @@ const store = new Vuex.Store({
       }
     },
 
-    edit: (state, data) => {
-      data.el.classList.add('app-highlight-edit')
-      if(data.item.type === 'tab') {
-        state.editor.edit_item = state.webremote.tabs[data.index]
-        state.webremote.active_tab = data.index
+    edit: (state, payload) => {
+      state.editor.edit_item = null
+      payload.el.classList.add('app-highlight-edit')
+      if(payload.item.type === 'tab') {
+        state.editor.edit_item = state.webremote.tabs[payload.index]
+        state.webremote.active_tab = payload.index
       } else {
-        state.editor.active_row = data.row
-        state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab].rows[data.row][data.index]
+        state.editor.active_row = payload.row
+        state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab].rows[payload.row][payload.index]
       }
-
     },
 
     showDeleteDialog: (state, item) => {
@@ -604,8 +606,13 @@ const store = new Vuex.Store({
 
     execAction: (state, data) => {
 
-      if(state.editor.enabled && !state.editor.exec_actions && !data.recur)
+      if(state.mode === modes.EDITOR 
+        && !state.editor.exec_actions 
+        && typeof(data.recur) === 'undefined')
         return
+
+      console.log("EXECUTING")
+      console.log(state.editor.exec_actions)
 
       if(state.reaper.ready) {
         if(data.recur)
