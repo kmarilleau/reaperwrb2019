@@ -149,7 +149,7 @@
       </div>
 
       <div class="app-editor-panel"
-        :class="{ 'hidden' : !itemToggle }"
+        :class="{ 'hidden' : !itemToggle || this.$store.getters.isEditorModeDelete }"
       >
         <template>
           <div class="app-item-icon-preview">
@@ -328,7 +328,7 @@ export default {
       this.$store.commit('updateItems', { key: 'toggleicon', val: false })
     },
     onDeleteItem(event) {
-      //this.$store.commit('showBulkDeleteDialog')
+      this.$store.dispatch('onDeleteItem')
     },
     onBulkDeleteItems(event) {
       //this.$store.commit('showBulkDeleteDialog')

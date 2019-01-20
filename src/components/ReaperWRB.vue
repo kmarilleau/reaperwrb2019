@@ -5,14 +5,9 @@
     <app-startup v-if="this.$store.getters.isModeStartup" />
 
     <template v-if="!this.$store.getters.isModeStartup">
-      <app-view 
-        :tabs="this.$store.state.webremote.tabs" 
-        :tab="this.$store.state.webremote.active_tab"
-      />
+      <app-view />
       <app-editor 
-        v-if="this.$store.getters.isModeEditor"
-        :editor="this.$store.state.editor"
-        :reaper="this.$store.state.reaper"
+        v-if="this.$store.getters.isModeEditor" 
       />
     </template>
   </div>

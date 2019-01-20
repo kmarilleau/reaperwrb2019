@@ -2,17 +2,16 @@
   <div class="app-view"
     :class="getClass()"
   >
-    <template v-if="tabs.length > 0 && typeof(tabs[this.tab]) !== 'undefined'">
-      <app-tab-navigation 
-        :tabs="tabs"
-        @e-select-tab="onSelectTab"
-      ></app-tab-navigation>
-      <app-tab
-        :rows="tabs[this.tab].rows"
-      ></app-tab>
+    <template 
+      v-if="this.$store.getters.hasTabs"
+    >
+      <app-tab-navigation />
+      <app-tab />
     </template>
 
-    <app-help v-if="tabs.length === 0" :version="this.$store.getters.version" />
+    <app-help 
+      v-if="this.$store.getters.tabs.length === 0"
+    />
 
   </div>
 </template>
@@ -23,8 +22,6 @@ import TheTab from '@/components/TheTab.vue'
 import TheHelp from '@/components/TheHelp.vue'
 
 export default {
-  props: ['tabs', 'tab'],
-
   updated() {
     this.$store.commit('getCmdStates')
   },
@@ -36,9 +33,6 @@ export default {
   },
 
   methods: {
-    onSelectTab(tab) {
-      this.$emit('e-select-tab', tab)
-    },
     getClass() {
       return { 'app-view-scroll' : this.$store.getters.isModeEditor }
     }

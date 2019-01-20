@@ -66,7 +66,8 @@ const store = new Vuex.Store({
         item: {
           type: false,
           row: false,
-          obj: false
+          obj: false,
+          el: false
         },
         bulk: [],
         bin: {},
@@ -121,27 +122,30 @@ const store = new Vuex.Store({
         && state.webremote.active_tab === tab
     },
 
+    
+    globalColumns: (state, getters) => state.webremote.columns,
+    activeTab: (state, getters) => state.webremote.active_tab,
+    activeRow: (state, getters) => state.editor.active_row,
     isActiveRow: (state, getters) => (row) => state.editor.active_row === row,
-
-    getTabs: (state, getters) => state.webremote.tabs,
+    tabs: (state, getters) => state.webremote.tabs,
+    rows: (state, getters) => state.webremote.tabs[state.webremote.active_tab].rows,
     hasTabs: (state, getters) => state.webremote.tabs.length > 0,
     hasNoTabs: (state, getters) => state.webremote.tabs.length === 0,
     isLastTab: (state, getters) => (item) => item.type === 'tab' && state.webremote.tabs.length === 1,
 
+    hasRows: (state, getters) => state.webremote.tabs[state.webremote.active_tab].rows.length > 0,
+    
     hasMarkers: (state, getters) => state.reaper.markers.length > 0,
     getMarkers: (state, getters) => state.reaper.markers,
-
+    
     hasRegions: (state, getters) => state.reaper.regions.length > 0,
     getRegions: (state, getters) => state.reaper.regions,
-
+    
     transportOnline: (state, getters) => state.reaper.transport.online,
     transportPosString: (state, getters) => state.reaper.transport.position_string,
     transportPosBeats: (state, getters) => state.reaper.transport.position_string_beats,
     transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
-
-    globalColumns: (state, getters) => state.webremote.columns,
-    activeTab: (state, getters) => state.webremote.active_tab,
-
+    
     hasEditItem: (state, getters) => state.editor.data.item.obj,
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemHasKey: (state, getters) => (key) => {
@@ -156,13 +160,12 @@ const store = new Vuex.Store({
     },
 
     deleteCanKeepItems: (state, getters) => {
-      console.log(getters.deleteItemType)
-      switch(getters.deleteItemType) {
+      switch(getters.editItemType) {
         case 'tab':
           return state.webremote.tabs[getters.activeTab].rows.length > 0 ? true : false
           break
         case 'row':
-          return state.webremote.tabs[getters.activeTab].rows[getters.deleteItemRow].length > 0 ? true : false
+          return state.webremote.tabs[getters.activeTab].rows[getters.activeRow].length > 0 ? true : false
           break
         default:
           return false
@@ -198,13 +201,9 @@ const store = new Vuex.Store({
       commit('clearEditHighlight')
       commit('edit', payload)
     },
-    onDelete({ commit, state }, payload) {
+    onDeleteItem({ commit, state }) {
       commit('clearEditHighlight')
-      commit('showDeleteDialog', payload)
-    },
-    onRowDelete({ commit, state}, payload) {
-      commit('clearEditHighlight')
-      
+      commit('showDeleteDialog')
     },
     onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
@@ -278,7 +277,8 @@ const store = new Vuex.Store({
     clearEditItem: (state) => state.editor.data.item = {
       type: false,
       row: false,
-      obj: false
+      obj: false,
+      el: false
     },
 
     clearEditItems: (state) => state.editor.data.bulk = [],
@@ -479,13 +479,12 @@ const store = new Vuex.Store({
       }
     },
 
-    showDeleteDialog: (state, payload) => {
+    showDeleteDialog: (state) => {
       state.editor.mode = editorModes.DELETE
-      state.editor.data.bin = payload
-      
-      payload.el.classList.add('app-highlight-delete')
+      state.editor.data.bin = cloneDeep(state.editor.data.item)
+      state.editor.data.bin.el.classList.add('app-highlight-delete')
 
-      if(payload.type === 'tab') {
+      if(state.editor.data.bin.obj.type === 'tab') {
         const el = document.querySelectorAll('.app-item')
         for(let i = 0; i < el.length; i++) {
           el[i].classList.add('app-highlight-delete')
@@ -500,6 +499,7 @@ const store = new Vuex.Store({
 
     cancelDelete: (state) => {
       state.editor.data.bin.el.classList.remove('app-highlight-delete')
+      state.editor.data.bin.el.classList.add('app-highlight-edit')
       const el = document.querySelectorAll('.app-item')
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
@@ -516,7 +516,7 @@ const store = new Vuex.Store({
     },
 
     bulkDelete: (state) => {
-      state.editor.edit_items.forEach(edit_item => {
+      state.editor.data.bulk.forEach(edit_item => {
         edit_item.el.classList.remove('app-highlight-delete')
         state.webremote.tabs[state.webremote.active_tab].rows[edit_item.row].forEach((del, index) => {
           // compare items if all keys match remove
@@ -532,7 +532,7 @@ const store = new Vuex.Store({
         })
       })
 
-      state.editor.edit_items = []
+      state.editor.data.bulk = []
       state.editor.mode = editorModes.MAIN
     },
 

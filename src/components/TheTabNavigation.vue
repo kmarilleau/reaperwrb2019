@@ -51,11 +51,11 @@ export default {
   computed: {
     tabs: {
       get() {
-        return this.$store.getters.getTabs
+        return this.$store.getters.tabs
       },
       set(value) {
         // only set on sort, when length doesn't change
-        if(value.length === this.$store.getters.getTabs.length)
+        if(value.length === this.$store.getters.tabs.length)
           this.$store.commit('updateTabs', value)
       }
     }

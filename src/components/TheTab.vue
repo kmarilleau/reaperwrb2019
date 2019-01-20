@@ -1,9 +1,8 @@
 <template>
   <div class="app-tab-rows">
-    <template v-if="rows.length > 0">
+    <template v-if="this.$store.getters.hasRows">
       <app-row
-        v-for="(items, row) in rows" :key="row"
-        :items="items"
+        v-for="(items, row) in this.$store.getters.rows" :key="row"
         :row="row"
       ></app-row>
     </template>
@@ -14,7 +13,6 @@
 import BaseRow from '@/components/BaseRow.vue';
 
 export default {
-  props: ['rows'],
   components: {
     'app-row': BaseRow
   }
