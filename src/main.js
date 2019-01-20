@@ -61,16 +61,15 @@ const store = new Vuex.Store({
       exec_actions: false,
       bulk_edit: false,
       move_item: false,
-      edit_item: false,
-      edit_items: [],
-      delete_item: false,
       active_row: 0,
       data: {
         item: {
           type: false,
           row: false,
           obj: false
-        }
+        },
+        bulk: [],
+        bin: {},
       }
     },
     webremote: {},
@@ -143,10 +142,7 @@ const store = new Vuex.Store({
     globalColumns: (state, getters) => state.webremote.columns,
     activeTab: (state, getters) => state.webremote.active_tab,
 
-    // deleteItemType: (state, getters) => state.editor.delete_item.data.type,
-    // deleteItemRow: (state, getters) => state.editor.delete_item.row,
-
-    hasEditItem: (state, getters) => state.editor.data.item,
+    hasEditItem: (state, getters) => state.editor.data.item.obj,
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemHasKey: (state, getters) => (key) => {
       return typeof(state.editor.data.item.obj[key]) !== 'undefined'
@@ -204,17 +200,13 @@ const store = new Vuex.Store({
       commit('clearEditHighlight')
       commit('edit', payload)
     },
-    onItemDelete({ commit, state }, payload) {
+    onDelete({ commit, state }, payload) {
       commit('clearEditHighlight')
       commit('showDeleteDialog', payload)
     },
-    onTabDelete({ commit, state }, payload) {
+    onRowDelete({ commit, state}, payload) {
       commit('clearEditHighlight')
-      // FIXME set delete obj
-    },
-    onRowDelete({ commit, state }, payload) {
-      commit('clearEditHighlight')
-      // FIXME set delete obj
+      
     },
     onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
@@ -395,8 +387,12 @@ const store = new Vuex.Store({
     switchRow: (state, row) => state.editor.active_row = row,
 
     toggleBulkEdit: (state) => {
-      state.editor.edit_item = false
-      state.editor.edit_items = []
+      state.editor.data.item = {
+        type: false,
+        row: false,
+        obj: false
+      },
+      state.editor.data.bulk = []
       state.editor.bulk_edit = state.editor.bulk_edit ? false : true;
     },
 
@@ -404,12 +400,15 @@ const store = new Vuex.Store({
 
     bulkEditAdd: (state, payload) => {
       payload.el.classList.add('app-highlight-edit')
-      state.editor.edit_items.push(payload)
+      payload.obj = state.webremote
+                    .tabs[state.webremote.active_tab]
+                    .rows[payload.row][payload.index] 
+      state.editor.data.bulk.push(payload)
     },
 
     bulkEditRemove: (state, payload) => {
       payload.el.classList.remove('app-highlight-edit')
-      state.editor.edit_items = state.editor.edit_items.filter((item) => {
+      state.editor.data.bulk = state.editor.data.bulk.filter((item) => {
         return item.index == payload.index && item.row == payload.row ? false : true
       })
     },
@@ -475,14 +474,14 @@ const store = new Vuex.Store({
       }
     },
 
-    showDeleteDialog: (state, item) => {
+    showDeleteDialog: (state, payload) => {
       state.editor.mode = editorModes.DELETE
-      state.editor.edit_item = false
-      state.editor.delete_item = item
-      state.editor.delete_item.el.classList.add('app-highlight-delete')
+      state.editor.data.bin = payload
+      
+      payload.el.classList.add('app-highlight-delete')
 
-      if(item.data.type === 'tab') {
-        let el = document.querySelectorAll('.app-item')
+      if(payload.type === 'tab') {
+        const el = document.querySelectorAll('.app-item')
         for(let i = 0; i < el.length; i++) {
           el[i].classList.add('app-highlight-delete')
         }
@@ -495,18 +494,18 @@ const store = new Vuex.Store({
     },
 
     cancelDelete: (state) => {
-      state.editor.delete_item.el.classList.remove('app-highlight-delete')
-      let el = document.querySelectorAll('.app-item')
+      state.editor.data.bin.el.classList.remove('app-highlight-delete')
+      const el = document.querySelectorAll('.app-item')
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-delete')
       }
-      state.editor.delete_item = false
+      state.editor.data.bin = false
       state.editor.mode = editorModes.MAIN
     },
     
     cancelBulkDelete: (state) => {
-      state.editor.edit_items.forEach(edit_item => {
-        edit_item.el.classList.remove('app-highlight-delete')
+      state.editor.data.bulk.forEach(item => {
+        item.el.classList.remove('app-highlight-delete')
       })
       state.editor.mode = editorModes.MAIN
     },
@@ -612,7 +611,9 @@ const store = new Vuex.Store({
     updateItem: (state, data) => state.editor.data.item.obj[data.key] = data.val,
 
     updateItems: (state, data) => {
-      state.editor.data.bulk.forEach(item => item.item[data.key] = data.val)
+      state.editor.data.bulk.forEach(item => {
+        item.obj[data.key] = data.val
+      })
     },
 
     updateRow: (state, data) => {

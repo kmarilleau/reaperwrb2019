@@ -40,14 +40,11 @@ export default {
 
     onRowDelete(event) {
       let payload = {
-        data: {
-          type: 'row',
-        },
-        row: this.row,
+        type: 'row',
         index: this.index,
         el: this.$parent.$children[0].$el
       }
-      this.$store.dispatch('onItemDelete', payload)
+      this.$store.dispatch('onDelete', payload)
     }
   }
 }
