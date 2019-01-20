@@ -46,15 +46,11 @@ export default {
   },
 
   updated() {
-    // FIXME document what is going on here
-    if(this.$store.getters.hasEditItem 
-      && this.$store.getters.editItemType('tab')) {
-      if(this.$store.getters.isActiveRow(this.row)) {
-        const el = this.$el.querySelectorAll('.app-highlight-edit')
-        if(el.length === 0) {
-          const el = this.$el.querySelectorAll('.app-item')
-          el[el.length - 1].classList.add('app-highlight-edit')
-        }
+    // highlight new added items for editing
+    if(this.$store.getters.hasEditItem) {
+      if(this.$store.getters.Type !== 'tab' && this.$store.getters.editItemRow === this.row) {
+        const el = this.$el.querySelectorAll('.app-item')
+        el[el.length - 1].classList.add('app-highlight-edit')
       }
     }
   },

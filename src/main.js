@@ -18,6 +18,7 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { stat } from 'fs';
 library.add(fas, far, fab)
 dom.watch()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -148,6 +149,7 @@ const store = new Vuex.Store({
     
     hasEditItem: (state, getters) => state.editor.data.item.obj,
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
+    editItemRow: (state, getters) => state.editor.data.item.row,
     editItemHasKey: (state, getters) => (key) => {
       return typeof(state.editor.data.item.obj[key]) !== 'undefined'
     },
@@ -296,7 +298,8 @@ const store = new Vuex.Store({
       newTab.rows.push([])
       newWebremote.tabs.push(newTab)
       state.webremote = newWebremote
-      state.editor.edit_item = state.webremote.tabs[0]
+      state.editor.data.item.index = 0
+      state.editor.data.item.obj = state.webremote.tabs[0]
     },
 
     unload: (state) => {
@@ -384,10 +387,12 @@ const store = new Vuex.Store({
     },
 
     switchTab: (state, tab) => {
-      state.editor.edit_item = false
-
-      if(state.editor.delete_dialog)
-        store.commit('cancel_delete')
+      state.editor.data.item = {
+        type: false,
+        row: false,
+        obj: false,
+        el: false
+      }
 
       state.webremote.active_tab = tab
     },
@@ -434,7 +439,7 @@ const store = new Vuex.Store({
       const row = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.active_row]
       row.push(item)
       state.editor.data.item.type = type
-      state.editor.data.item.row = row.length - 1
+      state.editor.data.item.row = state.editor.active_row
       state.editor.data.item.obj = row[row.length - 1]
       state.editor.mode = editorModes.MAIN
     },
@@ -629,7 +634,8 @@ const store = new Vuex.Store({
       newTab.rows.push([])
       state.webremote.tabs.push(newTab)
       state.webremote.active_tab = state.webremote.tabs.length - 1
-      state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab]
+      state.editor.data.item.index = state.webremote.active_tab
+      state.editor.data.item.obj = state.webremote.tabs[state.webremote.active_tab]
     },
 
     updateItem: (state, data) => state.editor.data.item.obj[data.key] = data.val,
