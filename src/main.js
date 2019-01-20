@@ -65,6 +65,13 @@ const store = new Vuex.Store({
       edit_items: [],
       delete_item: false,
       active_row: 0,
+      data: {
+        item: {
+          type: false,
+          row: false,
+          obj: false
+        }
+      }
     },
     webremote: {},
     has_local_storage: false,
@@ -100,8 +107,9 @@ const store = new Vuex.Store({
     showEditorBulkEditButtons: (state, getters) => {
       return state.editor.bulk_edit 
         && state.editor.mode !== editorModes.DELETE
-        && state.editor.edit_items.length > 0
+        && state.editor.data.bulk.length > 0
     },
+
     showEditorEditButtons: (state, getters) => getters.isModeEditor && !getters.isEditorModeSave && !getters.isEditorModeDelete,
     showEditorDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
     showEditorGlobalColumns: (state, getters) => getters.hasTabs && getters.isEditorModeMain,
@@ -110,7 +118,7 @@ const store = new Vuex.Store({
 
     isActiveTab: (state, getters) => (tab) => state.webremote.active_tab === tab,
     isTabEdit: (state, getters) => (tab) => { 
-      return state.editor.edit_item.type === 'tab'
+      return state.editor.data.item.obj.type === 'tab'
         && state.webremote.active_tab === tab
     },
 
@@ -135,17 +143,17 @@ const store = new Vuex.Store({
     globalColumns: (state, getters) => state.webremote.columns,
     activeTab: (state, getters) => state.webremote.active_tab,
 
-    deleteItemType: (state, getters) => state.editor.delete_item.data.type,
-    deleteItemRow: (state, getters) => state.editor.delete_item.row,
+    // deleteItemType: (state, getters) => state.editor.delete_item.data.type,
+    // deleteItemRow: (state, getters) => state.editor.delete_item.row,
 
-    hasEditItem: (state, getters) => state.editor.edit_item,
-    editItemType: (state, getters) => (type) => state.editor.edit_item.type === type,
+    hasEditItem: (state, getters) => state.editor.data.item,
+    editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemHasKey: (state, getters) => (key) => {
-      return typeof(state.editor.edit_item[key]) !== 'undefined'
+      return typeof(state.editor.data.item.obj[key]) !== 'undefined'
     },
     editItemKey: (state, getters) => (key, defaultValue) => {
-      if(getters.editItemHasKey(key) && state.editor.edit_item[key])
-        return state.editor.edit_item[key]
+      if(getters.editItemHasKey(key) && state.editor.data.item.obj[key])
+        return state.editor.data.item.obj[key]
       else {
         return defaultValue
       }
@@ -199,6 +207,14 @@ const store = new Vuex.Store({
     onItemDelete({ commit, state }, payload) {
       commit('clearEditHighlight')
       commit('showDeleteDialog', payload)
+    },
+    onTabDelete({ commit, state }, payload) {
+      commit('clearEditHighlight')
+      // FIXME set delete obj
+    },
+    onRowDelete({ commit, state }, payload) {
+      commit('clearEditHighlight')
+      // FIXME set delete obj
     },
     onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
@@ -269,8 +285,8 @@ const store = new Vuex.Store({
 
     setWebremoteTitle: (state, title) => state.webremote.title = title,
 
-    clearEditItem: (state) => state.editor.edit_item = null,
-    clearEditItems: (state) => state.editor.edit_items = [],
+    clearEditItem: (state) => state.editor.data.item = false,
+    clearEditItems: (state) => state.editor.data.bulk = [],
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
@@ -444,14 +460,18 @@ const store = new Vuex.Store({
     },
 
     edit: (state, payload) => {
-      state.editor.edit_item = null
+
+      state.editor.data.item = payload
       payload.el.classList.add('app-highlight-edit')
-      if(payload.item.type === 'tab') {
-        state.editor.edit_item = state.webremote.tabs[payload.index]
+
+      if(payload.type === 'tab') {
+        state.editor.data.item.obj = state.webremote.tabs[payload.index]
         state.webremote.active_tab = payload.index
       } else {
         state.editor.active_row = payload.row
-        state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab].rows[payload.row][payload.index]
+        state.editor.data.item.obj = state.webremote
+                                    .tabs[state.webremote.active_tab]
+                                    .rows[payload.row][payload.index] 
       }
     },
 
@@ -589,10 +609,10 @@ const store = new Vuex.Store({
       state.editor.edit_item = state.webremote.tabs[state.webremote.active_tab]
     },
 
-    updateItem: (state, data) => state.editor.edit_item[data.key] = data.val,
+    updateItem: (state, data) => state.editor.data.item.obj[data.key] = data.val,
 
     updateItems: (state, data) => {
-      state.editor.edit_items.forEach(item => item.item[data.key] = data.val)
+      state.editor.data.bulk.forEach(item => item.item[data.key] = data.val)
     },
 
     updateRow: (state, data) => {

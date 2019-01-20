@@ -77,15 +77,14 @@ export default {
     onClick() {
       if(this.$store.getters.isModeEditor) {
         const payload = {
-            item: this.item,
-            row: this.row,
-            index: this.index,
-            el: this.$el,
-          }
+          type: this.item.type,
+          row: this.row,
+          index: this.index,
+          el: this.$el,
+        }
         if(!this.$store.getters.isEditorBulkEdit) {
           this.$store.dispatch('onItemEdit', payload)
         } else {
-          // FIXME handle add remove from bulk edit
           if(!this.bulkEdit) {
             this.$store.commit('bulkEditAdd', payload)
             this.bulkEdit = true

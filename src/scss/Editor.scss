@@ -108,6 +108,10 @@
     .pure-button {
       margin: 0 0 0.5vh 0;
     }
+    .app-editor-sub-panel {
+      display: grid;
+      grid-template-columns: 0.35fr auto;
+    }
   }
 
   input, select {
@@ -160,25 +164,16 @@
 
 input[type=checkbox] {
   cursor: pointer;
-  z-index: 1000;
-}
-
-.app-editor-panel {
-  input[type=checkbox] {
-    margin-top: 1vw !important;
-    position: relative;
-    top: .1vw;
-  }
+  margin: 0.5vw 0.5vw;
 }
 
 @media (min-width: 1440px) {
   input[type=checkbox] {
     cursor: pointer;
-    -ms-transform: scale(1.5); /* IE */
-    -moz-transform: scale(1.5); /* FF */
-    -webkit-transform: scale(1.5); /* Safari and Chrome */
-    -o-transform: scale(1.51); /* Opera */
-    margin: 0.5vw 0.5vw;
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
   }
 }
 

@@ -29,7 +29,7 @@ export default {
       if(this.$store.getters.isModeEditor) {
         if(!this.$store.getters.isEditorBulkEdit) {
           const payload = {
-            item: this.tab,
+            type: 'tab',
             index: this.index,
             el: this.$el,
           }
