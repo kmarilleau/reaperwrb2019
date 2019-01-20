@@ -159,10 +159,11 @@ const store = new Vuex.Store({
       }
     },
 
+    deleteItemType: (state, getters) => state.editor.data.bin.obj.type,
     deleteCanKeepItems: (state, getters) => {
-      switch(getters.editItemType) {
+      switch(getters.deleteItemType) {
         case 'tab':
-          return state.webremote.tabs[getters.activeTab].rows.length > 0 ? true : false
+          return state.webremote.tabs.length > 1 ? true : false
           break
         case 'row':
           return state.webremote.tabs[getters.activeTab].rows[getters.activeRow].length > 0 ? true : false
@@ -204,6 +205,10 @@ const store = new Vuex.Store({
     onDeleteItem({ commit, state }) {
       commit('clearEditHighlight')
       commit('showDeleteDialog')
+    },
+    onDeleteRow({ commit, state }, payload) {
+      commit('clearEditHighlight')
+      commit('showRowDeleteDialog', payload)
     },
     onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
@@ -492,6 +497,12 @@ const store = new Vuex.Store({
       }
     },
 
+    showRowDeleteDialog: (state, payload) => {
+      state.editor.mode = editorModes.DELETE
+      state.editor.data.bin = payload
+      state.editor.data.bin.el.classList.add('app-highlight-delete')
+    },
+
     showBulkDeleteDialog: (state) => {
       state.editor.mode = editorModes.DELETE
       state.editor.edit_items.forEach(item => item.el.classList.add('app-highlight-delete'))
@@ -538,9 +549,9 @@ const store = new Vuex.Store({
 
     delete: (state, keepItems) => {
 
-      state.editor.delete_item.el.classList.remove('app-highlight-delete')
+      state.editor.data.bin.el.classList.remove('app-highlight-delete')
 
-      switch(state.editor.delete_item.data.type) {
+      switch(state.editor.data.bin.obj.type) {
         
         case 'tab':
           let el = document.querySelectorAll('.app-item')
@@ -549,7 +560,7 @@ const store = new Vuex.Store({
           }
 
           let rows
-          let tab = state.editor.delete_item.index
+          let tab = state.editor.data.bin.index
 
           if(keepItems) {
             rows = state.webremote.tabs[tab].rows
@@ -558,7 +569,7 @@ const store = new Vuex.Store({
           }
 
           // delete the tab
-          state.webremote.tabs.splice(state.editor.delete_item.index, 1)
+          state.webremote.tabs.splice(state.editor.data.bin.index, 1)
           
           // switch to correct tab
           if(keepItems) {
@@ -579,11 +590,13 @@ const store = new Vuex.Store({
 
         case 'row':
 
+          console.log(state.editor.data.bin)
+
           let items = false
           if(keepItems)
-            items = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.delete_item.row]
+            items = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.data.bin.index]
 
-          state.webremote.tabs[state.webremote.active_tab].rows.splice(state.editor.delete_item.row, 1)
+          state.webremote.tabs[state.webremote.active_tab].rows.splice(state.editor.data.bin.index, 1)
           if(state.webremote.tabs[state.webremote.active_tab].rows.length === 0)
             state.webremote.tabs[state.webremote.active_tab].rows.push([])
           
@@ -593,11 +606,17 @@ const store = new Vuex.Store({
           break
 
         default:
-          state.webremote.tabs[state.webremote.active_tab].rows[state.editor.delete_item.row].splice(state.editor.delete_item.index, 1)
+          state.webremote.tabs[state.webremote.active_tab].rows[state.editor.data.bin.row].splice(state.editor.data.bin.index, 1)
           break
         }
 
-        state.editor.edit_item = false
+        state.editor.data.item = {
+          type: false,
+          row: false,
+          obj: false,
+          el: false
+        }
+        state.editor.data.bin = false
         state.editor.mode = editorModes.MAIN
       },
 
