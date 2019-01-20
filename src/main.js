@@ -187,10 +187,8 @@ const store = new Vuex.Store({
 
   actions: {
     onSwitchTab({ commit, state }, tab) {
-      if(!state.editor.bulk_edit) {
-        commit('clearEditHighlight')
-        commit('switchTab', tab)
-      }
+      commit('clearEditHighlight')
+      commit('switchTab', tab)
     },
     onItemAdd({ commit, state }, type) {
       commit('clearEditHighlight')
@@ -257,7 +255,7 @@ const store = new Vuex.Store({
 
     clearEditHighlight: (state) => {
       // FIXME use el in edit_item reference
-      let el = document.querySelectorAll('.app-highlight-edit')
+      const el = document.querySelectorAll('.app-highlight-edit')
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
       }
@@ -277,7 +275,12 @@ const store = new Vuex.Store({
 
     setWebremoteTitle: (state, title) => state.webremote.title = title,
 
-    clearEditItem: (state) => state.editor.data.item = false,
+    clearEditItem: (state) => state.editor.data.item = {
+      type: false,
+      row: false,
+      obj: false
+    },
+
     clearEditItems: (state) => state.editor.data.bulk = [],
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
@@ -425,7 +428,9 @@ const store = new Vuex.Store({
       const item = cloneDeep(defaults[type])
       const row = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.active_row]
       row.push(item)
-      state.editor.edit_item = row[row.length - 1]
+      state.editor.data.item.type = type
+      state.editor.data.item.row = row.length - 1
+      state.editor.data.item.obj = row[row.length - 1]
       state.editor.mode = editorModes.MAIN
     },
 

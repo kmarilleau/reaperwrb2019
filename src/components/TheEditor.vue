@@ -69,15 +69,29 @@
         </template>
 
         <!-- LABEL POS -->
-        <template 
-          v-if="this.$store.getters.editItemHasKey('labelpos')"
-        >
-          <label>Label Position</label>
-          <select v-model="itemLabelPos">
-            <option value="0">bottom</option>
-            <option value="1">top</option>
-          </select>
-        </template>
+        <div class="app-editor-sub-panel">
+          <template 
+            v-if="this.$store.getters.editItemHasKey('labelpos')"
+          >
+            <div>
+              <label>Label Position</label>
+              <select v-model="itemLabelPos">
+                <option value="0">bottom</option>
+                <option value="1">top</option>
+              </select>
+            </div>
+            
+          </template>
+
+          <template 
+            v-if="this.$store.getters.editItemHasKey('toggle')"
+          >
+            <div>
+              <label>Toggle</label>
+              <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
+            </div>
+          </template>
+        </div>
 
         <!-- DESCRIPTION -->
         <template 
@@ -87,12 +101,13 @@
           <input class="app-item-desc" name="item-desc" :value="itemDesc">
         </template>
 
-        <template 
-          v-if="this.$store.getters.editItemHasKey('toggle')"
-        >
-          <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
-          Toggle
-        </template>
+        <div class="app-editor-menu">
+          <button class="pure-button pure-button-warning app-editor-delete-item-button"
+            @click.stop="onDeleteItem()"
+          >
+            <font-awesome-icon icon="trash" size="1x" />
+          </button>
+        </div>
         
       </div>
 
@@ -304,19 +319,19 @@ export default {
   },
 
   methods: {
-
     onClearIcons() {
       this.$store.commit('updateItem', { key: 'icon', val: false })
       this.$store.commit('updateItem', { key: 'toggleicon', val: false })
     },
-
     onBulkClearIcons(event) {
       this.$store.commit('updateItems', { key: 'icon', val: false })
       this.$store.commit('updateItems', { key: 'toggleicon', val: false })
     },
-
+    onDeleteItem(event) {
+      //this.$store.commit('showBulkDeleteDialog')
+    },
     onBulkDeleteItems(event) {
-      this.$store.commit('showBulkDeleteDialog')
+      //this.$store.commit('showBulkDeleteDialog')
     }, 
   }
 };

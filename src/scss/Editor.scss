@@ -78,6 +78,11 @@
         animation: blinker 1s linear infinite;
       }
     }
+
+    .app-editor-delete-item-button {
+      grid-column-end: span 6;
+      font-size: 200%;
+    }
   }
 
   .app-editor-button-new { background: $c-help-button-new; }
