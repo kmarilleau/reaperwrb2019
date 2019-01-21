@@ -95,7 +95,7 @@
 
         <!-- DESCRIPTION -->
         <template 
-          v-if="this.$store.getters.editItemHasKey('desc')"
+          v-if="this.$store.getters.editItemHasKey('desc') && this.$store.getters.editItemKey('desc', false) !== false"
         >
           <label>Action Description</label>
           <input class="app-item-desc" name="item-desc" :value="itemDesc">
@@ -132,7 +132,7 @@
         :class="{ 'hidden' : !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete }"
         >
         <template>
-          <button class="pure-button app-editor-icon-delete"
+          <button class="pure-button app-editor-icon-delete pure-button-warning"
             @click.stop="onClearIcons()" 
           >
             <font-awesome-icon icon="trash" />
@@ -227,7 +227,7 @@ export default {
 
     itemAction: {
       get() {
-        return this.$store.getters.editItemKey('action', false)
+        return this.$store.getters.editItemKey('action', '')
       },
       set(value) {
         this.$store.commit('updateItem', { key: 'action', val: value })
