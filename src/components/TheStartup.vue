@@ -69,10 +69,6 @@ import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
 export default {
 
-  mounted() {
-    document.title = "ReaperWRB / Start"
-  },
-
   methods: {
     onLaunchEditor() {
       this.$store.commit('fadeInLoader')
@@ -142,7 +138,7 @@ export default {
     },
 
     onDeleteLocal(title, timestamp) {
-      
+
     }
   }
 }
