@@ -1,3 +1,4 @@
+'use strict'
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
@@ -150,8 +151,11 @@ const store = new Vuex.Store({
     hasEditItem: (state, getters) => state.editor.data.item.obj,
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemRow: (state, getters) => state.editor.data.item.row,
-    editItemHasKey: (state, getters) => (key) => {
-      return typeof(state.editor.data.item.obj[key]) !== 'undefined'
+    editItemHasKey: (state, getters) => (key) => { 
+      if(getters.hasEditItem)
+        return key in state.editor.data.item.obj
+      else
+        return false
     },
     editItemKey: (state, getters) => (key, defaultValue) => {
       if(getters.editItemHasKey(key) && state.editor.data.item.obj[key])
@@ -210,7 +214,12 @@ const store = new Vuex.Store({
     },
     onDeleteRow({ commit, state }, payload) {
       commit('clearEditHighlight')
-      commit('showRowDeleteDialog', payload)
+      if(state.webremote.tabs[state.webremote.active_tab].rows[payload.index].length === 0) {
+        state.editor.data.bin = payload
+        commit('delete')
+      } else {
+        commit('showRowDeleteDialog', payload)
+      }
     },
     onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
