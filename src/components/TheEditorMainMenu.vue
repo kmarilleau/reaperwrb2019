@@ -84,7 +84,7 @@
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
 import fa4shims from '@/fa4shims'
-import defaults from '@/defaults'
+import { defaults } from '@/reaperwrb'
 
 export default {
   methods: {

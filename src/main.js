@@ -10,8 +10,9 @@ import cloneDeep from 'lodash/cloneDeep'
 //import isMobile from 'ismobilejs'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
-import defaults from '@/defaults'
+
 import htmlTemplate from '@/htmlTemplate'
+import { modes, editorModes, defaults } from '@/reaperwrb'
 import example from '@/example'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -19,65 +20,23 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { stat } from 'fs';
+import { stat } from 'fs'
+
 library.add(fas, far, fab)
 dom.watch()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
-
 Vue.use(Vuex)
-
-const modes = {
-  STARTUP: 0,
-  REMOTE: 1,
-  EDITOR: 2,
-}
-
-const editorModes = {
-  MAIN: 0,
-  ADD: 1,
-  DELETE: 2,
-  SAVE: 3,
-}
 
 const store = new Vuex.Store({
   state: {
     version: '2019.1',
     mode: modes.STARTUP,
-    reaper: {
-      ready: false,
-      transport: {
-        online: false,
-        playstate: 0,
-        position_seconds: 0,
-        repeat: 0,
-        position_string: '',
-        position_string_beats: ''
-      },
-      markers: [],
-      regions: [],
-    }, 
-    editor: {
-      mode: editorModes.MAIN,
-      exec_actions: false,
-      bulk_edit: false,
-      move_item: false,
-      active_row: 0,
-      data: {
-        item: {
-          type: false,
-          row: false,
-          obj: false,
-          el: false
-        },
-        bulk: [],
-        bin: {},
-        move: false,
-      }
-    },
-    webremote: {},
     has_local_storage: false,
+    reaper: {}, 
+    editor: {},
+    webremote: {},
     storage: {
       local: false,
       json: false
@@ -236,6 +195,8 @@ const store = new Vuex.Store({
   mutations: {
     init: (state) => {
       
+      state.reaper = cloneDeep(defaults.reaper)
+      state.editor = cloneDeep(defaults.editor)
       state.webremote = cloneDeep(defaults.webremote)
 
       // check JSON storage
@@ -290,12 +251,7 @@ const store = new Vuex.Store({
 
     setWebremoteTitle: (state, title) => state.webremote.title = title,
 
-    clearEditItem: (state) => state.editor.data.item = {
-      type: false,
-      row: false,
-      obj: false,
-      el: false
-    },
+    clearEditItem: (state) => state.editor.data.item = cloneDeep(defaults.editor.data.item),
 
     clearEditItems: (state) => state.editor.data.bulk = [],
 
@@ -383,37 +339,27 @@ const store = new Vuex.Store({
       console.log(JSON.stringify(cloneDeep(tabs)))
     },
     
-    // FIXME unsaafe
-    import: (state, data) => {
+    // FIXME unsafe
+    import: (state, payload) => {
       console.log("REAPERWRB: Importing data.")
-      if(typeof(data.tabs) !== 'undefined') {
-        state.webremote = cloneDeep(data)
+      if(typeof(payload.tabs) !== 'undefined') {
+        state.webremote = cloneDeep(payload)
         state.startup = false
       } else {
-        data.forEach(tab => state.webremote.tabs.push(tab))
+        payload.forEach(tab => state.webremote.tabs.push(tab))
         state.webremote.active_tab = state.webremote.tabs.length - 1
       } 
     },
 
     switchTab: (state, tab) => {
-      state.editor.data.item = {
-        type: false,
-        row: false,
-        obj: false,
-        el: false
-      }
-
+      state.editor.data.item = cloneDeep(defaults.editor.data.item)
       state.webremote.active_tab = tab
     },
 
     switchRow: (state, row) => state.editor.active_row = row,
 
     toggleBulkEdit: (state) => {
-      state.editor.data.item = {
-        type: false,
-        row: false,
-        obj: false
-      },
+      state.editor.data.item = cloneDeep(defaults.editor.data.item),
       state.editor.data.bulk = []
       state.editor.bulk_edit = state.editor.bulk_edit ? false : true;
     },
@@ -438,12 +384,7 @@ const store = new Vuex.Store({
     clear: state => {
       state.webremote.tabs = []
       state.webremote.active_tab = 0
-      state.editor.data.item = {
-        type: false,
-        row: false,
-        obj: false
-      }
-      state.editor.data.bulk = []
+      state.editor.data = cloneDeep(defaults.editor.data)
       state.editor.bulk_edit = false
     },
 
@@ -626,12 +567,7 @@ const store = new Vuex.Store({
           break
         }
 
-        state.editor.data.item = {
-          type: false,
-          row: false,
-          obj: false,
-          el: false
-        }
+        state.editor.data.item = cloneDeep(defaults.editor.data.item)
         state.editor.data.bin = false
         state.editor.mode = editorModes.MAIN
       },
@@ -649,43 +585,41 @@ const store = new Vuex.Store({
       state.editor.data.item.obj = state.webremote.tabs[state.webremote.active_tab]
     },
 
-    updateItem: (state, data) => state.editor.data.item.obj[data.key] = data.val,
+    updateItem: (state, payload) => state.editor.data.item.obj[payload.key] = payload.val,
 
-    updateItems: (state, data) => {
+    updateItems: (state, payload) => {
       state.editor.data.bulk.forEach(item => {
-        item.obj[data.key] = data.val
+        item.obj[payload.key] = payload.val
       })
     },
 
-    updateRow: (state, data) => {
-      Vue.set(state.webremote.tabs[state.webremote.active_tab].rows, data.row, data.value)
+    updateRow: (state, payload) => {
+      Vue.set(state.webremote.tabs[state.webremote.active_tab].rows, payload.row, payload.value)
     },
 
-    updateTabs: (state, data) => {
-      Vue.set(state.webremote, 'tabs', data)
-    },
+    updateTabs: (state, payload) => Vue.set(state.webremote, 'tabs', payload),
 
-    execAction: (state, data) => {
+    execAction: (state, payload) => {
 
       if(state.mode === modes.EDITOR 
         && !state.editor.exec_actions 
-        && typeof(data.recur) === 'undefined')
+        && typeof(payload.recur) === 'undefined')
         return
 
       if(state.reaper.ready) {
-        if(data.recur)
-          wwr_req_recur(data.action, data.recur)
+        if(payload.recur)
+          wwr_req_recur(payload.action, payload.recur)
         else
-          wwr_req(data.action)
+          wwr_req(payload.action)
         // update toggle state
-        if(data.toggle)
-          wwr_req('GET/' + data.action)
+        if(payload.toggle)
+          wwr_req('GET/' + payload.action)
       }
     },
 
-    cancelAction: (state, data) => {
+    cancelAction: (state, payload) => {
       if(state.reaper.ready)
-        wwr_req_recur_cancel(data.action)
+        wwr_req_recur_cancel(payload.action)
     },
 
     getCmdStates: (state) => {
@@ -756,6 +690,8 @@ const store = new Vuex.Store({
     //   f()
     // },
 
+
+    // FIXME create functions to import
     onReply: (state, result) => {
       //console.log(result)
 

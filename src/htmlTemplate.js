@@ -1,4 +1,4 @@
-const htmlTemplate = { html: (json) => `<!DOCTYPE html>
+export const htmlTemplate = { html: (json) => `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">

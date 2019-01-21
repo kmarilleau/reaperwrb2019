@@ -1,5 +1,50 @@
-const defaults = {
+export const modes = {
+  STARTUP: 0,
+  REMOTE: 1,
+  EDITOR: 2,
+}
+
+export const editorModes = {
+  MAIN: 0,
+  ADD: 1,
+  DELETE: 2,
+  SAVE: 3,
+}
+
+export const defaults = {
   
+  reaper: {
+    ready: false,
+    transport: {
+      online: false,
+      playstate: 0,
+      position_seconds: 0,
+      repeat: 0,
+      position_string: '',
+      position_string_beats: ''
+    },
+    markers: [],
+    regions: [],
+  },
+
+  editor: {
+    mode: editorModes.MAIN,
+    exec_actions: false,
+    bulk_edit: false,
+    active_row: 0,
+    data: {
+      item: {
+        type: false,
+        row: false,
+        obj: false,
+        el: false
+      },
+      bulk: [],
+      bin: {},
+      move: false,
+    }
+  },
+
   storage: {
     webremotes: []
   },
@@ -75,5 +120,3 @@ const defaults = {
     minwidth: 4,
   }
 }
-
-export default defaults

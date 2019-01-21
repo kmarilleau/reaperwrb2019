@@ -68,23 +68,29 @@ export default {
   },
 
   methods: {
+    
     getClass() {
       const classList = {}
       classList['app-item-' + this.item.type] = true
       classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
       return classList
     },
+
     onClick() {
-      if(this.$store.getters.isModeEditor) {
+      if(this.$store.getters.isModeEditor 
+      && !this.$store.getters.isEditorModeDelete) {
+
         const payload = {
           type: this.item.type,
           row: this.row,
           index: this.index,
           el: this.$el,
         }
+
         if(!this.$store.getters.isEditorBulkEdit) {
           this.$store.dispatch('onItemEdit', payload)
         } else {
+
           if(!this.bulkEdit) {
             this.$store.commit('bulkEditAdd', payload)
             this.bulkEdit = true
@@ -92,6 +98,7 @@ export default {
             this.$store.commit('bulkEditRemove', payload)
             this.bulkEdit = false
           }
+
         }
           
       }
