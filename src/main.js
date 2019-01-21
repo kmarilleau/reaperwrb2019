@@ -438,8 +438,12 @@ const store = new Vuex.Store({
     clear: state => {
       state.webremote.tabs = []
       state.webremote.active_tab = 0
-      state.editor.edit_item = false
-      state.editor.edit_items = []
+      state.editor.data.item = {
+        type: false,
+        row: false,
+        obj: false
+      }
+      state.editor.data.bulk = []
       state.editor.bulk_edit = false
     },
 

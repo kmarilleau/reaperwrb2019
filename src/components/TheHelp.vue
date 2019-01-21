@@ -3,7 +3,6 @@
     <div class="app-help-container">
       <header>
         <h1>ReaperWRB {{version}}</h1>
-        <img src="/reaperwrb/icons/icon-96x96.png" />
       </header>
       <section>
         <h2>Getting Started</h2>
