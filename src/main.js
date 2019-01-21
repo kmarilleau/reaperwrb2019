@@ -33,11 +33,11 @@ const store = new Vuex.Store({
   state: {
     version: '2019.1',
     mode: modes.STARTUP,
-    has_local_storage: false,
     reaper: {}, 
     editor: {},
     webremote: {},
     storage: {
+      local_support: false,
       local: false,
       json: false
     }
@@ -47,8 +47,8 @@ const store = new Vuex.Store({
     reaperReady: (state, getters) => state.reaper.ready,
     version: (state, getters) => state.version,
 
-    showLocalStorage: (state, getters) => state.has_local_storage && typeof(state.storage.local.webremotes) !== 'undefined',
-    hasLocalStorage: (state, getters) => state.has_local_storage,
+    showLocalStorage: (state, getters) => state.storage.local_support && typeof(state.storage.local.webremotes) !== 'undefined',
+    hasLocalStorage: (state, getters) => state.storage.local_support,
     getLocalStorageWebremotes: (state, getters) => state.storage.local.webremotes,
     getLocalStorageWebremoteByIndex: (state, getters) => (index) => state.storage.local.webremotes[index],
     
@@ -207,7 +207,7 @@ const store = new Vuex.Store({
 
       // check local storage support
       if(typeof(Storage) !== 'undefined') {
-        state.has_local_storage = true
+        state.storage.local_support = true
         state.storage.local = cloneDeep(defaults.storage)
         console.log('REAPERWRB: Local storage support enabled.')
         if(localStorage.getItem('REAPERWRB')) {
@@ -215,7 +215,7 @@ const store = new Vuex.Store({
           state.storage.local = JSON.parse(localStorage.getItem('REAPERWRB'))
         }
       } else {
-        state.has_local_storage = false
+        state.storage.local_support = false
         console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
       }
     },
@@ -305,7 +305,7 @@ const store = new Vuex.Store({
     },
 
     saveLocalStorage: (state) => {
-      if(state.has_local_storage) {
+      if(state.storage.local_support) {
         console.log('REAPERWRB: Saving to local storage.')
         const webremote = cloneDeep(state.webremote)
         webremote.active_tab = 0
