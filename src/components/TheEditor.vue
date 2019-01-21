@@ -195,6 +195,7 @@ export default {
 
   mounted() {
     this.$store.commit('fadeOutLoader')
+    document.title = "ReaperWRB / Editor"
   },
 
   computed: {

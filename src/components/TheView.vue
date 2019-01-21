@@ -22,6 +22,12 @@ import TheTab from '@/components/TheTab.vue'
 import TheHelp from '@/components/TheHelp.vue'
 
 export default {
+
+  mounted() {
+    if(this.$store.getters.isModeRemote)
+      document.title = "ReaperWRB / " + this.$store.getters.webremoteTitle
+  },
+
   updated() {
     this.$store.commit('getCmdStates')
   },
