@@ -62,7 +62,7 @@ export default {
       },
       set(value) {
         if(this.$store.state.editor.move_item === false)
-          this.$store.commit('updateRow', {row: this.row, value: value })
+          this.$store.commit('updateRow', { row: this.row, value: value } )
       }
     }
   },
@@ -81,15 +81,16 @@ export default {
     onDraggableMove(event, originalEvent) {
       // hacky way to decide if an item is to be moved to another tab
       if(event.related.classList.contains('app-tab-navigation-item') 
-      && typeof(event.related.attributes.tab) !== undefined) {
+      && typeof(event.related.attributes.tab) !== 'undefined') {
 
-        this.$store.commit('setItemMoveCopy', { 
+        const payload = {
           row: parseInt(event.dragged.attributes.row.value),
           index: parseInt(event.dragged.attributes.index.value),
           // FIXME 
-          target_tab: parseInt(event.related.attributes.tab.value)
-        })
+          target: parseInt(event.related.attributes.tab.value)
+        }
 
+        this.$store.commit('setItemMoveCopy', payload)
         this.$store.commit('clearDropHighlight')
 
         if(parseInt(event.related.attributes.tab.value) 
@@ -99,8 +100,9 @@ export default {
 
       } else {
         this.$store.commit('clearDropHighlight')
-        this.$store.commit('setItemMoveCopy', false)
-        if(originalEvent.target.classList.contains('app-tab-navigation'))
+        this.$store.commit('clearItemMoveCopy')
+        if(originalEvent.target.parentElement.classList.contains('app-tab-add') 
+        || originalEvent.target.parentElement.classList.contains('app-view'))
           return false
       } 
     },

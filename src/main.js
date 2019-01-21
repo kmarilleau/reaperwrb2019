@@ -73,6 +73,7 @@ const store = new Vuex.Store({
         },
         bulk: [],
         bin: {},
+        move: false,
       }
     },
     webremote: {},
@@ -123,7 +124,6 @@ const store = new Vuex.Store({
       return state.editor.data.item.obj.type === 'tab'
         && state.webremote.active_tab === tab
     },
-
     
     globalColumns: (state, getters) => state.webremote.columns,
     activeTab: (state, getters) => state.webremote.active_tab,
@@ -457,28 +457,26 @@ const store = new Vuex.Store({
       state.editor.menu = false
     },
 
-    setItemMoveCopy: (state, data) => {
-      if(data) {
-        state.editor.move_item = {
-          row: data.row,
-          index: data.index,
-          target_tab: data.target_tab,
-          item: state.webremote.tabs[state.webremote.active_tab].rows[data.row][data.index]
-        }
-        state.editor.item_move_target_tab = data.target_tab
+    setItemMoveCopy: (state, payload) => {
+      if(payload) {
+        state.editor.data.move = payload
+        state.editor.data.move.obj = state.webremote.tabs[state.webremote.active_tab].rows[payload.row][payload.index]
       } else {
-        state.editor.move_item = false
+        state.editor.data.move = false
       }
     },
 
+    clearItemMoveCopy: (state) => state.editor.data.move = false,
+
     moveItem: (state) => {
-      if(state.webremote.active_tab !== state.editor.move_item.target_tab && state.editor.move_item) {
-        const tab = state.editor.move_item.target_tab
+      if(state.webremote.active_tab !== state.editor.data.move.target 
+        && state.editor.data.move) {
+        const tab = state.editor.data.move.target
         const row = state.webremote.tabs[tab].rows.length - 1
-        state.webremote.tabs[tab].rows[row].push(state.editor.move_item.item)
-        state.webremote.tabs[state.webremote.active_tab].rows[state.editor.move_item.row].splice(state.editor.move_item.index, 1)
+        state.webremote.tabs[tab].rows[row].push(state.editor.data.move.obj)
+        state.webremote.tabs[state.webremote.active_tab].rows[state.editor.data.move.row].splice(state.editor.data.move.index, 1)
         state.webremote.active_tab = tab
-        state.editor.move_item = false
+        state.editor.data.move = false
       }
     },
 

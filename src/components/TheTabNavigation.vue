@@ -12,6 +12,7 @@
     @start="onDraggableStart"
     @add="onDraggableAdd"
     @end="onDraggableEnd"
+    :move="onDraggableMove"
   >
     <app-tab-navigation-item
       v-for="(tab, index) in tabs" :key="index"
@@ -73,6 +74,15 @@ export default {
     onDraggableStart(event) {
       document.querySelector('.sortable-ghost').style.display = 'block'
       this.$store.commit('clearEditItem')
+    },
+    onDraggableMove(event, originalEvent) {
+      if(originalEvent.target.parentElement.classList.contains('app-tab-add')
+      || originalEvent.target.classList.contains('app-tab-add-inner')
+      || originalEvent.target.classList.contains('svg-inline--fa')
+      || originalEvent.target.parentElement.classList.contains('app-tab-add-inner')
+      || originalEvent.target.parentElement.classList.contains('app-view')
+      || originalEvent.target.classList.length === 0)
+        return false
     },
     onDraggableEnd(event) {
       this.$store.commit('switchTab', event.newIndex)
