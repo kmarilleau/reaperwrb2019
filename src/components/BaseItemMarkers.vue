@@ -12,7 +12,7 @@
           <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
-        <template v-if="this.$store.getters.isModeEditor">
+        <template v-if="this.$store.getters.isModeEditor && !this.$store.getters.hasMarkers">
           <span :style="{ color: item.textcolor }">Marker: 1</span>
           <span :style="{ color: item.textcolor }">Name</span>
         </template>

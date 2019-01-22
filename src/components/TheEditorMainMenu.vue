@@ -56,7 +56,7 @@
     <template v-if="this.$store.getters.hasTabs">
 
       <button title="send commands to Reaper" class="pure-button app-editor-button"
-        v-if="this.$store.getters.reaperStatus"
+        v-if="this.$store.getters.reaperReady"
         @click="onToggleExecActions($event)"
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
       >
