@@ -319,8 +319,7 @@ input[type=checkbox] {
 
 .app-highlight-edit[class*="app-item"],
 .app-highlight-edit[class*="app-tab-navigation-item"] {
-  // animation: blinker 1s linear infinite;
-  box-shadow: inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit;
+  box-shadow: inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit !important;
 }
 
 .app-highlight-delete[class*="app-item"],

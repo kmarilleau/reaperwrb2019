@@ -68,7 +68,7 @@ export default {
     },
 
     onDelete(title, timestamp, type) {
-      this.$store.commit('deleteWebremotePreset', { title, timestamp, type })
+      this.$store.dispatch('onDeleteWebremotePreset', { title, timestamp, type })
       this.delete = false
     },
 

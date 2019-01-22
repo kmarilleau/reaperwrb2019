@@ -21,6 +21,10 @@
     height: 12.3vw;
   }
 
+  .app-button-load-default button {
+    background: $c-editor-alt;
+  }
+
   .app-preset-container {
     display: grid;
     background: $c-editor-primary;

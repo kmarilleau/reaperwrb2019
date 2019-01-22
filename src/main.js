@@ -213,7 +213,7 @@ const store = new Vuex.Store({
         console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
 
-    onEditWebremotePreset: ( { commit, state }, payload ) => {
+    onEditWebremotePreset: ({ commit, state }, payload ) => {
       let success = false
       state.storage[payload.type].webremotes.forEach((webremote, index) => {
         if(payload.title === webremote.title
@@ -226,6 +226,11 @@ const store = new Vuex.Store({
       })
       if(!success)
         console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
+    },
+
+    onDeleteWebremotePreset: ({ commit, state }, payload) => {
+      commit('deleteWebremotePreset', payload)
+      commit('syncStorage', payload)
     },
   },
 
@@ -353,6 +358,20 @@ const store = new Vuex.Store({
       }
     },
 
+    syncStorage: (state, payload) => {
+      if(payload.type === 'local') {
+        if(state.storage.local_support)
+          localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
+      }
+
+      if(payload.type === 'json') {
+        const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
+        const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
+        saveAs(blob, "json.js")
+        setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, 500)
+      }
+    },
+
     deleteLocalStorage: (state) => {
       console.log("REAPERWRB: Deleting local storage!")
       localStorage.removeItem('REAPERWRB')
@@ -361,8 +380,9 @@ const store = new Vuex.Store({
     deleteWebremotePreset: (state, payload) => {
       state.storage[payload.type].webremotes.forEach((webremote, index) => {
         if(payload.title === webremote.title
-        && payload.timestamp === webremote.timestamp)
+        && payload.timestamp === webremote.timestamp) {
           state.storage[payload.type].webremotes.splice(index, 1)
+        }
       })
     },
 
