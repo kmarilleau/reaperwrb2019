@@ -9,7 +9,7 @@
       <font-awesome-icon icon="plus" size="1x" />
       <span>Item</span>
     </a>
-    <a class="app-row-edit-button app-row-edit-button-add"
+    <a class="app-row-edit-button app-row-edit-button-add app-add-row"
       @click.stop="onRowAdd()" 
     >
       <font-awesome-icon icon="plus" size="1x" />
@@ -33,15 +33,15 @@ export default {
     if(this.$store.getters.isModeEditor) {
       const el = this.$el.querySelectorAll('.app-row-edit-button')
       el.forEach(button => {
+        if(!button.classList.contains('app-add-row')) {
+          button.addEventListener('mouseenter', function(event) {
+            event.target.parentElement.parentElement.classList.add('app-active-row')
+          })
 
-        button.addEventListener('mouseenter', function(event) {
-          event.target.parentElement.parentElement.classList.add('app-active-row')
-        })
-
-        button.addEventListener('mouseleave', function(event) { 
-          event.target.parentElement.parentElement.classList.remove('app-active-row')
-        })
-        
+          button.addEventListener('mouseleave', function(event) { 
+            event.target.parentElement.parentElement.classList.remove('app-active-row')
+          })
+        }
       })
     }  
   },

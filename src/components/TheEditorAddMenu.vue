@@ -10,22 +10,22 @@
     <div style="grid-column-start: span 5;"></div>
 
     <button @click.stop="onItemAdd('action')" class="pure-button app-editor-button app-editor-add-button">
-      <font-awesome-icon icon="plus" /> Action
+      Action
     </button>
     <button @click.stop="onItemAdd('spacer')" class="pure-button app-editor-button app-editor-add-button">
-      <font-awesome-icon icon="plus" /> Spacer
+      Spacer
     </button>
     <button @click.stop="onItemAdd('transport')" class="pure-button app-editor-button app-editor-add-button">
-      <font-awesome-icon icon="plus" /> Transport
+      Transport
     </button>
     <button @click.stop="onItemAdd('position')" class="pure-button app-editor-button app-editor-add-button">
-      <font-awesome-icon icon="plus" /> Position
+      Position
     </button>
     <button @click.stop="onItemAdd('markers')" class="pure-button app-editor-button app-editor-add-button">
-      <font-awesome-icon icon="plus" /> Markers
+      Markers
     </button>
     <button @click.stop="onItemAdd('regions')"  class="pure-button app-editor-button app-editor-add-button">
-      <font-awesome-icon icon="plus" /> Regions
+      Regions
     </button>
     
   </div>

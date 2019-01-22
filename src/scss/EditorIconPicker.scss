@@ -1,5 +1,5 @@
 .iconpicker-container {
-  margin: 2vh 0 2vh 0;
+  margin: 1vh 0 1vh 0;
   width: 20vw;
 
   .iconpicker-search {
@@ -7,14 +7,13 @@
     padding-left: 1vh;
     width: 100% !important;
     margin-bottom: 1vh; 
-    border: 1px solid $bg-editor-alt;
   }
 
   .iconpicker-items {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    height: 16vh;
+    height: 15vh;
     width: 100% !important;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -26,10 +25,9 @@
     cursor: pointer;
     width: 19%;
     margin: .5%;
-    height: 3vw;
+    height: 3.5vw;
     border-radius: $g-border-radius;
     opacity: 0.7;
-    line-height: 1vh;
     text-align: center;
     display: flex;
     justify-content: center;

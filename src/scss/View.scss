@@ -34,8 +34,8 @@
   .app-row,
   .app-tab-navigation {
     display: grid;
-    grid-column-gap: $g-item-margin-landscape;
-    grid-row-gap: $g-item-margin-landscape;
+    column-gap: $g-item-margin-landscape;
+    row-gap: $g-item-margin-landscape;
     margin: $g-item-margin-landscape;
   }
 
@@ -46,7 +46,7 @@
   }
 
   .app-tab-navigation-special {
-    grid-column-gap: $g-item-margin-landscape;
+    column-gap: $g-item-margin-landscape;
   }
 
   .app-row {
@@ -68,7 +68,7 @@
   }
 
   .app-item-position-info {
-    font-size: 5vw;
+    font-size: 4.125vw;
   }
 
   .font-xxxl {
@@ -90,8 +90,8 @@
   .app-row,
   .app-tab-navigation {
     display: grid;
-    grid-column-gap: $g-item-margin-portrait;
-    grid-row-gap: $g-item-margin-portrait;
+    column-gap: $g-item-margin-portrait;
+    row-gap: $g-item-margin-portrait;
     margin: $g-item-margin-portrait;
   }
 
@@ -102,7 +102,7 @@
   }
 
   .app-tab-navigation-special {
-    grid-column-gap: $g-item-margin-portrait;
+    column-gap: $g-item-margin-portrait;
   }
 
   .app-row {
@@ -124,9 +124,8 @@
   }
 
   .app-item-position-info {
-    font-size: 5vh;
+    font-size: 4.125vh;
   }
-
 }
 
 .app-item,
@@ -137,10 +136,12 @@
 
 .app-tab-navigation-item {
   opacity: $g-opacity-inactive;
+  grid-column: span 2;
+  font-size: 1.875vw;
   
   .app-item-label {
-    margin: auto 1vh;
-    width: 1px; /* HACK to make longer tab labels not break the layout */
+    font-weight: normal;
+    margin: auto 1vw;
   }
 }
 

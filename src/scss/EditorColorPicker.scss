@@ -1,22 +1,35 @@
 .vc-slider {
   width: inherit !important;
-  background: $bg-editor-input;
+  background: $bg-editor-alt;
   border-radius: $g-border-radius;
   padding: .35vw;
   margin: 1.5vh 0;
 }
 .vc-compact {
   padding: 1vw;
-  background: $bg-editor-input !important;
+  background: $bg-editor-alt !important;
   width: inherit !important;
+  padding: .15vw !important;
 }
-.vc-hue-container {
+
+.vc-grayscale-colors {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  row-gap: 0.2vw;
+  text-align: left; 
 }
-.vc-compact-color-item,
-.vc-grayscale-color-item {
-  width: 1.4vw !important;
-  height: 1.4vw !important;
-  margin: .15vw !important;
+
+.vc-compact-colors {
+  display: grid;
+  row-gap: 0.2vw;
+  grid-template-columns: repeat(12, 1fr);
+}
+.vc-grayscale-color-item,
+.vc-compact-color-item {
+  height: 1.5vw !important;
+  width: 1.5vw !important;
+  margin: 0!important;
+  padding: 0!important;
 }
 
 .app-text-color-picker {
@@ -27,5 +40,5 @@
   background: none;
   margin: 0;
   padding: .25vw;
-  background: $bg-editor-input !important;
+  background: $bg-editor-alt !important;
 }

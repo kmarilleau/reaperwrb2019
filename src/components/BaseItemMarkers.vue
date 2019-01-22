@@ -12,6 +12,10 @@
           <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
+        <template v-if="this.$store.getters.isModeEditor">
+          <span :style="{ color: item.textcolor }">Marker: 1</span>
+          <span :style="{ color: item.textcolor }">Name</span>
+        </template>
       </div>
       <a class="app-item-markers-icon"
         @click.stop="onRefresh()"

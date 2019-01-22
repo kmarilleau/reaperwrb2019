@@ -502,6 +502,7 @@ const store = new Vuex.Store({
       state.editor.data.item.row = state.editor.active_row
       state.editor.data.item.obj = row[row.length - 1]
       state.editor.mode = editorModes.MAIN
+      console.log(state.editor.data.item)
     },
 
     cancelAddItem: (state) => {
@@ -550,9 +551,11 @@ const store = new Vuex.Store({
     showDeleteDialog: (state) => {
       state.editor.mode = editorModes.DELETE
       state.editor.data.bin = cloneDeep(state.editor.data.item)
+      
       state.editor.data.bin.el.classList.add('app-highlight-delete')
 
       if(state.editor.data.bin.obj.type === 'tab') {
+        console.log("WHY")
         const el = document.querySelectorAll('.app-item')
         for(let i = 0; i < el.length; i++) {
           el[i].classList.add('app-highlight-delete')

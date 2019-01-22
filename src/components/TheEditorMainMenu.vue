@@ -245,18 +245,34 @@ export default {
     },
 
     fixJSON(tabs) {
-      
-      return tabs.map((tab) => {
-          // FIXME use defaults
-          return {
-            bgcolor: tab.bgcolor,
-            textcolor: tab.textcolor,
-            label: tab.label,
-            type: 'tab',
-            rows: tab.rows.map((row) => {
-              return row.map((item) => {
+      console.log("FIX JSON")
 
-                if(item.icon) {
+      // import tabs
+      let result = tabs.map(tab => {
+        const newTab = cloneDeep(defaults.tab)
+        Object.keys(tab).forEach(key => {
+          if(key in newTab)
+            newTab[key] = tab[key]
+        })
+        return newTab
+      })
+
+      // fix items
+      result = tabs.map(tab => {
+        tab.rows = tab.rows.map(row => {
+          return row.map(item => {
+            
+            const newItem = cloneDeep(defaults[item.type])
+            
+            // import existing keys
+            Object.keys(item).forEach(key => {
+              // convert old wide items
+              if(key === 'wide' && item[key]) {
+                newItem.width = 2
+
+              // fix icons
+              } else if (key === 'icon') {
+                if(item.icon && typeof(item.icon) === 'string') {
                   const icon = ['fa', item.icon.replace('fa-', '')]
                   item.icon = icon
 
@@ -273,21 +289,73 @@ export default {
                     } 
                   })
                 }
-
-                if(item.type === 'action') {
-                  item.toggleicon = false
-                  item.labelpos = 0
-                  item.state = -1
-
-                  if(item.wide)
-                    item.width = 2
-                }
-
-                return item
-              })
+                newItem.icon = item.icon
+              
+              // import other existing keys
+              } else if (key in newItem) {
+                newItem[key] = item[key]
+              } 
             })
-          }
+
+            return newItem
+          })
         })
+        return tab
+      })
+
+      return result
+
+      // tabs.map((tab) => {
+      //     // FIXME use defaults
+      //     const newTab = cloneDeep(defaults.tab)
+      //     console.log(tab)
+      //     for(key in tab) {
+      //       console.log(tab)
+      //     }
+
+      //     console.log(newTab.rows)
+
+      //     return false
+      //     return {
+      //       bgcolor: tab.bgcolor,
+      //       textcolor: tab.textcolor,
+      //       label: tab.label,
+      //       type: 'tab',
+      //       rows: tab.rows.map((row) => {
+      //         return row.map((item) => {
+
+      //           if(item.icon) {
+      //             const icon = ['fa', item.icon.replace('fa-', '')]
+      //             item.icon = icon
+
+      //             // fontawesome 4 shims
+      //             fa4shims.map((shim) => {
+      //               // does the icon name match a shim
+      //               if(icon[1] === shim[0]) {
+      //               // does it get a new name
+      //               if(shim[2] !== null)
+      //                 item.icon[1] = shim[2]
+      //               // does it get a different prefix
+      //               if(shim[1] !== null)
+      //                 item.icon[0] = shim[1]
+      //               } 
+      //             })
+      //           }
+
+      //           if(item.type === 'action') {
+      //             item.toggleicon = false
+      //             item.labelpos = 0
+      //             item.state = -1
+
+      //             if(item.wide)
+      //               item.width = 2
+      //           }
+
+      //           return item
+      //         })
+      //       })
+      //     }
+      //   })
     }
   }
 }

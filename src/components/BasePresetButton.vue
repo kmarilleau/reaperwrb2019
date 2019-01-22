@@ -32,10 +32,10 @@
       >
         <font-awesome-icon icon="trash" />
       </button>
-      <button class="pure-button-secondary"
+      <button title="cancel" class="pure-button-secondary app-editor-button"
         @click.stop="onCancelDelete()"
       >
-        <font-awesome-icon icon="ban" /> Cancel
+        <font-awesome-icon icon="ban" />
       </button>
     </template>
   </div>

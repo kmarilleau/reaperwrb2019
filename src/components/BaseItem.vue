@@ -31,7 +31,7 @@
     <app-item-markers
       v-if="item.type === 'markers'"
       :item="item"
-      :markers="this.$store.state.reaper.markers"
+      :markesrs="this.$store.state.reaper.markers"
     />
 
     <app-item-regions
@@ -69,8 +69,11 @@ export default {
 
   mounted() {
     if(this.$store.getters.isModeEditor) {
-      if(this.$store.getters.isEditItem({ item: this.item, row: this.row, index: this.index }))
+      if(this.$store.getters.isEditItem({ item: this.item, row: this.row, index: this.index })) {
+        // FIXME commit
         this.$el.classList.add('app-highlight-edit')
+        this.$store.state.editor.data.item.el = this.$el
+      }
     }
   },
 

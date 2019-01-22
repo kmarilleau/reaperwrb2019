@@ -1,6 +1,6 @@
 <template>
   <div class="app-text-color-picker">
-    <label>Text Color</label>
+    <label>Text Color: {{color}}</label>
     <app-text-color-picker v-model="value" @input="updateValue" />
   </div>
 </template>

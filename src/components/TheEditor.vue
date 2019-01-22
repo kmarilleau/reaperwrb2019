@@ -24,6 +24,17 @@
         <template
           v-if="!this.$store.getters.isEditorModeDelete"
         >
+
+          <div class="app-editor-menu"
+            v-if="this.$store.getters.hasEditItem"
+          >
+            <button class="pure-button pure-button-warning app-editor-button app-editor-delete-item-button"
+              @click.stop="onDeleteItem()"
+            >
+              <font-awesome-icon icon="trash" />
+            </button>
+          </div>
+
           <app-text-color-picker 
             v-if="this.$store.getters.editItemHasKey('textcolor') || this.$store.getters.isEditorBulkEdit" 
             :color="itemTextcolor" 
@@ -102,14 +113,6 @@
           <label>Action Description</label>
           <input class="app-item-desc" name="item-desc" :value="itemDesc">
         </template>
-
-        <div class="app-editor-menu">
-          <button class="pure-button pure-button-warning app-editor-button app-editor-delete-item-button"
-            @click.stop="onDeleteItem()"
-          >
-            <font-awesome-icon icon="trash" />
-          </button>
-        </div>
         
       </div>
 
@@ -134,18 +137,21 @@
         :class="{ 'hidden' : !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete }"
         >
         <template>
-          <button class="pure-button app-editor-icon-delete pure-button-warning"
-            @click.stop="onClearIcons()" 
-          >
-            <font-awesome-icon icon="trash" />
-          </button>
-          <div class="app-item-icon-preview">
-            <label>Icon</label>
-            <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor }">
-              <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemIcon" size="4x" />
+          <div class="app-item-icon-preview-container">
+            <div class="app-item-icon-preview">
+              <label>Icon</label>
+              <div class="app-item-icon-preview-menu">
+                <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor }">
+                  <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemIcon" size="4x" />
+                </div>
+                <button class="pure-button app-item-icon pure-button-warning"
+                  @click.stop="onClearIcons()" 
+                >
+                  <font-awesome-icon icon="trash" />
+                </button>
+              </div>
+              <app-icon-picker :toggle="false" />
             </div>
-            
-            <app-icon-picker :toggle="false" />
           </div>
         </template>
       </div>
@@ -154,15 +160,17 @@
         :class="{ 'hidden' : !itemToggle || this.$store.getters.isEditorModeDelete }"
       >
         <template>
-          <div class="app-item-icon-preview">
-            <label>Toggle Icon</label>
-            <div class="app-item-icon"
-              v-if="itemToggle" 
-              :style="{ backgroundColor: itemBgcolor }"
-            >
-              <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemToggleIcon" size="4x" />
+          <div class="app-item-icon-preview-container">
+            <div class="app-item-icon-preview">
+              <label>Toggle Icon</label>
+              <div class="app-item-icon"
+                v-if="itemToggle" 
+                :style="{ backgroundColor: itemBgcolor }"
+              >
+                <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemToggleIcon" size="4x" />
+              </div>
+              <app-icon-picker :toggle="true" />
             </div>
-            <app-icon-picker :toggle="true" />
           </div>
         </template>
       </div>
@@ -215,11 +223,8 @@ export default {
         return this.$store.getters.editItemKey('width', 1)
       },
       set(value) {
-        if(this.$store.getters.editItemHasKey('width')) {
-        console.log("UPDATE WIDTH")
-
+        if(this.$store.getters.editItemHasKey('width'))
           this.$store.commit('updateItem', { key: 'width', val: value })
-        }
       }
     },
 

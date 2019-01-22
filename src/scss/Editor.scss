@@ -5,6 +5,10 @@
   grid-template-columns: $g-editor-view-width auto;
 }
 
+.app-editor-button {
+  font-size: 2vw;
+}
+
 .pure-button-secondary {
   background: $c-editor-button-secondary;
   color: $c-editor-primary;
@@ -18,9 +22,9 @@
 .vue-slider-component {
   margin-top: 2vw !important;
   width: inherit !important;
-  background: $bg-editor-input;
-  padding: .5vw .75vw !important;
+  background: $bg-editor-alt;
   border-radius: $g-border-radius;
+  padding: 0 !important;
 }
 
 .vue-slider:after {
@@ -39,7 +43,7 @@
   padding: 0.1vw 0.5vw !important;
 }
 .vue-slider-dot-handle {
-  background-color: $bg-editor-alt !important;
+  background-color: $c-editor-primary !important;
 }
 
 .app-editor {
@@ -54,16 +58,13 @@
     grid-column-end: span 2;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-column-gap: 0.3vw;
-    grid-row-gap: 0.15vw;
-    button, div { 
-      height: $g-nav-item-height-landscape; 
-    }
+    column-gap: 0.3vw;
+    row-gap: 0.15vw;
 
     .app-editor-menu-home-button {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-column-gap: 0.3vw;
+      column-gap: 0.3vw;
       .app-reaper-status {
         color: $c-editor-primary;
         display: flex;
@@ -84,10 +85,6 @@
     .app-editor-delete-item-button {
       grid-column-end: span 6;
     }
-  }
-
-  .app-editor-button {
-    font-size: 200%;
   }
 
   .app-editor-add-button {
@@ -111,11 +108,6 @@
     color: $c-editor-primary;
     display: block;
     margin: 1vh 0;
-  }
-
-  button.app-editor-icon-delete {
-    position: absolute;
-    margin: 4vh 2.5vh !important;
   }
 
   .app-editor-panel {
@@ -154,21 +146,27 @@
     color: #0f0f0f !important;
     width: 100%;
   }
+  
+  .app-item-icon-preview-container {
+    border-radius: $g-border-radius;
+    background: $bg-editor-alt;
+  }
 
   .app-item-icon-preview {
+    margin: 0.5vw;
     display: grid;
     grid-template-columns: 1fr;
-    justify-items: center;
-    background: $bg-editor-alt;
-    border-radius: $g-border-radius;
 
-    .app-item-icon {
-      height: 5vw;
-      width: 5vw;
-      border-radius: $g-border-radius;
-      background: $bg-primary;
+    .app-item-icon-preview-menu {
       display: flex;
-      
+    }
+    
+    .app-item-icon {
+      height: 4vw;
+      width: 4vw;
+      border-radius: $g-border-radius;
+      display: flex;
+      margin-right: 0.5vw;
       * {
         margin: auto;
         font-size: 2vw;
@@ -200,14 +198,13 @@ input[type=checkbox] {
     margin: auto;
     display: block;
     width: 100%;
-    font-size: 200%;
   }
 }
 
 .app-row-edit-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: $g-editor-edit-buttons-margin;
+  column-gap: $g-editor-edit-buttons-margin;
   margin-bottom: $g-editor-edit-buttons-margin;
   background: $bg-primary !important;
   
