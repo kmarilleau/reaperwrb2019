@@ -156,22 +156,27 @@ const store = new Vuex.Store({
   },
 
   actions: {
+
     onSwitchTab({ commit, state }, tab) {
       commit('clearEditHighlight')
       commit('switchTab', tab)
     },
+
     onItemAdd({ commit, state }, type) {
       commit('clearEditHighlight')
       commit('addItem', type)
     },
+
     onItemEdit({ commit, state }, payload) {
       commit('clearEditHighlight')
       commit('edit', payload)
     },
+
     onDeleteItem({ commit, state }) {
       commit('clearEditHighlight')
       commit('showDeleteDialog')
     },
+
     onDeleteRow({ commit, state }, payload) {
       commit('clearEditHighlight')
       if(state.webremote.tabs[state.webremote.active_tab].rows[payload.index].length === 0) {
@@ -181,15 +186,46 @@ const store = new Vuex.Store({
         commit('showRowDeleteDialog', payload)
       }
     },
+
     onDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
       commit('clearEditItem')
     },
+
     onShowItemAddMenu({ commit, state }, row) {
       commit('clearEditHighlight')
       commit('clearEditItem')
       commit('switchRow', row)
       commit('setEditorModeAdd')
+    },
+
+    onLoadWebremotePreset: ( { commit, state }, payload ) => {
+      let success = false
+      state.storage[payload.type].webremotes.forEach((webremote, index) => {
+        if(payload.title === webremote.title
+        && payload.timestamp === webremote.timestamp) {
+          commit('import', state.storage[payload.type].webremotes[index])
+          commit('setModeRemote')
+          success = true
+        }
+      })
+      if(!success)
+        console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
+    },
+
+    onEditWebremotePreset: ( { commit, state }, payload ) => {
+      let success = false
+      state.storage[payload.type].webremotes.forEach((webremote, index) => {
+        if(payload.title === webremote.title
+        && payload.timestamp === webremote.timestamp) {
+          commit('import', state.storage[payload.type].webremotes[index])
+          commit('fadeInLoader')
+          commit('setModeEditor')
+          success = true
+        }
+      })
+      if(!success)
+        console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
   },
 
@@ -317,8 +353,17 @@ const store = new Vuex.Store({
       }
     },
 
-    deleteLocalStorage: (state, label) => {
+    deleteLocalStorage: (state) => {
+      console.log("REAPERWRB: Deleting local storage!")
       localStorage.removeItem('REAPERWRB')
+    },
+
+    deleteWebremotePreset: (state, payload) => {
+      state.storage[payload.type].webremotes.forEach((webremote, index) => {
+        if(payload.title === webremote.title
+        && payload.timestamp === webremote.timestamp)
+          state.storage[payload.type].webremotes.splice(index, 1)
+      })
     },
 
     fadeInLoader: (state) => {

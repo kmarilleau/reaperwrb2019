@@ -1,0 +1,80 @@
+<template>
+  <div class="app-preset-container">
+    <template
+      v-if="!this.delete"
+    >
+      <button class="app-button-launch-preset"
+        @click.stop="onLoad(title, timestamp, type)"
+      >
+        <font-awesome-icon icon="external-link-alt" />
+        {{title}}
+      </button>
+      <div class="app-preset-buttons">
+        <button class="pure-button-primary"
+          @click.stop="onEdit(title, timestamp, type)"
+        >
+          <font-awesome-icon icon="pen" />
+        </button>
+        <button class="pure-button-warning"
+          @click.stop="onShowDelete()"
+        >
+          <font-awesome-icon icon="trash" />
+        </button>
+      </div>
+    </template>
+    <template
+      v-if="this.delete"
+    >
+      <button class="pure-button-warning app-button-delete-preset"
+        @click.stop="onDelete(title, timestamp, type)"
+      >
+        <font-awesome-icon icon="trash" />
+      </button>
+      <button class="pure-button-secondary"
+        @click.stop="onCancelDelete()"
+      >
+        <font-awesome-icon icon="ban" /> Cancel
+      </button>
+    </template>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['title', 'type', 'timestamp'],
+
+  data() {
+    return {
+      delete: false,
+    }
+  },
+
+  methods: {
+
+    onLoad(title, timestamp, type) {
+      this.$store.dispatch('onLoadWebremotePreset', { title, timestamp, type })
+    },
+
+    onEdit(title, timestamp, type) {
+      this.$store.dispatch('onEditWebremotePreset', { title, timestamp, type })
+    },
+
+    onShowDelete() {
+      this.delete = this.delete ? false : true
+    },
+
+    onCancelDelete() {
+      this.delete = false
+    },
+
+    onDelete(title, timestamp, type) {
+      this.$store.commit('deleteWebremotePreset', { title, timestamp, type })
+      this.delete = false
+    },
+
+  }
+}
+</script>
+
+<style>
+</style>
