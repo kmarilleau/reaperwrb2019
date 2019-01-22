@@ -104,10 +104,10 @@
         </template>
 
         <div class="app-editor-menu">
-          <button class="pure-button pure-button-warning app-editor-delete-item-button"
+          <button class="pure-button pure-button-warning app-editor-button app-editor-delete-item-button"
             @click.stop="onDeleteItem()"
           >
-            <font-awesome-icon icon="trash" size="1x" />
+            <font-awesome-icon icon="trash" />
           </button>
         </div>
         
@@ -116,16 +116,16 @@
       <div class="app-editor-panel app-editor-menu" 
         v-if="this.$store.getters.showEditorBulkEditButtons"
       >
-        <button class="pure-button pure-button-secondary"
+        <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
           @click="onBulkClearIcons()" 
         >
-          <font-awesome-icon icon="eraser" /> Clear Icons
+          <font-awesome-icon icon="eraser" />
         </button>
 
-        <button class="pure-button pure-button-warning"
+        <button title="delete" class="pure-button pure-button-warning app-editor-button"
           @click="onBulkDeleteItems()" 
         >
-          <font-awesome-icon icon="trash" /> Delete
+          <font-awesome-icon icon="trash" />
         </button>
       </div>
 

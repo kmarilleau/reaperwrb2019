@@ -3,7 +3,7 @@
     v-if="this.$store.getters.isEditorModeMain"
   >
     <div class="app-editor-menu-home-button font-2x">
-      <button class="pure-button pure-button-primary" 
+      <button title="home" class="pure-button pure-button-primary" 
         @click="onHome()">
         <font-awesome-icon icon="home" />
       </button>
@@ -20,22 +20,22 @@
     </div>
 
     <template v-if="this.$store.getters.hasNoTabs">
-      <button class="pure-button app-editor-button-new" 
+      <button title="new" class="pure-button app-editor-button app-editor-button-new" 
         @click="onNew"
       >
-        <font-awesome-icon icon="file" /> New
+        <font-awesome-icon icon="file" />
       </button>
 
-      <button class="pure-button app-editor-button-example" 
+      <button title="load example" class="pure-button app-editor-button" 
         @click="onLoadExample"
       >
-        <font-awesome-icon icon="folder-open" /> Example
+        <font-awesome-icon icon="file-alt" />
       </button>
 
-      <button class="pure-button app-editor-button-html"
+      <button title="load html" class="pure-button app-editor-button app-editor-button-html"
         @click="onTriggerLoadHTML"
       >
-        <font-awesome-icon icon="folder-open" /> HTML
+        <font-awesome-icon icon="code" />
       </button>
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
@@ -43,11 +43,11 @@
       > 
     </template>
     
-    <button class="pure-button" 
+    <button title="open toolbar(s)" class="pure-button app-editor-button" 
       :class="{ 'app-editor-button-toolbar': this.$store.getters.hasNotTabs }"
       @click="onTriggerLoadToolbar"
     >
-      <font-awesome-icon icon="folder-open" />Toolbar(s)
+      <font-awesome-icon icon="folder-open" />
     </button>
     <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt"
       @change="onLoadFile($event, 'txt')" 
@@ -55,23 +55,32 @@
   
     <template v-if="this.$store.getters.hasTabs">
 
-      <button class="pure-button"
+      <button title="send commands to Reaper" class="pure-button app-editor-button"
+        v-if="this.$store.getters.reaperStatus"
         @click="onToggleExecActions($event)"
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
-      >Exec Actions</button>
+      >
+        <font-awesome-icon icon="plug" />
+      </button>
 
-      <button class="pure-button" 
+      <button title="toggle bulk edit" class="pure-button app-editor-button" 
         @click="onToggleBulkEdit($event)"
         :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
-      >Bulk Edit</button>
+      >
+        <font-awesome-icon icon="clone" />
+      </button>
 
-      <button class="pure-button" 
+      <button title="clear editor" class="pure-button app-editor-button" 
         @click="onClearEditor"
-      >Clear</button>
+      >
+        <font-awesome-icon icon="sync-alt" />
+      </button>
 
-      <button class="pure-button pure-button-primary" 
+      <button class="pure-button pure-button-primary app-editor-button" 
         @click="onSave"
-      >Save</button>
+      >
+        <font-awesome-icon icon="save" />
+      </button>
 
     </template>
 

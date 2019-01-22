@@ -3,20 +3,20 @@
     v-if="this.$store.getters.showEditorEditButtons"
     :class="{ 'hidden': this.$store.getters.isEditorBulkEdit }"
   >
-    <a class="app-row-edit-button"
+    <a class="app-row-edit-button app-row-edit-button-add"
       @click.stop="onShowItemAddMenu()" 
     >
       <font-awesome-icon icon="plus" size="1x" />
       <span>Item</span>
     </a>
-    <a class="app-row-edit-button"
+    <a class="app-row-edit-button app-row-edit-button-add"
       @click.stop="onRowAdd()" 
     >
       <font-awesome-icon icon="plus" size="1x" />
       <span>Row</span>
     </a>
-    <a class="app-row-edit-button"
-      @click.stop="onRowDelete()" 
+    <a class="app-row-edit-button app-row-edit-button-delete"
+      @click.stop="onRowDelete()"
       v-if="this.$store.getters.showEditorDeleteRowButton"
     >
       <font-awesome-icon icon="trash" size="1x" />
@@ -28,6 +28,23 @@
 <script>
 export default {
   props: ['row'],
+
+  mounted() {
+    if(this.$store.getters.isModeEditor) {
+      const el = this.$el.querySelectorAll('.app-row-edit-button')
+      el.forEach(button => {
+
+        button.addEventListener('mouseenter', function(event) {
+          event.target.parentElement.parentElement.classList.add('app-active-row')
+        })
+
+        button.addEventListener('mouseleave', function(event) { 
+          event.target.parentElement.parentElement.classList.remove('app-active-row')
+        })
+        
+      })
+    }  
+  },
 
   methods: {
     onShowItemAddMenu(event) {

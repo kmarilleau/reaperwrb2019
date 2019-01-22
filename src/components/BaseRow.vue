@@ -6,7 +6,8 @@
         draggable: this.$store.getters.draggableClass, 
         group: 'items',
         sort: this.$store.getters.isModeEditor,
-        disabled: this.$store.getters.disableSort
+        disabled: this.$store.getters.disableSort,
+        delay: 10,
       }"
       class="app-row"
       :class="{ 'app-active-row': this.$store.getters.isActiveRow(row) && this.$store.getters.isEditorModeAdd }"
@@ -44,7 +45,7 @@ export default {
     'app-row-edit-buttons': BaseRowEditButtons,
     'app-item': BaseItem,
   },
-  
+
   computed: {
 
     items: {

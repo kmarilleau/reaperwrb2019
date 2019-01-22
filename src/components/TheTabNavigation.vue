@@ -7,7 +7,8 @@
       draggable: this.$store.getters.isModeEditor && !this.$store.getters.isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
       sort: this.$store.getters.isModeEditor,
-      disabled: this.$store.getters.disableSort
+      disabled: this.$store.getters.disableSort,
+      delay: 10,
     }"
     @start="onDraggableStart"
     @add="onDraggableAdd"
@@ -92,12 +93,7 @@ export default {
           return true
 
         return false
-          // (originalEvent.target.parentElement.classList.contains('app-tab-add')
-      // || originalEvent.target.classList.contains('app-tab-add-inner')
-      // || originalEvent.target.classList.contains('svg-inline--fa')
-      // || originalEvent.target.parentElement.classList.contains('app-tab-add-inner')
-      // || originalEvent.target.parentElement.classList.contains('app-view')
-      // || originalEvent.target.classList.length === 0)) {
+
       } else if (event.draggedContext.futureIndex > this.$store.getters.tabs.length
         || event.draggedContext.futureIndex === this.$store.getters.tabs.length) {
         return false

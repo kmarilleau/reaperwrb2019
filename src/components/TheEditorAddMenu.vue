@@ -2,29 +2,29 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeAdd"
   >
-    <button class="pure-button pure-button-secondary"
+    <button class="pure-button pure-button-secondary app-editor-button"
       @click.stop="onCancel">
-      <font-awesome-icon icon="ban" /> Cancel
+      <font-awesome-icon icon="ban" />
     </button>
 
     <div style="grid-column-start: span 5;"></div>
 
-    <button @click.stop="onItemAdd('action')" class="pure-button">
+    <button @click.stop="onItemAdd('action')" class="pure-button app-editor-button app-editor-add-button">
       <font-awesome-icon icon="plus" /> Action
     </button>
-    <button @click.stop="onItemAdd('spacer')" class="pure-button">
+    <button @click.stop="onItemAdd('spacer')" class="pure-button app-editor-button app-editor-add-button">
       <font-awesome-icon icon="plus" /> Spacer
     </button>
-    <button @click.stop="onItemAdd('transport')" class="pure-button">
+    <button @click.stop="onItemAdd('transport')" class="pure-button app-editor-button app-editor-add-button">
       <font-awesome-icon icon="plus" /> Transport
     </button>
-    <button @click.stop="onItemAdd('position')" class="pure-button">
+    <button @click.stop="onItemAdd('position')" class="pure-button app-editor-button app-editor-add-button">
       <font-awesome-icon icon="plus" /> Position
     </button>
-    <button @click.stop="onItemAdd('markers')" class="pure-button">
+    <button @click.stop="onItemAdd('markers')" class="pure-button app-editor-button app-editor-add-button">
       <font-awesome-icon icon="plus" /> Markers
     </button>
-    <button @click.stop="onItemAdd('regions')"  class="pure-button">
+    <button @click.stop="onItemAdd('regions')"  class="pure-button app-editor-button app-editor-add-button">
       <font-awesome-icon icon="plus" /> Regions
     </button>
     

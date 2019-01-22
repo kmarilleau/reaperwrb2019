@@ -69,6 +69,7 @@
         display: flex;
         border-radius: 2px;
         * { margin: auto; }
+        cursor: default !important;
       }
       .app-reaper-status-offline {
         background: tomato;
@@ -82,8 +83,16 @@
 
     .app-editor-delete-item-button {
       grid-column-end: span 6;
-      font-size: 200%;
     }
+  }
+
+  .app-editor-button {
+    font-size: 200%;
+  }
+
+  .app-editor-add-button {
+    grid-column-start: span 2;
+    text-align: left;
   }
 
   .app-editor-button-new { background: $c-help-button-new; }
@@ -191,6 +200,7 @@ input[type=checkbox] {
     margin: auto;
     display: block;
     width: 100%;
+    font-size: 200%;
   }
 }
 
@@ -204,11 +214,19 @@ input[type=checkbox] {
   .app-row-edit-button {
     background: $bg-editor-alt;
     text-align: center;
-    padding: 0.5vh;
+    padding: 1vh;
 
     span {
       margin-left: 1vh;
     }
+  }
+
+  .app-row-edit-button-add:hover {
+    background: $c-editor-button-okay;
+  }
+  
+  .app-row-edit-button-delete:hover {
+    background: $c-editor-button-warning;
   }
 }
 

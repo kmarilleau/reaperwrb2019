@@ -17,7 +17,7 @@
         >
           <font-awesome-icon icon="pen" />
         </button>
-        <button class="pure-button-warning"
+        <button class="pure-button-warning app-button-launch-editor"
           @click.stop="onShowDelete()"
         >
           <font-awesome-icon icon="trash" />
