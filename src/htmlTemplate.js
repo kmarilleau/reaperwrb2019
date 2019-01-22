@@ -32,21 +32,20 @@ export const htmlTemplate = { html: (json) => `<!DOCTYPE html>
     <link rel="apple-touch-icon" sizes="167x167" href="/reaperwrb/icons/icon-167x167.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/reaperwrb/icons/icon-180x180.png">
 
-    <script src="main.js"></script>
-    
     <link href="/reaperwrb/css/loader.css" rel="stylesheet">
     <link href="/reaperwrb/css/app.css" rel="stylesheet">
   </head>
   <body>
     <div id="reaperwrb-json">${ json }</div>
-    <div id="app">
-      <div id="loader">
-        <div style="margin: auto;text-align: center;">
-        <div style="margin: auto;"><img class="logo" src="/reaperwrb/icons/icon-180x180.png" /></div>
+    <div id="loader">
+    <div style="margin: auto;text-align: center;">
+      <div style="margin: auto;"><img style="width: 10vw; height: 10vw;" src="/reaperwrb/icons/icon-180x180.png" /></div>
         <div class="lds-ellipsis" style="margin: auto;"><div></div><div></div><div></div><div></div></div>
       </div>
     </div>
-    </div>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="/reaperwrb/json.js"></script>
+    <div id="app"></div>
     <script type="text/javascript" src="/reaperwrb/js/manifest.js"></script>
     <script type="text/javascript" src="/reaperwrb/js/vendor.js"></script>
     <script type="text/javascript" src="/reaperwrb/js/app.js"></script>

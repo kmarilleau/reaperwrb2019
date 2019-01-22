@@ -174,6 +174,7 @@ const store = new Vuex.Store({
     onSwitchTab({ commit, state }, tab) {
       commit('clearEditHighlight')
       commit('switchTab', tab)
+      commit('getCmdStates')
     },
 
     onItemAdd({ commit, state }, type) {
@@ -341,6 +342,7 @@ const store = new Vuex.Store({
       const html = htmlTemplate.html(JSON.stringify(webremote)).replace(/\n|/g, '').replace(/>\s+</g, '><')
       const blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, webremote.title + '.html')
+      setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, state.editor.reload_timeout)
     },
 
     saveJSON: (state) => {
@@ -357,7 +359,7 @@ const store = new Vuex.Store({
       const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
       const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
       saveAs(blob, "json.js")
-      setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, 500)
+      setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, state.editor.reload_timeout)
     },
 
     saveLocalStorage: (state) => {
@@ -716,62 +718,6 @@ const store = new Vuex.Store({
       }
     },
 
-    // saveExtState: (state) => {
-    //   let items = []
-    //   state.webremote.tabs.forEach((tab, tabindex) => {
-
-    //     let t = {}
-    //     Object.keys(tab).forEach(key => {
-    //       if(key !== 'rows')
-    //         t[key] = tab[key]
-    //     })
-
-    //     items.push(encodeURIComponent(JSON.stringify(t)))
-
-    //     tab.rows.forEach((row, rowindex) => {
-    //       row.forEach((item, itemindex) => {
-    //         item.row = rowindex
-    //         item.tab = tabindex
-    //         items.push(encodeURIComponent(JSON.stringify(item)))
-    //       })
-    //     })
-    //   })
-
-    //   wwr_req('SET/EXTSTATE/REAPERWRB_TRANSFER/INFO/' + encodeURIComponent(JSON.stringify({
-    //     items: items.length
-    //   })))
-
-    //   let c = -1
-    //   let f = function() {
-    //     c++
-    //     if(c < items.length) {
-    //       wwr_req('SET/EXTSTATE/REAPERWRB_TRANSFER/ITEM_' + c + '/' + items[c])
-    //       setTimeout(f, state.transfer.timeout)
-    //     }
-    //   }
-    //   f()
-    // },
-
-    // readExtState: (state, key) => {
-    //   state.transfer.okay = false
-    //   state.transfer.data = []
-
-    //   wwr_req('GET/EXTSTATE/REAPERWRB_TRANSFER/INFO')
-
-    //   let f = function() {
-    //     if(!state.transfer.okay) {
-    //       setTimeout(f, state.transfer.timeout)
-    //     } else {
-    //       console.log("REAPERWRB: TRANSFER FINISHED IMPORTING DATA")
-    //       state.transfer.data.forEach(item => {
-    //         console.log(item)
-    //       })
-    //     }
-    //   }
-    //   f()
-    // },
-
-
     // FIXME create functions to import
     onReply: (state, result) => {
       //console.log(result)
@@ -892,7 +838,7 @@ const app = new Vue({
   template: '<App/>',
   created() {
     this.$store.commit('init')
-    // check reaper read state
+
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
     if(reaperReady) {
       console.log('ReaperWRB: REAPER API ready.')
@@ -902,5 +848,7 @@ const app = new Vue({
     } else {
       console.log('ReaperWRB ERROR: REAPER API not ready!')
     }
+
+    
   }
 })

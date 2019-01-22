@@ -29,7 +29,7 @@ export default {
   },
 
   updated() {
-    this.$store.commit('getCmdStates')
+    //this.$store.commit('getCmdStates')
   },
 
   components: {

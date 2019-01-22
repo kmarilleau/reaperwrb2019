@@ -21,18 +21,24 @@
     height: 12.3vw;
   }
 
-  .app-button-load-default button {
-    background: $c-editor-alt;
-  }
-
   .app-preset-container {
     display: grid;
-    background: $c-editor-primary;
+    background: $c-editor-alt;
     color: $bg-primary;
     grid-template-rows: 2fr 1fr;
     button {
       margin: 0.25vw 0.25vw 0.25vw 0.25vw;
     }
+  }
+
+  .app-preset-type {
+    position: absolute;
+    margin: .5vw 0.5vw;
+    background: $bg-primary;
+    color: $c-editor-primary;
+    border-radius: $g-border-radius;
+    padding: 0.15vw .3vw;
+    z-index: 1000;
   }
 
   .app-button-launch-preset,

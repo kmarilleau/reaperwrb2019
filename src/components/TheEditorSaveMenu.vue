@@ -45,15 +45,19 @@ export default {
     }
   },
   methods: {
-    onCancel() { this.$store.commit('setEditorModeMain') },
+
+    onCancel() { 
+      this.$store.commit('setEditorModeMain') 
+    },
+
     onSaveHTML() { 
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
         this.$store.commit('saveHTML') 
-        this.$store.commit('setEditorModeMain')
       }
     },
+
     onSaveLocalStorage() { 
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
@@ -63,12 +67,12 @@ export default {
         this.$store.commit('setModeStartup')
       }
     },
+
     onSaveJSON() { 
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
         this.$store.commit('saveJSON') 
-        this.$store.commit('setEditorModeMain')
       }
     },
   }

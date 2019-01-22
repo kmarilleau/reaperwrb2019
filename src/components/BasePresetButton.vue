@@ -1,5 +1,7 @@
 <template>
   <div class="app-preset-container">
+
+    <div class="app-preset-type">{{type}}</div>
     <template
       v-if="!this.delete"
     >
