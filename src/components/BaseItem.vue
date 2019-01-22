@@ -68,7 +68,7 @@ export default {
   },
 
   methods: {
-    
+
     getClass() {
       const classList = {}
       classList['app-item-' + this.item.type] = true
@@ -85,6 +85,7 @@ export default {
           row: this.row,
           index: this.index,
           el: this.$el,
+          obj: this.item
         }
 
         if(!this.$store.getters.isEditorBulkEdit) {

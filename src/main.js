@@ -462,7 +462,7 @@ const store = new Vuex.Store({
 
     showBulkDeleteDialog: (state) => {
       state.editor.mode = editorModes.DELETE
-      state.editor.edit_items.forEach(item => item.el.classList.add('app-highlight-delete'))
+      state.editor.data.bulk.forEach(item => item.el.classList.add('app-highlight-delete'))
     },
 
     cancelDelete: (state) => {
@@ -484,18 +484,18 @@ const store = new Vuex.Store({
     },
 
     bulkDelete: (state) => {
-      state.editor.data.bulk.forEach(edit_item => {
-        edit_item.el.classList.remove('app-highlight-delete')
-        state.webremote.tabs[state.webremote.active_tab].rows[edit_item.row].forEach((del, index) => {
+      state.editor.data.bulk.forEach(bulk => {
+        bulk.el.classList.remove('app-highlight-delete')
+        state.webremote.tabs[state.webremote.active_tab].rows[bulk.row].forEach((del, index) => {
           // compare items if all keys match remove
-          if(edit_item.item.type === del.type) {
+          if(bulk.type === del.type) {
             let remove = true
             for(const key in del) {
-              if(del[key] !== edit_item.item[key])
+              if(del[key] !== bulk.obj[key])
                 remove = false
             }
             if(remove)
-              state.webremote.tabs[state.webremote.active_tab].rows[edit_item.row].splice(index, 1)
+              state.webremote.tabs[state.webremote.active_tab].rows[bulk.row].splice(index, 1)
           }
         })
       })

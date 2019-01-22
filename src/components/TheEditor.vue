@@ -332,7 +332,7 @@ export default {
       this.$store.dispatch('onDeleteItem')
     },
     onBulkDeleteItems(event) {
-      //this.$store.commit('showBulkDeleteDialog')
+      this.$store.commit('showBulkDeleteDialog')
     }, 
   }
 };
