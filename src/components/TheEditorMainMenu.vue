@@ -90,6 +90,7 @@ export default {
   methods: {
     onHome(event) {
       this.$store.commit('unload')
+      this.$store.commit('clear')
       this.$store.commit('setModeStartup')
     },
 
@@ -98,7 +99,6 @@ export default {
     },
 
     onClearEditor(event) {
-      // FIXME not working
       this.$store.commit('clear')
     },
 
