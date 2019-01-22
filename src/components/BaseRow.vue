@@ -44,17 +44,7 @@ export default {
     'app-row-edit-buttons': BaseRowEditButtons,
     'app-item': BaseItem,
   },
-
-  updated() {
-    // highlight new added items for editing
-    if(this.$store.getters.hasEditItem) {
-      if(this.$store.getters.Type !== 'tab' && this.$store.getters.editItemRow === this.row) {
-        const el = this.$el.querySelectorAll('.app-item')
-        el[el.length - 1].classList.add('app-highlight-edit')
-      }
-    }
-  },
-
+  
   computed: {
 
     items: {

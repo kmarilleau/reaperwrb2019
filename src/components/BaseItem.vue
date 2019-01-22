@@ -67,6 +67,13 @@ export default {
     }
   },
 
+  mounted() {
+    if(this.$store.getters.isModeEditor) {
+      if(this.$store.getters.isEditItem({ item: this.item, row: this.row, index: this.index }))
+        this.$el.classList.add('app-highlight-edit')
+    }
+  },
+
   methods: {
 
     getClass() {

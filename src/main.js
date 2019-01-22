@@ -109,6 +109,19 @@ const store = new Vuex.Store({
     
     hasMoveItem: (state, getters) => state.editor.data.move,
     hasEditItem: (state, getters) => state.editor.data.item.obj,
+    isEditItem: (state, getters) => (payload) => {
+      if(state.editor.data.item.row === payload.row
+      && state.webremote.tabs[state.webremote.active_tab].rows[payload.row].length - 1 === payload.index) {
+        let isItem = true
+        Object.keys(payload.item).forEach(key => {
+          if(payload.item[key] !== state.editor.data.item.obj[key])
+            isItem = false
+        })
+        if(isItem)
+          return true
+      }
+    },
+    
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemRow: (state, getters) => state.editor.data.item.row,
     editItemHasKey: (state, getters) => (key) => { 
@@ -117,6 +130,7 @@ const store = new Vuex.Store({
       else
         return false
     },
+
     editItemKey: (state, getters) => (key, defaultValue) => {
       if(getters.editItemHasKey(key) && state.editor.data.item.obj[key])
         return state.editor.data.item.obj[key]
@@ -272,7 +286,7 @@ const store = new Vuex.Store({
     setEditorModeSave: (state) => state.editor.mode = editorModes.SAVE,
 
     clearEditHighlight: (state) => {
-      // FIXME use el in edit_item reference
+      //FIXME use el in edit_item reference
       const el = document.querySelectorAll('.app-highlight-edit')
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
@@ -495,6 +509,9 @@ const store = new Vuex.Store({
 
       state.editor.data.item = payload
       payload.el.classList.add('app-highlight-edit')
+
+      console.log(payload)
+
 
       if(payload.type === 'tab') {
         state.editor.data.item.obj = state.webremote.tabs[payload.index]
