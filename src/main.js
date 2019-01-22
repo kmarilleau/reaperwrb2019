@@ -15,11 +15,12 @@ import htmlTemplate from '@/htmlTemplate'
 import { modes, editorModes, defaults } from '@/reaperwrb'
 import example from '@/example'
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import { stat } from 'fs'
 
 library.add(fas, far, fab)
@@ -46,6 +47,8 @@ const store = new Vuex.Store({
   getters: {
     reaperReady: (state, getters) => state.reaper.ready,
     version: (state, getters) => state.version,
+
+    browser: (state, getters) => state.editor.browser,
 
     showLocalStorage: (state, getters) => state.storage.local_support && typeof(state.storage.local.webremotes) !== 'undefined',
     hasLocalStorage: (state, getters) => state.storage.local_support,
@@ -255,6 +258,26 @@ const store = new Vuex.Store({
       state.reaper = cloneDeep(defaults.reaper)
       state.editor = cloneDeep(defaults.editor)
       state.webremote = cloneDeep(defaults.webremote)
+
+      // Firefox 1.0+
+      if(typeof InstallTrigger !== 'undefined')
+        state.editor.browser = 'firefox'
+
+      // Safari 3.0+ "[object HTMLElementConstructor]" 
+      if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification)))
+        state.editor.browser = 'safari'
+
+      // Internet Explorer 6-11
+      if(/*@cc_on!@*/false || !!document.documentMode)
+        state.editor.browser = 'internet-explorer'
+
+      // Edge 20+
+      if(typeof(isIE) !== 'undefined' && !isIE && !!window.StyleMedia)
+        state.editor.browser = 'edge'
+
+      // Chrome 1 - 71
+      if(!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime))
+        state.editor.browser = 'chrome'
 
       // check JSON storage
       if(typeof(jsonStorage) !== 'undefined') {

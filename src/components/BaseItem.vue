@@ -79,7 +79,10 @@ export default {
     getClass() {
       const classList = {}
       classList['app-item-' + this.item.type] = true
-      classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
+      
+      if(this.$store.getters.isModeRemote)
+        classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
+      
       return classList
     },
 

@@ -215,8 +215,11 @@ export default {
         return this.$store.getters.editItemKey('width', 1)
       },
       set(value) {
-        if(this.$store.getters.editItemHasKey('width'))
+        if(this.$store.getters.editItemHasKey('width')) {
+        console.log("UPDATE WIDTH")
+
           this.$store.commit('updateItem', { key: 'width', val: value })
+        }
       }
     },
 

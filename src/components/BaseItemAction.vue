@@ -38,13 +38,6 @@ export default {
   methods: {
 
     onClick() {
-
-      // simulate state changes in editor
-      // if(this.item.toggle 
-      // && !this.$store.getters.isReaperReady 
-      // && this.$store.getters.isModeEditor)
-      //   this.item.state = this.item.state < 1 ? 1 : 0
-
       this.$store.commit('execAction', { action: this.item.action, toggle: this.item.toggle })
     },
 
@@ -81,7 +74,7 @@ export default {
     },
 
     getStyle() {
-      const style = { }
+      const style = {}
       if(parseInt(this.item.labelpos) === 0) {
         style.margin = '1.5vh auto -1.5vh auto'
       } else {

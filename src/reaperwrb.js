@@ -28,6 +28,7 @@ export const defaults = {
   },
 
   editor: {
+    browser: 'chrome',
     mode: editorModes.MAIN,
     exec_actions: false,
     bulk_edit: false,

@@ -3,36 +3,45 @@
     v-if="this.$store.getters.isEditorModeSave"
   >
 
-    <button class="pure-button pure-button-secondary"
+    <button class="pure-button pure-button-secondary app-editor-button"
       @click.stop="onCancel">
-      <font-awesome-icon icon="ban" /> Cancel
+      <font-awesome-icon icon="ban" />
     </button>
 
-    <button class="pure-button pure-button-primary"
+    <button title="save in local browser storage" class="pure-button pure-button-primary app-editor-button"
+      v-if="this.$store.getters.hasLocalStorage"
+      @click.stop="onSaveLocalStorage()"
+      @mouseenter="help = 'test'"
+    >
+      <i :class="browserIcon"></i>
+    </button>
+
+    <button title="save as html" class="pure-button pure-button-primary app-editor-button"
       @click.stop="onSaveHTML()">
-      <font-awesome-icon icon="save" /> HTML
+      <font-awesome-icon icon="code" />
     </button>  
 
-    <button class="pure-button pure-button-primary"
-      v-if="this.$store.getters.hasLocalStorage"
-      @click.stop="onSaveLocalStorage()">
-      <font-awesome-icon icon="save" /> Local
-    </button>
-
-    <button class="pure-button pure-button-primary"
+    <button title="save as json" class="pure-button pure-button-primary app-editor-button"
       @click.stop="onSaveJSON()">
-      <font-awesome-icon icon="save" /> JSON
+      <font-awesome-icon icon="hdd" />
     </button>
 
     <div class="app-editor-webremote-title">
       <label>Webremote Title</label>
       <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus>
     </div>
+
   </div>
 </template>
 
 <script>
 export default {
+
+  data() {
+    return {
+      help: 'This is some help'
+    }
+  },
 
   computed: {
     webremoteTitle: {
@@ -42,8 +51,13 @@ export default {
       set(value) {
         this.$store.commit('setWebremoteTitle', value)
       },
+    },
+
+    browserIcon() {
+      return `fab fa-${this.$store.getters.browser}`
     }
   },
+
   methods: {
 
     onCancel() { 

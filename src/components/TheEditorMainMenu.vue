@@ -128,7 +128,7 @@ export default {
     onSave(event) {
       this.$store.commit('clearEditHighlight')
       this.$store.commit('clearEditItem')
-      // FIXME combine
+      
       if(this.$store.state.editor.bulk_edit)
         this.$store.commit('toggleBulkEdit')
 
