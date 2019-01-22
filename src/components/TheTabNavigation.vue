@@ -51,31 +51,40 @@ export default {
 
   computed: {
     tabs: {
+
       get() {
         return this.$store.getters.tabs
       },
+
       set(value) {
         // only set on sort, when length doesn't change
         if(value.length === this.$store.getters.tabs.length)
           this.$store.commit('updateTabs', value)
       }
+      
     }
   },
 
   methods: {
+
     onHome() {
       this.$store.commit('setModeStartup')
       this.$store.commit('unload')
     },
+
     onEdit() {
       this.$store.commit('fadeInLoader')
       this.$store.commit('setModeEditor')
     },
+
     onDraggableStart(event) {
       document.querySelector('.sortable-ghost').style.display = 'block'
       this.$store.commit('clearEditItem')
     },
+
     onDraggableMove(event, originalEvent) {
+      // hacky way to cancel dropping item on the tab add button or the
+        // empty space in the tab navigation
       if(originalEvent.target.parentElement.classList.contains('app-tab-add')
       || originalEvent.target.classList.contains('app-tab-add-inner')
       || originalEvent.target.classList.contains('svg-inline--fa')
@@ -84,13 +93,16 @@ export default {
       || originalEvent.target.classList.length === 0)
         return false
     },
+
     onDraggableEnd(event) {
       this.$store.commit('switchTab', event.newIndex)
     },
+
     onDraggableAdd(event) {
       this.$store.commit('moveItem')
       this.$store.commit('clearEditHighlight')
     }
+
   }
 };
 </script>

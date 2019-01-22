@@ -56,12 +56,15 @@ export default {
   },
 
   computed: {
+
     items: {
       get() {
         return this.$store.state.webremote.tabs[this.$store.state.webremote.active_tab].rows[this.row]
       },
+
       set(value) {
-        if(this.$store.state.editor.move_item === false)
+        // update row after moving item
+        if(!this.$store.getters.hasMoveItem)
           this.$store.commit('updateRow', { row: this.row, value: value } )
       }
     }
@@ -82,7 +85,7 @@ export default {
       // hacky way to decide if an item is to be moved to another tab
       if(event.related.classList.contains('app-tab-navigation-item') 
       && typeof(event.related.attributes.tab) !== 'undefined') {
-
+        
         const payload = {
           row: parseInt(event.dragged.attributes.row.value),
           index: parseInt(event.dragged.attributes.index.value),
@@ -99,9 +102,17 @@ export default {
         }
 
       } else {
+        
         this.$store.commit('clearDropHighlight')
         this.$store.commit('clearItemMoveCopy')
+
+        // hacky way to cancel dropping item on the tab add button or the
+        // empty space in the tab navigation
         if(originalEvent.target.parentElement.classList.contains('app-tab-add') 
+        || originalEvent.target.classList.contains('app-tab-add-inner')
+        || originalEvent.target.classList.contains('svg-inline--fa')
+        || originalEvent.target.parentElement.classList.contains('svg-inline--fa')
+        || originalEvent.target.parentElement.classList.contains('app-tab-add-inner')
         || originalEvent.target.parentElement.classList.contains('app-view'))
           return false
       } 

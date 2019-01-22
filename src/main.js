@@ -107,6 +107,7 @@ const store = new Vuex.Store({
     transportPosBeats: (state, getters) => state.reaper.transport.position_string_beats,
     transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
     
+    hasMoveItem: (state, getters) => state.editor.data.move,
     hasEditItem: (state, getters) => state.editor.data.item.obj,
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemRow: (state, getters) => state.editor.data.item.row,
