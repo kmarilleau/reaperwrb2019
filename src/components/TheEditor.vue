@@ -116,7 +116,7 @@
         
       </div>
 
-      <div class="app-editor-panel app-editor-menu" 
+      <div class="app-editor-panel app-editor-menu app-editor-bulk-menu" 
         v-if="this.$store.getters.showEditorBulkEditButtons"
       >
         <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"

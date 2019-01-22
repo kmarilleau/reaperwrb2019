@@ -87,6 +87,10 @@
     }
   }
 
+  .app-editor-bulk-menu {
+    height: $g-editor-item-edit-button-height;
+  }
+
   .app-editor-add-button {
     grid-column-start: span 2;
     text-align: left;

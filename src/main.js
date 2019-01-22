@@ -555,7 +555,6 @@ const store = new Vuex.Store({
       state.editor.data.bin.el.classList.add('app-highlight-delete')
 
       if(state.editor.data.bin.obj.type === 'tab') {
-        console.log("WHY")
         const el = document.querySelectorAll('.app-item')
         for(let i = 0; i < el.length; i++) {
           el[i].classList.add('app-highlight-delete')
