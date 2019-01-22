@@ -70,8 +70,18 @@
 
         <!-- LABEL POS -->
         <div class="app-editor-sub-panel">
+          
           <template 
-            v-if="this.$store.getters.editItemHasKey('labelpos')"
+            v-if="this.$store.getters.editItemHasKey('toggle')"
+          >
+            <div>
+              <label>Toggle</label>
+              <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
+            </div>
+          </template>
+
+          <template 
+            v-if="this.$store.getters.editItemKey('icon', false) && this.$store.getters.editItemHasKey('labelpos')"
           >
             <div>
               <label>Label Position</label>
@@ -83,14 +93,6 @@
             
           </template>
 
-          <template 
-            v-if="this.$store.getters.editItemHasKey('toggle')"
-          >
-            <div>
-              <label>Toggle</label>
-              <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
-            </div>
-          </template>
         </div>
 
         <!-- DESCRIPTION -->
@@ -303,20 +305,6 @@ export default {
       }
     },
     
-    showOptionsPanel() {
-      return false
-      // FIXME custom getter
-      if(this.$store.getters.hasTabs && ( 
-        this.$store.state.editor.edit_item.label ||
-        this.$store.state.editor.edit_item.desc ||
-        this.$store.state.editor.edit_item.action ||
-        this.$store.state.editor.edit_item.width
-      )) {
-          return true
-        } else {
-          return false
-        }
-    }
   },
 
   methods: {
