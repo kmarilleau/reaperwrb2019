@@ -121,7 +121,7 @@ const store = new Vuex.Store({
           return true
       }
     },
-    
+
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemRow: (state, getters) => state.editor.data.item.row,
     editItemHasKey: (state, getters) => (key) => { 
@@ -432,6 +432,7 @@ const store = new Vuex.Store({
     },
 
     switchTab: (state, tab) => {
+      // console.log(tab)
       state.editor.data.item = cloneDeep(defaults.editor.data.item)
       state.webremote.active_tab = tab
     },
@@ -509,9 +510,6 @@ const store = new Vuex.Store({
 
       state.editor.data.item = payload
       payload.el.classList.add('app-highlight-edit')
-
-      console.log(payload)
-
 
       if(payload.type === 'tab') {
         state.editor.data.item.obj = state.webremote.tabs[payload.index]

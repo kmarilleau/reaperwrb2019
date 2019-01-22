@@ -61,7 +61,7 @@ export default {
         if(value.length === this.$store.getters.tabs.length)
           this.$store.commit('updateTabs', value)
       }
-      
+
     }
   },
 
@@ -84,18 +84,31 @@ export default {
 
     onDraggableMove(event, originalEvent) {
       // hacky way to cancel dropping item on the tab add button or the
-        // empty space in the tab navigation
-      if(originalEvent.target.parentElement.classList.contains('app-tab-add')
-      || originalEvent.target.classList.contains('app-tab-add-inner')
-      || originalEvent.target.classList.contains('svg-inline--fa')
-      || originalEvent.target.parentElement.classList.contains('app-tab-add-inner')
-      || originalEvent.target.parentElement.classList.contains('app-view')
-      || originalEvent.target.classList.length === 0)
+      if(event.draggedContext.futureIndex === 0) {
+        if(originalEvent.target.classList.contains('app-tab-navigation-item'))
+          return true
+
+        if(originalEvent.target.parentElement.classList.contains('app-tab-navigation-item')) 
+          return true
+
         return false
+          // (originalEvent.target.parentElement.classList.contains('app-tab-add')
+      // || originalEvent.target.classList.contains('app-tab-add-inner')
+      // || originalEvent.target.classList.contains('svg-inline--fa')
+      // || originalEvent.target.parentElement.classList.contains('app-tab-add-inner')
+      // || originalEvent.target.parentElement.classList.contains('app-view')
+      // || originalEvent.target.classList.length === 0)) {
+      } else if (event.draggedContext.futureIndex > this.$store.getters.tabs.length
+        || event.draggedContext.futureIndex === this.$store.getters.tabs.length) {
+        return false
+      }
     },
 
     onDraggableEnd(event) {
-      this.$store.commit('switchTab', event.newIndex)
+      if(event.newIndex < this.$store.getters.tabs.length)
+        this.$store.commit('switchTab', event.newIndex)
+      else
+        this.$store.commit('switchTab', this.$store.getters.tabs.length - 1)
     },
 
     onDraggableAdd(event) {
