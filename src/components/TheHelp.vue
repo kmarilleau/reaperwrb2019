@@ -57,8 +57,8 @@
       <div class="app-help-footer">
         &copy; 2019 - 2119 Michael Klier
         <div class="app-help-social">
-          <a href="https://m-klier.de" target="_blank"><i class="fas fa-home"></i></a>
-          <a href="https://twitter.com/michael_klier" target="_blank"><i class="fab fa-twitter-square"></i></a>
+          <a href="https://m-klier.de" target="_blank"><font-awesome-icon icon="globe" /></a>
+          <a href="https://twitter.com/michael_klier" target="_blank"><font-awesome-icon :icon="['fab', 'twitter-square']" /></i></a>
         </div>
       </div>
     </div>

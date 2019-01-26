@@ -13,7 +13,7 @@
       @click.stop="onSaveLocalStorage()"
       @mouseenter="help = 'test'"
     >
-      <i :class="browserIcon"></i>
+      <font-awesome-icon :icon="['fab', this.$store.getters.browser]" />
     </button>
 
     <button title="save as html" class="pure-button pure-button-primary app-editor-button"
@@ -52,10 +52,6 @@ export default {
         this.$store.commit('setWebremoteTitle', value)
       },
     },
-
-    browserIcon() {
-      return `fab fa-${this.$store.getters.browser}`
-    }
   },
 
   methods: {

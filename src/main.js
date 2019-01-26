@@ -10,20 +10,114 @@ import cloneDeep from 'lodash/cloneDeep'
 //import isMobile from 'ismobilejs'
 import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
-
+import { stat } from 'fs'
 import htmlTemplate from '@/htmlTemplate'
 import { modes, editorModes, defaults } from '@/reaperwrb'
 import example from '@/example'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
+import { 
+  faAdjust, faAlignCenter, faAlignJustify, faAlignLeft, faAlignRight, faAnchor, faAngleDoubleDown,
+  faAngleDoubleLeft, faAngleDoubleRight, faAngleDoubleUp, faAngleDown, faAngleLeft, faAngleRight, faAngleUp,
+  faArchive, faArrowAltCircleDown, faArrowAltCircleLeft, faArrowAltCircleRight, faArrowAltCircleUp,
+  faArrowCircleDown, faArrowCircleLeft, faArrowCircleRight, faArrowCircleUp, faArrowDown, faArrowLeft,
+  faArrowRight, faArrowUp, faArrowsAlt, faArrowsAltH, faArrowsAltV, faAssistiveListeningSystems, faAsterisk,
+  faBackspace, faBackward, faBalanceScale, faBan, faBandAid, faBarcode, faBars, faBeer, faBell, faBellSlash,
+  faBezierCurve, faBinoculars, faBolt, faBomb, faBookmark, faBox, faBoxOpen, faBoxes, faBroom, faBrush, 
+  faBullhorn, faBurn, faCamera, faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faChartArea, faChartBar, 
+  faChartLine, faCheck, faCheckCircle, faCheckDouble, faCheckSquare, faChevronCircleDown, faChevronCircleLeft,
+  faChevronCircleRight, faChevronCircleUp, faChevronDown, faChevronLeft, faChevronRight, faChevronUp,
+  faCircle, faCircleNotch, faClipboard, faCaretSquareRight, faCaretSquareDown, faCaretSquareLeft, faCaretSquareUp,
+  faClone, faCloud, faCloudDownloadAlt, faCloudUploadAlt, faCode, faCodeBranch, faCog, faCogs, faCoins, 
+  faColumns, faComment, faCommentAlt, faCommentSlash, faCommentDots, faComments, faCompress, 
+  faCopy, faCopyright, faCrop, faCropAlt, faCut, faDeaf, faDice, faDivide, faDizzy, faDotCircle, faDownload,
+  faDrum, faDrawPolygon, faDrumSteelpan, faEdit, faEject, faEllipsisH, faEllipsisV, faEquals, faEraser, 
+  faExchangeAlt, faExclamation, faExclamationCircle, faExclamationTriangle, faExpand, faExpandArrowsAlt, faExternalLinkAlt,
+  faExternalLinkSquareAlt, faEye, faEyeDropper, faEyeSlash, faFastBackward, faFastForward, faFile, faFileAlt, faFileArchive,
+  faFileAudio, faFileVideo, faFileImage, faFill, faFillDrip, faFilm, faFilter, faFire,  faFirstAid,
+  faFlag, faFlushed, faFolder, faFolderOpen, faFolderMinus, faFolderPlus, faForward, faFrown, faFrownOpen,
+  faGamepad, faGreaterThan, faGreaterThanEqual, faGrimace, faGrin, faGrinAlt, faGrinBeam, 
+  faGrinBeamSweat, faGrinHearts, faGrinSquint, faGrinSquintTears, faGrinStars, faGrinTears, faGrinTongue,
+  faGrinTongueSquint, faGrinWink, faImage, faGripHorizontal, faGripVertical,
+  faHandPaper, faHandPeace, faHandPointDown, faHandPointLeft, faHdd, faGlobe,
+  faHandPointRight, faHandPointUp, faHandPointer, faHandRock, faHandScissors, faHandSpock, faHandshake,
+  faHeadphones, faHeadphonesAlt, faHeadset, faHeart,  faHeartbeat, faHighlighter, faHistory,
+  faHourglass, faHome, faHourglassEnd, faHourglassHalf, faHourglassStart, faImages, faInbox, faIndent,
+  faIndustry, faInfinity, faInfo, faInfoCircle, faKey, faKiss, faKissBeam, faKissWinkHeart, faLaugh, 
+  faLaughBeam, faLaughSquint, faLaughWink, faLayerGroup, faLessThan, faLessThanEqual, faLevelDownAlt, faLevelUpAlt,
+  faLifeRing, faLightbulb, faLink, faList, faListAlt, faLock, faLockOpen, faLongArrowAltDown, faLongArrowAltLeft, faLongArrowAltRight, 
+  faLongArrowAltUp, faLowVision, faMagic, faMagnet, faMapMarker, faMapMarkerAlt, faMapMarked, faMapPin, 
+  faMarker, faMeh, faMehBlank, faMehRollingEyes, faMicrophone, faMicrophoneAlt, faMicrophoneAltSlash, faMicrophoneSlash,
+  faMinusSquare, faMinus, faMinusCircle, faMusic, faNotEqual, faObjectGroup, faPaintBrush, faPaintRoller,
+  faPalette, faPaperclip, faPaste, faPause, faPauseCircle, faPen, faPenSquare, faPencilAlt, faPercent,
+  faPercentage, faPlus, faPlusCircle, faPlusSquare, faPodcast, faPoll, faPollH, faPoo,  faPoop,
+  faPowerOff, faPlay, faPlayCircle, faPlug, faProjectDiagram, faQuestion, faQuestionCircle, 
+  faRandom, faRecycle, faRedo, faRedoAlt, faReply, faReplyAll, faRocket, faRoute, faRulerHorizontal, faRulerVertical, faRulerCombined,
+  faSadCry, faSadTear,  faSearch, faSave, faSignal, faSitemap, faSlidersH, faSmile, faSmileBeam, faSmileWink, faSortAmountUp,
+  faSortAmountDown, faSquare, faStar, faStop, faStopCircle, faSun, faSync, faSyncAlt, faTablet, faTabletAlt,
+  faTag, faTags, faTape, faThumbsDown, faThumbsUp, faToggleOff, faToggleOn,  faTrash, faTrashAlt,
+  faVectorSquare, faVideo, faVideoSlash, faVolumeDown, faVolumeUp, faVolumeOff,  faWindowClose,
+  faWindowMaximize, faWindowMinimize, faWindowRestore, faAngry, faClock, faKeyboard, faMap, faYinYang
+} from '@fortawesome/free-solid-svg-icons'
+
+import { 
+  faChrome, faTwitterSquare, faAndroid, faApple, faBandcamp, faEdge, faFirefox,
+  faInternetExplorer, faItunesNote, faMix, faMixcloud, faOpera, faRedRiver, faSearchengin,
+  faSellsy, faSoundcloud, faYoutube, faYoutubeSquare
+} from '@fortawesome/free-brands-svg-icons'
+
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { stat } from 'fs'
+library.add(
+  faAdjust, faAlignCenter, faAlignJustify, faAlignLeft, faAlignRight, faAnchor, faAngleDoubleDown,
+  faAngleDoubleLeft, faAngleDoubleRight, faAngleDoubleUp, faAngleDown, faAngleLeft, faAngleRight, faAngleUp,
+  faArchive, faArrowAltCircleDown, faArrowAltCircleLeft, faArrowAltCircleRight, faArrowAltCircleUp,
+  faArrowCircleDown, faArrowCircleLeft, faArrowCircleRight, faArrowCircleUp, faArrowDown, faArrowLeft,
+  faArrowRight, faArrowUp, faArrowsAlt, faArrowsAltH, faArrowsAltV, faAssistiveListeningSystems, faAsterisk,
+  faBackspace, faBackward, faBalanceScale, faBan, faBandAid, faBarcode, faBars, faBeer, faBell, faBellSlash,
+  faBezierCurve, faBinoculars, faBolt, faBomb, faBookmark, faBox, faBoxOpen, faBoxes, faBroom, faBrush, 
+  faBullhorn, faBurn, faCamera, faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faChartArea, faChartBar, 
+  faChartLine, faCheck, faCheckCircle, faCheckDouble, faCheckSquare, faChevronCircleDown, faChevronCircleLeft,
+  faChevronCircleRight, faChevronCircleUp, faChevronDown, faChevronLeft, faChevronRight, faChevronUp,
+  faCircle, faCircleNotch, faClipboard, faCaretSquareRight, faCaretSquareDown, faCaretSquareLeft, faCaretSquareUp,
+  faClone, faCloud, faCloudDownloadAlt, faCloudUploadAlt, faCode, faCodeBranch, faCog, faCogs, faCoins, 
+  faColumns, faComment, faCommentAlt, faCommentSlash, faCommentDots, faComments, faCompress, 
+  faCopy, faCopyright, faCrop, faCropAlt, faCut, faDeaf, faDice, faDivide, faDizzy, faDotCircle, faDownload,
+  faDrum, faDrawPolygon, faDrumSteelpan, faEdit, faEject, faEllipsisH, faEllipsisV, faEquals, faEraser, 
+  faExchangeAlt, faExclamation, faExclamationCircle, faExclamationTriangle, faExpand, faExpandArrowsAlt, faExternalLinkAlt,
+  faExternalLinkSquareAlt, faEye, faEyeDropper, faEyeSlash, faFastBackward, faFastForward, faFile, faFileAlt, faFileArchive,
+  faFileAudio, faFileVideo, faFileImage, faFill, faFillDrip, faFilm, faFilter, faFire,  faFirstAid,
+  faFlag, faFlushed, faFolder, faFolderOpen, faFolderMinus, faFolderPlus, faForward, faFrown, faFrownOpen,
+  faGamepad, faGreaterThan, faGreaterThanEqual, faGrimace, faGrin, faGrinAlt, faGrinBeam, 
+  faGrinBeamSweat, faGrinHearts, faGrinSquint, faGrinSquintTears, faGrinStars, faGrinTears, faGrinTongue,
+  faGrinTongueSquint, faGrinWink, faImage, faGripHorizontal,   faGripVertical,
+    faHandPaper, faHandPeace, faHandPointDown, faHandPointLeft, faHdd, faGlobe,
+  faHandPointRight, faHandPointUp, faHandPointer, faHandRock, faHandScissors, faHandSpock, faHandshake,
+  faHeadphones, faHeadphonesAlt, faHeadset, faHeart,  faHeartbeat, faHighlighter, faHistory,
+  faHourglass, faHome, faHourglassEnd, faHourglassHalf, faHourglassStart, faImages, faInbox, faIndent,
+  faIndustry, faInfinity, faInfo, faInfoCircle, faKey, faKiss, faKissBeam, faKissWinkHeart, faLaugh, 
+  faLaughBeam, faLaughSquint, faLaughWink, faLayerGroup, faLessThan, faLessThanEqual, faLevelDownAlt, faLevelUpAlt,
+  faLifeRing, faLightbulb, faLink, faList, faListAlt, faLock, faLockOpen, faLongArrowAltDown, faLongArrowAltLeft, faLongArrowAltRight, 
+  faLongArrowAltUp, faLowVision, faMagic, faMagnet, faMapMarker, faMapMarkerAlt, faMapMarked, faMapPin, 
+  faMarker, faMeh, faMehBlank, faMehRollingEyes, faMicrophone, faMicrophoneAlt, faMicrophoneAltSlash, faMicrophoneSlash,
+  faMinusSquare, faMinus, faMinusCircle, faMusic, faNotEqual, faObjectGroup, faPaintBrush, faPaintRoller,
+  faPalette, faPaperclip, faPaste, faPause, faPauseCircle, faPen, faPenSquare, faPencilAlt, faPercent,
+  faPercentage, faPlus, faPlusCircle, faPlusSquare, faPodcast, faPoll, faPollH, faPoo,  faPoop,
+  faPowerOff, faPlay, faPlayCircle, faPlug, faProjectDiagram, faQuestion, faQuestionCircle, 
+  faRandom, faRecycle, faRedo, faRedoAlt, faReply, faReplyAll, faRocket, faRoute, faRulerHorizontal, faRulerVertical, faRulerCombined,
+  faSadCry, faSadTear,  faSearch, faSave, faSignal, faSitemap, faSlidersH, faSmile, faSmileBeam, faSmileWink, faSortAmountUp,
+  faSortAmountDown, faSquare, faStar, faStop, faStopCircle, faSun, faSync, faSyncAlt, faTablet, faTabletAlt,
+  faTag, faTags, faTape, faThumbsDown, faThumbsUp, faToggleOff, faToggleOn,  faTrash, faTrashAlt,
+  faVectorSquare, faVideo, faVideoSlash, faVolumeDown, faVolumeUp, faVolumeOff,  faWindowClose,
+  faWindowMaximize, faWindowMinimize, faWindowRestore, faAngry, faClock, faKeyboard, faMap, faYinYang
+)
+library.add(
+  faChrome, faTwitterSquare, faAndroid, faApple, faBandcamp, faEdge, faFirefox,
+  faInternetExplorer, faItunesNote, faMix, faMixcloud, faOpera, faRedRiver, faSearchengin,
+  faSellsy, faSoundcloud, faYoutube, faYoutubeSquare
+)
 
-library.add(fas, far, fab)
 dom.watch()
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
