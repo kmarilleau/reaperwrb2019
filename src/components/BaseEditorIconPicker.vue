@@ -1,27 +1,25 @@
 <template>
-  <div class="app-icon-picker" v-once></div>
+  <div class="app-icon-picker" v-once>
+
+    <div class="app-icon-picker-items">
+      <span class="app-icon-picker-item"
+        v-for="(icon, index) in icons" :key="index"
+        @click="updateIcon(icon)"
+      >
+        <font-awesome-icon :icon="icon" />
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
-import { fontawesomeiconpicker } from 'fontawesome-iconpicker'
-import $ from 'jquery'
-
 export default {
   props: ['toggle'],
 
-  mounted() {
-    let self = this
-    $(this.$el).iconpicker({
-      templates: {
-        iconpickerItem: '<span class="iconpicker-item"><i></i></span>'
-      }
-    })
-    $(this.$el).on('iconpickerSelected', function(event) {
-      let f = event.iconpickerValue.substr(0, 3)
-      let i = event.iconpickerValue.substr(7)
-      let icon = [f, i]
-      self.updateIcon(icon)
-    })
+  computed: {
+    icons() {
+      return Object.keys(___FONT_AWESOME___.styles.fas).map(key => ['fas', key])
+    }
   },
 
   methods: {

@@ -12,7 +12,7 @@
         {{title}}
       </button>
       <div class="app-preset-buttons">
-        <button class="pure-button-primary"
+        <button class="pure-button-primary app-button-launch-editor"
           @click.stop="onEdit(title, timestamp, type)"
         >
           <font-awesome-icon icon="pen" />

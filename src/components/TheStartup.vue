@@ -8,7 +8,7 @@
       </div>
 
       <div class="app-button-launch-editor">
-        <button class="pure-button pure-button-primary app" 
+        <button class="pure-button pure-button-primary" 
           @click="onLaunchEditor()">
           <span>Editor</span>
         </button>
