@@ -63,10 +63,12 @@
 
     .app-reaper-status {
       position: absolute;
-      font-size: 200%;
-      right: 1vw;
+      margin: .3vw;
+      background: $bg-primary;
+      padding: 0.2vw;
+      border-radius: $g-border-radius;
     }
-      .app-reaper-status-offline {
+    .app-reaper-status-offline {
       color: tomato;
       animation: blinker 1s linear infinite;
     }

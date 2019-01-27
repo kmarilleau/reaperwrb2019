@@ -3,13 +3,13 @@
     v-if="this.$store.getters.isEditorModeMain"
   >
     <template v-if="!this.$store.getters.reaperReady">
-      <div class="app-reaper-status app-reaper-status-offline">
-        <font-awesome-icon icon="exclamation-circle" />
+      <div class="app-reaper-status">
+        <font-awesome-icon class="app-reaper-status-offline" icon="exclamation-circle" />
       </div>
     </template>
     <template v-if="this.$store.getters.reaperReady">
-      <div class="app-reaper-status app-reaper-status-online">
-        <font-awesome-icon icon="thumbs-up" />
+      <div class="app-reaper-status">
+        <font-awesome-icon class="app-reaper-status-online" icon="thumbs-up" />
       </div>
     </template>
       
