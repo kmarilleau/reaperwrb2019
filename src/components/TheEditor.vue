@@ -144,7 +144,7 @@
                 <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor }">
                   <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemIcon" size="4x" />
                 </div>
-                <button class="pure-button app-item-icon pure-button-warning"
+                <button title="delete icons" class="pure-button app-item-icon pure-button-warning"
                   @click.stop="onClearIcons()" 
                 >
                   <font-awesome-icon icon="trash" />

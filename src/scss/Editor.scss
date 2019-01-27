@@ -61,25 +61,18 @@
     column-gap: 0.3vw;
     row-gap: 0.15vw;
 
-    .app-editor-menu-home-button {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 0.3vw;
-      .app-reaper-status {
-        color: $c-editor-primary;
-        display: flex;
-        border-radius: 2px;
-        * { margin: auto; }
-        cursor: default !important;
-      }
+    .app-reaper-status {
+      position: absolute;
+      font-size: 200%;
+      right: 1vw;
+    }
       .app-reaper-status-offline {
-        background: tomato;
-        animation: blinker 1s linear infinite;
-      }
-      .app-reaper-status-online {
-        background: #58D68D;
-        animation: blinker 1s linear infinite;
-      }
+      color: tomato;
+      animation: blinker 1s linear infinite;
+    }
+    .app-reaper-status-online {
+      color: #58D68D;
+      animation: blinker 1s linear infinite;
     }
 
     .app-editor-delete-item-button {
