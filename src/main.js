@@ -546,14 +546,21 @@ const store = new Vuex.Store({
       const webremote = cloneDeep(state.webremote)
       webremote.active_tab = 0
 
-
-      const d = new Date()
-      webremote.timestamp = d.getTime()
-      
       if(!state.storage.json)
         state.storage.json = cloneDeep(defaults.storage)
 
-      state.storage.json.webremotes.push(webremote)
+      if(typeof(webremote.timestamp) === 'undefined') {
+        const d = new Date()
+        webremote.timestamp = d.getTime()
+        state.storage.json.webremotes.push(webremote)
+      } else {
+        state.storage.json.webremotes.map((storageWebremote, index) => {
+          if(storageWebremote.timestamp === webremote.timestamp) {
+            state.storage.json.webremotes[index] = webremote
+          }
+        })
+      }
+      
       const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
       const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
       saveAs(blob, "json.js")
@@ -577,7 +584,6 @@ const store = new Vuex.Store({
           state.storage.local.webremotes.map((storageWebremote, index) => {
             if(storageWebremote.timestamp === webremote.timestamp) {
               state.storage.local.webremotes[index] = webremote
-              console.log(webremote.tabs)
             }
           })
 
