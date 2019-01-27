@@ -1050,7 +1050,7 @@ const app = new Vue({
 
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
     if(reaperReady) {
-      console.log('ReaperWRB: REAPER API ready.')
+      console.log('REAPERWRB: REAPER API ready.')
       wwr_start()
       window.wwr_onreply = (result) => this.$store.commit('onReply', result)
       this.$store.commit('setReaperReady', reaperReady)
