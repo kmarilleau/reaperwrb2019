@@ -52,7 +52,7 @@ export const defaults = {
   },
 
   webremote: {
-    title: 'New Webremote',
+    title: 'new webremote',
     timestamp: null,
     columns: 8,
     active_tab: 0,
@@ -61,7 +61,7 @@ export const defaults = {
 
   action: {
     type: 'action',
-    label: 'label',
+    label: 'new action',
     labelpos: 0,
     action: 0,
     state: -1,
@@ -84,7 +84,7 @@ export const defaults = {
 
   tab: {
     type: 'tab',
-    label: 'tab',
+    label: 'new tab',
     bgcolor: '#666666',
     textcolor: '#FFFFFF',
     rows: [],
