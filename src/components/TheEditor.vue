@@ -28,7 +28,7 @@
           <div class="app-editor-menu"
             v-if="this.$store.getters.hasEditItem"
           >
-            <button class="pure-button pure-button-warning app-editor-button app-editor-delete-item-button"
+            <button title="delete item" class="pure-button pure-button-warning app-editor-button app-editor-delete-item-button"
               @click.stop="onDeleteItem()"
             >
               <font-awesome-icon icon="trash" />

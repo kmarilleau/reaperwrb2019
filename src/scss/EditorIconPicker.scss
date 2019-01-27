@@ -1,12 +1,14 @@
 .app-icon-picker {
-  padding: 0 0 1vw 0;
+  padding: 0 0 .5vw 0;
+  input { margin: .5vw 0 !important; }
   
   .app-icon-picker-items {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    height: 10vw;
+    height: 9vw;
     overflow-y: scroll;
     background: $bg-primary;
+    
     
     .app-icon-picker-item {
       display: flex;
@@ -14,9 +16,10 @@
       justify-content: center;
       cursor: pointer;
       border-radius: $g-border-radius;
-      * { margin: 1vw auto; }
+      height: 2.75vw;
+      * { margin: .5vw auto; }
     }
-    
+
     .app-icon-picker-item:hover {
       background: $c-editor-primary;
       color: $bg-primary;

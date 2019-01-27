@@ -1,7 +1,7 @@
 <template>
   <div class="app-text-color-picker">
     <label>Text Color: {{color}}</label>
-    <app-text-color-picker v-model="value" @input="updateValue" />
+    <app-text-color-picker v-model="value" :palette="palette" @input="updateValue" />
   </div>
 </template>
 
@@ -13,7 +13,11 @@ export default {
 
   data() {
     return {
-      value: this.color
+      value: this.color,
+      palette: ['#ffffff', '#E6E6E6', '#CCCCCC', 
+                '#B3B3B3', '#999999', '#808080', 
+                '#666666', '#595959', '#4D4D4D', 
+                '#333333', '#0D0D0D', '#000000'],
     }
   },
 
