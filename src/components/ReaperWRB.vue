@@ -33,7 +33,7 @@ export default {
       const webremote = JSON.parse(div.innerHTML)
       this.$store.commit('setModeRemote')
       this.$store.commit('import', webremote)
-      this.$store.commit('getCmdStates')
+      this.$store.commit('getCmdStates') 
       this.$store.commit('setModeRemote')
     }
 

@@ -391,21 +391,23 @@ const store = new Vuex.Store({
         if(payload.title === webremote.title
         && payload.timestamp === webremote.timestamp) {
           commit('import', state.storage[payload.type].webremotes[index])
+          commit('getCmdStates')
           commit('setModeRemote')
           success = true
         }
       })
       if(!success)
-        console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
+      console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
-
+    
     onEditWebremotePreset: ({ commit, state }, payload ) => {
       let success = false
       state.storage[payload.type].webremotes.forEach((webremote, index) => {
         if(payload.title === webremote.title
-        && payload.timestamp === webremote.timestamp) {
+          && payload.timestamp === webremote.timestamp) {
           commit('import', state.storage[payload.type].webremotes[index])
           commit('fadeInLoader')
+          commit('getCmdStates')
           commit('setModeEditor')
           success = true
         }
