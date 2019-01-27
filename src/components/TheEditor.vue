@@ -64,12 +64,7 @@
         </template>
 
         <!-- ACTION -->
-        <template 
-          v-if="this.$store.getters.editItemHasKey('action')"
-        >
-          <label>Action</label>
-          <input type="text" name="item-action" v-model="itemAction">
-        </template>
+        <app-editor-input-action />
 
         <!-- LABEL -->
         <template 
@@ -111,7 +106,9 @@
           v-if="this.$store.getters.editItemHasKey('desc') && this.$store.getters.editItemKey('desc', false) !== false"
         >
           <label>Action Description</label>
-          <input class="app-item-desc" name="item-desc" :value="itemDesc">
+          <div class="app-item-desc">
+            <div>{{itemDesc}}</div>
+          </div>
         </template>
         
       </div>
@@ -185,8 +182,8 @@ import TheMainMenu from '@/components/TheEditorMainMenu.vue'
 import TheAddMenu from '@/components/TheEditorAddMenu.vue'
 import TheDeleteMenu from '@/components/TheEditorDeleteMenu.vue'
 import TheSaveMenu from '@/components/TheEditorSaveMenu.vue'
-import BaseItemAction from '@/components/BaseItemAction.vue'
 import VueSlider from 'vue-slider-component'
+import TheEditorInputAction from '@/components/TheEditorInputAction.vue'
 
 export default {
   props: ['item', 'editor', 'reaper'],
@@ -199,8 +196,8 @@ export default {
     'app-add-menu': TheAddMenu,
     'app-delete-menu': TheDeleteMenu,
     'app-save-menu': TheSaveMenu,
-    'app-item-action': BaseItemAction,
-    'app-item-width-slider': VueSlider
+    'app-item-width-slider': VueSlider,
+    'app-editor-input-action': TheEditorInputAction,
   },
 
   mounted() {
@@ -235,16 +232,7 @@ export default {
     itemMaxWidth() {
       return parseInt(this.$store.getters.globalColumns)
     },
-
-    itemAction: {
-      get() {
-        return this.$store.getters.editItemKey('action', '')
-      },
-      set(value) {
-        this.$store.commit('updateItem', { key: 'action', val: value })
-      }
-    },
-
+    
     itemLabel: {
       get() {
         return this.$store.getters.editItemKey('label', '')

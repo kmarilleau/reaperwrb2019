@@ -1,0 +1,81 @@
+<template>
+  <div class="app-editor-input-action-container"
+    v-if="this.$store.getters.editItemHasKey('action')"
+  >
+    <div>
+      <label>Search</label>
+      <input type="text" id="search-action" name="search-action" @keyup.enter="onSearchAction($event)">
+      <div class="app-editor-input-action-search-result"
+        :class="{ hidden: this.search.length === 0 }"
+      >
+        <ul>
+          <li v-for="(action, index) in search" :key="index"
+            @click="onSelectAction(index)"
+          >
+            {{action[2]}}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <label>Action</label>
+      <input type="text" id="item-action" name="item-action" v-model="itemAction">
+    </div>
+  </div>
+</template>
+
+<script>
+import { ActionList } from '@/actions'
+
+export default {
+
+  data() {
+    return {
+      search: []
+    }
+  },
+
+  computed: {
+
+    actions() {
+      return ActionList
+    },
+
+    itemAction: {
+      get() {
+        return this.$store.getters.editItemKey('action', '')
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'action', val: value })
+      }
+    },
+
+    itemDesc: {
+      get() {
+        return this.$store.getters.editItemKey('desc', '')
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'desc', val: value })
+      }
+    },
+  },
+  
+  methods: {
+
+    onSearchAction(event) {
+      if(event.target.value !== '')
+        this.search = ActionList.filter(action => action[2].includes(event.target.value))
+    },
+
+    onSelectAction(index) {
+      this.itemAction = this.search[index][1].toString()
+      this.itemDesc = this.search[index][2]
+      this.search = []
+      this.$el.querySelector('#search-action').value = ''
+    }
+  }
+}
+</script>
+
+<style>
+</style>
