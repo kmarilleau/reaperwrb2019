@@ -291,6 +291,8 @@ const store = new Vuex.Store({
       }
     },
 
+    isEditTab: (state, getters) => (payload) => getters.editItemType('tab') && getters.activeTab === payload.index,
+
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemRow: (state, getters) => state.editor.data.item.row,
     editItemHasKey: (state, getters) => (key) => { 
@@ -481,6 +483,9 @@ const store = new Vuex.Store({
       for(let i = 0; i < el.length; i++) {
         el[i].classList.remove('app-highlight-edit')
       }
+      const row = document.querySelector('.app-active-row')
+      if(row)
+        row.classList.remove('app-active-row')
     },
 
     clearDropHighlight: (state) => {
@@ -685,7 +690,6 @@ const store = new Vuex.Store({
       state.editor.data.item.row = state.editor.active_row
       state.editor.data.item.obj = row[row.length - 1]
       state.editor.mode = editorModes.MAIN
-      console.log(state.editor.data.item)
     },
 
     cancelAddItem: (state) => {
@@ -838,13 +842,12 @@ const store = new Vuex.Store({
 
         case 'row':
 
-          console.log(state.editor.data.bin)
-
           let items = false
           if(keepItems)
             items = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.data.bin.index]
 
           state.webremote.tabs[state.webremote.active_tab].rows.splice(state.editor.data.bin.index, 1)
+          
           if(state.webremote.tabs[state.webremote.active_tab].rows.length === 0)
             state.webremote.tabs[state.webremote.active_tab].rows.push([])
           
@@ -934,13 +937,11 @@ const store = new Vuex.Store({
         const data = result.trim().split("\n")
                       .filter(line => !line.match('TRANSPORT'))[0]
                       .split("\t")
-        console.log(data)
 
         if(data[1] === 'REAPERWRB_TRANSFER') {
           if(data[2] === 'INFO') {
 
             let info = JSON.parse(data[3])
-            console.log(info)
             let c = -1
             let r = function() {
               c++

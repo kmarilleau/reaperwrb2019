@@ -22,6 +22,17 @@ export default {
     'tab',
     'index',
   ],
+
+  mounted() {
+  if(this.$store.getters.isModeEditor) {
+      if(this.$store.getters.isEditTab({ index: this.index })) {
+        // FIXME commit
+        this.$el.classList.add('app-highlight-edit')
+        this.$store.state.editor.data.item.el = this.$el
+      }
+    }
+  },
+
   methods: {
     onClick(event) {
       this.$store.dispatch('onSwitchTab', this.index)

@@ -59,6 +59,10 @@ export default {
     'app-preset-button': BasePresetButton
   },
 
+  mounted() {
+    document.title = 'ReaperWRB'
+  },
+
   methods: {
     onLaunchEditor() {
       this.$store.commit('fadeInLoader')

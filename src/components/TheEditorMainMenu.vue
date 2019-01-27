@@ -148,8 +148,6 @@ export default {
       const filesFailed = []
       const files = event.target.files
 
-      console.log(files);
-
       let tabs = []
 
       for (let i = 0; i < files.length; i++) {
@@ -244,8 +242,6 @@ export default {
     },
 
     fixJSON(tabs) {
-      console.log("FIX JSON")
-
       // import tabs
       let result = tabs.map(tab => {
         const newTab = cloneDeep(defaults.tab)
