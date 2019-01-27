@@ -40,8 +40,9 @@ export default {
 
     onSearch(event) {
       if(event.target.value !== '') {
+        let search = event.target.value.toLowerCase()
         this.search = this.icons.filter(icon => {
-          if(icon[1].includes(event.target.value)) 
+          if(icon[1].includes(search)) 
             return icon
         })
       } else {
