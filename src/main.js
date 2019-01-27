@@ -538,6 +538,8 @@ const store = new Vuex.Store({
       console.log('REAPERWRB: Saving to JSON.')
       const webremote = cloneDeep(state.webremote)
       webremote.active_tab = 0
+
+
       const d = new Date()
       webremote.timestamp = d.getTime()
       
@@ -556,9 +558,24 @@ const store = new Vuex.Store({
         console.log('REAPERWRB: Saving to local storage.')
         const webremote = cloneDeep(state.webremote)
         webremote.active_tab = 0
-        const d = new Date()
-        webremote.timestamp = d.getTime()
-        state.storage.local.webremotes.push(webremote)
+
+        if(typeof(webremote.timestamp) === 'undefined') {
+
+          const d = new Date()
+          webremote.timestamp = d.getTime()
+          state.storage.local.webremotes.push(webremote)
+
+        } else {
+
+          state.storage.local.webremotes.map((storageWebremote, index) => {
+            if(storageWebremote.timestamp === webremote.timestamp) {
+              state.storage.local.webremotes[index] = webremote
+              console.log(webremote.tabs)
+            }
+          })
+
+        }
+
         localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
       }
     },
