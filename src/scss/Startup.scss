@@ -10,7 +10,6 @@
     flex-direction: row;
     justify-content: flex-start;
   }
-  
 
   @media (orientation: landscape) {
     .logo,
@@ -41,13 +40,10 @@
   }
 
   .app-preset-container {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     background: $c-editor-alt;
     color: $bg-primary;
-    grid-template-rows: 2fr 1fr;
-    button {
-      margin: 0.25vw 0.25vw 0.25vw 0.25vw;
-    }
   }
 
   .app-preset-type {
@@ -65,17 +61,36 @@
     font-size: 1.25vw;
   }
 
-  .app-button-delete-preset {
-    font-size: 4vw;
+  .app-button-launch-preset {
+    width: 100%;
+    height: 100%;
+  }
+
+  .app-button-launch-preset:hover {
+    opacity: 0.9;
+  }
+
+  .app-preset-delete {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
   }
   
   .app-preset-buttons {
+    position: relative;
+    top: -3.5vw;
+    height: 0;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     button { 
       margin: 0.25vw;
-      font-size: 1.5vw;
+      height: 3vw;
     }
+  }
+
+  .app-preset-buttons:hover {
+    opacity: 0.9;
   }
 
   .logo {
