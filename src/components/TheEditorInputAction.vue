@@ -22,7 +22,7 @@
     </div>
     <div>
       <label>Action</label>
-      <input type="text" id="item-action" name="item-action" v-model="itemAction">
+      <input type="text" id="item-action" name="item-action" v-model="itemAction" @keyup.enter="onKeyupEnter($event)">
     </div>
   </div>
 </template>
@@ -88,6 +88,10 @@ export default {
       this.itemDesc = this.search[index][2]
       this.search = []
       this.$el.querySelector('#search-action').value = ''
+    },
+
+    onKeyupEnter(event) {
+      event.target.blur()
     },
   }
 }

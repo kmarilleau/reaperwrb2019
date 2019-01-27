@@ -1,7 +1,7 @@
 <template>
   <div class="app-icon-picker">
 
-    <input type="text" name="icon" @input="onSearch($event)">
+    <input type="text" name="icon" @input="onSearch($event)" @keyup.enter="onKeyupEnter($event)">
 
     <div class="app-icon-picker-items">
       <span class="app-icon-picker-item"
@@ -47,7 +47,11 @@ export default {
       } else {
         this.search = this.icons
       }
-    }
+    },
+
+    onKeyupEnter(event) {
+      event.target.blur()
+    },
   }
 }
 </script>

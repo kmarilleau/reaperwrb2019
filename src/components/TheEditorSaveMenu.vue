@@ -28,7 +28,7 @@
 
     <div class="app-editor-webremote-title">
       <label>Webremote Title</label>
-      <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus>
+      <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus @keyup.enter="onKeyupEnter($event)">
     </div>
 
   </div>
@@ -84,6 +84,10 @@ export default {
       } else {
         this.$store.commit('saveJSON') 
       }
+    },
+
+    onKeyupEnter(event) {
+      event.target.blur()
     },
   }
 }

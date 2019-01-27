@@ -71,7 +71,7 @@
           v-if="this.$store.getters.editItemHasKey('label')"
         >
           <label>Label</label>
-          <input type="text" name="item-label" v-model="itemLabel" maxlength="30" autofocus>
+          <input type="text" name="item-label" v-model="itemLabel" maxlength="30" autofocus @keyup.enter="onKeyupEnter($event)">
         </template>
 
         <!-- LABEL POS -->
@@ -317,7 +317,10 @@ export default {
     },
     onBulkDeleteItems(event) {
       this.$store.commit('showBulkDeleteDialog')
-    }, 
+    },
+    onKeyupEnter(event) {
+      event.target.blur()
+    }
   }
 };
 </script>
