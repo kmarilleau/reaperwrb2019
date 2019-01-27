@@ -7,7 +7,7 @@
         group: 'items',
         sort: this.$store.getters.isModeEditor,
         disabled: this.$store.getters.disableSort,
-        delay: 10,
+        delay: 5,
       }"
       class="app-row"
       :class="{ 'app-active-row': this.$store.getters.isActiveRow(row) && this.$store.getters.isEditorModeAdd }"
