@@ -4,7 +4,9 @@
   >
     <div>
       <label>Search</label>
-      <input type="text" id="search-action" name="search-action" @keyup.enter="onSearchAction($event)">
+      <input type="text" id="search-action" name="search-action" 
+        @keyup.enter="onSearchAction($event)"
+      >
       <div class="app-editor-input-action-search-result"
         :class="{ hidden: this.search.length === 0 }"
       >
@@ -63,8 +65,13 @@ export default {
   methods: {
 
     onSearchAction(event) {
-      if(event.target.value !== '')
-        this.search = ActionList.filter(action => action[2].includes(event.target.value))
+      if(event.target.value !== '') {
+        let regex = new RegExp('.+' + event.target.value +'.+', 'g')
+        this.search = ActionList.filter(action => {
+          if(regex.test(action[2].toLowerCase()))
+            return action
+        })
+      }
     },
 
     onSelectAction(index) {
