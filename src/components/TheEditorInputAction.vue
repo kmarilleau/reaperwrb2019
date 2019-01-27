@@ -73,6 +73,8 @@ export default {
           if(regex.test(action[2].toLowerCase()))
             return action
         })
+        if(this.search.length > 0)
+          event.target.blur()
       }
     },
 
