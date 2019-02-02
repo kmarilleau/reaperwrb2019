@@ -31,7 +31,7 @@
 
   <link href="/reaperwrb/css/loader.css" rel="stylesheet">
 </head>
-<body>
+<body onbeforeunload="return onBeforeUnload()">
   <div id="loader">
     <div style="margin: auto;text-align: center;">
       <div style="margin: auto;"><img style="width: 10vw; height: 10vw;" src="/reaperwrb/icons/icon-180x180.png" /></div>
@@ -41,5 +41,8 @@
   <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript" src="/reaperwrb/json.js"></script>
   <div id="app"></div>
+  <script>
+  function onBeforeUnload() { return "Unsaved changes will be lost!"; }
+  </script>
 </body>
 </html>

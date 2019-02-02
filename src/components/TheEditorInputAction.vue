@@ -78,7 +78,7 @@ export default {
 
     onSearchAction(event) {
       if(event.target.value !== '') {
-        let regexString = '.+' + event.target.value.toLowerCase().split(' ').join('.+') + '.+'
+        let regexString = '.*' + event.target.value.toLowerCase().split(' ').join('.+') + '.*'
         let regex = new RegExp(regexString, 'g')
         this.search = ActionList.filter(action => {
           if(regex.test(action[2].toLowerCase()))
