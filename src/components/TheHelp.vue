@@ -45,8 +45,27 @@
         </p>
         <h2>Saving And Installation</h2>
         <p>
-          When you save a webremote, make sure to save the resulting file into the <em>reaper_www_root</em> folder.
-          If you haven't already, configure a new web remote in REAPER's control surface setting and select the saved <em>.html</em> of your webremote as default page.
+          ReaperWRB provides 3 methods of saving webremots.
+        </p>
+        <h3><font-awesome-icon icon="globe" /> Local Storage</h3>
+        <p>
+          You can save the webremote in the local storage of your browser and they will be instantly available from the start screen.
+        </p>
+        <p>
+          Keep in mind however that the webremotes are lost if you clear the cache of your browser!
+        </p>
+        <h3><font-awesome-icon icon="code" /> HTML</h3>
+        <p>
+          When you save a webremote as HTML, make sure to save the resulting file into the <em>reaper_www_root</em> folder.
+          You can then access your webremote from http://rc.reaper.fm/[filename].html.
+        </p>
+        <h3><font-awesome-icon icon="hdd" /> JSON</h3>
+        <p>
+          Saving to JSON will prompt you to downloade a json.js file. This file has to be saved to <em>reaper_www_root/reaperwrb/</em> folder
+          overwriting any existing json.js file (same goes for deleting)! 
+        </p>
+        <p>
+          These webremotes will be accessible across all devices accessing the ReaperWRB startup page.
         </p>
         <h2>Add To Homescreen</h2>
         <p>

@@ -25,7 +25,7 @@
         <font-awesome-icon icon="file" />
       </button>
 
-      <button title="load example" class="pure-button app-editor-button" 
+      <button title="load example" class="pure-button pure-button-secondary app-editor-button" 
         @click="onLoadExample"
       >
         <font-awesome-icon icon="file-alt" />
@@ -42,7 +42,7 @@
       > 
     </template>
     
-    <button title="open toolbar(s)" class="pure-button app-editor-button" 
+    <button title="open toolbar(s)" class="pure-button app-editor-button app-editor-button-toolbar" 
       :class="{ 'app-editor-button-toolbar': this.$store.getters.hasNotTabs }"
       @click="onTriggerLoadToolbar"
     >

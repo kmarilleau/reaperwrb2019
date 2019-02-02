@@ -13,7 +13,7 @@
       @click.stop="onSaveLocalStorage()"
       @mouseenter="help = 'test'"
     >
-      <font-awesome-icon :icon="['fab', this.$store.getters.browser]" />
+      <font-awesome-icon icon="globe" />
     </button>
 
     <button title="save as html" class="pure-button pure-button-primary app-editor-button"

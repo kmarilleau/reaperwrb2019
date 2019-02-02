@@ -1,8 +1,9 @@
 .app-help {
   color: $c-editor-primary;
   line-height: 1.5vw;
+  font-size: 125%;
 
-  h1,h2,h3,h4,h5,h6 { font-weight: normal; font-size: 100%; }
+  h1,h2,h4,h5,h6 { font-weight: normal; font-size: 100%; }
   h1 { font-size: 3vw; margin: 0 0 4vw 0;  }
   h2 { font-size: 2vw; margin: 2vw 0 1vw 0; }
 
