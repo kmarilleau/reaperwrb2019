@@ -341,10 +341,6 @@ const store = new Vuex.Store({
         console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
 
-    onDeleteWebremotePreset: ({ commit, state }, payload) => {
-      commit('deleteWebremotePreset', payload)
-      commit('syncStorage', payload)
-    },
   },
 
   mutations: {
@@ -473,22 +469,33 @@ const store = new Vuex.Store({
       console.log('REAPERWRB: Saving to JSON.')
       const webremote = cloneDeep(state.webremote)
       webremote.active_tab = 0
+      const d = new Date()
 
       if(!state.storage.json)
         state.storage.json = cloneDeep(defaults.storage)
 
       if(typeof(webremote.timestamp) === 'undefined') {
-        const d = new Date()
         webremote.timestamp = d.getTime()
         state.storage.json.webremotes.push(webremote)
+        console.log('REAPERWRB: Adding new JSON entry.')
       } else {
+        
+        let saved = false
         state.storage.json.webremotes.map((storageWebremote, index) => {
           if(storageWebremote.timestamp === webremote.timestamp) {
+            console.log('REAPERWRB: Updating JSON entry.')
             state.storage.json.webremotes[index] = webremote
+            saved = true
           }
         })
+        
+        // if we still haven't saved we're probably moving a existing webremote to json
+        if(!saved) {
+          console.log('REAPERWRB: Adding new JSON entry.')
+          webremote.timestamp = d.getTime()
+          state.storage.json.webremotes.push(webremote)
+        }
       }
-      
       const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
       const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
       saveAs(blob, "json.js")
@@ -496,25 +503,34 @@ const store = new Vuex.Store({
     },
 
     saveLocalStorage: (state) => {
+      const d = new Date()
       if(state.storage.local_support) {
         console.log('REAPERWRB: Saving to local storage.')
         const webremote = cloneDeep(state.webremote)
         webremote.active_tab = 0
 
         if(typeof(webremote.timestamp) === 'undefined') {
-
-          const d = new Date()
+          console.log('REAPERWRB: Adding new local entry.')
           webremote.timestamp = d.getTime()
           state.storage.local.webremotes.push(webremote)
 
         } else {
 
+          let saved = false
           state.storage.local.webremotes.map((storageWebremote, index) => {
             if(storageWebremote.timestamp === webremote.timestamp) {
+              console.log('REAPERWRB: Updateing local entry.')
               state.storage.local.webremotes[index] = webremote
+              saved = true
             }
           })
 
+          // if we still haven't saved we're probably saving html/json webremote to local storage
+          if(!saved) {
+            console.log('REAPERWRB: Adding new local entry.')
+            webremote.timestamp = d.getTime()
+            state.storage.local.webremotes.push(webremote)
+          }
         }
 
         localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
@@ -522,6 +538,7 @@ const store = new Vuex.Store({
     },
 
     syncStorage: (state, payload) => {
+      console.log('REAPERWRB: Syncing storage.')
       if(payload.type === 'local') {
         if(state.storage.local_support)
           localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
@@ -544,6 +561,7 @@ const store = new Vuex.Store({
       state.storage[payload.type].webremotes.forEach((webremote, index) => {
         if(payload.title === webremote.title
         && payload.timestamp === webremote.timestamp) {
+          console.log(`REAPERWRB: Deleting preset from ${payload.type} storage.`)
           state.storage[payload.type].webremotes.splice(index, 1)
         }
       })

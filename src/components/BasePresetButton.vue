@@ -74,7 +74,9 @@ export default {
     },
 
     onDelete(title, timestamp, type) {
-      this.$store.dispatch('onDeleteWebremotePreset', { title, timestamp, type })
+      const payload = { title, timestamp, type }
+      this.$store.commit('deleteWebremotePreset', payload)
+      this.$store.commit('syncStorage', payload)
       this.delete = false
     },
 
