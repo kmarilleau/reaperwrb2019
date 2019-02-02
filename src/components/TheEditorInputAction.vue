@@ -22,7 +22,9 @@
     </div>
     <div>
       <label>Action</label>
-      <input type="text" id="item-action" name="item-action" v-model="itemAction" @keyup.enter="onKeyupEnter($event)">
+      <input type="text" id="item-action" name="item-action" v-model="itemAction" 
+        @keyup.enter="onKeyupEnter($event)"
+      >
     </div>
   </div>
 </template>
@@ -61,6 +63,15 @@ export default {
         this.$store.commit('updateItem', { key: 'desc', val: value })
       }
     },
+
+    itemLabel: {
+      get() {
+        return this.$store.getters.editItemKey('label', '')
+      },
+      set(value) {
+        return this.$store.commit('updateItem', { key: 'label', val: value })
+      }
+    },
   },
   
   methods: {
@@ -86,6 +97,8 @@ export default {
     onSelectAction(index) {
       this.itemAction = this.search[index][1].toString()
       this.itemDesc = this.search[index][2]
+      this.itemLabel = this.itemDesc
+      // this.itemLabel = this.itemDesc.substr(0, 32) + '[...]'
       this.search = []
       this.$el.querySelector('#search-action').value = ''
     },
@@ -93,6 +106,7 @@ export default {
     onKeyupEnter(event) {
       event.target.blur()
     },
+
   }
 }
 </script>
