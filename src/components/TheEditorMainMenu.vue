@@ -48,7 +48,7 @@
     >
       <font-awesome-icon icon="folder-open" />
     </button>
-    <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt"
+    <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt, .reaperMenu, .ReaperMenu"
       @change="onLoadFile($event, 'txt')" 
     multiple>
   
