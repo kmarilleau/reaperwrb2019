@@ -2,9 +2,9 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeAdd"
   >
-    <button class="pure-button pure-button-secondary app-editor-button"
+    <button class="pure-button pure-button-secondary app-editor-button" style="grid-column: span 2;"
       @click.stop="onCancel">
-      <font-awesome-icon icon="ban" />
+      <font-awesome-icon icon="ban" /> Cancel
     </button>
 
     <div style="grid-column-start: span 5;"></div>

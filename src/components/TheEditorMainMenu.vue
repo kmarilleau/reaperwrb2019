@@ -2,16 +2,6 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeMain"
   >
-    <template v-if="!this.$store.getters.reaperReady">
-      <div class="app-reaper-status">
-        <font-awesome-icon class="app-reaper-status-offline" icon="exclamation-circle" />
-      </div>
-    </template>
-    <template v-if="this.$store.getters.reaperReady">
-      <div class="app-reaper-status">
-        <font-awesome-icon class="app-reaper-status-online" icon="thumbs-up" />
-      </div>
-    </template>
       
     <button title="home" class="pure-button app-editor-button pure-button-primary" 
       @click="onHome()">

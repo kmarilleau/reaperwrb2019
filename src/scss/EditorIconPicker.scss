@@ -1,3 +1,30 @@
+.app-item-icon-preview-container {
+  border-radius: $g-border-radius;
+  background: $c-editor-primary;
+}
+
+.app-item-icon-preview {
+  margin: 0.5vw;
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  .app-item-icon-preview-menu {
+    display: flex;
+  }
+  
+  .app-item-icon {
+    height: 4vw;
+    width: 4vw;
+    border-radius: $g-border-radius;
+    display: flex;
+    margin-right: 0.5vw;
+    * {
+      margin: auto;
+      font-size: 2vw;
+    }
+  }
+}
+
 .app-icon-picker {
   padding: 0 0 .5vw 0;
   input { margin: .5vw 0 !important; }
@@ -7,13 +34,14 @@
     grid-template-columns: repeat(5, 1fr);
     height: 9vw;
     overflow-y: scroll;
-    background: $bg-primary;
-    
+    background: white;
+    border-radius: $g-border-radius;
     
     .app-icon-picker-item {
       display: flex;
       font-size: 200%;
       justify-content: center;
+      color: $c-editor-alt;
       cursor: pointer;
       border-radius: $g-border-radius;
       height: 2.75vw;
@@ -21,7 +49,7 @@
     }
 
     .app-icon-picker-item:hover {
-      background: $c-editor-primary;
+      background: $c-editor-alt;
       color: $bg-primary;
     }
   }

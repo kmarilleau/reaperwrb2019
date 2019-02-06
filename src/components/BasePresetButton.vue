@@ -33,12 +33,12 @@
         <button class="pure-button-warning app-button-delete-preset app-editor-button"
           @click.stop="onDelete(title, timestamp, type)"
         >
-          <font-awesome-icon icon="trash" />
+          <font-awesome-icon icon="trash" /> Confirm
         </button>
         <button title="cancel" class="pure-button-secondary app-editor-button"
           @click.stop="onCancelDelete()"
         >
-          <font-awesome-icon icon="ban" />
+          <font-awesome-icon icon="ban" /> Cancel
         </button>
       </div>
     </template>

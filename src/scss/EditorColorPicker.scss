@@ -1,13 +1,12 @@
 .vc-slider {
   width: inherit !important;
-  background: $bg-editor-alt;
-  border-radius: $g-border-radius;
   padding: .35vw;
   margin: 1.5vh 0;
 }
 .vc-compact {
   padding: 1vw;
-  background: $bg-editor-alt !important;
+  background: none !important;
+  box-shadow: none !important;
   width: inherit !important;
   padding: .15vw !important;
 }
@@ -37,8 +36,9 @@
 }
 .vc-grayscale {
   width: inherit !important;
-  background: none;
+  box-shadow: none !important;
+  background: none !important;
   margin: 0;
   padding: .25vw;
-  background: $bg-editor-alt !important;
+  background: $c-editor-primary !important;
 }

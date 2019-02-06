@@ -6,9 +6,8 @@
 }
 
 .app-view-scroll {
-  height: 99vh;
+  height: 100vh;
   overflow-y: scroll;
-  margin: 0.25vw;
 }
 
 .font-bold {
@@ -136,11 +135,8 @@
 
 .app-tab-navigation-item {
   opacity: $g-opacity-inactive;
-  grid-column: span 2;
-  font-size: 1.875vw;
   
   .app-item-label {
-    font-weight: normal;
     margin: auto 1vw;
   }
 }

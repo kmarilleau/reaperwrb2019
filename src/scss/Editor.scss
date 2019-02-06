@@ -47,11 +47,12 @@
 }
 
 .app-editor {
-  height: 95vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 0.5fr 3fr 4fr;
-  color: $c-editor-primary;
+  background: $c-editor-primary;
+
 
   .app-editor-menu {
     padding: 0.5vw 0 0 0;
@@ -61,20 +62,8 @@
     column-gap: 0.3vw;
     row-gap: 0.15vw;
 
-    .app-reaper-status {
-      position: absolute;
-      margin: .3vw;
-      background: $bg-primary;
-      padding: 0.2vw;
+    button {
       border-radius: $g-border-radius;
-    }
-    .app-reaper-status-offline {
-      color: tomato;
-      animation: blinker 1s linear infinite;
-    }
-    .app-reaper-status-online {
-      color: #58D68D;
-      animation: blinker 1s linear infinite;
     }
 
     .app-editor-delete-item-button {
@@ -141,7 +130,6 @@
   }
 
   label {
-    color: $c-editor-primary;
     display: block;
     margin: 1vh 0;
   }
@@ -178,7 +166,7 @@
   }
 
   .app-item-desc {
-    background-color: $c-editor-alt;
+    background-color: white;
     color: $bg-primary;
     border-radius: $g-border-radius;
     div {
@@ -187,33 +175,7 @@
       line-height: 1.25vw;
     }
   }
-  
-  .app-item-icon-preview-container {
-    border-radius: $g-border-radius;
-    background: $bg-editor-alt;
-  }
 
-  .app-item-icon-preview {
-    margin: 0.5vw;
-    display: grid;
-    grid-template-columns: 1fr;
-
-    .app-item-icon-preview-menu {
-      display: flex;
-    }
-    
-    .app-item-icon {
-      height: 4vw;
-      width: 4vw;
-      border-radius: $g-border-radius;
-      display: flex;
-      margin-right: 0.5vw;
-      * {
-        margin: auto;
-        font-size: 2vw;
-      }
-    }
-  }
 }
 
 input[type=checkbox] {
@@ -335,12 +297,20 @@ input[type=checkbox] {
 ::-webkit-scrollbar {
   width: 1.25vh;
 }
-  
+
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 0.5vh rgb(68, 68, 68); 
   border-radius: $g-border-radius;
+  background: $bg-primary;
 }
+
+.app-icon-picker ::-webkit-scrollbar-track,
+.app-icon-picker ::-webkit-scrollbar-thumb {
+  background:$c-editor-primary;
+}
+
+
 
 /* UTILITIES */
 
