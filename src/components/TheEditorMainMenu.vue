@@ -74,7 +74,7 @@
     </template>
 
     <button class="pure-button"
-      :class="{ 'pure-button-secondary': this.$store.state.editor.showHelp }"
+      :class="{ 'pure-button-secondary': this.$store.state.editor.help }"
       @click="onHelp"
     >
       <font-awesome-icon icon="question" /> Help

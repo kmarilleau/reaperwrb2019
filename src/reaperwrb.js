@@ -34,7 +34,7 @@ export const defaults = {
     bulk_edit: false,
     active_row: 0,
     reload_timeout: 2000,
-    showHelp: false,
+    help: false,
     data: {
       item: {
         type: false,
