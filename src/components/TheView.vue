@@ -10,7 +10,7 @@
     </template>
 
     <app-help 
-      v-if="this.$store.getters.tabs.length === 0"
+      :class="{ 'hidden': !this.$store.getters.showHelp }"
     />
 
   </div>

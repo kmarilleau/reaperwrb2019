@@ -67,6 +67,7 @@ export default {
     onLaunchEditor() {
       this.$store.commit('fadeInLoader')
       this.$store.commit('setModeEditor')
+      this.$store.commit('showHelp')
     },
 
     onLoadDefault() {

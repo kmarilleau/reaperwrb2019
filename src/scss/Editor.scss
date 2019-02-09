@@ -5,17 +5,13 @@
   grid-template-columns: $g-editor-view-width auto;
 }
 
-.app-editor-button {
-  font-size: 2vw;
-}
-
 .pure-button-secondary {
   background: $c-editor-button-secondary;
-  color: $c-editor-primary;
+  color: $bg-editor;
 }
 
 .pure-button-warning {
-  color: $c-editor-primary;
+  color: $bg-editor;
   background: $c-editor-button-warning;
 }
 
@@ -62,6 +58,10 @@
     column-gap: 0.3vw;
     row-gap: 0.15vw;
 
+    input { 
+      height: 90%;
+    }
+
     button {
       border-radius: $g-border-radius;
     }
@@ -80,18 +80,6 @@
     text-align: left;
   }
 
-  .app-editor-button-new { background: $c-help-button-new; }
-  .app-editor-button-example { background: $c-help-button-example; }
-  .app-editor-button-html { background: $c-help-button-html; }
-  .app-editor-button-toolbar { background: $c-help-button-toolbar; }
-
-  .app-editor-button-new:hover,
-  .app-editor-button-example:hover,
-  .app-editor-button-html:hover,
-  .app-editor-button-toolbar:hover {
-    opacity: 0.9;
-  }
-
   .app-editor-input-action-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -107,7 +95,7 @@
     
     ul {
       height: 35vw;
-      background: $bg-editor-alt;
+      background: $bg-editor;
       list-style: none;
       padding: 0;
       margin: 0;
@@ -121,10 +109,11 @@
         margin: 0.25vw 0;
         cursor: pointer;
         color: $bg-primary;
-        background: $c-editor-primary;
+        border: 1px solid $c-editor-border;
+        opacity: 0.7;
       }
       li:hover {
-        opacity: 0.95;
+        opacity: 1;
       }
     }
   }
@@ -248,7 +237,7 @@ input[type=checkbox] {
 .app-item-add:hover,
 .app-tab-add:hover,
 .app-row-edit-button:hover {
-  color: $c-editor-primary;
+  color: $bg-editor;
 }
 
 /* item edit buttons */
@@ -288,11 +277,6 @@ input[type=checkbox] {
   visibility: visible;
 }
 
-.app-editor-webremote-title {
-  grid-row-start: 2;
-  grid-column-start: span 4;
-}
-
 /* layout */
 ::-webkit-scrollbar {
   width: 1.25vh;
@@ -302,15 +286,8 @@ input[type=checkbox] {
 ::-webkit-scrollbar-thumb {
   -webkit-box-shadow: inset 0 0 0.5vh rgb(68, 68, 68); 
   border-radius: $g-border-radius;
-  background: $bg-primary;
+  background: $bg-editor;
 }
-
-.app-icon-picker ::-webkit-scrollbar-track,
-.app-icon-picker ::-webkit-scrollbar-thumb {
-  background:$c-editor-primary;
-}
-
-
 
 /* UTILITIES */
 

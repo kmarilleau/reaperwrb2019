@@ -3,31 +3,31 @@
     v-if="this.$store.getters.isEditorModeSave"
   >
 
-    <button class="pure-button pure-button-secondary app-editor-button"
+    <button class="pure-button pure-button-secondary"
       @click.stop="onCancel">
       <font-awesome-icon icon="ban" />
     </button>
 
-    <button title="save in local browser storage" class="pure-button pure-button-primary app-editor-button"
+    <button title="save in local browser storage" class="pure-button pure-button-primary"
       v-if="this.$store.getters.hasLocalStorage"
       @click.stop="onSaveLocalStorage()"
       @mouseenter="help = 'test'"
     >
-      <font-awesome-icon icon="globe" />
+      <font-awesome-icon icon="globe" /> Browser
     </button>
 
-    <button title="save as html" class="pure-button pure-button-primary app-editor-button"
+    <button title="save as html" class="pure-button pure-button-primary"
       @click.stop="onSaveHTML()">
-      <font-awesome-icon icon="code" />
+      <font-awesome-icon icon="code" /> HTML
     </button>  
 
-    <button title="save as json" class="pure-button pure-button-primary app-editor-button"
+    <button title="save as json" class="pure-button pure-button-primary"
       @click.stop="onSaveJSON()">
-      <font-awesome-icon icon="hdd" />
+      <font-awesome-icon icon="hdd" /> JSON
     </button>
 
+
     <div class="app-editor-webremote-title">
-      <label>Webremote Title</label>
       <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus @keyup.enter="onKeyupEnter($event)">
     </div>
 

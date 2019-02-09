@@ -1,32 +1,18 @@
+.app-help-container {
+  position: absolute;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  overflow-y: scroll;
+  background: $bg-editor;
+  opacity: 0.97;
+  width: $g-editor-view-width;
+}
+
 .app-help {
-  color: $c-editor-primary;
-  line-height: 1.5vw;
+  background: $bg-editor;
+  margin: 5vh 5vw;
   font-size: 125%;
-
-  h1,h2,h4,h5,h6 { font-weight: normal; font-size: 100%; }
-  h1 { font-size: 3vw; margin: 0 0 4vw 0;  }
-  h2 { font-size: 2vw; margin: 2vw 0 1vw 0; }
-
-  a { color: $c-editor-primary; }
-
-  header {
-    display: grid;
-    grid-template-columns: 8fr 1fr;
-    * { margin: auto 0;}
-  }
-  .app-help-tip { 
-    padding: .3vw .5vw; 
-    border-radius: $g-border-radius;
-    color: $bg-editor-alt;
-    margin: 0 0 1vw 0;
-    font-weight: bold;
-  }
-
-  .app-help-icon {
-    background: $bg-editor-alt;
-    padding: 0.3vw;
-    margin: 0 0 -0.3vw 0;
-  }
 
   .app-help-footer {
     margin: 3vw 0;
@@ -34,13 +20,5 @@
       margin: 1vw 0;
       font-size: 3vw;
     }
-  }
-  
-  .app-help-button-new { background: $c-help-button-new; }
-  .app-help-button-example { background: $c-help-button-example; }
-  .app-help-button-html { background: $c-help-button-html; }
-  .app-help-button-toolbar { background: $c-help-button-toolbar; }
-  .app-help-container {
-    margin: 2vw 1vw;
   }
 }

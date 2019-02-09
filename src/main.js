@@ -160,6 +160,9 @@ const store = new Vuex.Store({
     isEditorBulkEdit: (state, getters) => state.editor.bulk_edit,
     isEditorExecActions: (state, getters) => state.editor.execAction,
 
+
+    showHelp: (state, getters) => state.editor.showHelp,
+
     showEditorBulkEditButtons: (state, getters) => {
       return state.editor.bulk_edit 
         && state.editor.mode !== editorModes.DELETE
@@ -400,6 +403,8 @@ const store = new Vuex.Store({
     setEditorModeDelete: (state) => state.editor.mode = editorModes.DELETE,
     setEditorModeSave: (state) => state.editor.mode = editorModes.SAVE,
 
+    toggleHelp: (state) => state.editor.showHelp = state.editor.showHelp ? false : true,
+
     clearEditHighlight: (state) => {
       if(state.mode === modes.EDITOR) {
         //FIXME use el in edit_item reference
@@ -442,6 +447,7 @@ const store = new Vuex.Store({
       state.webremote = newWebremote
       state.editor.data.item.index = 0
       state.editor.data.item.obj = state.webremote.tabs[0]
+      state.editor.showHelp = false
     },
 
     unload: (state) => {
@@ -589,6 +595,7 @@ const store = new Vuex.Store({
     // FIXME unsafe
     import: (state, payload) => {
       console.log("REAPERWRB: Importing data.")
+      state.editor.showHelp = false
       if(typeof(payload.tabs) !== 'undefined') {
         state.webremote = cloneDeep(payload)
         state.startup = false
@@ -634,6 +641,7 @@ const store = new Vuex.Store({
       state.webremote.active_tab = 0
       state.editor.data = cloneDeep(defaults.editor.data)
       state.editor.bulk_edit = false
+      state.editor.showHelp = true
     },
 
     addItem: (state, type) => {

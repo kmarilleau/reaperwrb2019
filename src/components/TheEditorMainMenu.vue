@@ -3,28 +3,28 @@
     v-if="this.$store.getters.isEditorModeMain"
   >
       
-    <button title="home" class="pure-button app-editor-button pure-button-primary" 
+    <button title="home" class="pure-button pure-button-primary" 
       @click="onHome()">
-      <font-awesome-icon icon="home" />
+      <font-awesome-icon icon="home" /> Home
     </button>
 
     <template v-if="this.$store.getters.hasNoTabs">
-      <button title="new" class="pure-button app-editor-button app-editor-button-new" 
+      <button title="new" class="pure-button" 
         @click="onNew"
       >
-        <font-awesome-icon icon="file" />
+        <font-awesome-icon icon="file" /> Blank
       </button>
 
-      <button title="load example" class="pure-button pure-button-secondary app-editor-button" 
+      <button title="load example" class="pure-button" 
         @click="onLoadExample"
       >
-        <font-awesome-icon icon="file-alt" />
+        <font-awesome-icon icon="file-alt" /> Template
       </button>
 
-      <button title="load html" class="pure-button app-editor-button app-editor-button-html"
+      <button title="load html" class="pure-button "
         @click="onTriggerLoadHTML"
       >
-        <font-awesome-icon icon="code" />
+        <font-awesome-icon icon="code" /> HTML
       </button>
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
@@ -32,11 +32,11 @@
       > 
     </template>
     
-    <button title="open toolbar(s)" class="pure-button app-editor-button app-editor-button-toolbar" 
+    <button title="open toolbar(s)" class="pure-button" 
       :class="{ 'app-editor-button-toolbar': this.$store.getters.hasNotTabs }"
       @click="onTriggerLoadToolbar"
     >
-      <font-awesome-icon icon="folder-open" />
+      <font-awesome-icon icon="folder-open" /> Toolbar
     </button>
     <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt, .reaperMenu, .ReaperMenu"
       @change="onLoadFile($event, 'txt')" 
@@ -44,7 +44,7 @@
   
     <template v-if="this.$store.getters.hasTabs">
 
-      <button title="send commands to Reaper" class="pure-button app-editor-button"
+      <button title="send commands to Reaper" class="pure-button "
         v-if="this.$store.getters.reaperReady"
         @click="onToggleExecActions($event)"
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
@@ -52,26 +52,33 @@
         <font-awesome-icon icon="plug" />
       </button>
 
-      <button title="toggle bulk edit" class="pure-button app-editor-button" 
+      <button title="toggle bulk edit" class="pure-button" 
         @click="onToggleBulkEdit($event)"
         :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
       >
-        <font-awesome-icon icon="clone" />
+        <font-awesome-icon icon="clone" /> Bulk Edit
       </button>
 
-      <button title="clear editor" class="pure-button app-editor-button" 
+      <button title="clear editor" class="pure-button" 
         @click="onClearEditor"
       >
-        <font-awesome-icon icon="sync-alt" />
+        <font-awesome-icon icon="sync-alt" /> Clear
       </button>
 
-      <button class="pure-button pure-button-primary app-editor-button" 
+      <button class="pure-button pure-button-primary"
         @click="onSave"
       >
-        <font-awesome-icon icon="save" />
+        <font-awesome-icon icon="save" /> Save
       </button>
 
     </template>
+
+    <button class="pure-button"
+      :class="{ 'pure-button-secondary': this.$store.state.editor.showHelp }"
+      @click="onHelp"
+    >
+      <font-awesome-icon icon="question" /> Help
+    </button>
 
     <span></span>
   </div>
@@ -98,6 +105,10 @@ export default {
 
     onClearEditor(event) {
       this.$store.commit('clear')
+    },
+
+    onHelp(event) {
+      this.$store.commit('toggleHelp')
     },
 
     onLoadExample(event) {

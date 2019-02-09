@@ -1,6 +1,7 @@
 <template>
-  <div class="app-help">
-    <div class="app-help-container">
+  <div class="app-help-container">
+    <div class="app-help">
+
       <header>
         <h1>ReaperWRB {{version}}</h1>
       </header>
@@ -11,10 +12,10 @@
         </p>
         <p>
           The buttons on the right allow you to:
-          <div class="app-help-tip app-help-button-new">Create a new web remote page from scratch and add all the actions / modules you need using the 1st button.</div>
-          <div class="app-help-tip app-help-button-example">Load a example web remote we've prepared which already contains some useful actions that you can build upon.</div>
-          <div class="app-help-tip app-help-button-html">Load a HTML file to import and update an already existing web remote that you have created using ReaperWRB.</div>
-          <div class="app-help-tip app-help-button-toolbar">Import actions from REAPER toolbar configuration files that you have exported from Reaper</div>
+          Create a new web remote page from scratch and add all the actions / modules you need using the 1st button.
+          Load a example web remote we've prepared which already contains some useful actions that you can build upon.
+          Load a HTML file to import and update an already existing web remote that you have created using ReaperWRB.
+          Import actions from REAPER toolbar configuration files that you have exported from Reaper
           </ul>
         </p>
         <p>
