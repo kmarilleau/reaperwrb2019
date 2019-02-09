@@ -28,10 +28,10 @@
           <div class="app-editor-menu"
             v-if="this.$store.getters.hasEditItem"
           >
-            <button title="delete item" class="pure-button pure-button-warning app-editor-button app-editor-delete-item-button"
+            <button title="delete item" class="pure-button pure-button-warning"
               @click.stop="onDeleteItem()"
             >
-              <font-awesome-icon icon="trash" />
+              <font-awesome-icon icon="trash" /> Delete Selected
             </button>
           </div>
 
@@ -119,13 +119,13 @@
         <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
           @click="onBulkClearIcons()" 
         >
-          <font-awesome-icon icon="eraser" />
+          <font-awesome-icon icon="eraser" /> Clear Icon
         </button>
 
         <button title="delete" class="pure-button pure-button-warning app-editor-button"
           @click="onBulkDeleteItems()" 
         >
-          <font-awesome-icon icon="trash" />
+          <font-awesome-icon icon="trash" /> Delete
         </button>
       </div>
 

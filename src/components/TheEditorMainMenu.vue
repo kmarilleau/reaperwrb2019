@@ -49,7 +49,7 @@
         @click="onToggleExecActions($event)"
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
       >
-        <font-awesome-icon icon="plug" />
+        <font-awesome-icon icon="plug" /> Connect
       </button>
 
       <button title="toggle bulk edit" class="pure-button" 

@@ -2,7 +2,7 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeDelete"
   >
-    <button title="cancel" class="pure-button pure-button-secondary app-editor-button" style="grid-column: span 2;"
+    <button title="cancel" class="pure-button pure-button-secondary"
       @click.stop="onCancel"
     >
       <font-awesome-icon icon="ban" /> Cancel
@@ -11,14 +11,14 @@
     <template 
       v-if="!this.$store.getters.isEditorBulkEdit"
     >
-      <button title="keep items" class="pure-button app-editor-button" style="grid-column: span 2;"
+      <button title="keep items" class="pure-button"
         v-if="this.$store.getters.deleteCanKeepItems"
         @click.stop="onDelete(true)">
         <font-awesome-icon icon="recycle" /> Keep
       </button>
     </template>
     
-    <button title="delete" class="pure-button pure-button-warning app-editor-button" style="grid-column: span 2;"
+    <button title="delete" class="pure-button pure-button-warning"
       @click.stop="onDelete(false)"
     >
       <font-awesome-icon icon="trash" /> Confirm

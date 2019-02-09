@@ -2,23 +2,23 @@
   <div :style="{ color: item.textcolor }">
     <div class="app-item-transport-container">
 
-      <a @click.stop="onStop()" class="app-item-transport-icon">
+      <a @click="onStop()" class="app-item-transport-icon">
         <font-awesome-icon icon="stop" size="4x" />
       </a>
 
-      <a @click.stop="onPlay()" class="app-item-transport-icon"
+      <a @click="onPlay()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 1 }"
       >
         <font-awesome-icon icon="play" size="4x" />    
       </a>
 
-      <a @click.stop="onPause()" class="app-item-transport-icon"
+      <a @click="onPause()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 2 }"
       >
         <font-awesome-icon icon="pause" size="4x" />
       </a>
 
-      <a @click.stop="onRecord()" class="app-item-transport-icon"
+      <a @click="onRecord()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 5 }"
         :style="{ color: parseInt(transport.playstate) === 5 ? '#F44E3B' : item.textcolor }"
       >
@@ -26,7 +26,7 @@
       </a>
 
       <a 
-        @click.stop="onToggleRepeat()" 
+        @click="onToggleRepeat()" 
         class="app-item-transport-icon"
         :style="{ color: parseInt(transport.repeat) > 0 ? '#4ef442' : item.textcolor }"
       >
