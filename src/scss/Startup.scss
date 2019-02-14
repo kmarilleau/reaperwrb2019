@@ -74,6 +74,9 @@
     display: grid;
     grid-template-rows: 1fr 1fr;
     width: 100%;
+    button {
+      font-size: 150%;
+    }
   }
   
   .app-preset-buttons {

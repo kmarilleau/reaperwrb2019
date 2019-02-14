@@ -5,20 +5,32 @@
   height: 100vh;
   overflow-y: scroll;
   background: $bg-editor;
-  opacity: 0.97;
   width: $g-editor-view-width;
 }
 
 .app-help {
   background: $bg-editor;
-  margin: 5vh 5vw;
-  font-size: 125%;
+  margin: 5vh 10vw;
+  line-height: 150%;
+
+  h1, h2, p {
+    text-shadow: 3px 3px 6px #ccc;
+  }
+
+  p.table {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1vw;
+  }
 
   .app-help-footer {
     margin: 3vw 0;
     .app-help-social {
       margin: 1vw 0;
-      font-size: 3vw;
     }
+  }
+
+  a {
+    color: $bg-primary;
   }
 }

@@ -3,7 +3,7 @@
     <div class="app-help">
 
       <header>
-        <h1>ReaperWRB {{version}}</h1>
+        <h1>ReaperWRB {{this.$store.getters.version }}</h1>
       </header>
       <section>
         <h2>Getting Started</h2>
@@ -11,30 +11,35 @@
           Creating your own Reaper Web Remote Pages with ReaperWRB is really easy!
         </p>
         <p>
-          The buttons on the right allow you to:
-          Create a new web remote page from scratch and add all the actions / modules you need using the 1st button.
-          Load a example web remote we've prepared which already contains some useful actions that you can build upon.
-          Load a HTML file to import and update an already existing web remote that you have created using ReaperWRB.
-          Import actions from REAPER toolbar configuration files that you have exported from Reaper
-          </ul>
+          The buttons of the main menu allow you to:
+        </p>
+        <p class="table">
+          <font-awesome-icon icon="file" />
+          <span>Create a blank web remote page from scratch and add all the actions / modules you need</span>
+          <font-awesome-icon icon="file-alt" />
+          <span>Load a example web remote we've prepared which already contains some useful actions that you can build upon</span>
+          <font-awesome-icon icon="code" />
+          <span>Load a HTML file to import and update an already existing web remote that you have created using ReaperWRB</span>
+          <font-awesome-icon icon="folder-open" />
+          <span>Import actions from REAPER toolbar configuration files that you have exported from Reaper</span>
         </p>
         <p>
           In the editor you can add new tabs, rows or items to the web remote page using the various <font-awesome-icon class="app-help-icon" icon="plus" /> buttons.
           Items can be actions that are executed in reaper, spacers for layouting and various modules, like transport, position, marker and regions.
         </p>
         <p>
-          Tabs, as well as items can be configured in various ways. To edit a tab or item simply mouse over it and click the pen icon <font-awesome-icon class="app-help-icon" icon="pen" />.
+          Tabs, as well as items can be configured in various ways. To edit a tab or item simply click on it.
         </p>
         <p>
           Items, and tabs can be sorted and re-ordered by dragging and dropping them to their desired locations.
-          Items can also be dropped onto a different tab which will then blink to indicate that the item will be moved to this tab. 
+          Items can also be dropped onto a different tab via drag and drop. A tab that is about to receive an item will start blinking.
         </p>
         <p>
-          To delete a tab, row or item simple click the trash icon <font-awesome-icon class="app-help-icon" icon="trash" />.
+          To delete a tab, row or item simple click the <font-awesome-icon class="app-help-icon" icon="trash" /> button.
           While deleting tabs or rows you can choose to keep items. This will delete the tab/row but move all items to the next available tab/row. 
         </p>
         <p>
-          The editor also features a "Bulk Edit" edit mode which allows you to edit and delete multiple items at once.
+          The editor also features a "Bulk Edit" edit mode (<font-awesome-icon icon="clone" />) which allows you to edit and delete multiple items at once.
         </p>
         <h2>Adjusting the Global Layout</h2>
         <p>
@@ -42,7 +47,7 @@
           values in that global range. 
         </p>
         <p>
-          Less columns work better for small devices like mobile phones, and more columns for devices with bigger screens like tablets or desktop computers.
+          Less columns work better for small devices like mobile phones, and more columns are better for devices with bigger screens like tablets or desktop computers.
         </p>
         <h2>Saving And Installation</h2>
         <p>

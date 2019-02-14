@@ -249,6 +249,14 @@
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr;
 }
+
+.app-item-markers-icon {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  * { margin: auto; }
+}
+
 .app-item-markers-info,
 .app-item-markers-icon,
 .app-item-regions-info,

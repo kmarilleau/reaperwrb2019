@@ -3,6 +3,9 @@
 
 .app-container-editor {
   grid-template-columns: $g-editor-view-width auto;
+  button {
+    font-weight: bold;
+  }
 }
 
 .pure-button-secondary {
@@ -64,10 +67,12 @@
 
     button {
       border-radius: $g-border-radius;
+      height: 3vw;
     }
 
-    .app-editor-delete-item-button {
+    .app-editor-button-delete-item {
       grid-column-end: span 6;
+      text-transform: capitalize;
     }
   }
 
@@ -119,8 +124,13 @@
   }
 
   label {
+    text-shadow: 3px 3px 6px #ccc;
     display: block;
     margin: 1vh 0;
+    font-weight: bold;
+    background: $bg-editor-alt !important;
+    padding: .25vw;
+    border-radius: $g-border-radius;
   }
 
   .app-editor-panel {
@@ -201,7 +211,7 @@ input[type=checkbox] {
   background: $bg-primary !important;
   
   .app-row-edit-button {
-    background: $bg-editor-alt;
+    background: $bg-primary;
     text-align: center;
     padding: 1vh;
 
@@ -222,7 +232,7 @@ input[type=checkbox] {
 .app-item-add,
 .app-tab-add,
 .app-row-edit-buttons {
-  background: $bg-editor-alt;
+  background: $bg-primary;
   color: $c-editor-alt;
   cursor: pointer;
   opacity: 0.5;
@@ -232,6 +242,10 @@ input[type=checkbox] {
 .app-tab-add:hover,
 .app-row-edit-buttons:hover {
   opacity: 1;
+}
+
+.app-tab-add:hover {
+  background: $c-editor-button-okay;
 }
 
 .app-item-add:hover,
@@ -314,7 +328,7 @@ input[type=checkbox] {
 
 .app-active-row {
   animation: blinker 1s linear infinite;
-  background: $bg-editor-alt !important;
+  background: $bg-primary !important;
   opacity: 1  !important;
 }
 
@@ -333,4 +347,21 @@ input[type=checkbox] {
 .app-highlight-delete[class*="app-row"] * {
   animation: blinker 1s linear infinite;
   background: $bg-editor-hl-delete !important;
+}
+
+.app-editor-webremote-title {
+  width: 100%;
+  grid-row-start: 2;
+  grid-column-start: span 2;
+}
+
+.app-editor-save-menu-help {
+  grid-row-start: 3;
+  grid-column-start: span 4;
+  margin: 2vh 0;
+  p { padding: 0 .5vw; }
+}
+
+.blur {
+  opacity: 0.2;
 }

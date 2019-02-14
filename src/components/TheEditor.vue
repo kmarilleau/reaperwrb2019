@@ -7,7 +7,9 @@
       <app-delete-menu class="app-editor-panel" />
 
       <!-- EDITOR COLORS -->
-      <div class="app-editor-panel">
+      <div class="app-editor-panel"
+        :class="{ blur: this.$store.state.editor.help } "
+      >
 
         <template
           v-if="this.$store.getters.showEditorGlobalColumns"
@@ -28,10 +30,10 @@
           <div class="app-editor-menu"
             v-if="this.$store.getters.hasEditItem"
           >
-            <button title="delete item" class="pure-button pure-button-warning"
+            <button title="delete item" class="pure-button pure-button-warning app-editor-button-delete-item"
               @click.stop="onDeleteItem()"
             >
-              <font-awesome-icon icon="trash" /> Delete Selected
+              <font-awesome-icon icon="trash" /> Delete {{this.$store.getters.editItemKey('type', 'Item')}}
             </button>
           </div>
 
@@ -49,6 +51,7 @@
       <!-- EDITOR OPTIONS PANEL -->
       <div class="app-editor-panel" 
         v-if="this.$store.getters.hasEditItem && !this.$store.getters.isEditorBulkEdit && !this.$store.getters.isEditorModeDelete"
+        :class="{ blur: this.$store.state.editor.help }"
       >
 
         <template
@@ -115,6 +118,7 @@
 
       <div class="app-editor-panel app-editor-menu app-editor-bulk-menu" 
         v-if="this.$store.getters.showEditorBulkEditButtons"
+        :class="{ blur: this.$store.state.editor.help }"
       >
         <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
           @click="onBulkClearIcons()" 
@@ -131,7 +135,10 @@
 
       <!-- EDITOR ICON -->
       <div class="app-editor-panel"
-        :class="{ 'hidden' : !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete }"
+        :class="{ 
+          hidden: !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete,
+          blur: this.$store.state.editor.help 
+        }"
         >
         <template>
           <div class="app-item-icon-preview-container">
@@ -154,7 +161,10 @@
       </div>
 
       <div class="app-editor-panel"
-        :class="{ 'hidden' : !itemToggle || this.$store.getters.isEditorModeDelete }"
+        :class="{ 
+          hidden : !itemToggle || this.$store.getters.isEditorModeDelete,
+          blur: this.$store.state.editor.help 
+        }"
       >
         <template>
           <div class="app-item-icon-preview-container">

@@ -91,7 +91,8 @@ export default {
 
     onClick() {
       if(this.$store.getters.isModeEditor 
-      && !this.$store.getters.isEditorModeDelete) {
+      && !this.$store.getters.isEditorModeDelete
+      && !this.$store.getters.isEditorModeSave) {
 
         const payload = {
           type: this.item.type,

@@ -1,6 +1,6 @@
 <template>
   <div class="app-item-color-picker">
-    <label>Background: {{color}}</label>
+    <label>Background Color</label>
     <app-item-color-picker-swatches v-model="getColor" />
     <app-item-color-picker-slider v-model="getColor" />
   </div>
