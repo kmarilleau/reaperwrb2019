@@ -3,8 +3,8 @@ var icon = require('vue-svgicon')
 icon.register({
   'minus': {
     width: 16,
-    height: 16,
-    viewBox: '0 0 16 16',
-    data: '<path pid="0" d="M0 6.5v3a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5H.5a.5.5 0 0 0-.5.5z"/>'
+    height: 2.286,
+    viewBox: '0 6.857 16 2.286',
+    data: '<path pid="0" d="M16 9.143H0V6.857h16v2.286z"/>'
   }
 })

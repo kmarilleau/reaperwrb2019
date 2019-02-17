@@ -14,14 +14,14 @@
       <button title="keep items" class="pure-button"
         v-if="this.$store.getters.deleteCanKeepItems"
         @click.stop="onDelete(true)">
-        <svgicon icon="loop" /> Keep
+        <svgicon icon="sync" /> Keep
       </button>
     </template>
     
     <button title="delete" class="pure-button pure-button-warning"
       @click.stop="onDelete(false)"
     >
-      <svgicon icon="edit-delete" /> Confirm
+      <svgicon icon="edit-delete-forever" /> Confirm
     </button>
 
   </div>

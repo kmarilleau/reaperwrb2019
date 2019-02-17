@@ -76,6 +76,11 @@
     width: 100%;
     button {
       font-size: 150%;
+      display: flex;
+      justify-content: center;
+      svg {
+        margin: auto 5%;
+      }
     }
   }
   

@@ -13,6 +13,11 @@
   margin: 5vh 10vw;
   line-height: 150%;
 
+  h3 {
+    display: flex;
+    svg { margin: auto .5vw auto 0; }
+  }
+  
   h1, h2, p {
     text-shadow: 3px 3px 6px #ccc;
   }

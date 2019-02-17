@@ -45,15 +45,17 @@
       svg { 
         color: $c-editor-alt;
         margin: auto; 
-        width: 50%;
-        height: 50%;
+        width: 50% !important;
+        height: 50% !important;
       }
 
     }
 
     .app-icon-picker-item:hover {
       background: $c-editor-alt;
-      color: $bg-primary;
+      svg {
+        color: $c-editor-primary !important;
+      }
     }
   }
 }
