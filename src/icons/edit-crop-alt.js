@@ -2,9 +2,9 @@
 var icon = require('vue-svgicon')
 icon.register({
   'edit-crop-alt': {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    data: '<path pid="0" d="M0 0h24v24H0z" _fill="none"/><path pid="1" d="M17 15h2V7c0-1.1-.9-2-2-2H9v2h8v8zM7 17V1H5v4H1v2h4v10c0 1.1.9 2 2 2h10v4h2v-4h4v-2H7z"/>'
+    width: 16,
+    height: 16,
+    viewBox: '0 0 16 16',
+    data: '<defs><clipPath id="svgicon_edit-crop-alt_a"><path pid="0" d="M0 0h16v16H0z"/></clipPath></defs><g clip-path="url(#svgicon_edit-crop-alt_a)"><path pid="1" d="M11.636 10.182h1.455V4.364c0-.8-.655-1.455-1.455-1.455H5.818v1.455h5.818v5.818zm-7.272 1.454V0H2.909v2.909H0v1.455h2.909v7.272c0 .8.655 1.455 1.455 1.455h7.272V16h1.455v-2.909H16v-1.455H4.364z"/></g>'
   }
 })

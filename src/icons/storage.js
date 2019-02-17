@@ -2,9 +2,9 @@
 var icon = require('vue-svgicon')
 icon.register({
   'storage': {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    data: '<path pid="0" d="M0 0h24v24H0z" _fill="none"/><path pid="1" d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/>'
+    width: 16,
+    height: 12.8,
+    viewBox: '0 1.6 16 12.8',
+    data: '<path pid="0" d="M0 14.4h16v-3.2H0v3.2zM1.6 12h1.6v1.6H1.6V12zM0 1.6v3.2h16V1.6H0zM3.2 4H1.6V2.4h1.6V4zM0 9.6h16V6.4H0v3.2zm1.6-2.4h1.6v1.6H1.6V7.2z"/>'
   }
 })

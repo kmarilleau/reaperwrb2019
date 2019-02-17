@@ -2,9 +2,9 @@
 var icon = require('vue-svgicon')
 icon.register({
   'video-camera-alt': {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    data: '<path pid="0" d="M0 0h24v24H0z" _fill="none"/><path pid="1" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>'
+    width: 16,
+    height: 10.667,
+    viewBox: '0 2.667 16 10.667',
+    data: '<path pid="0" d="M12.444 6.667V3.556c0-.489-.4-.889-.888-.889H.889c-.489 0-.889.4-.889.889v8.888c0 .489.4.889.889.889h10.667c.488 0 .888-.4.888-.889V9.333L16 12.889V3.111l-3.556 3.556z"/>'
   }
 })

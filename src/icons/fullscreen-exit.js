@@ -2,9 +2,9 @@
 var icon = require('vue-svgicon')
 icon.register({
   'fullscreen-exit': {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    data: '<path pid="0" d="M0 0h24v24H0z" _fill="none"/><path pid="1" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>'
+    width: 16,
+    height: 16,
+    viewBox: '0 0 16 16',
+    data: '<path pid="0" d="M0 12.571h3.429V16h2.285v-5.714H0v2.285zm3.429-9.142H0v2.285h5.714V0H3.429v3.429zM10.286 16h2.285v-3.429H16v-2.285h-5.714V16zm2.285-12.571V0h-2.285v5.714H16V3.429h-3.429z"/>'
   }
 })

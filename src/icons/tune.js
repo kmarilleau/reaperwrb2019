@@ -2,9 +2,9 @@
 var icon = require('vue-svgicon')
 icon.register({
   'tune': {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    data: '<path pid="0" d="M0 0h24v24H0z" _fill="none"/><path pid="1" d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>'
+    width: 16,
+    height: 16,
+    viewBox: '0 0 16 16',
+    data: '<path pid="0" d="M0 12.444v1.778h5.333v-1.778H0zM0 1.778v1.778h8.889V1.778H0zM8.889 16v-1.778H16v-1.778H8.889v-1.777H7.111V16h1.778zM3.556 5.333v1.778H0v1.778h3.556v1.778h1.777V5.333H3.556zM16 8.889V7.111H7.111v1.778H16zm-5.333-3.556h1.777V3.556H16V1.778h-3.556V0h-1.777v5.333z"/>'
   }
 })

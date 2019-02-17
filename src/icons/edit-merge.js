@@ -2,9 +2,9 @@
 var icon = require('vue-svgicon')
 icon.register({
   'edit-merge': {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    data: '<path pid="0" d="M0 0h24v24H0z" _fill="none"/><path pid="1" d="M17 20.41L18.41 19 15 15.59 13.59 17 17 20.41zM7.5 8H11v5.59L5.59 19 7 20.41l6-6V8h3.5L12 3.5 7.5 8z"/>'
+    width: 16,
+    height: 16,
+    viewBox: '0 0 16 16',
+    data: '<defs><clipPath id="svgicon_edit-merge_a"><path pid="0" d="M0 0h16v16H0z"/></clipPath></defs><g clip-path="url(#svgicon_edit-merge_a)"><path pid="1" d="M12.731 16l1.334-1.334-3.226-3.227-1.335 1.335L12.731 16zM3.742 4.258h3.312v5.289l-5.119 5.119L3.269 16l5.677-5.677V4.258h3.312L8 0 3.742 4.258z"/></g>'
   }
 })
