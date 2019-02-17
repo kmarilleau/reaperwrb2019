@@ -33,7 +33,7 @@
             <button title="delete item" class="pure-button pure-button-warning app-editor-button-delete-item"
               @click.stop="onDeleteItem()"
             >
-              <font-awesome-icon icon="trash" /> Delete {{this.$store.getters.editItemKey('type', 'Item')}}
+              <svgicon icon="edit-delete" /> Delete {{this.$store.getters.editItemKey('type', 'Item')}}
             </button>
           </div>
 
@@ -123,13 +123,13 @@
         <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
           @click="onBulkClearIcons()" 
         >
-          <font-awesome-icon icon="eraser" /> Clear Icon
+          <svgicon icon="edit-delete" /> Clear Icon
         </button>
 
         <button title="delete" class="pure-button pure-button-warning app-editor-button"
           @click="onBulkDeleteItems()" 
         >
-          <font-awesome-icon icon="trash" /> Delete
+          <svgicon icon="edit-delete" /> Delete
         </button>
       </div>
 
@@ -143,15 +143,15 @@
         <template>
           <div class="app-item-icon-preview-container">
             <div class="app-item-icon-preview">
-              <label>Icon</label>
+              <label>Icon: {{itemIcon}}</label>
               <div class="app-item-icon-preview-menu">
-                <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor }">
-                  <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemIcon" size="4x" />
+                <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor, color: itemTextcolor }">
+                  <svgicon :icon="itemIcon" width="70%" height="70%"></svgicon>
                 </div>
                 <button title="delete icons" class="pure-button app-item-icon pure-button-warning"
                   @click.stop="onClearIcons()" 
                 >
-                  <font-awesome-icon icon="trash" />
+                  <svgicon icon="edit-delete"></svgicon>
                 </button>
               </div>
               <app-icon-picker :toggle="false" />
@@ -169,12 +169,12 @@
         <template>
           <div class="app-item-icon-preview-container">
             <div class="app-item-icon-preview">
-              <label>Toggle Icon</label>
+              <label>Toggle Icon: {{itemToggleIcon}}</label>
               <div class="app-item-icon"
                 v-if="itemToggle" 
-                :style="{ backgroundColor: itemBgcolor }"
+                :style="{ backgroundColor: itemBgcolor, color: itemTextcolor }"
               >
-                <font-awesome-icon :style="{color: itemTextcolor }" :icon="itemToggleIcon" size="4x" />
+                 <svgicon :icon="itemToggleIcon" width="70%" height="70%"></svgicon>
               </div>
               <app-icon-picker :toggle="true" />
             </div>

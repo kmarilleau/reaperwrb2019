@@ -281,6 +281,7 @@
 .app-item-action-icon {
   grid-row-end: span 2;
   opacity: 0.8;
+  height: 3vw;
 }
 
 .app-item-markers-icon,
@@ -298,4 +299,37 @@
 .app-item-regions-icon:active,
 .app-item-transport-icon:active {
   * { opacity: 1; }
+}
+
+/* recommended css code for vue-svgicon */
+.svg-icon {
+  display: inline-block;
+  color: inherit;
+  width: inherit;
+  height: inherit;
+  vertical-align: middle;
+  fill: currentColor;
+  stroke: none;
+}
+
+.svg-fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+.svg-up {
+  /* default */
+  transform: rotate(0deg);
+}
+
+.svg-right {
+  transform: rotate(90deg);
+}
+
+.svg-down {
+  transform: rotate(180deg);
+}
+
+.svg-left {
+  transform: rotate(-90deg);
 }

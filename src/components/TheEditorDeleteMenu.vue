@@ -5,7 +5,7 @@
     <button title="cancel" class="pure-button pure-button-secondary"
       @click.stop="onCancel"
     >
-      <font-awesome-icon icon="ban" /> Cancel
+      <svgicon icon="blocked" /> Cancel
     </button>
 
     <template 
@@ -14,14 +14,14 @@
       <button title="keep items" class="pure-button"
         v-if="this.$store.getters.deleteCanKeepItems"
         @click.stop="onDelete(true)">
-        <font-awesome-icon icon="recycle" /> Keep
+        <svgicon icon="loop" /> Keep
       </button>
     </template>
     
     <button title="delete" class="pure-button pure-button-warning"
       @click.stop="onDelete(false)"
     >
-      <font-awesome-icon icon="trash" /> Confirm
+      <svgicon icon="edit-delete" /> Confirm
     </button>
 
   </div>

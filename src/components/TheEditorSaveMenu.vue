@@ -5,7 +5,7 @@
 
     <button class="pure-button pure-button-secondary"
       @click.stop="onCancel">
-      <font-awesome-icon icon="ban" /> Cancel
+      <svgicon icon="blocked" /> Cancel
     </button>
 
     <button title="save in local browser storage" class="pure-button pure-button-primary"
@@ -13,17 +13,17 @@
       @click.stop="onSaveLocalStorage()"
       @mouseenter="help = 'test'"
     >
-      <font-awesome-icon icon="globe" /> Browser
+      <svgicon icon="storage" /> Browser
     </button>
 
     <button title="save as html" class="pure-button pure-button-primary"
       @click.stop="onSaveHTML()">
-      <font-awesome-icon icon="code" /> HTML
+      <svgicon icon="cog" /> HTML
     </button>  
 
     <button title="save as json" class="pure-button pure-button-primary"
       @click.stop="onSaveJSON()">
-      <font-awesome-icon icon="hdd" /> JSON
+      <svgicon icon="drive" /> JSON
     </button>
 
 
@@ -34,17 +34,17 @@
 
     <div class="app-editor-save-menu-help">
     
-      <label><font-awesome-icon icon="globe" /> Browser</label>
+      <label><svgicon icon="chrome" /> Browser</label>
       <p>Saves the webremote into the local browser storage of this device.</p>
       <p>Deleting the browser cache will delete it!</p>
 
-      <label><font-awesome-icon icon="code" /> HTML</label>
+      <label><svgicon icon="cog" /> HTML</label>
       <p>Lets you download and save the webremote as <em>.html</em> file 
       into your <em>reaper_www_root</em> folder.</p>
       <p>Webremotes saved as HTML are accessible from all devices via
       <em>rc.reaper.fm/[filename].html</em></p>
 
-      <label><font-awesome-icon icon="hdd" /> JSON</label>
+      <label><svgicon icon="drive" /> JSON</label>
       <p>Lets you download and save the webremote as <em>.json</em> file
       into your <em>reaper_www_root</em> folder.</p>
       <p>Webremotes saved to JSON storage are accessible from all devices.</p>

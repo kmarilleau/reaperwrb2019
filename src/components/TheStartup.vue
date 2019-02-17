@@ -20,7 +20,7 @@
         <button class="app-button-launch-preset"
             @click.stop="onLoadDefault()"
           >
-          <font-awesome-icon icon="external-link-alt" />
+          <svgicon icon="share" />
           Default
         </button>
       </div>

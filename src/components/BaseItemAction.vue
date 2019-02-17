@@ -13,11 +13,7 @@
     <div class="app-item-action-icon"
       :style="getStyle()"
     >
-      <font-awesome-icon 
-        v-if="item.icon"
-        :icon="itemIcon()" size="4x"
-        :style="{ color: this.item.textcolor }" 
-      />
+      <svgicon :icon="itemIcon()" height="100%" width="100%"></svgicon>
     </div>
 
     <div class="app-item-label"
@@ -74,7 +70,9 @@ export default {
     },
 
     getStyle() {
-      const style = {}
+      const style = {
+        color: this.item.textcolor, 
+      }
       if(parseInt(this.item.labelpos) === 0) {
         style.margin = '1.5vh auto -1.5vh auto'
       } else {

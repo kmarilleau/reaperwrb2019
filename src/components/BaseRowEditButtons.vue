@@ -6,20 +6,20 @@
     <a class="app-row-edit-button app-row-edit-button-add"
       @click.stop="onShowItemAddMenu()" 
     >
-      <font-awesome-icon icon="plus" size="1x" />
+      <svgicon icon="plus" />
       <span>Item</span>
     </a>
     <a class="app-row-edit-button app-row-edit-button-add app-add-row"
       @click.stop="onRowAdd()" 
     >
-      <font-awesome-icon icon="plus" size="1x" />
+      <svgicon icon="plus" />
       <span>Row</span>
     </a>
     <a class="app-row-edit-button app-row-edit-button-delete"
       @click.stop="onRowDelete()"
       v-if="this.$store.getters.showEditorDeleteRowButton"
     >
-      <font-awesome-icon icon="trash" size="1x" />
+      <svgicon icon="edit-delete" />
       <span>Row</span>
     </a>
   </div>

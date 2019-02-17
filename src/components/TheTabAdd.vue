@@ -2,7 +2,9 @@
   <div class="app-tab-navigation-item app-tab-add"
     v-if="this.$store.getters.isModeEditor && !this.$store.getters.isEditorModeSave"
   >
-    <a class="app-tab-add-inner" @click.stop="onTabAdd"><font-awesome-icon icon="plus" size="1x" /></a>
+    <a class="app-tab-add-inner" @click.stop="onTabAdd">
+      <svgicon icon="plus" />
+    </a>
   </div>
 </template>
 

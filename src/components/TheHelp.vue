@@ -14,17 +14,17 @@
           The buttons of the main menu allow you to:
         </p>
         <p class="table">
-          <font-awesome-icon icon="file" />
+          <svgicon icon="file-empty" />
           <span>Create a blank web remote page from scratch and add all the actions / modules you need</span>
-          <font-awesome-icon icon="file-alt" />
+          <svgicon icon="file-text" />
           <span>Load a example web remote we've prepared which already contains some useful actions that you can build upon</span>
-          <font-awesome-icon icon="code" />
+          <svgicon icon="cog" />
           <span>Load a HTML file to import and update an already existing web remote that you have created using ReaperWRB</span>
-          <font-awesome-icon icon="folder-open" />
+          <svgicon icon="folder-open" />
           <span>Import actions from REAPER toolbar configuration files that you have exported from Reaper</span>
         </p>
         <p>
-          In the editor you can add new tabs, rows or items to the web remote page using the various <font-awesome-icon class="app-help-icon" icon="plus" /> buttons.
+          In the editor you can add new tabs, rows or items to the web remote page using the various <svgicon class="app-help-icon" icon="plus" /> buttons.
           Items can be actions that are executed in reaper, spacers for layouting and various modules, like transport, position, marker and regions.
         </p>
         <p>
@@ -35,11 +35,11 @@
           Items can also be dropped onto a different tab via drag and drop. A tab that is about to receive an item will start blinking.
         </p>
         <p>
-          To delete a tab, row or item simple click the <font-awesome-icon class="app-help-icon" icon="trash" /> button.
+          To delete a tab, row or item simple click the <svgicon class="app-help-icon" icon="edit-delete" /> button.
           While deleting tabs or rows you can choose to keep items. This will delete the tab/row but move all items to the next available tab/row. 
         </p>
         <p>
-          The editor also features a "Bulk Edit" edit mode (<font-awesome-icon icon="clone" />) which allows you to edit and delete multiple items at once.
+          The editor also features a "Bulk Edit" edit mode (<svgicon icon="stack" />) which allows you to edit and delete multiple items at once.
         </p>
         <h2>Adjusting the Global Layout</h2>
         <p>
@@ -53,19 +53,19 @@
         <p>
           ReaperWRB provides 3 methods of saving webremots.
         </p>
-        <h3><font-awesome-icon icon="globe" /> Local Storage</h3>
+        <h3><svgicon icon="storage" /> Local Storage</h3>
         <p>
           You can save the webremote in the local storage of your browser and they will be instantly available from the start screen.
         </p>
         <p>
           Keep in mind however that the webremotes are lost if you clear the cache of your browser!
         </p>
-        <h3><font-awesome-icon icon="code" /> HTML</h3>
+        <h3><svgicon icon="cog" /> HTML</h3>
         <p>
           When you save a webremote as HTML, make sure to save the resulting file into the <em>reaper_www_root</em> folder.
           You can then access your webremote from http://rc.reaper.fm/[filename].html.
         </p>
-        <h3><font-awesome-icon icon="hdd" /> JSON</h3>
+        <h3><svgicon icon="drive" /> JSON</h3>
         <p>
           Saving to JSON will prompt you to downloade a json.js file. This file has to be saved to <em>reaper_www_root/reaperwrb/</em> folder
           overwriting any existing json.js file (same goes for deleting)! 
@@ -82,8 +82,8 @@
       <div class="app-help-footer">
         &copy; 2019 - 2119 Michael Klier
         <div class="app-help-social">
-          <a href="https://m-klier.de" target="_blank"><font-awesome-icon icon="globe" /></a>
-          <a href="https://twitter.com/michael_klier" target="_blank"><font-awesome-icon :icon="['fab', 'twitter-square']" /></i></a>
+          <a href="https://m-klier.de" target="_blank"><svgicon icon="home" /></a>
+          <a href="https://twitter.com/michael_klier" target="_blank"><svgicon icon="twitter" /></i></a>
         </div>
       </div>
     </div>

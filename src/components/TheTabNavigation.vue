@@ -27,10 +27,10 @@
       v-if="this.$store.getters.isModeRemote"
     >
       <div @click.stop="onHome()">
-        <font-awesome-icon icon="home" />
+        <svgicon icon="home" />
       </div>
       <div @click.stop="onEdit()" class="app-button-launch-editor">
-        <font-awesome-icon icon="pen" />
+        <svgicon icon="edit" />
       </div>
     </div>
 

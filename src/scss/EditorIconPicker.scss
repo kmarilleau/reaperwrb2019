@@ -18,9 +18,8 @@
     border-radius: $g-border-radius;
     display: flex;
     margin-right: 0.5vw;
-    * {
+    svg {
       margin: auto;
-      font-size: 2vw;
     }
   }
 }
@@ -32,6 +31,7 @@
   .app-icon-picker-items {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 2.75vw;
     height: 9vw;
     overflow-y: scroll;
     background: white;
@@ -39,13 +39,16 @@
     
     .app-icon-picker-item {
       display: flex;
-      font-size: 200%;
-      justify-content: center;
-      color: $c-editor-alt;
       cursor: pointer;
       border-radius: $g-border-radius;
       height: 2.75vw;
-      * { margin: .5vw auto; }
+      svg { 
+        color: $c-editor-alt;
+        margin: auto; 
+        width: 50%;
+        height: 50%;
+      }
+
     }
 
     .app-icon-picker-item:hover {

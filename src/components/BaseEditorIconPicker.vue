@@ -8,13 +8,15 @@
         v-for="(icon, index) in search" :key="index"
         @click="onUpdateIcon(icon)"
       >
-        <font-awesome-icon :icon="icon" />
+        <svgicon :icon="icon"></svgicon>
       </span>
     </div>
   </div>
 </template>
 
 <script>
+import reaperwrbIcons from '../reaperwrbIcons.js'
+
 export default {
   props: ['toggle'],
 
@@ -26,7 +28,7 @@ export default {
   },
 
   created() {
-    this.icons = Object.keys(___FONT_AWESOME___.styles.fas).map(key => ['fas', key])
+    this.icons = reaperwrbIcons
     this.search = this.icons
   },
 
@@ -42,7 +44,7 @@ export default {
       if(event.target.value !== '') {
         let search = event.target.value.toLowerCase()
         this.search = this.icons.filter(icon => {
-          if(icon[1].includes(search)) 
+          if(icon.includes(search)) 
             return icon
         })
       } else {

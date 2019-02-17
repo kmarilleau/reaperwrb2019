@@ -3,26 +3,26 @@
     <div class="app-item-transport-container">
 
       <a @click="onStop()" class="app-item-transport-icon">
-        <font-awesome-icon icon="stop" size="4x" />
+        <svgicon icon="transport-stop"></svgicon>
       </a>
 
       <a @click="onPlay()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 1 }"
       >
-        <font-awesome-icon icon="play" size="4x" />    
+        <svgicon icon="transport-play"></svgicon>
       </a>
 
       <a @click="onPause()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 2 }"
       >
-        <font-awesome-icon icon="pause" size="4x" />
+        <svgicon icon="transport-pause"></svgicon>
       </a>
 
       <a @click="onRecord()" class="app-item-transport-icon"
         :class="{ blink: parseInt(transport.playstate) === 5 }"
         :style="{ color: parseInt(transport.playstate) === 5 ? '#F44E3B' : item.textcolor }"
       >
-        <font-awesome-icon icon="circle" size="4x" />
+        <svgicon icon="transport-record"></svgicon>
       </a>
 
       <a 
@@ -30,7 +30,7 @@
         class="app-item-transport-icon"
         :style="{ color: parseInt(transport.repeat) > 0 ? '#4ef442' : item.textcolor }"
       >
-        <font-awesome-icon icon="sync-alt" size="4x" />
+        <svgicon icon="transport-loop"></svgicon>
       </a>
 
     </div>

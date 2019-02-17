@@ -5,26 +5,26 @@
       
     <button title="home" class="pure-button pure-button-primary" 
       @click="onHome()">
-      <font-awesome-icon icon="home" /> Home
+      <svgicon icon="home" /> Home
     </button>
 
     <template v-if="this.$store.getters.hasNoTabs">
       <button title="new" class="pure-button" 
         @click="onNew"
       >
-        <font-awesome-icon icon="file" /> Blank
+        <svgicon icon="file-empty" /> Blank
       </button>
 
       <button title="load example" class="pure-button" 
         @click="onLoadExample"
       >
-        <font-awesome-icon icon="file-alt" /> Template
+        <svgicon icon="file-text" /> Template
       </button>
 
       <button title="load html" class="pure-button "
         @click="onTriggerLoadHTML"
       >
-        <font-awesome-icon icon="code" /> HTML
+        <svgicon icon="cog" /> HTML
       </button>
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
@@ -36,7 +36,7 @@
       :class="{ 'app-editor-button-toolbar': this.$store.getters.hasNotTabs }"
       @click="onTriggerLoadToolbar"
     >
-      <font-awesome-icon icon="folder-open" /> Toolbar
+      <svgicon icon="folder-open" /> Toolbar
     </button>
     <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt, .reaperMenu, .ReaperMenu"
       @change="onLoadFile($event, 'txt')" 
@@ -49,26 +49,26 @@
         @click="onToggleExecActions($event)"
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
       >
-        <font-awesome-icon icon="plug" /> Connect
+        <svgicon icon="power-cord" /> Connect
       </button>
 
       <button title="toggle bulk edit" class="pure-button" 
         @click="onToggleBulkEdit($event)"
         :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
       >
-        <font-awesome-icon icon="clone" /> Bulk Edit
+        <svgicon icon="stack" /> Bulk Edit
       </button>
 
       <button title="clear editor" class="pure-button" 
         @click="onClearEditor"
       >
-        <font-awesome-icon icon="sync-alt" /> Clear
+        <svgicon icon="transport-loop" /> Clear
       </button>
 
       <button class="pure-button pure-button-primary"
         @click="onSave"
       >
-        <font-awesome-icon icon="save" /> Save
+        <svgicon icon="edit-save" /> Save
       </button>
 
     </template>
@@ -77,7 +77,7 @@
       :class="{ 'pure-button-secondary': this.$store.state.editor.help }"
       @click="onHelp"
     >
-      <font-awesome-icon icon="question" /> Help
+      <svgicon icon="question" /> Help
     </button>
 
     <span></span>

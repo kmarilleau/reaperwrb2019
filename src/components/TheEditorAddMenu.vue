@@ -4,7 +4,7 @@
   >
     <button class="pure-button pure-button-secondary app-editor-button" style="grid-column: span 2;"
       @click.stop="onCancel">
-      <font-awesome-icon icon="ban" /> Cancel
+      <svgicon icon="blocked" /> Cancel
     </button>
 
     <div style="grid-column-start: span 5;"></div>

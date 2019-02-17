@@ -8,7 +8,7 @@
       <button class="app-button-launch-preset"
         @click.stop="onLoad(title, timestamp, type)"
       >
-        <font-awesome-icon icon="external-link-alt" />
+        <svgicon icon="share" />
         {{title}}
       </button>
 
@@ -16,12 +16,12 @@
         <button class="pure-button-primary app-button-launch-editor"
           @click.stop="onEdit(title, timestamp, type)"
         >
-          <font-awesome-icon icon="pen" />
+          <svgicon icon="edit" />
         </button>
         <button class="pure-button-warning app-button-launch-editor"
           @click.stop="onShowDelete()"
         >
-          <font-awesome-icon icon="trash" />
+          <svgicon icon="edit-delete" />
         </button>
       </div>
 
@@ -33,12 +33,12 @@
         <button class="pure-button-warning app-button-delete-preset app-editor-button"
           @click.stop="onDelete(title, timestamp, type)"
         >
-          <font-awesome-icon icon="trash" /> Confirm
+          <svgicon icon="edit-delete" /> Confirm
         </button>
         <button title="cancel" class="pure-button-secondary app-editor-button"
           @click.stop="onCancelDelete()"
         >
-          <font-awesome-icon icon="ban" /> Cancel
+          <svgicon icon="blocked" /> Cancel
         </button>
       </div>
     </template>

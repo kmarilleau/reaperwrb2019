@@ -4,8 +4,9 @@
     <div class="app-item-markers-nav">
       <a class="app-item-markers-icon" 
         @click.stop="onPreviousMarker()"
+        :style="{ color: item.textcolor }"
       >
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
+        <svgicon icon="marker-previous" />
       </a>
       <div class="app-item-markers-info">
         <template v-if="this.$store.getters.hasMarkers">
@@ -19,13 +20,15 @@
       </div>
       <a class="app-item-markers-icon"
         @click.stop="onRefresh()"
+        :style="{ color: item.textcolor }"
       >
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="4x" />
+        <svgicon icon="transport-loop" />
       </a>
       <a class="app-item-markers-icon"
         @click.stop="onNextMarker()"
+        :style="{ color: item.textcolor }"
       >
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
+        <svgicon icon="marker-next" />
       </a>
     </div>
 

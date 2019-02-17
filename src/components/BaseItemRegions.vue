@@ -3,8 +3,9 @@
     <div class="app-item-regions-nav">
       <a class="app-item-regions-icon" 
         @click.stop="onPreviousRegion()"
+        :style="{ color: item.textcolor }"
       >
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-left" size="5x" />
+        <svgicon icon="region-previous" />
       </a>
       <div class="app-item-regions-info">
         <template v-if="this.$store.getters.hasRegions">
@@ -18,13 +19,15 @@
       </div>
       <a class="app-item-regions-icon" 
         @click.stop="onRefresh()"
+        :style="{ color: item.textcolor }"
       >
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="sync-alt" size="4x" />
+        <svgicon icon="transport-loop" />
       </a>
       <a class="app-item-regions-icon" 
         @click.stop="onNextRegion()"
+        :style="{ color: item.textcolor }"
       >
-        <font-awesome-icon :style="{ color: item.textcolor }" icon="chevron-right" size="5x" />
+        <svgicon icon="region-next" />
       </a>
     </div>
 
