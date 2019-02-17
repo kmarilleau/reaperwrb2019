@@ -18,7 +18,7 @@
 
     <button title="save as html" class="pure-button pure-button-primary"
       @click.stop="onSaveHTML()">
-      <svgicon icon="cog" /> HTML
+      <svgicon icon="code" /> HTML
     </button>  
 
     <button title="save as json" class="pure-button pure-button-primary"
@@ -34,11 +34,11 @@
 
     <div class="app-editor-save-menu-help">
     
-      <label><svgicon icon="chrome" /> Browser</label>
+      <label><svgicon icon="storage" /> Browser</label>
       <p>Saves the webremote into the local browser storage of this device.</p>
       <p>Deleting the browser cache will delete it!</p>
 
-      <label><svgicon icon="cog" /> HTML</label>
+      <label><svgicon icon="code" /> HTML</label>
       <p>Lets you download and save the webremote as <em>.html</em> file 
       into your <em>reaper_www_root</em> folder.</p>
       <p>Webremotes saved as HTML are accessible from all devices via

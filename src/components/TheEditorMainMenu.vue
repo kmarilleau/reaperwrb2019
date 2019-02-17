@@ -62,7 +62,7 @@
       <button title="clear editor" class="pure-button" 
         @click="onClearEditor"
       >
-        <svgicon icon="transport-loop" /> Clear
+        <svgicon icon="file-empty" /> Clear
       </button>
 
       <button class="pure-button pure-button-primary"

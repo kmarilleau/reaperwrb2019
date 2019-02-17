@@ -20,7 +20,7 @@
         <button class="app-button-launch-preset"
             @click.stop="onLoadDefault()"
           >
-          <svgicon icon="share" />
+          <svgicon icon="launch" />
           Default
         </button>
       </div>

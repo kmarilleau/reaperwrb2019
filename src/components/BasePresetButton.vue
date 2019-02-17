@@ -8,7 +8,7 @@
       <button class="app-button-launch-preset"
         @click.stop="onLoad(title, timestamp, type)"
       >
-        <svgicon icon="share" />
+        <svgicon icon="launch" />
         {{title}}
       </button>
 
@@ -33,7 +33,7 @@
         <button class="pure-button-warning app-button-delete-preset app-editor-button"
           @click.stop="onDelete(title, timestamp, type)"
         >
-          <svgicon icon="edit-delete" /> Confirm
+          <svgicon icon="edit-delete-forever" /> Confirm
         </button>
         <button title="cancel" class="pure-button-secondary app-editor-button"
           @click.stop="onCancelDelete()"

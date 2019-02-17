@@ -60,7 +60,7 @@
         <p>
           Keep in mind however that the webremotes are lost if you clear the cache of your browser!
         </p>
-        <h3><svgicon icon="cog" /> HTML</h3>
+        <h3><svgicon icon="code" /> HTML</h3>
         <p>
           When you save a webremote as HTML, make sure to save the resulting file into the <em>reaper_www_root</em> folder.
           You can then access your webremote from http://rc.reaper.fm/[filename].html.

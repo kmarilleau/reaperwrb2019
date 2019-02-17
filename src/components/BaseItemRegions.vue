@@ -21,7 +21,7 @@
         @click.stop="onRefresh()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="transport-loop" />
+        <svgicon icon="sync" />
       </a>
       <a class="app-item-regions-icon" 
         @click.stop="onNextRegion()"
