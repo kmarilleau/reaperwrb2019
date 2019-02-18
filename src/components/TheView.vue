@@ -19,7 +19,7 @@
 <script>
 import TheTabNavigation from '@/components/TheTabNavigation.vue'
 import TheTab from '@/components/TheTab.vue'
-import TheHelp from '@/components/TheHelp.vue'
+import TheEditorHelp from '@/components/TheEditorHelp.vue'
 
 export default {
 
@@ -35,7 +35,7 @@ export default {
   components: {
     'app-tab-navigation': TheTabNavigation,
     'app-tab': TheTab,
-    'app-help': TheHelp
+    'app-help': TheEditorHelp
   },
 
   methods: {

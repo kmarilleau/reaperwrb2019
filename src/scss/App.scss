@@ -40,9 +40,12 @@ a, p, span, svg, div, img, button, input[type=checkbox] {
   }
 }
 
-@import "@/scss/Animations.scss";
+@import "@/scss/UtilityAnimations.scss";
 @import "@/scss/Editor.scss";
 @import "@/scss/EditorColorPicker.scss";
 @import "@/scss/EditorIconPicker.scss";
-@import "@/scss/View.scss";
-@import "@/scss/Startup.scss";
+@import "@/scss/EditorHelp.scss";
+@import "@/scss/ViewLayout.scss";
+@import "@/scss/ViewLayoutPortrait.scss";
+@import "@/scss/ViewLayoutLandscape.scss";
+@import "@/scss/ViewStartup.scss";

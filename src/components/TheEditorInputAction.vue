@@ -3,7 +3,7 @@
     v-if="this.$store.getters.editItemHasKey('action')"
   >
     <div>
-      <label>Search</label>
+      <label><svgicon icon="search" /> Search</label>
       <input type="text" id="search-action" name="search-action" 
         @keyup.enter="onSearchAction($event)"
         @keyup.delete="onSearchClear($event)"

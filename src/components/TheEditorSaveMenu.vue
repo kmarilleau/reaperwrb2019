@@ -32,7 +32,7 @@
       <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus @keyup.enter="onKeyupEnter($event)">
     </div>
 
-    <div class="app-editor-save-menu-help">
+    <div class="app-editor-menu-help">
     
       <label><svgicon icon="storage" /> Browser</label>
       <p>Saves the webremote into the local browser storage of this device.</p>

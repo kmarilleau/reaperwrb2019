@@ -1,0 +1,42 @@
+@media (orientation: portrait) {
+
+  .app-row,
+  .app-tab-navigation {
+    display: grid;
+    column-gap: $g-item-margin-portrait;
+    row-gap: $g-item-margin-portrait;
+    margin: $g-item-margin-portrait;
+  }
+
+  .app-tab-navigation-item {
+    line-height: $g-nav-item-height-portrait;
+    max-height: $g-nav-item-height-portrait;
+    overflow: hidden;
+  }
+
+  .app-tab-navigation-special {
+    column-gap: $g-item-margin-portrait;
+  }
+
+  .app-row {
+    min-height: $g-item-height-portrait;
+  }
+
+  .app-item {
+    height: $g-item-height-portrait !important;
+  }
+
+  .app-item-transport-container {
+    height: $g-item-height-portrait;
+  }
+
+  .app-item-markers-info *,
+  .app-item-regions-info * {
+    font-size: 1.3vh;
+    width: 9vh !important;
+  }
+
+  .app-item-position-info {
+    font-size: 4.125vh;
+  }
+}

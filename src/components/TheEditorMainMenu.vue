@@ -24,7 +24,7 @@
       <button title="load html" class="pure-button "
         @click="onTriggerLoadHTML"
       >
-        <svgicon icon="cog" /> HTML
+        <svgicon icon="code" /> HTML
       </button>
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
@@ -88,7 +88,6 @@
 <script>
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
-import fa4shims from '@/fa4shims'
 import { defaults } from '@/reaperwrb'
 
 export default {
@@ -269,23 +268,13 @@ export default {
               // fix icons
               } else if (key === 'icon') {
                 if(item.icon && typeof(item.icon) === 'string') {
-                  const icon = ['fa', item.icon.replace('fa-', '')]
-                  item.icon = icon
-
-                  // fontawesome 4 shims
-                  fa4shims.map((shim) => {
-                    // does the icon name match a shim
-                    if(icon[1] === shim[0]) {
-                    // does it get a new name
-                    if(shim[2] !== null)
-                      item.icon[1] = shim[2]
-                    // does it get a different prefix
-                    if(shim[1] !== null)
-                      item.icon[0] = shim[1]
-                    } 
-                  })
+                  if(/^fa-/.test(item.icon))
+                    newItem.icon = 'question'
+                  else
+                    newItem.icon = item.icon
+                } else {
+                  newItem.icon = 'question'
                 }
-                newItem.icon = item.icon
               
               // import other existing keys
               } else if (key in newItem) {
@@ -300,58 +289,6 @@ export default {
       })
 
       return result
-
-      // tabs.map((tab) => {
-      //     // FIXME use defaults
-      //     const newTab = cloneDeep(defaults.tab)
-      //     console.log(tab)
-      //     for(key in tab) {
-      //       console.log(tab)
-      //     }
-
-      //     console.log(newTab.rows)
-
-      //     return false
-      //     return {
-      //       bgcolor: tab.bgcolor,
-      //       textcolor: tab.textcolor,
-      //       label: tab.label,
-      //       type: 'tab',
-      //       rows: tab.rows.map((row) => {
-      //         return row.map((item) => {
-
-      //           if(item.icon) {
-      //             const icon = ['fa', item.icon.replace('fa-', '')]
-      //             item.icon = icon
-
-      //             // fontawesome 4 shims
-      //             fa4shims.map((shim) => {
-      //               // does the icon name match a shim
-      //               if(icon[1] === shim[0]) {
-      //               // does it get a new name
-      //               if(shim[2] !== null)
-      //                 item.icon[1] = shim[2]
-      //               // does it get a different prefix
-      //               if(shim[1] !== null)
-      //                 item.icon[0] = shim[1]
-      //               } 
-      //             })
-      //           }
-
-      //           if(item.type === 'action') {
-      //             item.toggleicon = false
-      //             item.labelpos = 0
-      //             item.state = -1
-
-      //             if(item.wide)
-      //               item.width = 2
-      //           }
-
-      //           return item
-      //         })
-      //       })
-      //     }
-      //   })
     }
   }
 }

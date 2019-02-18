@@ -24,6 +24,17 @@
       <svgicon icon="edit-delete-forever" /> Confirm
     </button>
 
+  <div class="app-editor-menu-help">
+    <template
+      v-if="this.$store.getters.deleteCanKeepItems"
+    >
+      <label><svgicon icon="sync" /> Keep</label>
+      <p>Items will be moved to next row/tab</p>
+    </template>
+    <label><svgicon icon="edit-delete-forever" /> Confirm</label>
+    <p>Items will be deleted forever. This can't be undone</p>
+  </div>
+
   </div>
 </template>
 

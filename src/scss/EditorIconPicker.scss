@@ -13,8 +13,8 @@
   }
   
   .app-item-icon {
-    height: 4vw;
-    width: 4vw;
+    height: 3.25vw;
+    width: 3.25vw;
     border-radius: $g-border-radius;
     display: flex;
     margin-right: 0.5vw;
@@ -28,20 +28,23 @@
   padding: 0 0 .5vw 0;
   input { margin: .5vw 0 !important; }
   
+  display: grid;
+
   .app-icon-picker-items {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 2.75vw;
-    height: 9vw;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(4, 2.25vw);
+    height: calc(4*2.25vw);
     overflow-y: scroll;
     background: white;
     border-radius: $g-border-radius;
+    border: .3vh solid $bg-editor-alt;
     
     .app-icon-picker-item {
       display: flex;
       cursor: pointer;
       border-radius: $g-border-radius;
-      height: 2.75vw;
+      height: 2.25vw;
       svg { 
         color: $c-editor-alt;
         margin: auto; 

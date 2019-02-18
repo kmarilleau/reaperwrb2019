@@ -1,8 +1,5 @@
-@import "@/scss/Help.scss";
-
 .app-view {
   width: 100%;
-  /* FIXME needed */
 }
 
 .app-view-scroll {
@@ -25,105 +22,6 @@
 @media (orientation: landscape) and (min-width: 1024px) {
   .app-button-launch-editor {
     display: block;
-  }
-}
-
-@media (orientation: landscape) {
-
-  .app-row,
-  .app-tab-navigation {
-    display: grid;
-    column-gap: $g-item-margin-landscape;
-    row-gap: $g-item-margin-landscape;
-    margin: $g-item-margin-landscape;
-  }
-
-  .app-tab-navigation-item {
-    line-height: $g-nav-item-height-landscape;
-    max-height: $g-nav-item-height-landscape;
-    overflow: hidden;
-  }
-
-  .app-tab-navigation-special {
-    column-gap: $g-item-margin-landscape;
-  }
-
-  .app-row {
-    min-height: $g-item-height-landscape;
-  }
-
-  .app-item { 
-    height: $g-item-height-landscape !important;
-  }
-
-  .app-item-transport-container {
-    height: $g-item-height-landscape;
-  }
-
-  .app-item-markers-info,
-  .app-item-regions-info, {
-    font-size: 1.8vw;
-    width: 9vw !important;
-  }
-
-  .app-item-position-info {
-    font-size: 4.125vw;
-  }
-
-  .font-xxxl {
-    font-size: 5vw !important;
-  }
-  .font-xxl {
-    font-size: 3vw;
-  }
-  .font-xl {
-    font-size: 2vw;
-  }
-  .font-l {
-    font-size: 1.5vw;
-  }
-}
-
-@media (orientation: portrait) {
-
-  .app-row,
-  .app-tab-navigation {
-    display: grid;
-    column-gap: $g-item-margin-portrait;
-    row-gap: $g-item-margin-portrait;
-    margin: $g-item-margin-portrait;
-  }
-
-  .app-tab-navigation-item {
-    line-height: $g-nav-item-height-portrait;
-    line-height: $g-nav-item-height-portrait;
-    overflow: hidden;
-  }
-
-  .app-tab-navigation-special {
-    column-gap: $g-item-margin-portrait;
-  }
-
-  .app-row {
-    min-height: $g-item-height-portrait;
-  }
-
-  .app-item {
-    height: $g-item-height-portrait !important;
-  }
-
-  .app-item-transport-container {
-    height: $g-item-height-portrait;
-  }
-
-  .app-item-markers-info *,
-  .app-item-regions-info * {
-    font-size: 1.3vh;
-    width: 9vh !important;
-  }
-
-  .app-item-position-info {
-    font-size: 4.125vh;
   }
 }
 

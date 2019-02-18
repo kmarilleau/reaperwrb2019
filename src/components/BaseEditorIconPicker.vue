@@ -8,7 +8,7 @@
         v-for="(icon, index) in search" :key="index"
         @click="onUpdateIcon(icon)"
       >
-        <svgicon :icon="icon"></svgicon>
+        <svgicon :icon="icon" />
       </span>
     </div>
   </div>

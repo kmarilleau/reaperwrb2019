@@ -1,185 +1,193 @@
 <template>
   <div class="app-editor pure-form">
 
-      <app-main-menu class="app-editor-panel" />
-      <app-add-menu class="app-editor-panel" />
-      <app-save-menu class="app-editor-panel" />
-      <app-delete-menu class="app-editor-panel" />
-
-      <!-- EDITOR COLORS -->
-      <div class="app-editor-panel"
-        :class="{ blur: this.$store.state.editor.help } "
-      >
-
-        <template
-          v-if="this.$store.getters.showEditorGlobalColumns"
-        >
-          <label>Global Grid Columns</label>
-          <app-item-width-slider
-            v-model="globalColumns"
-            :min="4" 
-            :max="10" 
-            :width="400" :piecewise="true"
-          />
-        </template>
-
-        <template
-          v-if="!this.$store.getters.isEditorModeDelete"
-        >
-
-          <div class="app-editor-menu"
-            v-if="this.$store.getters.hasEditItem"
-          >
-            <button title="delete item" class="pure-button pure-button-warning app-editor-button-delete-item"
-              @click.stop="onDeleteItem()"
-            >
-              <svgicon icon="edit-delete" /> Delete {{this.$store.getters.editItemKey('type', 'Item')}}
-            </button>
-          </div>
-
-          <app-text-color-picker 
-            v-if="this.$store.getters.editItemHasKey('textcolor') || this.$store.getters.isEditorBulkEdit" 
-            :color="itemTextcolor" 
-          />
-          <app-item-color-picker 
-            v-if="this.$store.getters.editItemHasKey('bgcolor') || this.$store.getters.isEditorBulkEdit" 
-            :color="itemBgcolor" 
-          />
-        </template>
+      <div class="app-editor-menus">
+        <app-main-menu class="app-editor-panel" />
+        <app-add-menu class="app-editor-panel" />
+        <app-save-menu class="app-editor-panel" />
+        <app-delete-menu class="app-editor-panel" />
       </div>
 
-      <!-- EDITOR OPTIONS PANEL -->
-      <div class="app-editor-panel" 
-        v-if="this.$store.getters.hasEditItem && !this.$store.getters.isEditorBulkEdit && !this.$store.getters.isEditorModeDelete"
-        :class="{ blur: this.$store.state.editor.help }"
-      >
-
-        <template
-          v-if="!this.$store.getters.editItemType('tab')"
+      <div class="app-editor-section">
+        <!-- EDITOR COLORS -->
+        <div class="app-editor-panel"
+          :class="{ blur: this.$store.state.editor.help } "
         >
-          <label>Item Width</label>
-          <app-item-width-slider
-            v-model="itemWidth"
-            :min="itemMinWidth" 
-            :max="itemMaxWidth" 
-            :width="400" :piecewise="true"
+
+          <template
+            v-if="this.$store.getters.showEditorGlobalColumns"
+          >
+            <label>Global Grid Columns</label>
+            <app-item-width-slider
+              v-model="globalColumns"
+              :min="4" 
+              :max="10" 
+              :width="400" :piecewise="true"
             />
-        </template>
-
-        <!-- ACTION -->
-        <app-editor-input-action />
-
-        <!-- LABEL -->
-        <template 
-          v-if="this.$store.getters.editItemHasKey('label')"
-        >
-          <label>Label</label>
-          <input type="text" name="item-label" v-model="itemLabel" maxlength="30" autofocus @keyup.enter="onKeyupEnter($event)">
-        </template>
-
-        <!-- LABEL POS -->
-        <div class="app-editor-sub-panel">
-          
-          <template 
-            v-if="this.$store.getters.editItemHasKey('toggle')"
-          >
-            <div>
-              <label>Toggle</label>
-              <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
-            </div>
           </template>
 
-          <template 
-            v-if="this.$store.getters.editItemKey('icon', false) && this.$store.getters.editItemHasKey('labelpos')"
+          <template
+            v-if="!this.$store.getters.isEditorModeDelete"
           >
-            <div>
-              <label>Label Position</label>
-              <select v-model="itemLabelPos">
-                <option value="0">bottom</option>
-                <option value="1">top</option>
-              </select>
-            </div>
-            
-          </template>
 
+            <div class="app-editor-menu"
+              v-if="this.$store.getters.hasEditItem"
+            >
+              <button title="delete item" class="pure-button pure-button-warning app-editor-button-delete-item"
+                @click.stop="onDeleteItem()"
+              >
+                <svgicon icon="edit-delete" /> Delete {{this.$store.getters.editItemKey('type', 'Item')}}
+              </button>
+            </div>
+
+            <app-text-color-picker 
+              v-if="this.$store.getters.editItemHasKey('textcolor') || this.$store.getters.isEditorBulkEdit" 
+              :color="itemTextcolor" 
+            />
+            <app-item-color-picker 
+              v-if="this.$store.getters.editItemHasKey('bgcolor') || this.$store.getters.isEditorBulkEdit" 
+              :color="itemBgcolor" 
+            />
+          </template>
         </div>
 
-        <!-- DESCRIPTION -->
-        <template 
-          v-if="this.$store.getters.editItemHasKey('desc') && this.$store.getters.editItemKey('desc', false) !== false"
+        <!-- EDITOR OPTIONS PANEL -->
+        <div class="app-editor-panel" 
+          v-if="this.$store.getters.hasEditItem && !this.$store.getters.isEditorBulkEdit && !this.$store.getters.isEditorModeDelete"
+          :class="{ blur: this.$store.state.editor.help }"
         >
-          <label>Action Description</label>
-          <div class="app-item-desc">
-            <div>{{itemDesc}}</div>
+
+          <template
+            v-if="!this.$store.getters.editItemType('tab')"
+          >
+            <label>Item Width</label>
+            <app-item-width-slider
+              v-model="itemWidth"
+              :min="itemMinWidth" 
+              :max="itemMaxWidth" 
+              :width="400" :piecewise="true"
+              />
+          </template>
+
+          <!-- ACTION -->
+          <app-editor-input-action />
+
+          <!-- LABEL -->
+          <template 
+            v-if="this.$store.getters.editItemHasKey('label')"
+          >
+            <label>Label</label>
+            <input type="text" name="item-label" id="item-label" v-model="itemLabel" maxlength="30" autofocus @keyup.enter="onKeyupEnter($event)">
+          </template>
+
+          <!-- LABEL POS -->
+          <div class="app-editor-sub-panel">
+            
+            <template 
+              v-if="this.$store.getters.editItemHasKey('toggle')"
+            >
+              <div>
+                <label>Toggle</label>
+                <input type="checkbox" name="item-toggle" class="app-editor-checkbox" v-model="itemToggle">
+              </div>
+            </template>
+
+            <template 
+              v-if="this.$store.getters.editItemKey('icon', false) && this.$store.getters.editItemHasKey('labelpos')"
+            >
+              <div>
+                <label>Label Position</label>
+                <select v-model="itemLabelPos">
+                  <option value="0">bottom</option>
+                  <option value="1">top</option>
+                </select>
+              </div>
+              
+            </template>
+
           </div>
-        </template>
-        
+
+          <!-- DESCRIPTION -->
+          <template 
+            v-if="this.$store.getters.editItemHasKey('desc') && this.$store.getters.editItemKey('desc', false) !== false"
+          >
+            <label>Action Description</label>
+            <div class="app-item-desc">
+              <div>{{itemDesc}}</div>
+            </div>
+          </template>
+          
+        </div>
+
+        <div class="app-editor-panel app-editor-menu app-editor-bulk-menu" 
+          v-if="this.$store.getters.showEditorBulkEditButtons"
+          :class="{ blur: this.$store.state.editor.help }"
+        >
+          <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
+            @click="onBulkClearIcons()" 
+          >
+            <svgicon icon="edit-delete" /> Clear Icon
+          </button>
+
+          <button title="delete" class="pure-button pure-button-warning app-editor-button"
+            @click="onBulkDeleteItems()" 
+          >
+            <svgicon icon="edit-delete" /> Delete
+          </button>
+        </div>
+      
       </div>
 
-      <div class="app-editor-panel app-editor-menu app-editor-bulk-menu" 
-        v-if="this.$store.getters.showEditorBulkEditButtons"
-        :class="{ blur: this.$store.state.editor.help }"
-      >
-        <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
-          @click="onBulkClearIcons()" 
-        >
-          <svgicon icon="edit-delete" /> Clear Icon
-        </button>
+      <div class="app-editor-section">
 
-        <button title="delete" class="pure-button pure-button-warning app-editor-button"
-          @click="onBulkDeleteItems()" 
-        >
-          <svgicon icon="edit-delete" /> Delete
-        </button>
-      </div>
-
-      <!-- EDITOR ICON -->
-      <div class="app-editor-panel"
-        :class="{ 
-          hidden: !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete,
-          blur: this.$store.state.editor.help 
-        }"
-        >
-        <template>
-          <div class="app-item-icon-preview-container">
-            <div class="app-item-icon-preview">
-              <label>Icon: {{itemIcon}}</label>
-              <div class="app-item-icon-preview-menu">
-                <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor, color: itemTextcolor }">
-                  <svgicon :icon="itemIcon" width="70%" height="70%"></svgicon>
+        <!-- EDITOR ICON -->
+        <div class="app-editor-panel"
+          :class="{ 
+            hidden: !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete,
+            blur: this.$store.state.editor.help 
+          }"
+          >
+          <template>
+            <div class="app-item-icon-preview-container">
+              <div class="app-item-icon-preview">
+                <label>Icon: {{itemIcon}}</label>
+                <div class="app-item-icon-preview-menu">
+                  <div class="app-item-icon" :style="{ backgroundColor: itemBgcolor, color: itemTextcolor }">
+                    <svgicon :icon="itemIcon" width="50%" height="50%"></svgicon>
+                  </div>
+                  <button title="delete icons" class="pure-button app-item-icon pure-button-warning"
+                    @click.stop="onClearIcons()" 
+                  >
+                    <svgicon icon="edit-delete" width="50%" height="50%"></svgicon>
+                  </button>
                 </div>
-                <button title="delete icons" class="pure-button app-item-icon pure-button-warning"
-                  @click.stop="onClearIcons()" 
-                >
-                  <svgicon icon="edit-delete"></svgicon>
-                </button>
+                <app-icon-picker :toggle="false" />
               </div>
-              <app-icon-picker :toggle="false" />
             </div>
-          </div>
-        </template>
-      </div>
+          </template>
+        </div>
 
-      <div class="app-editor-panel"
-        :class="{ 
-          hidden : !itemToggle || this.$store.getters.isEditorModeDelete,
-          blur: this.$store.state.editor.help 
-        }"
-      >
-        <template>
-          <div class="app-item-icon-preview-container">
-            <div class="app-item-icon-preview">
-              <label>Toggle Icon: {{itemToggleIcon}}</label>
-              <div class="app-item-icon"
-                v-if="itemToggle" 
-                :style="{ backgroundColor: itemBgcolor, color: itemTextcolor }"
-              >
-                 <svgicon :icon="itemToggleIcon" width="70%" height="70%"></svgicon>
+        <div class="app-editor-panel"
+          :class="{ 
+            hidden : !itemToggle || this.$store.getters.isEditorModeDelete,
+            blur: this.$store.state.editor.help 
+          }"
+        >
+          <template>
+            <div class="app-item-icon-preview-container">
+              <div class="app-item-icon-preview">
+                <label>Toggle Icon: {{itemToggleIcon}}</label>
+                <div class="app-item-icon"
+                  v-if="itemToggle" 
+                  :style="{ backgroundColor: itemBgcolor, color: itemTextcolor }"
+                >
+                  <svgicon :icon="itemToggleIcon" width="50%" height="50%"></svgicon>
+                </div>
+                <app-icon-picker :toggle="true" />
               </div>
-              <app-icon-picker :toggle="true" />
             </div>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
   </div>
 </template>
@@ -208,6 +216,14 @@ export default {
     'app-save-menu': TheSaveMenu,
     'app-item-width-slider': VueSlider,
     'app-editor-input-action': TheEditorInputAction,
+  },
+  
+  updated() {
+    // dirty hack to fix editor label input value not always being updated 
+    let label = this.$store.getters.editItemKey('label', '')
+    let el = document.querySelector('#item-label')
+    if(el && el.value !== label)
+      el.value = label
   },
 
   mounted() {

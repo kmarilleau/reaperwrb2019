@@ -47,11 +47,23 @@
 
 .app-editor {
   height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.5fr 3fr 4fr;
   background: $c-editor-primary;
 
+  .app-editor-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .app-editor-panel {
+    margin: 0 .5vw;
+    .pure-button {
+      margin: 0 0 0.5vh 0;
+    }
+    .app-editor-sub-panel {
+      display: grid;
+      grid-template-columns: 0.35fr auto;
+    }
+  }
 
   .app-editor-menu {
     padding: 0.5vw 0 0 0;
@@ -131,23 +143,15 @@
   }
 
   label {
-    text-shadow: 3px 3px 6px #ccc;
-    display: block;
+    text-shadow: 3px 3px 6px #b9b9b9;
+    display: flex;
     margin: 1vh 0;
     font-weight: bold;
     background: $bg-editor-alt !important;
     padding: .25vw;
     border-radius: $g-border-radius;
-  }
-
-  .app-editor-panel {
-    margin: 0 .5vw;
-    .pure-button {
-      margin: 0 0 0.5vh 0;
-    }
-    .app-editor-sub-panel {
-      display: grid;
-      grid-template-columns: 0.35fr auto;
+    svg {
+      margin: 0 0.25vw 0 0;
     }
   }
 
@@ -168,8 +172,8 @@
   }
 
   input[type=text]:focus, textarea:focus {
-    box-shadow: 0 0 1vw $c-editor-button-warning;
-    border: .3vh solid $c-editor-button-warning;
+    box-shadow: 0 0 1vw $c-editor-button-okay;
+    border: .3vh solid $c-editor-button-okay;
   }
 
   .app-item-desc {
@@ -363,7 +367,7 @@ input[type=checkbox] {
   grid-column-start: span 2;
 }
 
-.app-editor-save-menu-help {
+.app-editor-menu-help {
   grid-row-start: 3;
   grid-column-start: span 4;
   margin: 2vh 0;
