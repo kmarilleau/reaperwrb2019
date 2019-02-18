@@ -33,21 +33,24 @@
             <div class="app-editor-menu"
               v-if="this.$store.getters.hasEditItem"
             >
-              <button title="delete item" class="pure-button pure-button-warning app-editor-button-delete-item"
-                @click.stop="onDeleteItem()"
-              >
-                <svgicon icon="edit-delete" /> Delete {{this.$store.getters.editItemKey('type', 'Item')}}
-              </button>
+
+              <app-editor-button icon="edit-delete" class="pure-button-warning app-editor-button-delete-item"
+                :label="'Delete ' + this.$store.getters.editItemKey('type', 'Item')"
+                @click.native.stop="onDeleteItem"
+              />
+
             </div>
 
             <app-text-color-picker 
               v-if="this.$store.getters.editItemHasKey('textcolor') || this.$store.getters.isEditorBulkEdit" 
               :color="itemTextcolor" 
             />
+
             <app-item-color-picker 
               v-if="this.$store.getters.editItemHasKey('bgcolor') || this.$store.getters.isEditorBulkEdit" 
               :color="itemBgcolor" 
             />
+
           </template>
         </div>
 
@@ -123,17 +126,15 @@
           v-if="this.$store.getters.showEditorBulkEditButtons"
           :class="{ blur: this.$store.state.editor.help }"
         >
-          <button title="remove icons" class="pure-button pure-button-secondary app-editor-button"
-            @click="onBulkClearIcons()" 
-          >
-            <svgicon icon="edit-delete" /> Clear Icon
-          </button>
 
-          <button title="delete" class="pure-button pure-button-warning app-editor-button"
-            @click="onBulkDeleteItems()" 
-          >
-            <svgicon icon="edit-delete" /> Delete
-          </button>
+          <app-editor-button label="Clear Icon(s)" icon="minus-circle-filled" class="pure-button-secondary"
+            @click.native="onBulkClearIcons"
+          />
+
+          <app-editor-button label="Delete Selected" icon="edit-delete" class="pure-button-warning"
+            @click.native="onBulkDeleteItems"
+          />
+
         </div>
       
       </div>
@@ -146,7 +147,7 @@
             hidden: !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete,
             blur: this.$store.state.editor.help 
           }"
-          >
+        >
           <template>
             <div class="app-item-icon-preview-container">
               <div class="app-item-icon-preview">
@@ -194,6 +195,7 @@
 
 <script>
 import BaseEditorItemColorPicker from '@/components/BaseEditorItemColorPicker.vue'
+import BaseEditorButton from '@/components/BaseEditorButton.vue'
 import TheEditorTextColorPicker from '@/components/TheEditorTextColorPicker.vue'
 import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
 import TheMainMenu from '@/components/TheEditorMainMenu.vue'
@@ -216,6 +218,7 @@ export default {
     'app-save-menu': TheSaveMenu,
     'app-item-width-slider': VueSlider,
     'app-editor-input-action': TheEditorInputAction,
+    'app-editor-button': BaseEditorButton
   },
   
   updated() {

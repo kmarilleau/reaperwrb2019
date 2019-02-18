@@ -82,8 +82,9 @@
       height: 3vw;
       display: flex;
       justify-content: center;
+      * { margin: auto 0; }
       svg {
-        margin: 0 5%; 
+        margin-right: 0.5vw; 
       }
     }
 
@@ -371,7 +372,10 @@ input[type=checkbox] {
   grid-row-start: 3;
   grid-column-start: span 4;
   margin: 2vh 0;
-  p { padding: 0 .5vw; }
+  p { 
+    padding: 0 .5vw;
+    line-height: 150%;
+  }
 }
 
 .blur {

@@ -2,85 +2,46 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeMain"
   >
-      
-    <button title="home" class="pure-button pure-button-primary" 
-      @click="onHome()">
-      <svgicon icon="home" /> Home
-    </button>
+
+    <app-editor-button label="Home" icon="home" @click.native="onHome" class="pure-button-primary" />
 
     <template v-if="this.$store.getters.hasNoTabs">
-      <button title="new" class="pure-button" 
-        @click="onNew"
-      >
-        <svgicon icon="file-empty" /> Blank
-      </button>
 
-      <button title="load example" class="pure-button" 
-        @click="onLoadExample"
-      >
-        <svgicon icon="file-text" /> Template
-      </button>
-
-      <button title="load html" class="pure-button "
-        @click="onTriggerLoadHTML"
-      >
-        <svgicon icon="code" /> HTML
-      </button>
+      <app-editor-button label="Blank" icon="file-empty" @click.native="onNew" />
+      <app-editor-button label="Template" icon="file-text" @click.native="onLoadExample" />
+      <app-editor-button label="HTML" icon="code" @click.native="onTriggerLoadHTML" />
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
         @change="onLoadFile($event, 'html')" 
       > 
     </template>
     
-    <button title="open toolbar(s)" class="pure-button" 
-      :class="{ 'app-editor-button-toolbar': this.$store.getters.hasNotTabs }"
-      @click="onTriggerLoadToolbar"
-    >
-      <svgicon icon="folder-open" /> Toolbar
-    </button>
+
+    <app-editor-button label="Toolbar" icon="folder-open" @click.native="onTriggerLoadToolbar" />
     <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt, .reaperMenu, .ReaperMenu"
       @change="onLoadFile($event, 'txt')" 
-    multiple>
+      multiple
+    >
   
     <template v-if="this.$store.getters.hasTabs">
 
-      <button title="send commands to Reaper" class="pure-button "
+      <app-editor-button label="Connect" icon="power-cord"
         v-if="this.$store.getters.reaperReady"
-        @click="onToggleExecActions($event)"
+        @click.native="onToggleExecActions($event)"
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
-      >
-        <svgicon icon="power-cord" /> Connect
-      </button>
+      />
 
-      <button title="toggle bulk edit" class="pure-button" 
-        @click="onToggleBulkEdit($event)"
+      <app-editor-button label="Bulk Edit" icon="stack" @click.native="onToggleBulkEdit"
         :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
-      >
-        <svgicon icon="stack" /> Bulk Edit
-      </button>
+      />
 
-      <button title="clear editor" class="pure-button" 
-        @click="onClearEditor"
-      >
-        <svgicon icon="file-empty" /> Clear
-      </button>
-
-      <button class="pure-button pure-button-primary"
-        @click="onSave"
-      >
-        <svgicon icon="edit-save" /> Save
-      </button>
+      <app-editor-button label="Clear" icon="file-empty" @click.native="onClearEditor" />
+      <app-editor-button label="Save" icon="edit-save" class="pure-button-primary" @click.native="onSave" />
 
     </template>
 
-    <button class="pure-button"
-      :class="{ 'pure-button-secondary': this.$store.state.editor.help }"
-      @click="onHelp"
-    >
-      <svgicon icon="question" /> Help
-    </button>
+    <app-editor-button label="Help" icon="question" @click.native="onhelp" />
 
-    <span></span>
   </div>
   
 </template>
@@ -89,10 +50,17 @@
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
 import { defaults } from '@/reaperwrb'
+import BaseEditorButton from '@/components/BaseEditorButton.vue'
 
 export default {
+
+  components: {
+    'app-editor-button': BaseEditorButton
+  },
+
   methods: {
     onHome(event) {
+      console.log("HI")
       this.$store.commit('unload')
       this.$store.commit('clear')
       this.$store.commit('setModeStartup')

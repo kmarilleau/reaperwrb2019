@@ -3,29 +3,16 @@
     v-if="this.$store.getters.isEditorModeSave"
   >
 
-    <button class="pure-button pure-button-secondary"
-      @click.stop="onCancel">
-      <svgicon icon="blocked" /> Cancel
-    </button>
-
-    <button title="save in local browser storage" class="pure-button pure-button-primary"
+    <app-editor-button label="Cancel" icon="blocked" @click.native="onCancel" class="pure-button-secondary" />
+    
+    <app-editor-button 
       v-if="this.$store.getters.hasLocalStorage"
-      @click.stop="onSaveLocalStorage()"
-      @mouseenter="help = 'test'"
-    >
-      <svgicon icon="storage" /> Browser
-    </button>
+      label="Browser" icon="storage" @click.native.stop="onSaveLocalStorage" class="pure-button-primary"
+    />
 
-    <button title="save as html" class="pure-button pure-button-primary"
-      @click.stop="onSaveHTML()">
-      <svgicon icon="code" /> HTML
-    </button>  
-
-    <button title="save as json" class="pure-button pure-button-primary"
-      @click.stop="onSaveJSON()">
-      <svgicon icon="drive" /> JSON
-    </button>
-
+    <app-editor-button label="HTML" icon="code" @click.native.stop="onSaveHTML" class="pure-button-primary" />
+    
+    <app-editor-button label="JSON" icon="drive" @click.native.stop="onSaveJSON" class="pure-button-primary" />
 
     <div class="app-editor-webremote-title">
       <label>Webremote Title</label>
@@ -54,7 +41,13 @@
 </template>
 
 <script>
+import BaseEditorButton from '@/components/BaseEditorButton.vue'
+
 export default {
+
+  components: {
+    'app-editor-button': BaseEditorButton
+  },
 
   data() {
     return {
