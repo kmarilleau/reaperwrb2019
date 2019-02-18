@@ -1,5 +1,8 @@
 <template>
-  <div class="app-item-color-picker">
+  <div class="app-item-color-picker"
+    v-if="this.$store.getters.editItemHasKey('bgcolor') 
+    || this.$store.getters.isEditorBulkEdit" 
+  >
     <label>Background Color</label>
     <app-item-color-picker-swatches v-model="getColor" />
     <app-item-color-picker-slider v-model="getColor" />
@@ -17,7 +20,7 @@ export default {
     getColor: { 
       get() { 
         return {
-          hex: this.color
+          hex: this.$store.getters.editItemKey('bgcolor', '#222222')
         }
       },
       set(value) {

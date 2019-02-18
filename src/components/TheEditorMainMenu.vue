@@ -40,7 +40,7 @@
 
     </template>
 
-    <app-editor-button label="Help" icon="question" @click.native="onhelp" />
+    <app-editor-button label="Help" icon="question" @click.native="onHelp" />
 
   </div>
   

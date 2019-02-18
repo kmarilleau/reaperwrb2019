@@ -1,7 +1,10 @@
 <template>
-  <div class="app-text-color-picker">
+  <div class="app-text-color-picker"
+    v-if="this.$store.getters.editItemHasKey('textcolor') 
+    || this.$store.getters.isEditorBulkEdit" 
+  >
     <label>Text Color</label>
-    <app-text-color-picker v-model="value" :palette="palette" @input="updateValue" />
+    <app-text-color-picker v-model="itemTextcolor" :palette="palette" @input="updateValue" />
   </div>
 </template>
 
@@ -9,11 +12,8 @@
 import { Grayscale } from "vue-color";
 
 export default {
-  props: ['color'],
-
   data() {
     return {
-      value: this.color,
       palette: ['#ffffff', '#E6E6E6', '#CCCCCC', 
                 '#B3B3B3', '#999999', '#808080', 
                 '#666666', '#595959', '#4D4D4D', 
@@ -23,6 +23,17 @@ export default {
 
   components: {
     "app-text-color-picker": Grayscale
+  },
+
+  computed: {
+    itemTextcolor: {
+      get() {
+        return this.$store.getters.editItemKey('textcolor', '#222222')
+      },
+      set(value) {
+        this.$store.commit('updateItem', { key: 'color', val: value })
+      } 
+    },
   },
 
   methods: {
