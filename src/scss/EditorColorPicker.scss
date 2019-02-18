@@ -3,6 +3,7 @@
   padding: .35vw;
   margin: 1.5vh 0;
 }
+
 .vc-compact {
   padding: 1vw;
   background: none !important;
@@ -23,6 +24,7 @@
   row-gap: 0.2vw;
   grid-template-columns: repeat(12, 1fr);
 }
+
 .vc-grayscale-color-item,
 .vc-compact-color-item {
   height: 1.5vw !important;
@@ -34,6 +36,7 @@
 .app-text-color-picker {
   width: inherit;
 }
+
 .vc-grayscale {
   width: inherit !important;
   box-shadow: none !important;

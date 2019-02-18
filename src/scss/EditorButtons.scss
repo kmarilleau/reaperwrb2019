@@ -1,0 +1,96 @@
+.pure-button-secondary {
+  background: $c-editor-button-secondary;
+  color: $bg-editor;
+}
+
+.pure-button-warning {
+  color: $bg-editor; 
+  background: $c-editor-button-warning;
+}
+
+.app-container-editor button {
+  font-weight: bold;
+  border-radius: $g-border-radius;
+  height: 3vw;
+  display: flex;
+  justify-content: center;
+  * { 
+    margin: auto 0; 
+  }
+  svg {
+    margin-right: 0.5vw; 
+  }
+}
+
+.app-editor-button-delete-item {
+  grid-column-end: span 6;
+  text-transform: capitalize;
+}
+
+.app-editor-button-add {
+  grid-column-start: span 2;
+  text-align: left;
+}
+
+.app-tab-add {
+  text-align: center;
+  height: $g-nav-item-height-landscape;
+
+  a {
+    margin: auto;
+    display: block;
+    width: 100%;
+  }
+}
+
+.app-item-add,
+.app-tab-add,
+.app-row-edit-buttons {
+  background: $bg-primary;
+  color: $c-editor-alt;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.app-item-add:hover,
+.app-tab-add:hover,
+.app-row-edit-buttons:hover {
+  opacity: 1;
+}
+
+.app-tab-add:hover {
+  background: $c-editor-button-okay;
+}
+
+.app-item-add:hover,
+.app-tab-add:hover,
+.app-row-edit-button:hover {
+  color: $bg-editor;
+}
+
+.app-item:hover .app-item-edit-button,
+.app-tab-navigation-item:hover .app-item-edit-button {
+  visibility: visible;
+}
+
+.app-row-edit-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  
+  .app-row-edit-button {
+    text-align: center;
+    padding: .75vh;
+
+    span {
+      margin-left: 1vh;
+    }
+  }
+
+  .app-row-edit-button-add:hover {
+    background: $c-editor-button-okay;
+  }
+  
+  .app-row-edit-button-delete:hover {
+    background: $c-editor-button-warning;
+  }
+}

@@ -30,12 +30,12 @@
       v-if="this.delete"
     >
       <div class="app-preset-delete">
-        <button class="pure-button-warning app-button-delete-preset app-editor-button"
+        <button class="pure-button-warning app-button-delete-preset"
           @click.stop="onDelete(title, timestamp, type)"
         >
           <svgicon icon="edit-delete-forever" /> Confirm
         </button>
-        <button title="cancel" class="pure-button-secondary app-editor-button"
+        <button title="cancel" class="pure-button-secondary"
           @click.stop="onCancelDelete()"
         >
           <svgicon icon="blocked" /> Cancel

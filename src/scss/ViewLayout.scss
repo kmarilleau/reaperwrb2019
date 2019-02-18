@@ -15,16 +15,6 @@
   font-size: 200%;
 }
 
-.app-button-launch-editor {
-  display: none;
-}
-
-@media (orientation: landscape) and (min-width: 1024px) {
-  .app-button-launch-editor {
-    display: block;
-  }
-}
-
 .app-item,
 .app-tab-navigation-item {
   border-radius: $g-border-radius;
@@ -43,6 +33,7 @@
   opacity: 1;
 }
 
+/* Home Buttons */
 .app-tab-navigation-special {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -148,10 +139,6 @@
 .app-item-regions-nav {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr;
-}
-
-.app-item-markers-icon {
-
 }
 
 .app-item-markers-info,

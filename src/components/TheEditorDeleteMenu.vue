@@ -18,7 +18,7 @@
 
     <div class="app-editor-menu-help">
       <template
-        v-if="this.$store.getters.deleteCanKeepItems"
+        v-if="!this.$store.getters.isEditorBulkEdit && this.$store.getters.deleteCanKeepItems"
       >
         <label><svgicon icon="sync" /> Keep</label>
         <p>Items will be moved to next row/tab</p>
@@ -40,6 +40,7 @@ export default {
   },
 
   methods: {
+
     onDelete(keepItems) {
       if(this.$store.getters.isEditorBulkEdit)
         this.$store.commit('bulkDelete')

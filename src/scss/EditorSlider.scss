@@ -1,0 +1,23 @@
+.vue-slider-component {
+  margin-top: 2vw !important;
+  width: inherit !important;
+  padding: 0 !important;
+  background: $bg-editor-alt;
+  border-radius: $g-border-radius;
+}
+.vue-slider:after {
+  width: 1vw !important;
+  height: 1vw !important;
+}
+.vue-slider-dot-handle {
+  width: .8vw !important;
+  height: .8vw !important;
+}
+.vue-slider-tooltip {
+  font-size: 100% !important;
+  min-width: .6vw !important;
+  padding: 0.1vw 0.5vw !important;
+}
+.vue-slider-dot-handle {
+  background-color: $c-editor-primary !important;
+}

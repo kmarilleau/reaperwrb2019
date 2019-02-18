@@ -31,12 +31,11 @@ a, p, span, svg, div, img, button, input[type=checkbox] {
                               supported by Chrome and Opera */
 }
 #reaperwrb-json {
-  display: none;
+display: none;
 }
 #app {
   .app-container {
     display: grid;
-    grid-template-rows: 1fr;
   }
 }
 
@@ -49,3 +48,5 @@ a, p, span, svg, div, img, button, input[type=checkbox] {
 @import "@/scss/ViewLayoutPortrait.scss";
 @import "@/scss/ViewLayoutLandscape.scss";
 @import "@/scss/ViewStartup.scss";
+@import "@/scss/MediaQueriesLandscape.scss";
+@import "@/scss/MediaQueriesPortrait.scss";

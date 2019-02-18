@@ -143,6 +143,7 @@ const store = new Vuex.Store({
 
     deleteItemType: (state, getters) => state.editor.data.bin.obj.type,
     deleteCanKeepItems: (state, getters) => {
+      
       switch(getters.deleteItemType) {
         case 'tab':
           return state.webremote.tabs.length > 1 ? true : false

@@ -1,0 +1,12 @@
+/* Startup */
+@media (orientation: portrait) {
+  .logo,
+  .app-preset-container,
+  .app-button-launch-editor button,
+  .app-button-load-default button {
+    border-radius: $g-border-radius;
+    margin: 0.1vw;
+    width: 24.8vw;
+    height: 24.8vw;
+  }
+}
