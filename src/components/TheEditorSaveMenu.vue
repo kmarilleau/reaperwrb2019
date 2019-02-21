@@ -85,6 +85,7 @@ export default {
         document.querySelector('#app-webremote-title').focus()
       } else {
         this.$store.commit('saveLocalStorage')
+        this.$store.commit('unload')
         this.$store.commit('setEditorModeMain')
         this.$store.commit('setModeStartup')
       }

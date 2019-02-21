@@ -14,14 +14,13 @@
         </button>
       </div>
 
-      <div class="app-button-load-default"
+      <div class="app-preset-container app-button-launch-default"
         @click="onLoadDefault()"
       >
         <button class="app-button-launch-preset"
             @click.stop="onLoadDefault()"
           >
-          <svgicon icon="launch" />
-          Default
+          <svgicon icon="launch" /><span> Default</span>
         </button>
       </div>
 
