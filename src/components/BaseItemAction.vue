@@ -11,9 +11,15 @@
     </div>
 
     <div class="app-item-action-icon"
-      :style="getStyle()"
+      :style="{
+        color: this.item.textcolor,
+      }"
     >
-      <svgicon :icon="itemIcon()" height="100%" width="100%"></svgicon>
+      <svgicon 
+        :icon="itemIcon()" 
+        :height="this.$store.getters.itemHeight / 2.5"
+        :width="this.$store.getters.itemHeight / 2.5"
+      />
     </div>
 
     <div class="app-item-label"
@@ -68,18 +74,6 @@ export default {
 
       return classes
     },
-
-    getStyle() {
-      const style = {
-        color: this.item.textcolor, 
-      }
-      if(parseInt(this.item.labelpos) === 0) {
-        style.margin = '1.5vh auto -1.5vh auto'
-      } else {
-        style.margin = 'auto auto 1.5vh auto'
-      }
-      return style
-    }
   },
 }
 </script>

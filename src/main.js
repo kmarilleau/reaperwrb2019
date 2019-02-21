@@ -63,8 +63,9 @@ const store = new Vuex.Store({
     isEditorBulkEdit: (state, getters) => state.editor.bulk_edit,
     isEditorExecActions: (state, getters) => state.editor.execAction,
 
+    itemHeight: (state, getters) => state.webremote.itemHeight,
 
-    showHelp: (state, getters) => state.editor.help,
+    showHelp: (state, getters) =>  state.editor.help,
 
     showEditorBulkEditButtons: (state, getters) => {
       return state.editor.bulk_edit 
@@ -227,9 +228,10 @@ const store = new Vuex.Store({
           commit('setModeRemote')
           success = true
         }
+        commit('onWindowResize')
       })
       if(!success)
-      console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
+        console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
     
     onEditWebremotePreset: ({ commit, state }, payload ) => {
@@ -306,6 +308,21 @@ const store = new Vuex.Store({
     setEditorModeAdd: (state) => state.editor.mode = editorModes.ADD,
     setEditorModeDelete: (state) => state.editor.mode = editorModes.DELETE,
     setEditorModeSave: (state) => state.editor.mode = editorModes.SAVE,
+
+    onWindowResize: (state) => {
+
+      if(screen.width < 415) {
+        Vue.set(state.webremote, 'columns', 4)
+        Vue.set(state.webremote, 'itemHeight', 100)
+      } else if (screen.width > 415 && screen.width < 813) {
+        Vue.set(state.webremote, 'columns', 6)
+        Vue.set(state.webremote, 'itemHeight', 100)
+      } else {
+        Vue.set(state.webremote, 'columns', 8)
+        Vue.set(state.webremote, 'itemHeight', 160)
+      }
+
+    },
 
     showHelp: (state) => state.editor.help = true,
     toggleHelp: (state) => state.editor.help = state.editor.help ? false : true,
@@ -912,8 +929,13 @@ const app = new Vue({
   store,
   components: { App },
   template: '<App/>',
+
   created() {
     this.$store.commit('init')
+
+    window.addEventListener('resize', () => {
+      this.$store.commit('onWindowResize')
+    })
 
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
     if(reaperReady) {

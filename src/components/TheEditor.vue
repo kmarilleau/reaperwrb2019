@@ -14,7 +14,7 @@
           :class="{ blur: this.$store.state.editor.help }"
         >
 
-          <app-editor-slider-globalcolumns />
+          <!-- <app-editor-slider-globalcolumns /> -->
 
           <template
             v-if="!this.$store.getters.isEditorModeDelete"

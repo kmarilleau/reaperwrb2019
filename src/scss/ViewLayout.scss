@@ -63,19 +63,18 @@
 
 .app-item-action-container {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
 }
 
 .app-item-label {
-  display: block;
   width: 100%;
+  height: 100% !important;
   margin: auto;
   justify-self: flex-end;
+  overflow-y: hidden;
 
   span { 
-    margin: auto 0.1vw;
     display: block; 
     text-align: center;
   }
@@ -100,7 +99,7 @@
   justify-self: center;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-
+  height: inherit;
   a {
     margin: auto;
     text-align: center;
@@ -163,9 +162,14 @@
 
 /* ICONS */
 .app-item-action-icon {
-  grid-row-end: span 2;
   opacity: 0.8;
-  height: 3vw;
+  margin: auto;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  svg {
+    margin: auto;
+  }
 }
 
 .app-item-markers-icon,

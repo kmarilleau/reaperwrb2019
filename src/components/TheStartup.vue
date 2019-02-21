@@ -72,6 +72,7 @@ export default {
     onLoadDefault() {
       const webremote = cloneDeep(example)
       this.$store.commit('import', webremote)
+      this.$store.commit('onWindowResize')
       this.$store.commit('getCmdStates')
       this.$store.commit('setModeRemote')
     },

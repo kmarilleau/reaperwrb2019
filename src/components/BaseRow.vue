@@ -11,7 +11,10 @@
       }"
       class="app-row"
       :class="{ 'app-active-row': this.$store.getters.isActiveRow(row) && this.$store.getters.isEditorModeAdd }"
-      :style="{ gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)' }"
+      :style="{ 
+        gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)',
+        height: this.$store.getters.itemHeight + 'px',
+      }"
       @start="onDraggableStart"
       :move="onDraggableMove"
     >

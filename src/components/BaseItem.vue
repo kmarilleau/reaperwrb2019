@@ -3,7 +3,8 @@
     :class="getClass()"
     :style="{ 
       backgroundColor: item.bgcolor, 
-      gridColumnEnd: item.width ? 'span ' + item.width : 'span 1' 
+      gridColumnEnd: item.width ? 'span ' + item.width : 'span 1',
+      height: this.$store.getters.itemHeight + 'px',
     }"
     @click="onClick()"
     :row="row"

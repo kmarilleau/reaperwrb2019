@@ -18,18 +18,6 @@
     column-gap: $g-item-margin-landscape;
   }
 
-  .app-row {
-    min-height: $g-item-height-landscape;
-  }
-
-  .app-item { 
-    height: $g-item-height-landscape !important;
-  }
-
-  .app-item-transport-container {
-    height: $g-item-height-landscape;
-  }
-
   .app-item-markers-info *,
   .app-item-regions-info * {
     font-size: 1.8vw;
