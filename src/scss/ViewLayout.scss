@@ -11,10 +11,6 @@
   font-weight: bold;
 }
 
-.font-2x {
-  font-size: 200%;
-}
-
 .app-item,
 .app-tab-navigation-item {
   border-radius: $g-border-radius;
@@ -143,6 +139,8 @@
 .app-item-regions-info,
 .app-item-regions-icon {
   margin: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .app-item-markers-info,

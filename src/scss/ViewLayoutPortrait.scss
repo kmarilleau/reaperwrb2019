@@ -20,11 +20,24 @@
 
   .app-item-markers-info *,
   .app-item-regions-info * {
-    font-size: 1.3vh;
+    font-size: 1.5rem;
     width: 9vh !important;
   }
 
   .app-item-position-info {
-    font-size: 4.125vh;
+    font-size: 6rem;
+  }
+
+  .font-xxxl {
+    font-size: 8rem;
+  }
+  .font-xxl {
+    font-size: 4rem;
+  }
+  .font-xl {
+    font-size: 2.5rem;
+  }
+  .font-l {
+    font-size: 1.5rem;
   }
 }
