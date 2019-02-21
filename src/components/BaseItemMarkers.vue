@@ -6,7 +6,10 @@
         @click.stop="onPreviousMarker()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="marker-previous" />
+        <svgicon icon="marker-previous" 
+          :height="this.$store.getters.itemHeight / 2.25"
+          :width="this.$store.getters.itemHeight / 2.25"
+        />
       </a>
       <div class="app-item-markers-info">
         <template v-if="this.$store.getters.hasMarkers">
@@ -22,13 +25,19 @@
         @click.stop="onRefresh()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="sync" />
+        <svgicon icon="sync" 
+          :height="this.$store.getters.itemHeight / 2.25"
+          :width="this.$store.getters.itemHeight / 2.25"
+        />
       </a>
       <a class="app-item-markers-icon"
         @click.stop="onNextMarker()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="marker-next" />
+        <svgicon icon="marker-next" 
+          :height="this.$store.getters.itemHeight / 2.25"
+          :width="this.$store.getters.itemHeight / 2.25"
+        />
       </a>
     </div>
 

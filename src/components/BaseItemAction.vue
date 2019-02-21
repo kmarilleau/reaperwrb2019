@@ -1,6 +1,7 @@
 <template>
   <a class="app-item-action-container"
     @click="onClick"
+    :style="getStyle()"
   >
 
     <div class="app-item-label"
@@ -11,14 +12,15 @@
     </div>
 
     <div class="app-item-action-icon"
+      v-if="this.item.icon"
       :style="{
         color: this.item.textcolor,
       }"
     >
       <svgicon 
         :icon="itemIcon()" 
-        :height="this.$store.getters.itemHeight / 2.5"
-        :width="this.$store.getters.itemHeight / 2.5"
+        :height="this.$store.getters.itemHeight / 2.25"
+        :width="this.$store.getters.itemHeight / 2.25"
       />
     </div>
 
@@ -48,6 +50,24 @@ export default {
         return this.item.icon
       else 
         return this.item.state > 0 && this.item.toggleicon ? this.item.toggleicon : this.item.icon
+    },
+
+    getStyle() {
+      const style = {}
+
+      if(this.item.icon !== false) {
+        style['display'] = 'grid'
+        if(parseInt(this.item.labelpos) === 1)
+          style['grid-template-rows'] = '30% 70%'
+        else
+          style['grid-template-rows'] = '70% 30%'
+      } else {
+        style.display = 'flex'
+        style['justify-content'] = 'center'
+        style.background = 'red'
+      }
+      
+      return style
     },
 
     getClass() {

@@ -96,12 +96,11 @@ export default {
       this.$store.commit('updateItem', { key: 'icon', val: false })
       this.$store.commit('updateItem', { key: 'toggleicon', val: false })
     },
-  },
-
-  methods: {
+    
     onKeyupEnter(event) {
       event.target.blur()
     }
-  }
+  },
+
 }
 </script>

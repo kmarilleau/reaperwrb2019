@@ -5,7 +5,10 @@
         @click.stop="onPreviousRegion()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="region-previous" />
+        <svgicon icon="region-previous" 
+          :height="this.$store.getters.itemHeight / 2.25"
+          :width="this.$store.getters.itemHeight / 2.25"
+        />
       </a>
       <div class="app-item-regions-info">
         <template v-if="this.$store.getters.hasRegions">
@@ -21,13 +24,19 @@
         @click.stop="onRefresh()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="sync" />
+        <svgicon icon="sync" 
+          :height="this.$store.getters.itemHeight / 2.25"
+          :width="this.$store.getters.itemHeight / 2.25"
+        />
       </a>
       <a class="app-item-regions-icon" 
         @click.stop="onNextRegion()"
         :style="{ color: item.textcolor }"
       >
-        <svgicon icon="region-next" />
+        <svgicon icon="region-next" 
+          :height="this.$store.getters.itemHeight / 2.25"
+          :width="this.$store.getters.itemHeight / 2.25"
+        />
       </a>
     </div>
 

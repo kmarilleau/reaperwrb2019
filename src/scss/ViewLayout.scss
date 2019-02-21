@@ -62,21 +62,19 @@
 }
 
 .app-item-action-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid !important;
   height: 100%;
 }
 
 .app-item-label {
   width: 100%;
-  height: 100% !important;
   margin: auto;
-  justify-self: flex-end;
   overflow-y: hidden;
 
   span { 
     display: block; 
     text-align: center;
+    margin: 0 0.25vw;
   }
 }
 
@@ -163,9 +161,6 @@
 /* ICONS */
 .app-item-action-icon {
   opacity: 0.8;
-  margin: auto;
-  width: 100%;
-  height: 70%;
   display: flex;
   svg {
     margin: auto;
@@ -176,12 +171,8 @@
 .app-item-regions-icon,
 .app-item-transport-icon {
   display: flex;
-  width: 100%;
-  height: 100%;
   svg { 
     opacity: 0.8; 
-    height: 50% !important;
-    width: 50% !important; 
     margin: auto;
   }
 }
