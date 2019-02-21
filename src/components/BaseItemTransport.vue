@@ -6,8 +6,8 @@
 
       <a @click="onStop()" class="app-item-transport-icon">
         <svgicon icon="transport-stop" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
 
@@ -15,8 +15,8 @@
         :class="{ blink: parseInt(transport.playstate) === 1 }"
       >
         <svgicon icon="transport-play" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
 
@@ -24,8 +24,8 @@
         :class="{ blink: parseInt(transport.playstate) === 2 }"
       >
         <svgicon icon="transport-pause" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
 
@@ -34,8 +34,8 @@
         :style="{ color: parseInt(transport.playstate) === 5 ? '#F44E3B' : item.textcolor }"
       >
         <svgicon icon="transport-record" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
 
@@ -45,8 +45,8 @@
         :style="{ color: parseInt(transport.repeat) > 0 ? '#4ef442' : item.textcolor }"
       >
         <svgicon icon="transport-loop" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"  
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"  
         />
       </a>
 

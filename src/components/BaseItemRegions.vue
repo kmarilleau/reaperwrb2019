@@ -6,8 +6,8 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="region-previous" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
       <div class="app-item-regions-info">
@@ -25,8 +25,8 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="sync" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
       <a class="app-item-regions-icon" 
@@ -34,8 +34,8 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="region-next" 
-          :height="this.$store.getters.itemHeight / 2.25"
-          :width="this.$store.getters.itemHeight / 2.25"
+          :height="this.$store.getters.iconSize"
+          :width="this.$store.getters.iconSize"
         />
       </a>
     </div>

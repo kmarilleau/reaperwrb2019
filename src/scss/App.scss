@@ -7,6 +7,7 @@ body {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 12px;
 }
 
 a, p, span, svg, div, img, button, input[type=checkbox] {
@@ -36,5 +37,6 @@ a, p, span, svg, div, img, button, input[type=checkbox] {
 @import "@/scss/ViewLayoutPortrait.scss";
 @import "@/scss/ViewLayoutLandscape.scss";
 @import "@/scss/ViewStartup.scss";
+@import "@/scss/MediaQueriesFontSize.scss";
 @import "@/scss/MediaQueriesLandscape.scss";
 @import "@/scss/MediaQueriesPortrait.scss";

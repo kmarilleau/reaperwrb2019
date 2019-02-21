@@ -19,8 +19,8 @@
     >
       <svgicon 
         :icon="itemIcon()" 
-        :height="this.$store.getters.itemHeight / 2.25"
-        :width="this.$store.getters.itemHeight / 2.25"
+        :height="this.$store.getters.iconSize"
+        :width="this.$store.getters.iconSize"
       />
     </div>
 

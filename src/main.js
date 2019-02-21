@@ -64,6 +64,7 @@ const store = new Vuex.Store({
     isEditorExecActions: (state, getters) => state.editor.execAction,
 
     itemHeight: (state, getters) => state.webremote.itemHeight,
+    iconSize: (state, getters) => (getters.itemHeight / 2.5).toString(),
 
     showHelp: (state, getters) =>  state.editor.help,
 
