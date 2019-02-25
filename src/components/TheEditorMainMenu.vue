@@ -40,7 +40,9 @@
 
     </template>
 
-    <app-editor-button label="Help" icon="question" @click.native="onHelp" />
+    <app-editor-button label="Help" icon="question" @click.native="onHelp" 
+      :class="{ 'pure-button-secondary': this.$store.getters.showHelp }"
+    />
 
   </div>
   
@@ -60,7 +62,6 @@ export default {
 
   methods: {
     onHome(event) {
-      console.log("HI")
       this.$store.commit('unload')
       this.$store.commit('clear')
       this.$store.commit('setModeStartup')

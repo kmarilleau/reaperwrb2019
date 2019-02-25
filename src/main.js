@@ -315,6 +315,8 @@ const store = new Vuex.Store({
 
     onWindowResize: (state) => {
 
+      console.log("ReaperWRB: Window Resize")
+
       if(screen.width < 1024)
         state.editor.enabled = false
       else
@@ -327,12 +329,11 @@ const store = new Vuex.Store({
         Vue.set(state.webremote, 'columns', 6)
         Vue.set(state.webremote, 'itemHeight', 100)
       } else if(screen.width > 813 && screen.width < 1440) {
-        console.log("HI")
         Vue.set(state.webremote, 'columns', 8)
         Vue.set(state.webremote, 'itemHeight', 120)
       } else {
         Vue.set(state.webremote, 'columns', 8)
-        Vue.set(state.webremote, 'itemHeight', 160)
+        Vue.set(state.webremote, 'itemHeight', 140)
       }
 
     },
@@ -519,7 +520,9 @@ const store = new Vuex.Store({
       const loader = document.querySelector('#loader')
       loader.classList.remove('fadeIn')
       loader.classList.add('fadeOut')
-      setTimeout(function(){ document.querySelector('#loader').classList.add('hidden') }, 1000)
+      setTimeout(function() {
+        document.querySelector('#loader').classList.add('hidden')
+      }, 1000)
     },
 
     logTabs: (state) => {
@@ -945,6 +948,7 @@ const app = new Vue({
 
   created() {
     this.$store.commit('init')
+    this.$store.commit('onWindowResize')
 
     window.addEventListener('resize', () => {
       this.$store.commit('onWindowResize')
@@ -959,7 +963,6 @@ const app = new Vue({
     } else {
       console.log('ReaperWRB ERROR: REAPER API not ready!')
     }
-
     
   }
 })

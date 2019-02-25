@@ -57,7 +57,7 @@ export const defaults = {
     title: 'new webremote',
     timestamp: null,
     columns: 8, // grid 
-    itemHeight: 150, // px
+    itemHeight: 140, // px
     active_tab: 0,
     tabs: []
   },

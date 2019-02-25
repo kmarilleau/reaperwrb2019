@@ -9,6 +9,7 @@
 
 .app-editor {
   height: 100vh;
+  overflow-y: hidden;
   background: $c-editor-primary;
 
   .app-editor-section {

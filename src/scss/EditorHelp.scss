@@ -1,16 +1,15 @@
 .app-help-container {
-  position: absolute;
-  top: 0;
   display: flex;
-  height: 100vh;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
   background: $bg-editor;
-  width: $g-editor-view-width;
+  height: 95vh;
+  margin: 0;
+  position: relative;
 }
 
 .app-help {
   background: $bg-editor;
-  margin: 5vh 10vw;
+  margin: 1vw;
   line-height: 150%;
 
   h3 {

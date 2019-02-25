@@ -8,10 +8,15 @@
         <app-editor-delete-menu class="app-editor-panel" />
       </div>
 
+      <app-help :class="{ hidden: !this.$store.getters.showHelp }" />
+
+      <div class="app-editor-section">
+      </div>
+
       <div class="app-editor-section">
         <!-- EDITOR COLORS -->
         <div class="app-editor-panel"
-          :class="{ blur: this.$store.state.editor.help }"
+          :class="{ blur: this.$store.getters.showHelp }"
         >
 
           <!-- <app-editor-slider-globalcolumns /> -->
@@ -40,7 +45,7 @@
           v-if="this.$store.getters.hasEditItem 
           && !this.$store.getters.isEditorBulkEdit 
           && !this.$store.getters.isEditorModeDelete"
-          :class="{ blur: this.$store.state.editor.help }"
+          :class="{ blur: this.$store.getters.showHelp }"
         >
 
           <app-editor-slider-itemwidth />
@@ -83,6 +88,7 @@ import TheEditorSelectLabelPos from '@/components/TheEditorSelectLabelPos.vue'
 import TheEditorItemDesc from '@/components/TheEditorItemDesc.vue'
 import TheEditorSelectLabelPosVue from '@/components/TheEditorSelectLabelPos.vue'
 import TheEditorBulkEditMenu from '@/components/TheEditorBulkEditMenu.vue'
+import TheEditorHelp from '@/components/TheEditorHelp.vue'
 
 export default {
 
@@ -103,7 +109,8 @@ export default {
     'app-editor-slider-globalcolumns': TheEditorSliderGlobalColumns,
     'app-editor-select-labelpos': TheEditorSelectLabelPos,
     'app-editor-item-desc': TheEditorItemDesc,
-    'app-editor-button': BaseEditorButton
+    'app-editor-button': BaseEditorButton,
+    'app-help': TheEditorHelp
   },
   
   updated() {

@@ -9,17 +9,12 @@
       <app-tab />
     </template>
 
-    <app-help 
-      :class="{ 'hidden': !this.$store.getters.showHelp }"
-    />
-
   </div>
 </template>
 
 <script>
 import TheTabNavigation from '@/components/TheTabNavigation.vue'
 import TheTab from '@/components/TheTab.vue'
-import TheEditorHelp from '@/components/TheEditorHelp.vue'
 
 export default {
 
@@ -35,7 +30,6 @@ export default {
   components: {
     'app-tab-navigation': TheTabNavigation,
     'app-tab': TheTab,
-    'app-help': TheEditorHelp
   },
 
   methods: {
