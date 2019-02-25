@@ -19,9 +19,9 @@
 
 .app-tab-navigation-item {
   opacity: $g-opacity-inactive;
-  
+  overflow-x: hidden;
   .app-item-label {
-    margin: auto 1vw;
+    margin: 0 0 0 0.5vw;
   }
 }
 
@@ -60,17 +60,17 @@
 .app-item-action-container {
   display: grid !important;
   height: 100%;
+  overflow-y: hidden;
 }
 
 .app-item-label {
   width: 100%;
-  margin: auto;
-  overflow-y: hidden;
-
+  height: 100% !important;
+  display: flex;
   span { 
-    display: block; 
+    margin: auto 0.25vw !important;
     text-align: center;
-    margin: 0 0.25vw;
+    width: 100%;
   }
 }
 
@@ -139,20 +139,23 @@
 .app-item-regions-info,
 .app-item-regions-icon {
   margin: auto;
-  height: 100%;
   width: 100%;
+}
+
+.app-item-markers-icon,
+.app-item-regions-icon {
+  height: 100%;
 }
 
 .app-item-markers-info,
 .app-item-regions-info {
-  width: 100%;
   overflow-x: hidden;
+  flex-wrap: wrap;
+  margin: auto;
 }
 
 .app-item-markers-info *,
 .app-item-regions-info * {
-  margin: .25vw 0.5vw;
-  display: block;
   white-space: nowrap;
 }
 

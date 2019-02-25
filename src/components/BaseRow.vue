@@ -13,6 +13,7 @@
       :class="{ 'app-active-row': this.$store.getters.isActiveRow(row) && this.$store.getters.isEditorModeAdd }"
       :style="{ 
         gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)',
+        'min-height': this.$store.getters.itemHeight + 'px'
       }"
       @start="onDraggableStart"
       :move="onDraggableMove"

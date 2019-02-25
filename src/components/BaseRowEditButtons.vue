@@ -26,27 +26,39 @@
 </template>
 
 <script>
+
+const bindHighlightEvent = (self) => {
+
+  if(self.$store.getters.isModeEditor && typeof(self.$el.querySelectorAll) === 'function') {
+    const el = self.$el.querySelectorAll('.app-row-edit-button')
+    el.forEach(button => {
+      if(!button.classList.contains('app-add-row')) {
+        button.addEventListener('mouseenter', function(event) {
+          event.target.parentElement.parentElement.classList.add('app-active-row')
+        })
+
+        button.addEventListener('mouseleave', function(event) { 
+          event.target.parentElement.parentElement.classList.remove('app-active-row')
+        })
+      }
+    })
+  }
+}
+
 export default {
   props: ['row'],
 
-  mounted() {
-    if(this.$store.getters.isModeEditor) {
-      const el = this.$el.querySelectorAll('.app-row-edit-button')
-      el.forEach(button => {
-        if(!button.classList.contains('app-add-row')) {
-          button.addEventListener('mouseenter', function(event) {
-            event.target.parentElement.parentElement.classList.add('app-active-row')
-          })
 
-          button.addEventListener('mouseleave', function(event) { 
-            event.target.parentElement.parentElement.classList.remove('app-active-row')
-          })
-        }
-      })
-    }  
+  updated() {
+    bindHighlightEvent(this)
+  },
+
+  mounted() {
+    bindHighlightEvent(this)
   },
 
   methods: {
+
     onShowItemAddMenu(event) {
       this.$store.dispatch('onShowItemAddMenu', this.row)
     },

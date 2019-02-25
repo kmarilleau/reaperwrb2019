@@ -64,7 +64,6 @@ export default {
       } else {
         style.display = 'flex'
         style['justify-content'] = 'center'
-        style.background = 'red'
       }
       
       return style
