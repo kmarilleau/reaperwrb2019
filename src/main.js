@@ -56,6 +56,8 @@ const store = new Vuex.Store({
     isModeRemote: (state, getters) => state.mode === modes.REMOTE,
     isModeEditor: (state, getters) => state.mode === modes.EDITOR,
 
+    isEditorEnabled: (state, getters) => state.editor.enabled,
+
     isEditorModeMain: (state, getters) => state.editor.mode === editorModes.MAIN,
     isEditorModeAdd: (state, getters) => state.editor.mode === editorModes.ADD,
     isEditorModeSave: (state, getters) => state.editor.mode === editorModes.SAVE,
@@ -241,6 +243,7 @@ const store = new Vuex.Store({
         if(payload.title === webremote.title
           && payload.timestamp === webremote.timestamp) {
           commit('import', state.storage[payload.type].webremotes[index])
+          commit('onWindowResize')
           commit('fadeInLoader')
           commit('getCmdStates')
           commit('setModeEditor')
@@ -312,12 +315,21 @@ const store = new Vuex.Store({
 
     onWindowResize: (state) => {
 
+      if(screen.width < 1024)
+        state.editor.enabled = false
+      else
+        state.editor.enabled = true
+
       if(screen.width < 415) {
         Vue.set(state.webremote, 'columns', 4)
         Vue.set(state.webremote, 'itemHeight', 100)
       } else if (screen.width > 415 && screen.width < 813) {
         Vue.set(state.webremote, 'columns', 6)
         Vue.set(state.webremote, 'itemHeight', 100)
+      } else if(screen.width > 813 && screen.width < 1440) {
+        console.log("HI")
+        Vue.set(state.webremote, 'columns', 8)
+        Vue.set(state.webremote, 'itemHeight', 120)
       } else {
         Vue.set(state.webremote, 'columns', 8)
         Vue.set(state.webremote, 'itemHeight', 160)

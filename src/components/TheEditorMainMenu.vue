@@ -8,7 +8,7 @@
     <template v-if="this.$store.getters.hasNoTabs">
 
       <app-editor-button label="Blank" icon="file-empty" @click.native="onNew" />
-      <app-editor-button label="Template" icon="file-text" @click.native="onLoadExample" />
+      <app-editor-button label="Base" icon="file-text" @click.native="onLoadExample" />
       <app-editor-button label="HTML" icon="code" @click.native="onTriggerLoadHTML" />
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
@@ -31,7 +31,7 @@
         :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
       />
 
-      <app-editor-button label="Bulk Edit" icon="stack" @click.native="onToggleBulkEdit"
+      <app-editor-button label="Bulk" icon="stack" @click.native="onToggleBulkEdit"
         :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
       />
 

@@ -35,6 +35,7 @@ export const defaults = {
     active_row: 0,
     reload_timeout: 2000,
     help: false,
+    enabled: false,
     data: {
       item: {
         type: false,

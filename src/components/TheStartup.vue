@@ -7,7 +7,9 @@
         <img src="/reaperwrb/icons/icon-512x512.png" />
       </div>
 
-      <div class="app-button-launch-editor">
+      <div class="app-button-launch-editor"
+        v-if="this.$store.getters.isEditorEnabled"
+      >
         <button class="pure-button pure-button-primary" 
           @click="onLaunchEditor()">
           <span>Editor</span>

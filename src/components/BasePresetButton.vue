@@ -12,7 +12,9 @@
         <span>{{title}}</span>
       </button>
 
-      <div class="app-preset-buttons">
+      <div class="app-preset-buttons"
+        v-if="this.$store.getters.isEditorEnabled"
+      >
         <button class="pure-button-primary app-button-launch-editor"
           @click.stop="onEdit(title, timestamp, type)"
         >
