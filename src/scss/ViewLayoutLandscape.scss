@@ -3,9 +3,9 @@
   .app-row,
   .app-tab-navigation {
     display: grid;
-    column-gap: $g-item-margin-landscape;
-    row-gap: $g-item-margin-landscape;
-    margin: $g-item-margin-landscape;
+    column-gap: $g-item-margin;
+    row-gap: $g-item-margin;
+    margin: $g-item-margin;
   }
 
   .app-tab-navigation-item {
@@ -15,7 +15,7 @@
   }
 
   .app-tab-navigation-special {
-    column-gap: $g-item-margin-landscape;
+    column-gap: $g-item-margin;
   }
 
   .app-item-markers-info *,

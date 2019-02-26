@@ -339,6 +339,7 @@ const store = new Vuex.Store({
     },
 
     showHelp: (state) => state.editor.help = true,
+    hideHelp: (state) => state.editor.help = false,
     toggleHelp: (state) => state.editor.help = state.editor.help ? false : true,
 
     clearEditHighlight: (state) => {

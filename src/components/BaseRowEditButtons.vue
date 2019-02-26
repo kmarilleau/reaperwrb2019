@@ -60,6 +60,7 @@ export default {
   methods: {
 
     onShowItemAddMenu(event) {
+      this.$store.commit('hideHelp')
       this.$store.dispatch('onShowItemAddMenu', this.row)
     },
 
@@ -68,6 +69,7 @@ export default {
     },
 
     onRowDelete(event) {
+      this.$store.commit('hideHelp')
       let payload = {
         obj: { type: 'row' },
         index: this.row,

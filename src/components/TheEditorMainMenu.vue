@@ -8,7 +8,7 @@
     <template v-if="this.$store.getters.hasNoTabs">
 
       <app-editor-button label="Blank" icon="file-empty" @click.native="onNew" />
-      <app-editor-button label="Base" icon="file-text" @click.native="onLoadExample" />
+      <app-editor-button label="Template" icon="file-text" @click.native="onLoadExample" />
       <app-editor-button label="HTML" icon="code" @click.native="onTriggerLoadHTML" />
 
       <input type="file" id="app-file-input-html" name="files" class="hidden" accept=".html"
@@ -44,6 +44,17 @@
       :class="{ 'pure-button-secondary': this.$store.getters.showHelp }"
     />
 
+    <template
+      v-if="this.$store.getters.hasEditItem"
+    >
+      <app-editor-button icon="edit-delete" 
+        class="pure-button-warning app-editor-button-delete-item"
+        :label="'Delete ' + this.$store.getters.editItemKey('type', 'Item')"
+        @click.native.stop="onDeleteItem"
+      />
+    </template>
+    
+
   </div>
   
 </template>
@@ -68,10 +79,12 @@ export default {
     },
 
     onNew(event) {
+      this.$store.commit('hideHelp')
       this.$store.commit('new')
     },
 
     onClearEditor(event) {
+      this.$store.commit('hideHelp')
       this.$store.commit('clear')
     },
 
@@ -80,6 +93,7 @@ export default {
     },
 
     onLoadExample(event) {
+      this.$store.commit('hideHelp')
       const webremote = cloneDeep(example)
       this.$store.commit('import', webremote)
     },
@@ -89,11 +103,17 @@ export default {
     },
 
     onToggleBulkEdit(event) {
+      this.$store.commit('hideHelp')
       this.$store.commit('clearEditHighlight')
       this.$store.commit('toggleBulkEdit')
     },
 
+    onDeleteItem(event) {
+      this.$store.dispatch('onDeleteItem')
+    },
+
     onSave(event) {
+      this.$store.commit('hideHelp')
       this.$store.commit('clearEditHighlight')
       this.$store.commit('clearEditItem')
       
@@ -104,11 +124,13 @@ export default {
     },
 
     onTriggerLoadToolbar(event) {
+      this.$store.commit('hideHelp')
       this.$store.commit('clearEditHighlight')
       document.querySelector('#app-file-input-toolbar').click();
     },
 
     onTriggerLoadHTML(event) {
+      this.$store.commit('hideHelp')
       document.querySelector('#app-file-input-html').click();
     },
 

@@ -21,16 +21,16 @@
       :index="index"
     ></app-tab-navigation-item>
 
-    <app-tab-add />
+    <app-editor-tab-add />
 
     <div class="app-tab-navigation-item app-tab-navigation-special font-2x"
       v-if="this.$store.getters.isModeRemote"
     >
       <div @click.stop="onHome()">
-        <svgicon icon="home" />
+        <svgicon icon="home" width="25%" height="25%" />
       </div>
       <div @click.stop="onEdit()" class="app-button-launch-editor">
-        <svgicon icon="edit" />
+        <svgicon icon="edit" width="25%" height="25%" />
       </div>
     </div>
 
@@ -40,14 +40,14 @@
 <script>
 import draggable from 'vuedraggable'
 import BaseTabNavigationItem from '@/components/BaseTabNavigationItem.vue';
-import TheTabAdd from '@/components/TheTabAdd.vue'
+import TheEditorTabAdd from '@/components/TheEditorTabAdd.vue'
 
 export default {
 
   components: {
     'draggable': draggable,
     'app-tab-navigation-item': BaseTabNavigationItem,
-    'app-tab-add': TheTabAdd
+    'app-editor-tab-add': TheEditorTabAdd
   },
 
   computed: {

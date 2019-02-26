@@ -5,21 +5,22 @@
 
 .app-container-editor {
   grid-template-columns: $g-editor-view-width auto;
+  background: $c-editor-primary;
 }
 
 .app-editor {
   height: 100vh;
-  overflow-y: hidden;
+  overflow: hidden;
   background: $c-editor-primary;
+  margin: 0 0.4vw;
 
   .app-editor-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 0.4vw;
   }
 
   .app-editor-panel {
-    margin: 0 .5vw;
-
     .app-editor-sub-panel {
       display: grid;
       grid-template-columns: 0.35fr auto;
@@ -30,9 +31,9 @@
     padding: 0.5vw 0 0 0;
     grid-column-end: span 2;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 0.3vw;
-    row-gap: 0.15vw;
+    row-gap: 0.3vw;
   }
 
   .app-editor-bulk-menu {
@@ -83,7 +84,6 @@
     text-shadow: 3px 3px 6px #b9b9b9;
     display: flex;
     margin: 1vh 0;
-    font-weight: bold;
     background: $bg-editor-alt !important;
     padding: .25vw;
     border-radius: $g-border-radius;

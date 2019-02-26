@@ -1,71 +1,56 @@
 <template>
   <div class="app-editor pure-form">
+    <div class="app-editor-menus">
+      <app-editor-main-menu class="app-editor-panel" />
+      <app-editor-add-menu class="app-editor-panel" />
+      <app-editor-save-menu class="app-editor-panel" />
+      <app-editor-delete-menu class="app-editor-panel" />
+    </div>
 
-      <div class="app-editor-menus">
-        <app-editor-main-menu class="app-editor-panel" />
-        <app-editor-add-menu class="app-editor-panel" />
-        <app-editor-save-menu class="app-editor-panel" />
-        <app-editor-delete-menu class="app-editor-panel" />
-      </div>
+    <app-help :class="{ hidden: !this.$store.getters.showHelp }" />
 
-      <app-help :class="{ hidden: !this.$store.getters.showHelp }" />
+    <div class="app-editor-section">
+      <!-- EDITOR COLORS -->
+      <div class="app-editor-panel"
+        :class="{ blur: this.$store.getters.showHelp }"
+      >
 
-      <div class="app-editor-section">
-      </div>
+        <!-- <app-editor-slider-globalcolumns /> -->
 
-      <div class="app-editor-section">
-        <!-- EDITOR COLORS -->
-        <div class="app-editor-panel"
-          :class="{ blur: this.$store.getters.showHelp }"
+        <template
+          v-if="!this.$store.getters.isEditorModeDelete"
         >
+          <app-editor-text-color-picker />
+          <app-editor-item-color-picker />
+        </template>
+      </div>
 
-          <!-- <app-editor-slider-globalcolumns /> -->
+      <!-- EDITOR OPTIONS PANEL -->
+      <div class="app-editor-panel" 
+        v-if="this.$store.getters.hasEditItem 
+        && !this.$store.getters.isEditorBulkEdit 
+        && !this.$store.getters.isEditorModeDelete"
+        :class="{ blur: this.$store.getters.showHelp }"
+      >
 
-          <template
-            v-if="!this.$store.getters.isEditorModeDelete"
-          >
-            <div class="app-editor-menu"
-              v-if="this.$store.getters.hasEditItem"
-            >
-              <app-editor-button icon="edit-delete" 
-                class="pure-button-warning app-editor-button-delete-item"
-                :label="'Delete ' + this.$store.getters.editItemKey('type', 'Item')"
-                @click.native.stop="onDeleteItem"
-              />
-            </div>
+        <app-editor-slider-itemwidth />
+        <app-editor-input-action />
+        <app-editor-input-label />
 
-            <app-editor-text-color-picker />
-            <app-editor-item-color-picker />
-
-          </template>
+        <div class="app-editor-sub-panel">
+          <app-editor-input-toggle />
+          <app-editor-select-labelpos />
         </div>
 
-        <!-- EDITOR OPTIONS PANEL -->
-        <div class="app-editor-panel" 
-          v-if="this.$store.getters.hasEditItem 
-          && !this.$store.getters.isEditorBulkEdit 
-          && !this.$store.getters.isEditorModeDelete"
-          :class="{ blur: this.$store.getters.showHelp }"
-        >
+        <app-editor-item-desc />
 
-          <app-editor-slider-itemwidth />
-          <app-editor-input-action />
-          <app-editor-input-label />
-
-          <div class="app-editor-sub-panel">
-            <app-editor-input-toggle />
-            <app-editor-select-labelpos />
-          </div>
-
-          <app-editor-item-desc />
-
-        </div>
-
-        <app-editor-bulkedit-menu />
-      
       </div>
 
-      <app-editor-icon-menu />
+      <app-editor-bulkedit-menu />
+    
+    </div>
+
+    <app-editor-icon-menu />
   </div>
 </template>
 
@@ -125,11 +110,5 @@ export default {
     this.$store.commit('fadeOutLoader')
     document.title = "ReaperWRB / Editor"
   },
-
-  methods: {
-    onDeleteItem(event) {
-      this.$store.dispatch('onDeleteItem')
-    },
-  }
 }
 </script>

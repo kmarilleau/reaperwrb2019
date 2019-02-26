@@ -1,5 +1,6 @@
 .app-view {
   width: 100%;
+  background: $bg-primary;
 }
 
 .app-view-scroll {
@@ -43,8 +44,6 @@
     opacity: 0.95;
     svg {
       margin: 0;
-      height: 35% !important;
-      width: 35% !important;
     }
   }
   div:hover {
@@ -145,6 +144,7 @@
 .app-item-regions-info {
   overflow: hidden;
   margin: auto 0;
+  line-height: 1.5em;
 }
 
 .app-item-markers-info *,

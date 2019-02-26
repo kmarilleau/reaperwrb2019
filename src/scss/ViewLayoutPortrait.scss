@@ -3,9 +3,8 @@
   .app-row,
   .app-tab-navigation {
     display: grid;
-    column-gap: $g-item-margin-portrait;
-    row-gap: $g-item-margin-portrait;
-    margin: $g-item-margin-portrait;
+    grid-gap: $g-item-margin;
+    margin: $g-item-margin;
   }
 
   .app-tab-navigation-item {
@@ -15,7 +14,7 @@
   }
 
   .app-tab-navigation-special {
-    column-gap: $g-item-margin-portrait;
+    column-gap: $g-item-margin;
   }
 
   .app-item-markers-info *,

@@ -9,12 +9,11 @@
 }
 
 .app-container-editor button {
-  font-weight: bold;
   border-radius: $g-border-radius;
   height: 3vw;
   display: flex;
   justify-content: center;
-  * { 
+  * {
     margin: auto 0; 
   }
   svg {
@@ -23,8 +22,7 @@
 }
 
 .app-editor-button-delete-item {
-  grid-column-end: span 6;
-  text-transform: capitalize;
+  grid-column-end: span 2;
 }
 
 .app-editor-button-add {

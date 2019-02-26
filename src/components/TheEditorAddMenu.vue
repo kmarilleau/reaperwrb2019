@@ -2,7 +2,7 @@
   <div class="app-editor-menu"
     v-if="this.$store.getters.isEditorModeAdd"
   >
-    <button class="pure-button pure-button-secondary" style="grid-column: span 2;"
+    <button class="pure-button pure-button-secondary"
       @click.stop="onCancel">
       <svgicon icon="blocked" /> Cancel
     </button>

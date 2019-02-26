@@ -15,12 +15,12 @@
                 backgroundColor: itemBgcolor, 
                 color: itemTextcolor 
               }">
-              <svgicon :icon="itemIcon" width="50%" height="50%"></svgicon>
+              <svgicon :icon="itemIcon" width="40%" height="40%"></svgicon>
             </div>
             <button title="delete icons" class="pure-button app-item-icon pure-button-warning"
               @click.stop="onClearIcons()" 
             >
-              <svgicon icon="edit-delete" width="50%" height="50%"></svgicon>
+              <svgicon icon="edit-delete" /></svgicon>
             </button>
           </div>
           <app-editor-icon-picker :toggle="false" />
@@ -44,7 +44,7 @@
               color: itemTextcolor 
             }"
           >
-            <svgicon :icon="itemToggleIcon" width="50%" height="50%"></svgicon>
+            <svgicon :icon="itemToggleIcon" width="40%" height="40%"></svgicon>
           </div>
           <app-editor-icon-picker :toggle="true" />
         </div>
