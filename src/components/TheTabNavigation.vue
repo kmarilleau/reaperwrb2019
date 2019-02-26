@@ -29,7 +29,9 @@
       <div @click.stop="onHome()">
         <svgicon icon="home" width="25%" height="25%" />
       </div>
-      <div @click.stop="onEdit()" class="app-button-launch-editor">
+      <div @click.stop="onEdit()" class="app-button-launch-editor"
+        v-if="this.$store.getters.isEditorEnabled"
+      >
         <svgicon icon="edit" width="25%" height="25%" />
       </div>
     </div>
