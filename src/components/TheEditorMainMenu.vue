@@ -47,7 +47,7 @@
       v-if="this.$store.getters.hasEditItem"
     >
       <app-editor-button icon="edit-delete" 
-        class="pure-button-warning app-editor-button-delete-item"
+        class="pure-button-warning"
         :label="'Delete ' + this.$store.getters.editItemKey('type', 'Item')"
         @click.native.stop="onDeleteItem"
       />

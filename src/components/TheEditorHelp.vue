@@ -78,14 +78,17 @@
           ReaperWRB now supports the "Add To Homescreen" feature of Safari on iOS devices as well as Chrome/Edge on Android. This will allow you to place a bookmark
           on your device and open the webremote in fullscreen mode.
         </p>
-      </section>
-      <div class="app-help-footer">
-        &copy; 2019 - 2119 Michael Klier
-        <div class="app-help-social">
-          <a href="https://m-klier.de" target="_blank"><svgicon icon="home" /></a>
-          <a href="https://twitter.com/michael_klier" target="_blank"><svgicon icon="twitter" /></i></a>
+
+        <div class="app-help-footer">
+          &copy; 2019 - 2119 Michael Klier
+          <div class="app-help-social">
+            <a href="https://m-klier.de" target="_blank"><svgicon icon="home" /></a>
+            <a href="https://twitter.com/michael_klier" target="_blank"><svgicon icon="twitter" /></i></a>
+          </div>
         </div>
-      </div>
+
+      </section>
+      
     </div>
   </div>
 </template>
