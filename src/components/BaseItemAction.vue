@@ -82,12 +82,12 @@ export default {
           classes['font-xxl'] = true
         }
 
-        else if (this.item.label.length < 5) {
+        else if (this.item.label.length < 4) {
           classes['font-bold'] = true
           classes['font-xl'] = true
         }
 
-        else if (this.item.label.length < 7)
+        else if (this.item.label.length < 6)
           classes['font-l'] = true
       }
 

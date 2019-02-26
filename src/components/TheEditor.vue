@@ -110,5 +110,6 @@ export default {
     this.$store.commit('fadeOutLoader')
     document.title = "ReaperWRB / Editor"
   },
+
 }
 </script>
