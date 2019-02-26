@@ -16,7 +16,6 @@
       > 
     </template>
     
-
     <app-editor-button label="Toolbar" icon="folder-open" @click.native="onTriggerLoadToolbar" />
     <input type="file" id="app-file-input-toolbar" name="files" class="hidden" accept=".txt, .reaperMenu, .ReaperMenu"
       @change="onLoadFile($event, 'txt')" 
@@ -81,6 +80,7 @@ export default {
     onNew(event) {
       this.$store.commit('hideHelp')
       this.$store.commit('new')
+      this.$store.commit('onWindowResize')
     },
 
     onClearEditor(event) {
@@ -96,6 +96,7 @@ export default {
       this.$store.commit('hideHelp')
       const webremote = cloneDeep(example)
       this.$store.commit('import', webremote)
+      this.$store.commit('onWindowResize')
     },
 
     onToggleExecActions(event) {

@@ -1,0 +1,21 @@
+@media (max-width: 1024px) {
+  .app-icon-picker-items {
+    grid-template-columns: repeat(5, 1fr) !important;
+    grid-template-rows: repeat(4, 4vw) !important;
+    height: calc(7*4vw) !important;
+    .app-icon-picker-item {
+      height: 4vw !important;
+    }
+  }
+}
+
+@media (max-width: 1366px) {
+  .app-icon-picker-items {
+    grid-template-columns: repeat(5, 1fr) !important;
+    grid-template-rows: repeat(4, 4vw) !important;
+    height: calc(7*4vw) !important;
+    .app-icon-picker-item {
+      height: 4vw !important;
+    }
+  }
+}

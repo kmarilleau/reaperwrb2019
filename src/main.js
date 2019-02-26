@@ -177,7 +177,7 @@ const store = new Vuex.Store({
   },
 
   actions: {
-
+    
     onSwitchTab({ commit, state }, tab) {
       commit('clearEditHighlight')
       commit('switchTab', tab)
