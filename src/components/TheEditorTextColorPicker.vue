@@ -30,9 +30,7 @@ export default {
       get() {
         return this.$store.getters.editItemKey('textcolor', '#222222')
       },
-      set(value) {
-        this.$store.commit('updateItem', { key: 'color', val: value })
-      } 
+      set(value) {} 
     },
   },
 

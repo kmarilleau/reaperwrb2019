@@ -553,12 +553,33 @@ const store = new Vuex.Store({
     switchRow: (state, row) => state.editor.active_row = row,
 
     toggleBulkEdit: (state) => {
-      state.editor.data.item = cloneDeep(defaults.editor.data.item),
+      state.editor.data.item = cloneDeep(defaults.editor.data.item)
       state.editor.data.bulk = []
-      state.editor.bulk_edit = state.editor.bulk_edit ? false : true;
+      state.editor.bulk_edit = state.editor.bulk_edit ? false : true
     },
 
     toggleExecActions: (state) => state.editor.exec_actions = state.editor.exec_actions ? false : true,
+
+    bulkEditAddRemove: (state, payload) => {
+      let removedItem = false
+      state.editor.data.bulk = state.editor.data.bulk.filter((item) => {
+        if(item.index == payload.index && item.row == payload.row) {
+          payload.el.classList.remove('app-highlight-edit')
+          removedItem = true
+          return false
+        } else {
+          return true
+        }
+      })
+
+      if(!removedItem) {
+        payload.el.classList.add('app-highlight-edit')
+        payload.obj = state.webremote
+                      .tabs[state.webremote.active_tab]
+                      .rows[payload.row][payload.index] 
+        state.editor.data.bulk.push(payload)
+      }
+    },
 
     bulkEditAdd: (state, payload) => {
       payload.el.classList.add('app-highlight-edit')
@@ -570,8 +591,14 @@ const store = new Vuex.Store({
 
     bulkEditRemove: (state, payload) => {
       payload.el.classList.remove('app-highlight-edit')
+      let removeditem = false
       state.editor.data.bulk = state.editor.data.bulk.filter((item) => {
-        return item.index == payload.index && item.row == payload.row ? false : true
+        if(item.index == payload.index && item.row == payload.row) {
+          removedItem = true
+          return false
+        } else {
+          return true
+        }
       })
     },
 

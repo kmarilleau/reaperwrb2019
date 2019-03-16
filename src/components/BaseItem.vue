@@ -61,13 +61,7 @@ export default {
     'app-item-regions': BaseItemRegions,
     'app-item-position': BaseItemPosition,
   },
-
-  data() {
-    return {
-      bulkEdit: false,
-    }
-  },
-
+  
   mounted() {
     if(this.$store.getters.isModeEditor) {
       if(this.$store.getters.isEditItem({ item: this.item, row: this.row, index: this.index })) {
@@ -103,20 +97,10 @@ export default {
           obj: this.item
         }
 
-        if(!this.$store.getters.isEditorBulkEdit) {
+        if(!this.$store.getters.isEditorBulkEdit)
           this.$store.dispatch('onItemEdit', payload)
-        } else {
-
-          if(!this.bulkEdit) {
-            this.$store.commit('bulkEditAdd', payload)
-            this.bulkEdit = true
-          } else {
-            this.$store.commit('bulkEditRemove', payload)
-            this.bulkEdit = false
-          }
-
-        }
-          
+        else
+          this.$store.commit('bulkEditAddRemove', payload)
       }
     },
   }
