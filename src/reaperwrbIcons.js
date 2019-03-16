@@ -312,6 +312,8 @@ const reaperwrbIcons = [
 'rec-mode-normal',
 'automation-reduce-points',
 'automation-clear-envelope',
-'automation-delete-all-points'
+'automation-delete-all-points',
+'unmute-all-tracks',
+'unsolo-all-tracks'
 ]
 export default reaperwrbIcons
