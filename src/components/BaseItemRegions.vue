@@ -17,7 +17,7 @@
         </template>
         <template v-if="this.$store.getters.isModeEditor && !this.$store.getters.hasRegions">
           <span :style="{ color: item.textcolor }">Region: 1</span>
-          <span :style="{ color: item.textcolor }">Name thius is a along as name</span>
+          <span :style="{ color: item.textcolor }">Name</span>
         </template>
       </div>
       <a class="app-item-regions-icon" 

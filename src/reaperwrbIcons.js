@@ -196,6 +196,8 @@ const reaperwrbIcons = [
 'power-cord',
 'power-off',
 'power-on',
+'preroll-playback',
+'preroll-record',
 'question',
 'queue-play-next',
 'redo',
@@ -298,5 +300,18 @@ const reaperwrbIcons = [
 'zoom-in',
 'zoom-out',
 'zoom-out-alt',
+'automation-mode',
+'automation-follow-timeselection',
+'envelope-add-edge-points-when-moving',
+'automation-item',
+'automation-write-timeselection',
+'automation-write-start',
+'automation-write-end',
+'record-unarm-all',
+'rec-mode-timeselection-auto-punch',
+'rec-mode-normal',
+'automation-reduce-points',
+'automation-clear-envelope',
+'automation-delete-all-points'
 ]
 export default reaperwrbIcons
