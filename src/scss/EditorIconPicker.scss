@@ -25,15 +25,14 @@
 
 .app-icon-picker {
   padding: 0 0 .5vw 0;
-  input { margin: .5vw 0 !important; }
-  
+  input { margin: 0.3vw 0 0 0 !important; }
   display: grid;
 
   .app-icon-picker-items {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, 3vw);
-    height: calc(3*2.25vw);
+    height: calc(3*3vw);
     overflow-y: scroll;
     background: white;
     border-radius: $g-border-radius;
