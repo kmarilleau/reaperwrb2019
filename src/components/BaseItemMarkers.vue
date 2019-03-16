@@ -3,7 +3,7 @@
     
     <div class="app-item-markers-nav">
       <a class="app-item-markers-icon" 
-        @click.stop="onPreviousMarker()"
+        @click="onPreviousMarker()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="marker-previous" 
@@ -22,7 +22,7 @@
         </template>
       </div>
       <a class="app-item-markers-icon"
-        @click.stop="onRefresh()"
+        @click="onRefresh()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="sync" 
@@ -31,7 +31,7 @@
         />
       </a>
       <a class="app-item-markers-icon"
-        @click.stop="onNextMarker()"
+        @click="onNextMarker()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="marker-next" 

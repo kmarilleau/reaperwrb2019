@@ -2,7 +2,7 @@
   <div class="app-item-container app-item-regions">
     <div class="app-item-regions-nav">
       <a class="app-item-regions-icon" 
-        @click.stop="onPreviousRegion()"
+        @click="onPreviousRegion()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="region-previous" 
@@ -21,7 +21,7 @@
         </template>
       </div>
       <a class="app-item-regions-icon" 
-        @click.stop="onRefresh()"
+        @click="onRefresh()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="sync" 
@@ -30,7 +30,7 @@
         />
       </a>
       <a class="app-item-regions-icon" 
-        @click.stop="onNextRegion()"
+        @click="onNextRegion()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="region-next" 
