@@ -32,7 +32,7 @@
   .app-icon-picker-items {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(3, 2.25vw);
+    grid-template-rows: repeat(3, 3vw);
     height: calc(3*2.25vw);
     overflow-y: scroll;
     background: white;
@@ -43,10 +43,14 @@
       display: flex;
       cursor: pointer;
       border-radius: $g-border-radius;
-      height: 2.25vw;
+      height: 3vw;
+      width: 3vw;
+      margin: auto;
       svg { 
         color: $c-editor-alt;
         margin: auto;
+        height: 50% !important;
+        width: 50% !important;
       }
 
     }
