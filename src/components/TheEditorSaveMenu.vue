@@ -32,8 +32,8 @@
       <em>rc.reaper.fm/[filename].html</em></p>
 
       <label><svgicon icon="drive" /> JSON</label>
-      <p>Lets you download and save the webremote as <em>.json</em> file
-      into your <em>reaper_www_root</em> folder.</p>
+      <p>Lets you download and save the webremote as <em>.json</em> file.</p>
+      <p>The file needs to be saved to your <em>reaper_www_root/reaperwrb</em> folder.</p>
       <p>Webremotes saved to JSON storage are accessible from all devices.</p>
     </div>
 
