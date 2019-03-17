@@ -4,7 +4,7 @@
     <div class="app-startup-container">
     
       <div class="logo">
-        <img src="/reaperwrb/icons/icon-512x512.png" />
+        <img src="/reaperwrb_2/icons/icon-512x512.png" />
       </div>
 
       <div class="app-button-launch-editor"

@@ -42,7 +42,7 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'reaperwrb',
+    assetsSubDirectory: 'reaperwrb_2',
     assetsPublicPath: '/',
 
     /**

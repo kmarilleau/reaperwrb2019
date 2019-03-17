@@ -67,7 +67,7 @@
         </p>
         <h3><svgicon icon="drive" /> JSON</h3>
         <p>
-          Saving to JSON will prompt you to downloade a json.js file. This file has to be saved to <em>reaper_www_root/reaperwrb/</em> folder
+          Saving to JSON will prompt you to downloade a json.js file. This file has to be saved to <em>reaper_www_root/reaperwrb_2/</em> folder
           overwriting any existing json.js file (same goes for deleting)! 
         </p>
         <p>

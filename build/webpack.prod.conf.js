@@ -61,7 +61,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'reaperwrb.html',
+      filename: 'reaperwrb_2.html',
       template: 'index.html',
       inject: true,
       minify: {
