@@ -4,28 +4,28 @@
   >
     <button class="pure-button pure-button-secondary"
       @click.stop="onCancel">
-      <svgicon icon="blocked" /> Cancel
+      <span><svgicon icon="blocked" /> Cancel</span>
     </button>
 
     <div style="grid-column-start: span 5;"></div>
 
     <button @click.stop="onItemAdd('action')" class="pure-button app-editor-button-add">
-      Action
+      <span>Action</span>
     </button>
     <button @click.stop="onItemAdd('spacer')" class="pure-button app-editor-button-add">
-      Spacer
+      <span>Spacer</span>
     </button>
     <button @click.stop="onItemAdd('transport')" class="pure-button app-editor-button-add">
-      Transport
+      <span>Transport</span>
     </button>
     <button @click.stop="onItemAdd('position')" class="pure-button app-editor-button-add">
-      Position
+      <span>Position</span>
     </button>
     <button @click.stop="onItemAdd('markers')" class="pure-button app-editor-button-add">
-      Markers
+      <span>Markers</span>
     </button>
     <button @click.stop="onItemAdd('regions')"  class="pure-button app-editor-button-add">
-      Regions
+      <span>Regions</span>
     </button>
     
   </div>
