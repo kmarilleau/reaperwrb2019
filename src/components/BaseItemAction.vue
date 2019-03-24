@@ -58,9 +58,9 @@ export default {
       if(this.item.icon !== false) {
         style['display'] = 'grid'
         if(parseInt(this.item.labelpos) === 1)
-          style['grid-template-rows'] = '1fr 1fr'
+          style['grid-template-rows'] = '50% 50%'
         else
-          style['grid-template-rows'] = '1fr 1fr'
+          style['grid-template-rows'] = '50% 50%'
       } else {
         style.display = 'flex'
         style['justify-content'] = 'center'

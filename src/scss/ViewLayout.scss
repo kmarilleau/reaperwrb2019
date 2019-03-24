@@ -158,6 +158,8 @@
   opacity: 0.8;
   display: flex;
   svg {
+    width: 75% !important;
+    height: 75% !important;
     margin: auto;
   }
 }
@@ -167,6 +169,8 @@
 .app-item-transport-icon {
   display: flex;
   svg { 
+    width: 50% !important;
+    height: 50% !important;
     opacity: 0.8; 
     margin: auto;
   }

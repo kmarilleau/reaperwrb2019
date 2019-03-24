@@ -35,12 +35,12 @@
         <button title="cancel" class="pure-button-secondary"
           @click.stop="onCancelDelete()"
         >
-          <svgicon icon="blocked" /> Cancel
+          <svgicon icon="blocked" /> <span>Cancel</span>
         </button>
         <button class="pure-button-warning app-button-delete-preset"
           @click.stop="onDelete(title, timestamp, type)"
         >
-          <svgicon icon="edit-delete-forever" /> Confirm
+          <svgicon icon="edit-delete-forever" /> <span>Confirm</span>
         </button>
       </div>
     </template>

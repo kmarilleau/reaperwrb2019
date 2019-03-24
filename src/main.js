@@ -405,7 +405,6 @@ const store = new Vuex.Store({
       const html = htmlTemplate.html(JSON.stringify(webremote)).replace(/\n|/g, '').replace(/>\s+</g, '><')
       const blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, webremote.title + '.html')
-      setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, state.editor.reload_timeout)
     },
 
     saveJSON: (state) => {
@@ -442,7 +441,6 @@ const store = new Vuex.Store({
       const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
       const blob = new Blob([json], { type: "application/json" })
       saveAs(blob, "webremote.js")
-      setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, state.editor.reload_timeout)
     },
 
     saveLocalStorage: (state) => {
@@ -491,7 +489,6 @@ const store = new Vuex.Store({
         const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
         const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
         saveAs(blob, "webremote.js")
-        setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, 500)
       }
     },
 

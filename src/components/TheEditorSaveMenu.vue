@@ -76,7 +76,8 @@ export default {
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
-        this.$store.commit('saveHTML') 
+        this.$store.commit('saveHTML')      
+        this.$store.commit('setEditorModeMain')
       }
     },
 
@@ -95,7 +96,8 @@ export default {
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
-        this.$store.commit('saveJSON') 
+        this.$store.commit('saveJSON')
+        this.$store.commit('setEditorModeMain')
       }
     },
 
