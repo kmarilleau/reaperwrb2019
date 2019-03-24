@@ -66,7 +66,7 @@ const store = new Vuex.Store({
     isEditorExecActions: (state, getters) => state.editor.execAction,
 
     itemHeight: (state, getters) => state.webremote.itemHeight,
-    iconSize: (state, getters) => (getters.itemHeight / 2.5).toString(),
+    iconSize: (state, getters) => (getters.itemHeight / 3).toString(),
 
     showHelp: (state, getters) =>  state.editor.help,
 
@@ -441,7 +441,7 @@ const store = new Vuex.Store({
       }
       const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
       const blob = new Blob([json], { type: "application/json" })
-      saveAs(blob, "json.js")
+      saveAs(blob, "webremote.js")
       setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, state.editor.reload_timeout)
     },
 
@@ -490,7 +490,7 @@ const store = new Vuex.Store({
       if(payload.type === 'json') {
         const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
         const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
-        saveAs(blob, "json.js")
+        saveAs(blob, "webremote.js")
         setTimeout(function() { window.addEventListener('focus', function() { location.reload() }) }, 500)
       }
     },

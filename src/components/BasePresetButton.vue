@@ -4,7 +4,7 @@
     <template
       v-if="!this.delete"
     >
-      <div class="app-preset-type">{{type}}</div>
+      <div class="app-preset-type">{{presetType}}</div>
       <button class="app-button-launch-preset"
         @click.stop="onLoad(title, timestamp, type)"
       >
@@ -54,6 +54,15 @@ export default {
   data() {
     return {
       delete: false,
+    }
+  },
+
+  computed: {
+    presetType() {
+      if(this.type === 'json')
+        return 'db'
+      else
+        return this.type
     }
   },
 

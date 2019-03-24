@@ -12,7 +12,7 @@
 
     <app-editor-button label="HTML" icon="code" @click.native.stop="onSaveHTML" class="pure-button-primary" />
     
-    <app-editor-button label="JSON" icon="drive" @click.native.stop="onSaveJSON" class="pure-button-primary" />
+    <app-editor-button label="DB" icon="drive" @click.native.stop="onSaveJSON" class="pure-button-primary" />
 
     <div class="app-editor-webremote-title">
       <label>Webremote Title</label>
@@ -31,10 +31,10 @@
       <p>Webremotes saved as HTML are accessible from all devices via
       <em>rc.reaper.fm/[filename].html</em></p>
 
-      <label><svgicon icon="drive" /> JSON</label>
-      <p>Lets you download and save the webremote as <em>.json</em> file.</p>
-      <p>The file needs to be saved to your <em>reaper_www_root/reaperwrb</em> folder.</p>
-      <p>Webremotes saved to JSON storage are accessible from all devices.</p>
+      <label><svgicon icon="drive" /> DB</label>
+      <p>Lets you download and save the webremote to a db file named <em>webremote.js</em>.</p>
+      <p>The file needs to be saved to your <em>reaper_www_root/reaperwrb_2/</em> folder.</p>
+      <p>Webremotes saved this way are accessible from all devices.</p>
     </div>
 
   </div>

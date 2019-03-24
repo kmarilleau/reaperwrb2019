@@ -65,10 +65,10 @@
           When you save a webremote as HTML, make sure to save the resulting file into the <em>reaper_www_root</em> folder.
           You can then access your webremote from http://rc.reaper.fm/[filename].html.
         </p>
-        <h3><svgicon icon="drive" /> JSON</h3>
+        <h3><svgicon icon="drive" /> DB</h3>
         <p>
-          Saving to JSON will prompt you to downloade a json.js file. This file has to be saved to <em>reaper_www_root/reaperwrb_2/</em> folder
-          overwriting any existing json.js file (same goes for deleting)! 
+          Saving to DB will prompt you to downloade a webremote.js file. This file has to be saved to <em>reaper_www_root/reaperwrb_2/</em> folder
+          overwriting any existing webremote.js file (same goes for deleting)! 
         </p>
         <p>
           These webremotes will be accessible across all devices accessing the ReaperWRB startup page.

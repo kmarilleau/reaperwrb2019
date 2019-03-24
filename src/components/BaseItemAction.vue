@@ -58,9 +58,9 @@ export default {
       if(this.item.icon !== false) {
         style['display'] = 'grid'
         if(parseInt(this.item.labelpos) === 1)
-          style['grid-template-rows'] = '30% 70%'
+          style['grid-template-rows'] = '1fr 1fr'
         else
-          style['grid-template-rows'] = '70% 30%'
+          style['grid-template-rows'] = '1fr 1fr'
       } else {
         style.display = 'flex'
         style['justify-content'] = 'center'
@@ -77,12 +77,12 @@ export default {
           classes['font-xxxl'] = true
         }
 
-        else if(this.item.label.length < 3 * this.item.width) {
+        else if(this.item.label.length <= 3 * this.item.width) {
           classes['font-bold'] = true
           classes['font-xxl'] = true
         }
 
-        else if (this.item.label.length < 4 * this.item.width) {
+        else if (this.item.label.length < 5 * this.item.width) {
           classes['font-bold'] = true
           classes['font-xl'] = true
         }

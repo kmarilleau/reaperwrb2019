@@ -8,7 +8,7 @@
     @click.stop="onClick()"
     :tab="index"
   >
-    <span class="app-item-label font-bold" 
+    <span class="app-item-label" 
       :style="{ color: tab.textcolor }
     ">
       {{tab.label}}
