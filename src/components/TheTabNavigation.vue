@@ -2,7 +2,10 @@
   <draggable 
     :class="'app-tab-navigation'"
     v-model="tabs"
-    :style="{ gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)' }"
+    :style="{ 
+      gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)',
+      height: (this.$store.getters.itemHeight / 2 - 8) + 'px'
+    }"
     :options="{ 
       draggable: this.$store.getters.isModeEditor && !this.$store.getters.isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
@@ -23,17 +26,33 @@
 
     <app-editor-tab-add />
 
-    <div class="app-tab-navigation-item app-tab-navigation-special font-2x"
+    <div class="app-tab-navigation-item app-tab-navigation-menu"
       v-if="this.$store.getters.isModeRemote"
+      :style="{
+        width: this.$store.getters.itemWidth + 'px',
+      }"
     >
-      <div @click.stop="onHome()">
-        <svgicon icon="home" width="25%" height="25%" />
-      </div>
-      <div @click.stop="onEdit()" class="app-button-launch-editor"
+      <a @click.stop="onHome()"
+        :style="{
+          height: (this.$store.getters.itemHeight / 2) + 'px',
+          width: (this.$store.getters.itemWidth / 2) + 'px',
+        }"
+      >
+        <svgicon icon="home"
+          :style = "{
+            height: (this.$store.getters.iconSize / 2) + 'px',
+            width: (this.$store.getters.iconSize / 2) + 'px'
+          }"
+        />
+      </a>
+      <a @click.stop="onEdit()"
         v-if="this.$store.getters.isEditorEnabled"
       >
-        <svgicon icon="edit" width="25%" height="25%" />
-      </div>
+        <svgicon icon="edit"
+          :height="this.$store.getters.iconSize / 2 + 'px'"
+          :width="this.$store.getters.iconSize / 2 + 'px'"
+        />
+      </a>
     </div>
 
   </draggable>
@@ -78,6 +97,7 @@ export default {
     onEdit() {
       this.$store.commit('fadeInLoader')
       this.$store.commit('setModeEditor')
+      this.$store.commit('onWindowResize')
     },
 
     onDraggableStart(event) {

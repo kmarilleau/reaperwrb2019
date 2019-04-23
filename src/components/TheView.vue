@@ -21,10 +21,13 @@ export default {
   mounted() {
     if(this.$store.getters.isModeRemote)
       document.title = "ReaperWRB / " + this.$store.getters.webremoteTitle
+
+    this.$store.commit('onWindowResize')
   },
 
   updated() {
-    //this.$store.commit('getCmdStates')
+    if(this.$store.getters.isModeEditor)
+      this.$store.commit('onWindowResize')
   },
 
   components: {

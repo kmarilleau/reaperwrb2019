@@ -58,6 +58,7 @@ export const defaults = {
     timestamp: null,
     columns: 8, // grid 
     itemHeight: 140, // px
+    itemWidth: null,
     active_tab: 0,
     tabs: []
   },

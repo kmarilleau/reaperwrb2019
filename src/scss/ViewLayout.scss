@@ -1,6 +1,7 @@
 .app-view {
   width: 100%;
   background: $bg-primary;
+  display: table;
 }
 
 .app-view-scroll {
@@ -12,17 +13,29 @@
   font-weight: bold;
 }
 
+.app.row,
+.app-tab-navigation {
+  display: grid;
+  display: table-row;
+  width: 100%;
+}
+
 .app-item,
 .app-tab-navigation-item {
+  display: inline-block;
+  float: left;
   border-radius: $g-border-radius;
   cursor: pointer;
+  box-shadow: inset 0 0 0 2px $bg-primary;
 }
 
 .app-tab-navigation-item {
   opacity: $g-opacity-inactive;
   overflow-x: hidden;
+  
   .app-item-label {
     margin: 0 0 0 0.5vw;
+    height: inherit;
   }
 }
 
@@ -31,22 +44,21 @@
 }
 
 /* Home Buttons */
-.app-tab-navigation-special {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  text-align: center;
+.app-tab-navigation-menu {
   opacity: 1;
-  
-  div {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  a {
+    box-shadow: inset 0 0 0 2px $bg-primary;
     background: $c-editor-button-okay;
     border-radius: $g-border-radius;
     color: $c-editor-primary;
     opacity: 0.95;
-    svg {
-      margin: 0;
-    }
+    text-align: center;
+    float: left;
   }
-  div:hover {
+
+  a:hover {
     opacity: 1;
   }
 }
@@ -57,7 +69,8 @@
 }
 
 .app-item-action-container {
-  display: grid !important;
+  display: grid;
+  grid-template-rows: 50% 50%;
   height: 100%;
   overflow: hidden !important;
 }
@@ -65,8 +78,9 @@
 .app-item-label {
   width: 100%;
   margin: 0;
-  height: 100% !important;
   display: flex;
+  text-align: center;
+  
   span {
     margin: auto;
     text-align: center;
@@ -86,20 +100,23 @@
 /* TRANSPORT */
 .app-item-transport {
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
 }
 
 .app-item-transport-container {
   justify-self: center;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: block;
+  display: flex;
   height: inherit;
   a {
-    margin: auto;
-    text-align: center;
-    width: 100%;
-    height: 100%;
+    float: left;
     display: flex;
+    width: 20%;
+    svg {
+      display: block;
+      margin: auto;
+    }
   }
 
   a:active {
@@ -130,20 +147,21 @@
 /* MARKERS & REGIONS */
 .app-item-markers-nav,
 .app-item-regions-nav {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
+  display: flex;
+  height: 100%;
+  // display: grid;
+  // grid-template-columns: 1fr 2fr 1fr 1fr;
 }
 
 .app-item-markers-icon,
 .app-item-regions-icon {
-  width: 100%;
-  margin: auto;
-  height: 100%;
+  height: inherit;
+  width: 25%;
 }
 
 .app-item-markers-info,
 .app-item-regions-info {
-  overflow: hidden;
+  overflow: hidden !important;
   margin: auto 0;
   line-height: 2em;
 }
@@ -158,8 +176,6 @@
   opacity: 0.8;
   display: flex;
   svg {
-    width: 75% !important;
-    height: 75% !important;
     margin: auto;
   }
 }
@@ -169,8 +185,6 @@
 .app-item-transport-icon {
   display: flex;
   svg { 
-    width: 50% !important;
-    height: 50% !important;
     opacity: 0.8; 
     margin: auto;
   }
@@ -196,6 +210,7 @@
   vertical-align: middle;
   fill: currentColor;
   stroke: none;
+  // display: none;
 }
 
 .svg-fill {

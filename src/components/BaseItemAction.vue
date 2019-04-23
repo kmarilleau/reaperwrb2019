@@ -15,18 +15,25 @@
       v-if="this.item.icon"
       :style="{
         color: this.item.textcolor,
+        height: getIconHeight() + 'px',
+        margin: '2px'
       }"
     >
       <svgicon 
         :icon="itemIcon()" 
-        :height="this.$store.getters.iconSize"
-        :width="this.$store.getters.iconSize"
+        :height="getIconSize() + 'px'"
+        :width="getIconSize() + 'px'"
       />
     </div>
 
     <div class="app-item-label"
       v-if="parseInt(item.labelpos) === 0"
-      :style="{ color: item.textcolor }"
+      :style="{ 
+        color: item.textcolor, 
+        height: getLabelHeight() + 'px',
+        width: (this.$store.getters.itemWidth * this.item.width) - 4 + 'px',
+        margin: '2px'
+      }"
     >
       <span
       :class="getClass()"
@@ -52,11 +59,31 @@ export default {
         return this.item.state > 0 && this.item.toggleicon ? this.item.toggleicon : this.item.icon
     },
 
+    getIconHeight() {
+      if(this.item.label !== '')
+        return this.$store.getters.itemHeight / 2
+      else
+        return this.$store.getters.itemHeight
+    },
+
+    getIconSize() {
+      if(this.item.label !== '')
+        return this.$store.getters.iconSize
+      else
+        return (this.$store.getters.iconSize * 2 - 4)
+    },
+
+    getLabelHeight() {
+      if(this.item.icon !== false)
+        return this.$store.getters.itemHeight / 2
+      else
+        return this.$store.getters.itemHeight
+    },
+
     getStyle() {
       const style = {}
 
       if(this.item.icon !== false) {
-        style['display'] = 'grid'
         if(parseInt(this.item.labelpos) === 1)
           style['grid-template-rows'] = '50% 50%'
         else

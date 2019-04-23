@@ -6,27 +6,27 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="region-previous" 
-          :height="this.$store.getters.iconSize"
-          :width="this.$store.getters.iconSize"
+          :height="this.$store.getters.iconSize + 'px'"
+          :width="this.$store.getters.iconSize + 'px'"
         />
       </a>
       <div class="app-item-regions-info">
-        <template v-if="this.$store.getters.hasRegions">
+        <!-- <template v-if="this.$store.getters.hasRegions"> -->
           <span :style="{ color: item.textcolor }">Region: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
-        </template>
-        <template v-if="this.$store.getters.isModeEditor && !this.$store.getters.hasRegions">
+        <!-- </template> -->
+        <!-- <template v-if="this.$store.getters.isModeEditor && !this.$store.getters.hasRegions"> -->
           <span :style="{ color: item.textcolor }">Region: 1</span>
           <span :style="{ color: item.textcolor }">Name</span>
-        </template>
+        <!-- </template> -->
       </div>
       <a class="app-item-regions-icon" 
         @click="onRefresh()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="sync" 
-          :height="this.$store.getters.iconSize"
-          :width="this.$store.getters.iconSize"
+          :height="this.$store.getters.iconSize + 'px'"
+          :width="this.$store.getters.iconSize + 'px'"
         />
       </a>
       <a class="app-item-regions-icon" 
@@ -34,8 +34,8 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="region-next" 
-          :height="this.$store.getters.iconSize"
-          :width="this.$store.getters.iconSize"
+          :height="this.$store.getters.iconSize + 'px'"
+          :width="this.$store.getters.iconSize + 'px'"
         />
       </a>
     </div>

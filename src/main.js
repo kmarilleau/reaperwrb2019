@@ -66,6 +66,7 @@ const store = new Vuex.Store({
     isEditorExecActions: (state, getters) => state.editor.execAction,
 
     itemHeight: (state, getters) => state.webremote.itemHeight,
+    itemWidth: (state, getters) => state.webremote.itemWidth,
     iconSize: (state, getters) => (getters.itemHeight / 3).toString(),
 
     showHelp: (state, getters) =>  state.editor.help,
@@ -243,7 +244,6 @@ const store = new Vuex.Store({
         if(payload.title === webremote.title
           && payload.timestamp === webremote.timestamp) {
           commit('import', state.storage[payload.type].webremotes[index])
-          commit('onWindowResize')
           commit('fadeInLoader')
           commit('getCmdStates')
           commit('setModeEditor')
@@ -322,20 +322,30 @@ const store = new Vuex.Store({
       else
         state.editor.enabled = true
 
-      if(screen.width < 415) {
-        Vue.set(state.webremote, 'columns', 4)
-        Vue.set(state.webremote, 'itemHeight', 100)
-      } else if (screen.width > 415 && screen.width < 813) {
-        Vue.set(state.webremote, 'columns', 6)
-        Vue.set(state.webremote, 'itemHeight', 100)
-      } else if(screen.width > 813 && screen.width < 1440) {
+      if(state.mode === modes.EDITOR) {
+        let editorView = document.querySelector('.app-view')
         Vue.set(state.webremote, 'columns', 8)
+        Vue.set(state.webremote, 'itemWidth', editorView.clientWidth / 8)
         Vue.set(state.webremote, 'itemHeight', 120)
       } else {
-        Vue.set(state.webremote, 'columns', 8)
-        Vue.set(state.webremote, 'itemHeight', 140)
+        if(screen.width < 415) {
+          Vue.set(state.webremote, 'columns', 4)
+          Vue.set(state.webremote, 'itemHeight', 100)
+          Vue.set(state.webremote, 'itemWidth', screen.width / 4)
+        } else if (screen.width > 415 && screen.width < 813) {
+          Vue.set(state.webremote, 'columns', 6)
+          Vue.set(state.webremote, 'itemHeight', 100)
+          Vue.set(state.webremote, 'itemWidth', screen.width / 6)
+        } else if(screen.width > 813 && screen.width < 1440) {
+          Vue.set(state.webremote, 'columns', 8)
+          Vue.set(state.webremote, 'itemHeight', 120)
+          Vue.set(state.webremote, 'itemWidth', screen.width / 8)
+        } else {
+          Vue.set(state.webremote, 'columns', 8)
+          Vue.set(state.webremote, 'itemHeight', 140)
+          Vue.set(state.webremote, 'itemWidth', screen.width / 8)
+        }
       }
-
     },
 
     showHelp: (state) => state.editor.help = true,

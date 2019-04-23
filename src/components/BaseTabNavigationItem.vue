@@ -1,6 +1,9 @@
 <template>
   <div class="app-tab-navigation-item"
-    :style="{ backgroundColor: tab.bgcolor }"
+    :style="{ 
+      backgroundColor: tab.bgcolor,
+      width: this.$store.getters.itemWidth + 'px',
+    }"
     :class="{ 
       'app-tab-navigation-item-active' : this.$store.getters.isActiveTab(index),
       'app-highlight-edit' : this.$store.getters.isTabEdit(index) 
@@ -9,8 +12,11 @@
     :tab="index"
   >
     <span class="app-item-label" 
-      :style="{ color: tab.textcolor }
-    ">
+      :style="{ 
+        color: tab.textcolor,
+        'line-height': this.$store.getters.itemHeight / 2 + 'px'
+      }"
+    >
       {{tab.label}}
     </span>
   </div>

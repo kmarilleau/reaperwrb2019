@@ -7,27 +7,27 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="marker-previous" 
-          :height="this.$store.getters.iconSize"
-          :width="this.$store.getters.iconSize"
+          :height="this.$store.getters.iconSize + 'px'"
+          :width="this.$store.getters.iconSize + 'px'"
         />
       </a>
       <div class="app-item-markers-info">
-        <template v-if="this.$store.getters.hasMarkers">
+        <!-- <template v-if="this.$store.getters.hasMarkers"> -->
           <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
-        </template>
-        <template v-if="this.$store.getters.isModeEditor && !this.$store.getters.hasMarkers">
+        <!-- </template> -->
+        <!-- <template v-if="this.$store.getters.isModeEditor && !this.$store.getters.hasMarkers"> -->
           <span :style="{ color: item.textcolor }">Marker: 1</span>
           <span :style="{ color: item.textcolor }">Name</span>
-        </template>
+        <!-- </template> -->
       </div>
       <a class="app-item-markers-icon"
         @click="onRefresh()"
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="sync" 
-          :height="this.$store.getters.iconSize"
-          :width="this.$store.getters.iconSize"
+          :height="this.$store.getters.iconSize + 'px'"
+          :width="this.$store.getters.iconSize + 'px'"
         />
       </a>
       <a class="app-item-markers-icon"
@@ -35,8 +35,8 @@
         :style="{ color: item.textcolor }"
       >
         <svgicon icon="marker-next" 
-          :height="this.$store.getters.iconSize"
-          :width="this.$store.getters.iconSize"
+          :height="this.$store.getters.iconSize + 'px'"
+          :width="this.$store.getters.iconSize + 'px'"
         />
       </a>
     </div>

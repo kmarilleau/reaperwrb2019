@@ -28,8 +28,7 @@
 
 .app-tab-add {
   text-align: center;
-  height: $g-nav-item-height-landscape;
-
+  float: left;
   a {
     margin: auto;
     display: block;
@@ -44,6 +43,10 @@
   color: $c-editor-alt;
   cursor: pointer;
   opacity: 0.5;
+}
+
+.app-row-edit-buttons {
+  clear: both;
 }
 
 .app-item-add:hover,

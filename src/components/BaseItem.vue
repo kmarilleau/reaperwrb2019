@@ -5,6 +5,7 @@
       backgroundColor: item.bgcolor, 
       gridColumnEnd: item.width ? 'span ' + item.width : 'span 1',
       height: this.$store.getters.itemHeight + 'px',
+      width: (this.$store.getters.itemWidth * item.width) + 'px'
     }"
     @click="onClick()"
     :row="row"

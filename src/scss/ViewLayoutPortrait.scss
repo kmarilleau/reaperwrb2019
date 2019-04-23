@@ -1,20 +1,6 @@
 @media (orientation: portrait) {
-
-  .app-row,
-  .app-tab-navigation {
-    display: grid;
-    grid-gap: $g-item-margin;
-    margin: $g-item-margin;
-  }
-
   .app-tab-navigation-item {
-    line-height: $g-nav-item-height-portrait;
-    max-height: $g-nav-item-height-portrait;
     overflow: hidden;
-  }
-
-  .app-tab-navigation-special {
-    column-gap: $g-item-margin;
   }
 
   .app-item-markers-info *,
@@ -24,6 +10,6 @@
   }
 
   .app-item-position-info {
-    font-size: 6em;
+    font-size: 4em;
   }
 }
