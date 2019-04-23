@@ -317,8 +317,6 @@ const store = new Vuex.Store({
 
       console.log("ReaperWRB: Window Resize")
 
-      
-
       if(screen.width < 1024)
         state.editor.enabled = false
       else
@@ -346,9 +344,6 @@ const store = new Vuex.Store({
 
         Vue.set(state.webremote, 'itemHeight', state.webremote.itemWidth)
       }
-
-      // alert(screen.width)
-      //alert('screenWidth:' + screen.width + ' itemWidth' + state.webremote.itemWidth)
     },
 
     showHelp: (state) => state.editor.help = true,
