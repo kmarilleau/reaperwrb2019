@@ -30,14 +30,10 @@
       v-if="this.$store.getters.isModeRemote"
       :style="{
         width: this.$store.getters.itemWidth + 'px',
+        'line-height': this.$store.getters.itemHeight / 2 + 'px'
       }"
     >
-      <a @click.stop="onHome()"
-        :style="{
-          height: (this.$store.getters.itemHeight / 2) + 'px',
-          width: (this.$store.getters.itemWidth / 2) + 'px',
-        }"
-      >
+      <a @click.stop="onHome()">
         <svgicon icon="home"
           :style = "{
             height: (this.$store.getters.iconSize / 2) + 'px',

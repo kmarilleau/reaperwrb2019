@@ -7,6 +7,7 @@
 .app-view-scroll {
   height: 100vh;
   overflow-y: scroll;
+  font-size: 75%;
 }
 
 .font-bold {
@@ -45,21 +46,16 @@
 
 /* Home Buttons */
 .app-tab-navigation-menu {
-  opacity: 1;
-  display: grid;
-  grid-template-columns: 50% 50%;
+  opacity: 0.9;
   a {
-    box-shadow: inset 0 0 0 2px $bg-primary;
     background: $c-editor-button-okay;
-    border-radius: $g-border-radius;
-    color: $c-editor-primary;
-    opacity: 0.95;
+    display: block;
+    color: $bg-editor;
     text-align: center;
     float: left;
-  }
-
-  a:hover {
-    opacity: 1;
+    width: 50%;
+    box-shadow: inset 0 0 0 2px $bg-primary;
+    border-radius: $g-border-radius;
   }
 }
 

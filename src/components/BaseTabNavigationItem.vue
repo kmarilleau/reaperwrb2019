@@ -3,6 +3,7 @@
     :style="{ 
       backgroundColor: tab.bgcolor,
       width: this.$store.getters.itemWidth + 'px',
+      'line-height': this.$store.getters.itemHeight / 2 + 'px'
     }"
     :class="{ 
       'app-tab-navigation-item-active' : this.$store.getters.isActiveTab(index),
@@ -14,7 +15,7 @@
     <span class="app-item-label" 
       :style="{ 
         color: tab.textcolor,
-        'line-height': this.$store.getters.itemHeight / 2 + 'px'
+        
       }"
     >
       {{tab.label}}
