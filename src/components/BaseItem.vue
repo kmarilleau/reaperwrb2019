@@ -1,12 +1,7 @@
 <template>
   <div class="app-item"
     :class="getClass()"
-    :style="{ 
-      backgroundColor: item.bgcolor, 
-      gridColumnEnd: item.width ? 'span ' + item.width : 'span 1',
-      height: this.$store.getters.itemHeight + 'px',
-      width: (this.$store.getters.itemWidth * item.width) + 'px'
-    }"
+    :style="getStyle()"
     @click="onClick()"
     :row="row"
     :index="index"
@@ -75,6 +70,21 @@ export default {
 
   methods: {
 
+    getStyle() {
+      let style = { 
+        backgroundColor: this.item.bgcolor, 
+        gridColumnEnd: this.item.width ? 'span ' + this.item.width : 'span 1',
+        height: this.getHeight(),
+      }
+
+      if(!CSS.supports('display: grid'))
+        style['width'] = (this.$store.getters.itemWidth * this.item.width) + 'px'
+      else
+        style['min-width'] = (this.$store.getters.itemWidth * this.item.width) + 'px'
+
+      return style
+    },
+
     getClass() {
       const classList = {}
       classList['app-item-' + this.item.type] = true
@@ -83,6 +93,10 @@ export default {
         classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
       
       return classList
+    },
+
+    getHeight() {
+      return this.$store.getters.itemHeight + 'px'
     },
 
     onClick() {

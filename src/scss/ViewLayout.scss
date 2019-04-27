@@ -1,7 +1,6 @@
 .app-view {
   width: 100%;
   background: $bg-primary;
-  display: table;
 }
 
 .app-view-scroll {
@@ -14,16 +13,15 @@
   font-weight: bold;
 }
 
-.app.row,
+.app-row,
 .app-tab-navigation {
-  display: grid;
   display: table-row;
+  display: grid;
   width: 100%;
 }
 
 .app-item,
 .app-tab-navigation-item {
-  display: inline-block;
   float: left;
   border-radius: $g-border-radius;
   cursor: pointer;
@@ -37,6 +35,7 @@
   .app-item-label {
     margin: 0 0 0 0.5vw;
     height: inherit;
+    text-align: left;
   }
 }
 

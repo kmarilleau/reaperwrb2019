@@ -31,7 +31,7 @@
       :style="{ 
         color: item.textcolor, 
         height: getLabelHeight() + 'px',
-        width: (this.$store.getters.itemWidth * this.item.width) - 4 + 'px',
+        'min-width': (this.$store.getters.itemWidth * this.item.width) - 4 + 'px',
         margin: '2px'
       }"
     >

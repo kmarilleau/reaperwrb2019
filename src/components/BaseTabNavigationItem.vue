@@ -1,10 +1,6 @@
 <template>
   <div class="app-tab-navigation-item"
-    :style="{ 
-      backgroundColor: tab.bgcolor,
-      width: this.$store.getters.itemWidth + 'px',
-      'line-height': this.$store.getters.itemHeight / 2 + 'px'
-    }"
+    :style="getStyle()"
     :class="{ 
       'app-tab-navigation-item-active' : this.$store.getters.isActiveTab(index),
       'app-highlight-edit' : this.$store.getters.isTabEdit(index) 
@@ -15,7 +11,6 @@
     <span class="app-item-label" 
       :style="{ 
         color: tab.textcolor,
-        
       }"
     >
       {{tab.label}}
@@ -31,16 +26,34 @@ export default {
   ],
 
   mounted() {
-  if(this.$store.getters.isModeEditor) {
-      if(this.$store.getters.isEditTab({ index: this.index })) {
-        // FIXME commit
-        this.$el.classList.add('app-highlight-edit')
-        this.$store.state.editor.data.item.el = this.$el
+
+    if(this.$store.getters.isModeEditor) {
+        if(this.$store.getters.isEditTab({ index: this.index })) {
+          // FIXME commit
+          this.$el.classList.add('app-highlight-edit')
+          this.$store.state.editor.data.item.el = this.$el
+        }
       }
-    }
   },
 
   methods: {
+
+    getStyle() {
+      let style = { 
+        backgroundColor: this.tab.bgcolor,
+        'min-width': this.$store.getters.itemWidth + 'px',
+        'line-height': this.$store.getters.itemHeight / 2 + 'px',
+        'max-height': this.$store.getters.itemHeight / 2 + 'px',
+      }
+
+      if(!CSS.supports('display: grid'))
+        style['width'] = this.$store.getters.itemWidth + 'px'
+      else
+        style['min-width'] = this.$store.getters.itemWidth + 'px'
+
+      return style
+    },
+
     onClick(event) {
       this.$store.dispatch('onSwitchTab', this.index)
       

@@ -4,7 +4,7 @@
     v-model="tabs"
     :style="{ 
       gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)',
-      height: (this.$store.getters.itemHeight / 2 - 8) + 'px'
+      height: (this.$store.getters.itemHeight / 2) + 'px'
     }"
     :options="{ 
       draggable: this.$store.getters.isModeEditor && !this.$store.getters.isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
@@ -29,7 +29,7 @@
     <div class="app-tab-navigation-item app-tab-navigation-menu"
       v-if="this.$store.getters.isModeRemote"
       :style="{
-        width: this.$store.getters.itemWidth + 'px',
+        'min-width': this.$store.getters.itemWidth + 'px',
         'line-height': this.$store.getters.itemHeight / 2 + 'px'
       }"
     >
@@ -37,7 +37,7 @@
         <svgicon icon="home"
           :style = "{
             height: (this.$store.getters.iconSize / 2) + 'px',
-            width: (this.$store.getters.iconSize / 2) + 'px'
+            'min-width': (this.$store.getters.iconSize / 2) + 'px'
           }"
         />
       </a>
@@ -45,8 +45,10 @@
         v-if="this.$store.getters.isEditorEnabled"
       >
         <svgicon icon="edit"
-          :height="this.$store.getters.iconSize / 2 + 'px'"
-          :width="this.$store.getters.iconSize / 2 + 'px'"
+            :style = "{
+            height: (this.$store.getters.iconSize / 2) + 'px',
+            'min-width': (this.$store.getters.iconSize / 2) + 'px'
+          }"
         />
       </a>
     </div>
@@ -84,6 +86,8 @@ export default {
   },
 
   methods: {
+
+    
 
     onHome() {
       this.$store.commit('setModeStartup')
