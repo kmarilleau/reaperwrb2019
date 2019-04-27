@@ -33,13 +33,13 @@
     <template
       v-if="this.delete"
     >
-      <div class="app-preset-delete">
-        <button title="cancel" class="pure-button-secondary"
+      <div class="app-preset-buttons-delete">
+        <button title="cancel" class="app-preset-cancel-button"
           @click.stop="onCancelDelete()"
         >
           <svgicon icon="blocked" /> <span>Cancel</span>
         </button>
-        <button class="pure-button-warning app-button-delete-preset"
+        <button class="app-preset-delete-button"
           @click.stop="onDelete(title, timestamp, type)"
         >
           <svgicon icon="edit-delete-forever" /> <span>Confirm</span>

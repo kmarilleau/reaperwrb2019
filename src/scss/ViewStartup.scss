@@ -68,7 +68,7 @@
   .app-button-launch-preset:hover {
     opacity: 0.9;
   }
-
+  
   .app-preset-edit-buttons {
     width: 100%;
     button {
@@ -80,7 +80,7 @@
       margin: 0;
       width: 44%;
       float: left;
-      color: $c-editor-primary;
+      color: $c-editor-primary !important;
     }
     
     .app-preset-edit-button-edit {
@@ -91,6 +91,20 @@
     .app-preset-edit-button-delete {
       margin: 0 4% 0 2%;
       background: $c-editor-button-warning !important;
+    }
+  }
+
+  .app-preset-buttons-delete {
+    height: 50%;
+    button {
+      display: block;
+      color: $c-editor-primary !important;
+    }
+    .app-preset-delete-button {
+      background: $c-editor-button-warning !important;
+    }
+    .app-preset-cancel-button {
+      background: $c-editor-button-secondary !important;
     }
   }
 }
