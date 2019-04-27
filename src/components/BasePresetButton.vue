@@ -1,5 +1,7 @@
 <template>
-  <div class="app-preset-container">
+  <div class="app-preset-container"
+    :style="getStyle()"
+  >
 
     <template
       v-if="!this.delete"
@@ -12,15 +14,15 @@
         <span>{{title}}</span>
       </button>
 
-      <div class="app-preset-buttons"
+      <div class="app-preset-edit-buttons"
         v-if="this.$store.getters.isEditorEnabled"
       >
-        <button class="pure-button-primary app-button-launch-editor"
+        <button class="app-preset-edit-button-edit"
           @click.stop="onEdit(title, timestamp, type)"
         >
           <svgicon icon="edit" />
         </button>
-        <button class="pure-button-warning app-button-launch-editor"
+        <button class="app-preset-edit-button-delete"
           @click.stop="onShowDelete()"
         >
           <svgicon icon="edit-delete" />
@@ -67,6 +69,19 @@ export default {
   },
 
   methods: {
+
+    getStyle() {
+      let style = {}
+
+      style.height = this.$store.getters.itemHeight + 'px'
+
+      if(CSS.supports('display: grid'))
+        style['min-width'] = this.$store.getters.itemWidth + 'px'
+      else
+        style['width'] = this.$store.getters.itemWidth + 'px'
+
+      return style
+    },
 
     onLoad(title, timestamp, type) {
       this.$store.dispatch('onLoadWebremotePreset', { title, timestamp, type })

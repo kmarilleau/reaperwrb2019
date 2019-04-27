@@ -4,24 +4,31 @@
     <div class="app-startup-container">
     
       <div class="logo">
-        <img src="/reaperwrb_2/icons/icon-512x512.png" />
+        <img 
+          :height="this.$store.getters.itemHeight"
+          :width="this.$store.getters.itemWidth"
+          src="/reaperwrb_2/icons/icon-512x512.png" 
+        />
       </div>
 
-      <div class="app-button-launch-editor"
+      <div 
+        class="app-button-launch-editor"
         v-if="this.$store.getters.isEditorEnabled"
       >
         <button class="pure-button pure-button-primary" 
+          :style="getStyle()"
           @click="onLaunchEditor()">
           <span>Editor</span>
         </button>
       </div>
 
-      <div class="app-preset-container app-button-launch-default"
+      <div class="app-button-launch-default"
         @click="onLoadDefault()"
       >
         <button class="app-button-launch-preset"
-            @click.stop="onLoadDefault()"
-          >
+          :style="getStyle()"
+          @click.stop="onLoadDefault()"
+        >
           <svgicon icon="launch" /><span> Default</span>
         </button>
       </div>
@@ -65,6 +72,20 @@ export default {
   },
 
   methods: {
+    
+    getStyle() {
+      let style = {}
+
+      style.height = this.$store.getters.itemHeight + 'px'
+
+      if(CSS.supports('display: grid'))
+        style['min-width'] = this.$store.getters.itemWidth + 'px'
+      else
+        style['width'] = this.$store.getters.itemWidth + 'px'
+
+      return style
+    },
+
     onLaunchEditor() {
       this.$store.commit('fadeInLoader')
       this.$store.commit('setModeEditor')

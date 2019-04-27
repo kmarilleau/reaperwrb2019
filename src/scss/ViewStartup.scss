@@ -3,102 +3,89 @@
   background: $bg-primary;
   height: 100vh;
   width: 100vw;
-  
-  .app-startup-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
 
-  .app-button-launch-default {
+  .app-startup-container {
+    display: table-row;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+
     button {
+      cursor: pointer;
+      border-radius: $g-border-radius;
+      text-align: center;
+      border: none;
+      opacity: 1;
       width: 100%;
       height: 100%;
-      background: $c-editor-alt !important;
+    }
+  
+    button:hover {
+      opacity: 0.97;
+    }
+
+    .logo,
+    .app-button-launch-editor,
+    .app-preset-container {
+      float: left;
+      text-align: center;
     }
   }
+  .app-button-launch-editor,
+  .app-button-launch-default,
+  .app-button-launch-preset {
+    float: left;
+    font-size: 1em;
+
+    button {
+      box-shadow: inset 0 0 0 2px $bg-primary;
+    }
+    
+  }
+
+  .app-button-launch-default button {
+    background: $c-editor-alt !important;
+  }
   
-  .app-preset-container {
+  .app-preset-container button {
     background: $c-editor-primary !important;
+    box-shadow: inset 0 0 0 2px $bg-primary;
   }
 
   .app-preset-type {
-    position: absolute;
-    margin: 3px 3px;
-    background: $bg-primary;
-    color: $c-editor-primary;
-    border-radius: $g-border-radius;
-    padding: 0.15vw .3vw;
+    position: relative;
+    text-align: left;
+    top: 26px;
+    margin: -20px 4% 0 4%;
+    color: $bg-primary;
     z-index: 1000;
-  }
-
-  .app-button-launch-preset,
-  .app-button-launch-editor {
-    font-size: 1em;
-  }
-
-  .app-button-launch-preset {
-    width: 100%;
-    height: 100%;
   }
 
   .app-button-launch-preset:hover {
     opacity: 0.9;
   }
 
-  .app-preset-delete {
-    display: table;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
+  .app-preset-edit-buttons {
     width: 100%;
-    height: 100%;
     button {
+      position: relative;
+      top: -2.25em;
       font-size: 1em;
-      margin: 2%;
-      display: table-row;
-      span { margin: auto 0; }
-      svg {
-        margin: auto 5%;
-      }
+      line-height: 200%;
+      box-shadow: none;
+      margin: 0;
+      width: 44%;
+      float: left;
+      color: $c-editor-primary;
     }
-  }
-  
-  .app-preset-buttons {
-    position: relative;
-    top: -3.5vw;
-    height: 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    button { 
-      margin: $g-item-margin;
-      height: 3vw;
+    
+    .app-preset-edit-button-edit {
+      margin: 0 2% 0 4%;
+      background: $c-editor-button-okay !important;
     }
-  }
-
-  .app-preset-buttons:hover {
-    opacity: 0.9;
-  }
-
-  .logo {
-    display: flex;
-    justify-content: center;
-    background: $bg-primary;
-    img { 
-      margin: auto !important;
-      width: 12.5vw;
-      height: 12.5vw;
+    
+    .app-preset-edit-button-delete {
+      margin: 0 4% 0 2%;
+      background: $c-editor-button-warning !important;
     }
-  }
-
-  button {
-    border-radius: $g-border-radius;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    opacity: 1;
-  }
-
-  button:hover {
-    opacity: 0.97;
   }
 }
