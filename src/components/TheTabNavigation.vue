@@ -92,6 +92,7 @@ export default {
     onHome() {
       this.$store.commit('setModeStartup')
       this.$store.commit('unload')
+      this.$store.commit('onWindowResize')
     },
 
     onEdit() {

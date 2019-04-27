@@ -3,10 +3,11 @@
 
     <div class="app-startup-container">
     
-      <div class="logo">
+      <div class="logo"
+        :style="getStyle()"
+      >
         <img 
-          :height="this.$store.getters.itemHeight"
-          :width="this.$store.getters.itemWidth"
+          :style="getStyle()"
           src="/reaperwrb_2/icons/icon-512x512.png" 
         />
       </div>
