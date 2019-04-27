@@ -30,6 +30,7 @@
 
       <div class="app-button-launch-default"
         @click="onLoadDefault()"
+        :style="getStyle()"
       >
         <button class="app-button-launch-preset"
           :style="getStyle()"
@@ -112,6 +113,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

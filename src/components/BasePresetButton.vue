@@ -17,16 +17,16 @@
       <div class="app-preset-edit-buttons"
         v-if="this.$store.getters.isEditorEnabled"
       >
-        <button class="app-preset-edit-button-edit"
+        <a class="app-preset-edit-button-edit"
           @click.stop="onEdit(title, timestamp, type)"
         >
           <svgicon icon="edit" />
-        </button>
-        <button class="app-preset-edit-button-delete"
+        </a>
+        <a class="app-preset-edit-button-delete"
           @click.stop="onShowDelete()"
         >
           <svgicon icon="edit-delete" />
-        </button>
+        </a>
       </div>
 
     </template>
