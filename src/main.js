@@ -328,18 +328,19 @@ const store = new Vuex.Store({
         Vue.set(state.webremote, 'itemWidth', editorView.clientWidth / 8)
         Vue.set(state.webremote, 'itemHeight', 120)
       } else {
-        if(screen.width < 415) {
+        let view = document.querySelector('#app')
+        if(view.clientWidth < 415) {
           Vue.set(state.webremote, 'columns', 4)
-          Vue.set(state.webremote, 'itemWidth', screen.width / 4)
-        } else if (screen.width > 415 && screen.width < 813) {
+          Vue.set(state.webremote, 'itemWidth', view.clientWidth / 4)
+        } else if (view.clientWidth > 415 && view.clientWidth < 813) {
           Vue.set(state.webremote, 'columns', 6)
-          Vue.set(state.webremote, 'itemWidth', screen.width / 6)
-        } else if(screen.width > 813 && screen.width < 1440) {
+          Vue.set(state.webremote, 'itemWidth', view.clientWidth / 6)
+        } else if(view.clientWidth > 813 && view.clientWidth < 1440) {
           Vue.set(state.webremote, 'columns', 8)
-          Vue.set(state.webremote, 'itemWidth', screen.width / 8)
+          Vue.set(state.webremote, 'itemWidth', view.clientWidth / 8)
         } else {
           Vue.set(state.webremote, 'columns', 12)
-          Vue.set(state.webremote, 'itemWidth', screen.width / 12)
+          Vue.set(state.webremote, 'itemWidth', view.clientWidth / 12)
         }
 
         Vue.set(state.webremote, 'itemHeight', state.webremote.itemWidth)
