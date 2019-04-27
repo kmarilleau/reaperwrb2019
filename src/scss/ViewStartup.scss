@@ -23,10 +23,15 @@
       opacity: 0.97;
     }
 
-    .logo,
+    .logo-container,
     .app-button-launch-editor,
     .app-preset-container {
       float: left;
+      text-align: center !important;
+    }
+
+    .logo {
+      width: 100%;
       text-align: center;
     }
   }
@@ -68,7 +73,7 @@
     width: 100%;
     button {
       position: relative;
-      top: -2.25em;
+      top: -2.5em;
       font-size: 1em;
       line-height: 200%;
       box-shadow: none;

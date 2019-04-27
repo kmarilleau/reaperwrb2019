@@ -3,13 +3,18 @@
 
     <div class="app-startup-container">
     
-      <div class="logo"
+      <div class="logo-container"
         :style="getStyle()"
+        @click="onReload()"
       >
-        <img 
-          :style="getStyle()"
-          src="/reaperwrb_2/icons/icon-512x512.png" 
-        />
+        <div class="logo"
+        >
+          <img 
+            :height="this.$store.getters.itemHeight + 'px'"
+            :width="this.$store.getters.itemWidth + 'px'"
+            src="/reaperwrb_2/icons/icon-512x512.png" 
+          />
+        </div>
       </div>
 
       <div 
@@ -85,6 +90,10 @@ export default {
         style['width'] = this.$store.getters.itemWidth + 'px'
 
       return style
+    },
+
+    onReload() {
+      location.reload(true)
     },
 
     onLaunchEditor() {
