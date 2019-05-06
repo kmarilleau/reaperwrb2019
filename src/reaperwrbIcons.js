@@ -314,6 +314,20 @@ const reaperwrbIcons = [
 'automation-clear-envelope',
 'automation-delete-all-points',
 'unmute-all-tracks',
-'unsolo-all-tracks'
+'unsolo-all-tracks',
+'music-note-dotted',
+'folder-ambiance',
+'folder-bus',
+'folder-cloth',
+'folder-dx-dialog',
+'folder-gore',
+'folder-hand',
+'folder-mono',
+'folder-stereo',
+'folder-surround',
+'folder-video',
+'fx-plus',
+'fx-minus',
+'fx-bypass',
 ]
 export default reaperwrbIcons
