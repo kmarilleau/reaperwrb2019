@@ -283,10 +283,34 @@ const store = new Vuex.Store({
       if(!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime))
         state.editor.browser = 'chrome'
 
-      // check JSON storage
-      if(typeof(jsonStorage) !== 'undefined') {
-        console.log("REAPERWRB: Loading json storage.")
-        state.storage.json = cloneDeep(jsonStorage)
+      const request = new XMLHttpRequest()
+      request.open('GET', window.location.origin + '/reaperwrb.json')
+      request.responseType = 'json'
+      request.send()
+
+      let hasJSON = false
+      request.onload = () => {
+        console.log("REAPERWRB: Loading reaperwrb.json")
+        if(request.response !== null) {
+          hasJSON = true
+          state.storage.json = request.response
+        } else {
+          if(typeof(jsonStorage) !== 'undefined') {
+            if(jsonStorage.webremotes.length > 0 && !hasJSON) {
+              console.log("REAPERWRB: Migrating old json storage")
+              alert("ReaperWRB needs to migrate webremote.js.\nPlease save the following file to your 'reaper_www_root' folder!\nAfterwards reload ReaperWRB!")
+              const json = JSON.stringify(jsonStorage)
+              const blob = new Blob([json], { type: "application/json" })
+              saveAs(blob, "reaperwrb.json")
+            }
+          } else {
+            console.log("REAPERWRB: Creating json storage")
+            alert("ReaperWRB needs to create it's db file.\nPlease save the following file to your 'reaper_www_root' folder!\nAfterwards reload ReaperWRB!")
+            const json = JSON.stringify({"webremotes": []})
+            const blob = new Blob([json], { type: "application/json" })
+            saveAs(blob, "reaperwrb.json")
+          }
+        }
       }
 
       // check local storage support
@@ -447,9 +471,9 @@ const store = new Vuex.Store({
           state.storage.json.webremotes.push(webremote)
         }
       }
-      const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
+      const json = JSON.stringify(state.storage.json)
       const blob = new Blob([json], { type: "application/json" })
-      saveAs(blob, "webremote.js")
+      saveAs(blob, "reaperwrb.json")
     },
 
     saveLocalStorage: (state) => {
@@ -497,7 +521,7 @@ const store = new Vuex.Store({
       if(payload.type === 'json') {
         const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
         const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
-        saveAs(blob, "webremote.js")
+        saveAs(blob, "reaperwrb.json")
       }
     },
 

@@ -9,7 +9,11 @@ export const htmlTemplate = { html: (json) => `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
     <link rel="manifest" href="reaperwrb_2/manifest.json"/>
-      
+    
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
     <link rel="icon" type="image/png" sizes="32x32" href="/reaperwrb_2/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/reaperwrb_2/icons/favicon-16x16.png">
     <link rel="shortcut icon" href="/reaperwrb_2/icons/favicon.ico">
@@ -44,7 +48,6 @@ export const htmlTemplate = { html: (json) => `<!DOCTYPE html>
       </div>
     </div>
     <script type="text/javascript" src="main.js"></script>
-    <script type="text/javascript" src="/reaperwrb_2/webremote.js"></script>
     <div id="app"></div>
     <script type="text/javascript" src="/reaperwrb_2/js/manifest.js"></script>
     <script type="text/javascript" src="/reaperwrb_2/js/vendor.js"></script>

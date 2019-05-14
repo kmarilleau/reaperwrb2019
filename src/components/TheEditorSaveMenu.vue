@@ -32,8 +32,8 @@
       <em>rc.reaper.fm/[filename].html</em></p>
 
       <label><svgicon icon="drive" /> DB</label>
-      <p>Lets you download and save the webremote to a db file named <em>webremote.js</em>.</p>
-      <p>The file needs to be saved to your <em>reaper_www_root/reaperwrb_2/</em> folder.</p>
+      <p>Lets you download and save the webremote to a db file named <em>reaperwrb.json</em>.</p>
+      <p>The file needs to be saved to your <em>reaper_www_root/</em> folder.</p>
       <p>Webremotes saved this way are accessible from all devices.</p>
     </div>
 

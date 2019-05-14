@@ -67,8 +67,8 @@
         </p>
         <h3><svgicon icon="drive" /> DB</h3>
         <p>
-          Saving to DB will prompt you to downloade a webremote.js file. This file has to be saved to <em>reaper_www_root/reaperwrb_2/</em> folder
-          overwriting any existing webremote.js file (same goes for deleting)! 
+          Saving to DB will prompt you to downloade a reaperwrb.json file. This file has to be saved to <em>reaper_www_root/</em> folder
+          overwriting any existing reaperwrb.json file (same goes for deleting)! 
         </p>
         <p>
           These webremotes will be accessible across all devices accessing the ReaperWRB startup page.
