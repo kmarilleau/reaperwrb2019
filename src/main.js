@@ -26,7 +26,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    version: '2.0',
+    version: '2.1',
     mode: modes.STARTUP,
     reaper: {}, 
     editor: {},
