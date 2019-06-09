@@ -1,6 +1,6 @@
 <template>
   <div class="app-editor-menu"
-    v-if="this.$store.getters.isEditorModeAdd"
+    v-if="isEditorModeAdd"
   >
     <button class="pure-button pure-button-secondary"
       @click.stop="onCancel">
@@ -32,17 +32,29 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
+
+  computed: {
+    ...mapGetters([
+      'isEditorModeAdd'
+    ])
+  },
+
   methods: {
+
+    ...mapMutations([
+      'setEditorModeMain'
+    ]),
+    
     onItemAdd(type) {
+      // FIXME map as well?
       this.$store.dispatch('onItemAdd', type)
     },
     onCancel() {
-      this.$store.commit('setEditorModeMain')
+      this.setEditorModeMain()
     },
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -41,6 +41,9 @@
 </template>
 
 <script>
+// FIXME getters for transport regions etc
+import { mapGetters, mapMutations } from 'vuex'
+
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
@@ -59,8 +62,8 @@ export default {
   },
   
   mounted() {
-    if(this.$store.getters.isModeEditor) {
-      if(this.$store.getters.isEditItem({ item: this.item, row: this.row, index: this.index })) {
+    if(this.isModeEditor) {
+      if(this.isEditItem({ item: this.item, row: this.row, index: this.index })) {
         // FIXME commit
         this.$el.classList.add('app-highlight-edit')
         this.$store.state.editor.data.item.el = this.$el
@@ -68,7 +71,24 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters([
+      'isModeEditor',
+      'isEditItem',
+      'itemWidth',
+      'itemHeight',
+      'isModeRemote',
+      'isEditorModeDelete',
+      'isEditorModeSave',
+      'isEditorBulkEdit'
+    ])
+  },
+
   methods: {
+
+    ...mapMutations([
+      'bulkEditAddRemove'
+    ]),
 
     getStyle() {
       let style = { 
@@ -78,9 +98,9 @@ export default {
       }
 
       if(!CSS.supports('display: grid'))
-        style['width'] = (this.$store.getters.itemWidth * this.item.width) + 'px'
+        style['width'] = (this.itemWidth * this.item.width) + 'px'
       else
-        style['min-width'] = (this.$store.getters.itemWidth * this.item.width) + 'px'
+        style['min-width'] = (this.itemWidth * this.item.width) + 'px'
 
       return style
     },
@@ -89,20 +109,20 @@ export default {
       const classList = {}
       classList['app-item-' + this.item.type] = true
       
-      if(this.$store.getters.isModeRemote)
+      if(this.isModeRemote)
         classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
       
       return classList
     },
 
     getHeight() {
-      return this.$store.getters.itemHeight + 'px'
+      return this.itemHeight + 'px'
     },
 
     onClick() {
-      if(this.$store.getters.isModeEditor 
-      && !this.$store.getters.isEditorModeDelete
-      && !this.$store.getters.isEditorModeSave) {
+      if(this.sModeEditor 
+      && !this.isEditorModeDelete
+      && !this.isEditorModeSave) {
 
         const payload = {
           type: this.item.type,
@@ -112,15 +132,12 @@ export default {
           obj: this.item
         }
 
-        if(!this.$store.getters.isEditorBulkEdit)
+        if(!this.isEditorBulkEdit)
           this.$store.dispatch('onItemEdit', payload)
         else
-          this.$store.commit('bulkEditAddRemove', payload)
+          this.bulkEditAddRemove(payload)
       }
     },
   }
 }
 </script>
-
-<style>
-</style>

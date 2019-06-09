@@ -1,12 +1,12 @@
 <template>
   <div class="app-editor-menu"
-    v-if="this.$store.getters.isEditorModeSave"
+    v-if="isEditorModeSave"
   >
 
     <app-editor-button label="Cancel" icon="blocked" @click.native="onCancel" class="pure-button-secondary" />
     
     <app-editor-button 
-      v-if="this.$store.getters.hasLocalStorage"
+      v-if="hasLocalStorage"
       label="Browser" icon="storage" @click.native.stop="onSaveLocalStorage" class="pure-button-primary"
     />
 
@@ -16,7 +16,9 @@
 
     <div class="app-editor-webremote-title">
       <label>Webremote Title</label>
-      <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus @keyup.enter="onKeyupEnter($event)">
+      <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus 
+        @keyup.enter="onKeyupEnter($event)"
+      >
     </div>
 
     <div class="app-editor-menu-help">
@@ -41,6 +43,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import BaseEditorButton from '@/components/BaseEditorButton.vue'
 
 export default {
@@ -56,6 +59,13 @@ export default {
   },
 
   computed: {
+
+    ...mapGetters([
+      'isEditorModeSave',
+      'hasLocalStorage',
+
+    ]),
+
     webremoteTitle: {
       get() {
         return this.$store.getters.webremoteTitle
@@ -68,16 +78,28 @@ export default {
 
   methods: {
 
+    ...mapMutations([
+      'setEditorModeMain',
+      'saveHTML',
+      'setEditorModeMain',
+      'saveLocalStorage',
+      'unload',
+      'setEditorModeMain',
+      'setModeStartup',
+      'saveJSON',
+      'setEditorModeMain'
+    ]),
+
     onCancel() { 
-      this.$store.commit('setEditorModeMain') 
+      this.setEditorModeMain()
     },
 
     onSaveHTML() { 
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
-        this.$store.commit('saveHTML')      
-        this.$store.commit('setEditorModeMain')
+        this.saveHTML()
+        this.setEditorModeMain()
       }
     },
 
@@ -85,10 +107,10 @@ export default {
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
-        this.$store.commit('saveLocalStorage')
-        this.$store.commit('unload')
-        this.$store.commit('setEditorModeMain')
-        this.$store.commit('setModeStartup')
+        this.saveLocalStorage()
+        this.unload()
+        this.setEditorModeMain()
+        this.setModeStartup()
       }
     },
 
@@ -96,8 +118,8 @@ export default {
       if(this.webremoteTitle === '') {
         document.querySelector('#app-webremote-title').focus()
       } else {
-        this.$store.commit('saveJSON')
-        this.$store.commit('setEditorModeMain')
+        this.saveJSON()
+        this.setEditorModeMain()
       }
     },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="app-editor-input-toggle-container"
-    v-if="this.$store.getters.editItemHasKey('toggle')"
+    v-if="editItemHasKey('toggle')"
   >
     <label>Toggle</label>
     <input 
@@ -11,16 +11,30 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   computed: {
+
+    ...mapGetters([
+      'editItemHasKey',
+      'editItemKey'
+    ]),
+
     itemToggle: {
       get() {
-        return this.$store.getters.editItemKey('toggle', false)
+        return this.editItemKey('toggle', false)
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'toggle', val: value })
+        this.updateItem({ key: 'toggle', val: value })
       }
     },
   },
+
+  methods: {
+    ...mapMutations([
+      'updateItem'
+    ])
+  }
 }
 </script>

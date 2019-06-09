@@ -10,8 +10,8 @@
         <div class="logo"
         >
           <img 
-            :height="this.$store.getters.itemHeight + 'px'"
-            :width="this.$store.getters.itemWidth + 'px'"
+            :height="itemHeight + 'px'"
+            :width="itemWidth + 'px'"
             src="/reaperwrb_2/icons/icon-512x512.png" 
           />
         </div>
@@ -19,7 +19,7 @@
 
       <div 
         class="app-button-launch-editor"
-        v-if="this.$store.getters.isEditorEnabled"
+        v-if="isEditorEnabled"
       >
         <button class="pure-button pure-button-primary" 
           :style="getStyle()"
@@ -41,10 +41,10 @@
       </div>
 
       <template
-        v-if="this.$store.getters.showLocalStorage"
+        v-if="showLocalStorage"
       >
         <app-preset-button
-          v-for="(webremote, index) in this.$store.getters.getLocalStorageWebremotes" :key="index"
+          v-for="(webremote, index) in getLocalStorageWebremotes" :key="index"
           :title="webremote.title"
           :timestamp="webremote.timestamp"
           type="local"
@@ -53,7 +53,7 @@
 
       <template>
         <app-preset-button
-          v-for="(webremote,index) in this.$store.getters.getJSONStorageWebremotes" :key="index"
+          v-for="(webremote,index) in getJSONStorageWebremotes" :key="index"
           :title="webremote.title"
           :timestamp="webremote.timestamp"
           type="json"
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
 import BasePresetButton from '@/components/BasePresetButton.vue'
@@ -78,17 +79,38 @@ export default {
     document.title = 'ReaperWRB'
   },
 
+  computed: {
+    ...mapGetters([
+      'itemWidth',
+      'itemHeight',
+      'isEditorEnabled',
+      'showLocalStorage',
+      'getLocalStorageWebremotes',
+      'getJSONStorageWebremotes'
+    ])
+  },
+
   methods: {
+
+    ...mapMutations([
+      'fadeInLoader',
+      'setModeEditor',
+      'showHelp',
+      'import',
+      'onWindowResize',
+      'getCmdStates',
+      'setModeRemote'
+    ]),
     
     getStyle() {
       let style = {}
 
-      style.height = this.$store.getters.itemHeight + 'px'
+      style.height = this.itemHeight + 'px'
 
       if(CSS.supports('display: grid'))
-        style['min-width'] = this.$store.getters.itemWidth + 'px'
+        style['min-width'] = this.itemWidth + 'px'
       else
-        style['width'] = this.$store.getters.itemWidth + 'px'
+        style['width'] = this.itemWidth + 'px'
 
       return style
     },
@@ -98,17 +120,19 @@ export default {
     },
 
     onLaunchEditor() {
-      this.$store.commit('fadeInLoader')
-      this.$store.commit('setModeEditor')
-      this.$store.commit('showHelp')
+      // FIXME conver to action
+      this.fadeInLoader()
+      this.setModeEditor()
+      this.showHelp()
     },
 
     onLoadDefault() {
+      // FIXME convert to action
       const webremote = cloneDeep(example)
-      this.$store.commit('import', webremote)
-      this.$store.commit('onWindowResize')
-      this.$store.commit('getCmdStates')
-      this.$store.commit('setModeRemote')
+      this.import(webremote)
+      this.onWindowResize()
+      this.getCmdStates()
+      this.setModeRemote()
     },
   }
 }

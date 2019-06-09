@@ -3,17 +3,17 @@
     <draggable 
       v-model="items"
       :options="{ 
-        draggable: this.$store.getters.draggableClass, 
+        draggable: draggableClass, 
         group: 'items',
-        sort: this.$store.getters.isModeEditor,
-        disabled: this.$store.getters.disableSort,
+        sort: isModeEditor,
+        disabled: disableSort,
         delay: 5,
       }"
       class="app-row"
-      :class="{ 'app-active-row': this.$store.getters.isActiveRow(row) && this.$store.getters.isEditorModeAdd }"
+      :class="{ 'app-active-row': isActiveRow(row) && isEditorModeAdd }"
       :style="{ 
-        gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)',
-        'min-height': this.$store.getters.itemHeight + 'px'
+        gridTemplateColumns: 'repeat(' + globalColumns + ', 1fr)',
+        'min-height': itemHeight + 'px'
       }"
       @start="onDraggableStart"
       :move="onDraggableMove"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
 import BaseRowEditButtons from '@/components/BaseRowEditButtons.vue'
 import BaseItem from '@/components/BaseItem.vue';
@@ -51,23 +52,42 @@ export default {
 
   computed: {
 
+    ...mapGetters([
+      'isActiveRow',
+      'draggableClass',
+      'isModeEditor',
+      'disableSort',
+      'isEditorModeAdd',
+      'globalColumns',
+      'itemHeight',
+      'hasMoveItem'
+    ]),
+
     items: {
       get() {
+        // FIXME getter
         return this.$store.state.webremote.tabs[this.$store.state.webremote.active_tab].rows[this.row]
       },
 
       set(value) {
         // update row after moving item
-        if(!this.$store.getters.hasMoveItem)
-          this.$store.commit('updateRow', { row: this.row, value: value } )
+        if(!this.hasMoveItem)
+          this.updateRow({ row: this.row, value: value })
       }
     }
   },
 
   methods: {
 
+    ...mapMutations([
+      'clearDropHighlight',
+      'clearItemMoveCopy',
+      'updateRow',
+      'setItemMoveCopy'
+    ]),
+
     classRow() {
-      return this.$store.getters.isModeEditor ? 'app-editor-grid' : 'app-view-grid'
+      return this.isModeEditor ? 'app-editor-grid' : 'app-view-grid'
     },
 
     onDraggableStart() {
@@ -87,9 +107,10 @@ export default {
           target: parseInt(event.related.attributes.tab.value)
         }
 
-        this.$store.commit('setItemMoveCopy', payload)
-        this.$store.commit('clearDropHighlight')
+        this.setItemMoveCopy(payload)
+        this.clearDropHighlight()
 
+        // FIXME getters
         if(parseInt(event.related.attributes.tab.value) 
         !== this.$store.state.webremote.active_tab) {
           event.related.classList.add('app-item-drop')
@@ -97,8 +118,8 @@ export default {
 
       } else {
         
-        this.$store.commit('clearDropHighlight')
-        this.$store.commit('clearItemMoveCopy')
+        this.clearDropHighlight()
+        this.clearItemMoveCopy()
 
         // hacky way to cancel dropping item on the tab add button or the
         // empty space in the tab navigation
@@ -114,6 +135,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>

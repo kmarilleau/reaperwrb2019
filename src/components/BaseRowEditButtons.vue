@@ -1,7 +1,7 @@
 <template>
   <div class="app-row-edit-buttons"
-    v-if="this.$store.getters.showEditorEditButtons"
-    :class="{ 'hidden': this.$store.getters.isEditorBulkEdit }"
+    v-if="showEditorEditButtons"
+    :class="{ 'hidden': isEditorBulkEdit }"
   >
     <a class="app-row-edit-button app-row-edit-button-add"
       @click.stop="onShowItemAddMenu()" 
@@ -17,7 +17,7 @@
     </a>
     <a class="app-row-edit-button app-row-edit-button-delete"
       @click.stop="onRowDelete()"
-      v-if="this.$store.getters.showEditorDeleteRowButton"
+      v-if="showEditorDeleteRowButton"
     >
       <svgicon icon="edit-delete" />
       <span>Row</span>
@@ -26,10 +26,11 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 
 const bindHighlightEvent = (self) => {
 
-  if(self.$store.getters.isModeEditor && typeof(self.$el.querySelectorAll) === 'function') {
+  if(self.isModeEditor && typeof(self.$el.querySelectorAll) === 'function') {
     const el = self.$el.querySelectorAll('.app-row-edit-button')
     el.forEach(button => {
       if(!button.classList.contains('app-add-row')) {
@@ -48,7 +49,6 @@ const bindHighlightEvent = (self) => {
 export default {
   props: ['row'],
 
-
   updated() {
     bindHighlightEvent(this)
   },
@@ -57,19 +57,34 @@ export default {
     bindHighlightEvent(this)
   },
 
+  computed: {
+    ...mapGetters([
+      'showEditorEditButtons',
+      'isEditorBulkEdit',
+      'showEditorDeleteRowButton',
+      'isModeEditor'
+    ])
+  },
+
   methods: {
 
+    ...mapMutations([
+      'hideHelp',
+      'addRow',
+      'onDeleteRow'
+    ]),
+
     onShowItemAddMenu(event) {
-      this.$store.commit('hideHelp')
+      this.hideHelp()
       this.$store.dispatch('onShowItemAddMenu', this.row)
     },
 
     onRowAdd(event) {
-      this.$store.commit('addRow', this.row)
+      this.addRow(this.row)
     },
 
     onRowDelete(event) {
-      this.$store.commit('hideHelp')
+      this.hideHelp()
       let payload = {
         obj: { type: 'row' },
         index: this.row,
@@ -80,6 +95,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

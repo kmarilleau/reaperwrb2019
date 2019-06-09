@@ -3,14 +3,13 @@
     :class="'app-tab-navigation'"
     v-model="tabs"
     :style="{ 
-      gridTemplateColumns: 'repeat(' + this.$store.getters.globalColumns + ', 1fr)',
-      height: (this.$store.getters.itemHeight / 2) + 'px'
+      gridTemplateColumns: 'repeat(' + globalColumns + ', 1fr)',
     }"
     :options="{ 
-      draggable: this.$store.getters.isModeEditor && !this.$store.getters.isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
+      draggable: isModeEditor && !isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
-      sort: this.$store.getters.isModeEditor,
-      disabled: this.$store.getters.disableSort,
+      sort: isModeEditor,
+      disabled: disableSort,
       delay: 10,
     }"
     @start="onDraggableStart"
@@ -27,27 +26,27 @@
     <app-editor-tab-add />
 
     <div class="app-tab-navigation-item app-tab-navigation-menu"
-      v-if="this.$store.getters.isModeRemote"
+      v-if="isModeRemote"
       :style="{
-        'min-width': this.$store.getters.itemWidth + 'px',
-        'line-height': this.$store.getters.itemHeight / 2 + 'px'
+        'min-width': itemWidth + 'px',
+        'line-height': itemHeight / 2 + 'px'
       }"
     >
       <a @click.stop="onHome()">
         <svgicon icon="home"
           :style = "{
-            height: (this.$store.getters.iconSize / 2) + 'px',
-            'min-width': (this.$store.getters.iconSize / 2) + 'px'
+            height: (iconSize / 2) + 'px',
+            'min-width': (iconSize / 2) + 'px'
           }"
         />
       </a>
       <a @click.stop="onEdit()"
-        v-if="this.$store.getters.isEditorEnabled"
+        v-if="isEditorEnabled"
       >
         <svgicon icon="edit"
             :style = "{
-            height: (this.$store.getters.iconSize / 2) + 'px',
-            'min-width': (this.$store.getters.iconSize / 2) + 'px'
+            height: (iconSize / 2) + 'px',
+            'min-width': (iconSize / 2) + 'px'
           }"
         />
       </a>
@@ -57,8 +56,9 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
-import BaseTabNavigationItem from '@/components/BaseTabNavigationItem.vue';
+import BaseTabNavigationItem from '@/components/BaseTabNavigationItem.vue'
 import TheEditorTabAdd from '@/components/TheEditorTabAdd.vue'
 
 export default {
@@ -70,6 +70,20 @@ export default {
   },
 
   computed: {
+
+    ...mapGetters([
+      'isModeEditor',
+      'isModeRemote',
+      'isEditorEnabled',
+      'globalColumns',
+      'isEditorBulkEdit',
+      'disableSort',
+      'iconSize',
+      'itemWidth',
+      'itemHeight',
+      'tabs'
+    ]),
+
     tabs: {
 
       get() {
@@ -87,23 +101,33 @@ export default {
 
   methods: {
 
-    
+    ...mapMutations([
+      'setModeStartup',
+      'unload',
+      'onWindowResize',
+      'fadeInLoader',
+      'setModeEditor',
+      'clearEditItem',
+      'moveItem',
+      'clearEditHighlight',
+      'switchTab'
+    ]),
 
     onHome() {
-      this.$store.commit('setModeStartup')
-      this.$store.commit('unload')
-      this.$store.commit('onWindowResize')
+      this.setModeStartup()
+      this.unload()
+      this.onWindowResize()
     },
 
     onEdit() {
-      this.$store.commit('fadeInLoader')
-      this.$store.commit('setModeEditor')
-      this.$store.commit('onWindowResize')
+      this.fadeInLoader()
+      this.setModeEditor()
+      this.onWindowResize()
     },
 
     onDraggableStart(event) {
       document.querySelector('.sortable-ghost').style.display = 'block'
-      this.$store.commit('clearEditItem')
+      this.clearEditItem()
     },
 
     onDraggableMove(event, originalEvent) {
@@ -124,20 +148,17 @@ export default {
     },
 
     onDraggableEnd(event) {
-      if(event.newIndex < this.$store.getters.tabs.length)
-        this.$store.commit('switchTab', event.newIndex)
+      if(event.newIndex < this.tabs.length)
+        this.switchTab(event.newIndex)
       else
-        this.$store.commit('switchTab', this.$store.getters.tabs.length - 1)
+        this.switchTab(this.tabs.length - 1)
     },
 
     onDraggableAdd(event) {
-      this.$store.commit('moveItem')
-      this.$store.commit('clearEditHighlight')
+      this.moveItem()
+      this.clearEditHighlight()
     }
 
   }
 };
 </script>
-
-<style scoped>
-</style>

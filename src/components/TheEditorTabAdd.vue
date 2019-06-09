@@ -1,9 +1,9 @@
 <template>
   <div class="app-tab-navigation-item app-tab-add"
-    v-if="this.$store.getters.isModeEditor && !this.$store.getters.isEditorModeSave"
+    v-if="isModeEditor && !isEditorModeSave"
     :style="{
-      width: this.$store.getters.itemWidth + 'px',
-      'line-height': this.$store.getters.itemHeight / 2 + 'px'
+      width: itemWidth + 'px',
+      'line-height': itemHeight / 2 + 'px'
     }"
   >
     <a @click.stop="onTabAdd">
@@ -13,16 +13,33 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
+
+  computed: {
+    ...mapGetters([
+      'isModeEditor',
+      'isEditorModeSave',
+      'itemWidth',
+      'itemHeight'
+    ])
+  },
+
   methods: {
+
+    ...mapMutations([
+      'hideHelp',
+      'clearEditHighlight',
+      'addTab'
+    ]),
+
     onTabAdd(event) {
-      this.$store.commit('hideHelp')
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('addTab')
+      // FIXME this should be one commit / action
+      this.hideHelp()
+      this.clearEditHighlight()
+      this.addTab()
     }
   }
 }
 </script>
-
-<style scoped>
-</style>

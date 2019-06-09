@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import reaperwrbIcons from '../reaperwrbIcons.js'
 
 export default {
@@ -33,11 +34,16 @@ export default {
   },
 
   methods: {
+
+    ...mapMutations([
+      'updateItem'
+    ]),
+
     onUpdateIcon(icon) {
       if(!this.toggle)
-        this.$store.commit('updateItem', { key: 'icon', val: icon })
+        this.updateItem({ key: 'icon', val: icon })
       else
-        this.$store.commit('updateItem', { key: 'toggleicon', val: icon })
+        this.updateItem({ key: 'toggleicon', val: icon })
     },
 
     onSearch(event) {
@@ -58,6 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

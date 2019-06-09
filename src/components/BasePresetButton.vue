@@ -15,7 +15,7 @@
       </button>
 
       <div class="app-preset-edit-buttons"
-        v-if="this.$store.getters.isEditorEnabled"
+        v-if="isEditorEnabled"
       >
         <a class="app-preset-edit-button-edit"
           @click.stop="onEdit(title, timestamp, type)"
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   props: ['title', 'type', 'timestamp'],
 
@@ -60,6 +62,13 @@ export default {
   },
 
   computed: {
+
+    ...mapGetters([
+      'itemHeight',
+      'itemWidth',
+      'isEditorEnabled'
+    ]),
+
     presetType() {
       if(this.type === 'json')
         return 'db'
@@ -70,15 +79,20 @@ export default {
 
   methods: {
 
+    ...mapMutations([
+      'deleteWebremotePreset',
+      'syncStorage'
+    ]),
+
     getStyle() {
       let style = {}
 
-      style.height = this.$store.getters.itemHeight + 'px'
+      style.height = this.itemHeight + 'px'
 
       if(CSS.supports('display: grid'))
-        style['min-width'] = this.$store.getters.itemWidth + 'px'
+        style['min-width'] = this.itemWidth + 'px'
       else
-        style['width'] = this.$store.getters.itemWidth + 'px'
+        style['width'] = this.itemWidth + 'px'
 
       return style
     },
@@ -101,14 +115,11 @@ export default {
 
     onDelete(title, timestamp, type) {
       const payload = { title, timestamp, type }
-      this.$store.commit('deleteWebremotePreset', payload)
-      this.$store.commit('syncStorage', payload)
+      this.deleteWebremotePreset(payload)
+      this.syncStorage(payload)
       this.delete = false
     },
 
   }
 }
 </script>
-
-<style>
-</style>

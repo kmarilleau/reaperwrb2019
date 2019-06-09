@@ -26,7 +26,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    version: '2.1',
+    version: '2.1.1',
     mode: modes.STARTUP,
     reaper: {}, 
     editor: {},
@@ -519,7 +519,7 @@ const store = new Vuex.Store({
       }
 
       if(payload.type === 'json') {
-        const json = `const jsonStorage = ${JSON.stringify(state.storage.json)};`
+        const json = JSON.stringify(state.storage.json)
         const blob = new Blob([json], { type: "text/plain;charset=utf-8" })
         saveAs(blob, "reaperwrb.json")
       }

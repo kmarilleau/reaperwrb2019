@@ -2,8 +2,8 @@
   <div class="app-editor-icon-menu-container app-editor-section">
     <div class="app-editor-panel"
       :class="{ 
-        hidden: !this.$store.getters.editItemType('action') || this.$store.getters.isEditorModeDelete,
-        blur: this.$store.state.editor.help 
+        hidden: !editItemType('action') || isEditorModeDelete,
+        blur: showHelp
       }"
     >
       <div class="app-item-icon-preview-container">
@@ -30,17 +30,17 @@
 
     <div class="app-editor-panel"
       :class="{ 
-        hidden : !this.$store.getters.editItemKey('toggle', false) || this.$store.getters.isEditorModeDelete,
-        blur: this.$store.state.editor.help 
+        hidden : !editItemKey('toggle', false) || isEditorModeDelete,
+        blur: showHelp 
       }"
     >
       <div class="app-item-icon-preview-container">
         <div class="app-item-icon-preview">
           <label>Toggle Icon: {{itemToggleIcon}}</label>
           <div class="app-item-icon"
-            v-if="this.$store.getters.editItemKey('toggle', false)" 
+            v-if="editItemKey('toggle', false)" 
             :style="{ 
-              backgroundColor: this.$store.getters.editItemKey('bgcolor', '#222222'), 
+              backgroundColor: editItemKey('bgcolor', '#222222'), 
               color: itemTextcolor 
             }"
           >
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
 export default {
 
@@ -64,37 +65,49 @@ export default {
 
   computed: {
 
+    ...mapGetters([
+      'editItemType',
+      'isEditorModeDelete',
+      'editItemKey',
+      'showHelp'
+    ]),
+
     itemTextcolor() {
-      return this.$store.getters.editItemKey('textcolor', '#222222')
+      return this.editItemKey('textcolor', '#222222')
     },
 
     itemBgcolor() {
-      return this.$store.getters.editItemKey('bgcolor', '#222222')
+      return this.editItemKey('bgcolor', '#222222')
     },
 
     itemIcon: {
       get() {
-        return this.$store.getters.editItemKey('icon', 'question-circle')
+        return this.editItemKey('icon', 'question-circle')
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'icon', val: value })
+        this.updateItem({ key: 'icon', val: value })
       }
     },
 
     itemToggleIcon: {
       get() {
-        return this.$store.getters.editItemKey('toggleicon', this.itemIcon)
+        return this.editItemKey('toggleicon', this.itemIcon)
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'icon', val: value })
+        this.updateItem({ key: 'icon', val: value })
       }
     },
   },
 
   methods: {
+
+    ...mapMutations([
+      'updateItem'
+    ]),
+
     onClearIcons() {
-      this.$store.commit('updateItem', { key: 'icon', val: false })
-      this.$store.commit('updateItem', { key: 'toggleicon', val: false })
+      this.updateItem({ key: 'icon', val: false })
+      this.updateItem({ key: 'toggleicon', val: false })
     },
     
     onKeyupEnter(event) {

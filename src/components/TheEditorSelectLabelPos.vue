@@ -1,7 +1,6 @@
 <template>
   <div class="app-editor-select-labelpos-container"
-    v-if="this.$store.getters.editItemKey('icon', false) 
-    && this.$store.getters.editItemHasKey('labelpos')"
+    v-if="editItemKey('icon', false) && editItemHasKey('labelpos')"
   >
     <label>Label Position</label>
     <select v-model="itemLabelPos">
@@ -12,16 +11,30 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   computed: {
+
+    ...mapGetters([
+      'editItemKey',
+      'editItemHasKey'
+    ]),
+
     itemLabelPos: {
       get() {
-        return this.$store.getters.editItemKey('labelpos', 0)
+        return this.editItemKey('labelpos', 0)
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'labelpos', val: value })
+        this.updateItem({ key: 'labelpos', val: value })
       }
     },
-  }
+  },
+
+  methods: {
+    ...mapMutations([
+      'updateItem'
+    ])
+  },
 }
 </script>

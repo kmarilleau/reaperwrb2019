@@ -13,21 +13,31 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import TheTabNavigation from '@/components/TheTabNavigation.vue'
 import TheTab from '@/components/TheTab.vue'
 
 export default {
 
   mounted() {
-    if(this.$store.getters.isModeRemote)
-      document.title = "ReaperWRB / " + this.$store.getters.webremoteTitle
+    if(this.isModeRemote)
+      document.title = "ReaperWRB / " + this.webremoteTitle
 
     this.$store.commit('onWindowResize')
   },
 
   updated() {
-    if(this.$store.getters.isModeEditor)
-      this.$store.commit('onWindowResize')
+    if(this.isModeEditor)
+      this.onWindowResize()
+  },
+
+  computed: {
+    ...mapGetters([
+      'hasTabs',
+      'webremoteTitle',
+      'isModeEditor',
+      'isModeRemote'
+    ])
   },
 
   components: {
@@ -36,12 +46,14 @@ export default {
   },
 
   methods: {
+
+    ...mapMutations([
+      'onWindowResize'
+    ]),
+
     getClass() {
-      return { 'app-view-scroll' : this.$store.getters.isModeEditor }
+      return { 'app-view-scroll' : this.isModeEditor }
     }
   }
 }
 </script>
-
-<style scoped>
-</style>

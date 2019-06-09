@@ -1,7 +1,6 @@
 <template>
   <div class="app-editor-item-desc-container"
-    v-if="this.$store.getters.editItemHasKey('desc') 
-    && this.$store.getters.editItemKey('desc', false) !== false"
+    v-if="editItemHasKey('desc') && editItemKey('desc', false) !== false"
   >
     <label>Action Description</label>
     <div class="app-item-desc">
@@ -11,10 +10,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
+
+    ...mapGetters([
+      'editItemHasKey',
+      'editItemKey'
+    ]),
+
     itemDesc() {
-      return this.$store.getters.editItemKey('desc', '')
+      return this.editItemKey('desc', '')
     },
   }
 }

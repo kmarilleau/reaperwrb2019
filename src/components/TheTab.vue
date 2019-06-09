@@ -1,8 +1,8 @@
 <template>
   <div class="app-tab-rows">
-    <template v-if="this.$store.getters.hasRows">
+    <template v-if="hasRows">
       <app-row
-        v-for="(items, row) in this.$store.getters.rows" :key="row"
+        v-for="(items, row) in rows" :key="row"
         :row="row"
       ></app-row>
     </template>
@@ -10,14 +10,19 @@
 </template>
 
 <script>
-import BaseRow from '@/components/BaseRow.vue';
+import { mapGetters } from 'vuex'
+import BaseRow from '@/components/BaseRow.vue'
 
-export default {
+export default {  
   components: {
     'app-row': BaseRow
+  },
+  
+  computed: {
+    ...mapGetters([
+      'hasRows',
+      'rows'
+    ])
   }
-};
+}
 </script>
-
-<style scoped>
-</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="app-editor-input-label-container"
-    v-if="this.$store.getters.editItemHasKey('label')"
+    v-if="editItemHasKey('label')"
   >
     <label>Label</label>
     <input 
@@ -12,20 +12,33 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
 
   computed: {
+
+    ...mapGetters([
+      'editItemHasKey',
+      'editItemKey'
+    ]),
+
     itemLabel: {
       get() {
-        return this.$store.getters.editItemKey('label', '')
+        return this.editItemKey('label', '')
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'label', val: value })
+        this.updateItem({ key: 'label', val: value })
       }
     },
   },
 
   methods: {
+
+    ...mapMutations([
+      'updateItem'
+    ]),
+
     onKeyupEnter(event) {
       event.target.blur()
     }

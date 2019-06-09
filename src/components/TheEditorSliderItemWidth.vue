@@ -1,6 +1,6 @@
 <template>
   <div class="app-editor-slider-itemwidth-container"
-    v-if="!this.$store.getters.editItemType('tab')"
+    v-if="!editItemType('tab')"
   >
     <label>Item Width</label>
       <app-editor-slider
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import VueSlider from 'vue-slider-component'
 
 export default {
@@ -21,22 +22,36 @@ export default {
   },
 
   computed: {
+
+    ...mapGetters([
+      'editItemType',
+      'globalColumns',
+      'editItemKey',
+      'editItemHasKey'
+    ]),
+
     itemMinWidth() {
-      return this.$store.getters.editItemKey('minwidth', 1)
+      return this.editItemKey('minwidth', 1)
     },
 
     itemMaxWidth() {
-      return parseInt(this.$store.getters.globalColumns)
+      return parseInt(this.globalColumns)
     },
     itemWidth: {
       get() {
-        return this.$store.getters.editItemKey('width', 1)
+        return this.editItemKey('width', 1)
       },
       set(value) {
-        if(this.$store.getters.editItemHasKey('width'))
-          this.$store.commit('updateItem', { key: 'width', val: value })
+        if(this.editItemHasKey('width'))
+          this.updateItem({ key: 'width', val: value })
       }
     },
+  },
+
+  methods: {
+    ...mapMutations([
+      'updateItem'
+    ])
   }
 }
 </script>

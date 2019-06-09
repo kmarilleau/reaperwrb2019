@@ -31,7 +31,7 @@
       :style="{ 
         color: item.textcolor, 
         height: getLabelHeight() + 'px',
-        'min-width': (this.$store.getters.itemWidth * this.item.width) - 4 + 'px',
+        'min-width': (itemWidth * this.item.width) - 4 + 'px',
         margin: '2px'
       }"
     >
@@ -43,13 +43,27 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   props: ['item'],
 
+  computed: {
+    ...mapGetters([
+      'itemWidth',
+      'itemHeight',
+      'iconSize'
+    ])
+  },
+
   methods: {
 
+    ...mapMutations([
+      'execAction'
+    ]),
+
     onClick() {
-      this.$store.commit('execAction', { action: this.item.action, toggle: this.item.toggle })
+      this.execAction({ action: this.item.action, toggle: this.item.toggle })
     },
 
     itemIcon() {
@@ -61,23 +75,23 @@ export default {
 
     getIconHeight() {
       if(this.item.label !== '')
-        return this.$store.getters.itemHeight / 2
+        return this.itemHeight / 2
       else
-        return this.$store.getters.itemHeight
+        return this.itemHeight
     },
 
     getIconSize() {
       if(this.item.label !== '')
-        return this.$store.getters.iconSize
+        return this.iconSize
       else
-        return (this.$store.getters.iconSize * 2 - 4)
+        return (this.iconSize * 2 - 4)
     },
 
     getLabelHeight() {
       if(this.item.icon !== false)
-        return this.$store.getters.itemHeight / 2
+        return this.itemHeight / 2
       else
-        return this.$store.getters.itemHeight
+        return this.itemHeight
     },
 
     getStyle() {
@@ -123,6 +137,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-</style>

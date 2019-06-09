@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 
 const modes = ['AUTO', 'BEAT', 'SEC']
 
@@ -22,11 +23,26 @@ export default {
   },
 
   beforeMount() {
-    if(!this.$store.getters.transportOnline) 
-      this.$store.commit('execAction', { action: 'TRANSPORT', recur: 20 })
+    if(!transportOnline) 
+      this.execAction({ action: 'TRANSPORT', recur: 20 })
+  },
+
+  computed: {
+    ...mapGetters([
+      'transportOnline',
+      'reaperReady',
+      'transportPosString',
+      'transportPosBeats',
+      'transportPosSec',
+      'transportPosString'
+    ])
   },
 
   methods: {
+
+    ...mapMutations([
+      'execAction'
+    ]),
 
     onClick(event) {
       this.mode = (this.mode+1) % 3
@@ -37,21 +53,21 @@ export default {
     },
 
     getPosition() {
-      if(!this.$store.getters.reaperReady) {
+      if(!this.reaperReady) {
         return '0.0.00'
       } else {
         switch(modes[this.mode]) {
           case 'AUTO':
-            return this.$store.getters.transportPosString
+            return this.transportPosString
             break
           case 'BEAT':
-            return this.$store.getters.transportPosBeats
+            return this.transportPosBeats
             break
           case 'SEC':
-            return this.$store.getters.transportPosSec
+            return this.transportPosSec
             break
           default:
-            return this.$store.getters.transportPosString
+            return this.transportPosString
             break
         }
       }
@@ -60,6 +76,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -7,18 +7,16 @@
       <app-editor-delete-menu class="app-editor-panel" />
     </div>
 
-    <app-help :class="{ hidden: !this.$store.getters.showHelp }" />
+    <app-help :class="{ hidden: !showHelp }" />
 
     <div class="app-editor-section">
       <!-- EDITOR COLORS -->
       <div class="app-editor-panel"
-        :class="{ blur: this.$store.getters.showHelp }"
+        :class="{ blur: showHelp }"
       >
 
-        <!-- <app-editor-slider-globalcolumns /> -->
-
         <template
-          v-if="!this.$store.getters.isEditorModeDelete"
+          v-if="!isEditorModeDelete"
         >
           <app-editor-text-color-picker />
           <app-editor-item-color-picker />
@@ -27,10 +25,8 @@
 
       <!-- EDITOR OPTIONS PANEL -->
       <div class="app-editor-panel" 
-        v-if="this.$store.getters.hasEditItem 
-        && !this.$store.getters.isEditorBulkEdit 
-        && !this.$store.getters.isEditorModeDelete"
-        :class="{ blur: this.$store.getters.showHelp }"
+        v-if="hasEditItem && !isEditorBulkEdit && !isEditorModeDelete"
+        :class="{ blur: showHelp }"
       >
 
         <app-editor-slider-itemwidth />
@@ -55,6 +51,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 import BaseEditorButton from '@/components/BaseEditorButton.vue'
 import BaseEditorIconPicker from '@/components/BaseEditorIconPicker.vue'
 import TheEditorTextColorPicker from '@/components/TheEditorTextColorPicker.vue'
@@ -68,7 +66,6 @@ import TheEditorInputAction from '@/components/TheEditorInputAction.vue'
 import TheEditorInputToggle from '@/components/TheEditorInputToggle.vue'
 import TheEditorInputLabel from '@/components/TheEditorInputLabel.vue'
 import TheEditorSliderItemWidth from '@/components/TheEditorSliderItemWidth.vue'
-import TheEditorSliderGlobalColumns from '@/components/TheEditorSliderGlobalColumns.vue'
 import TheEditorSelectLabelPos from '@/components/TheEditorSelectLabelPos.vue'
 import TheEditorItemDesc from '@/components/TheEditorItemDesc.vue'
 import TheEditorSelectLabelPosVue from '@/components/TheEditorSelectLabelPos.vue'
@@ -91,7 +88,6 @@ export default {
     'app-editor-input-label': TheEditorInputLabel,
     'app-editor-input-toggle': TheEditorInputToggle,
     'app-editor-slider-itemwidth': TheEditorSliderItemWidth,
-    'app-editor-slider-globalcolumns': TheEditorSliderGlobalColumns,
     'app-editor-select-labelpos': TheEditorSelectLabelPos,
     'app-editor-item-desc': TheEditorItemDesc,
     'app-editor-button': BaseEditorButton,
@@ -100,16 +96,32 @@ export default {
   
   updated() {
     // dirty hack to fix editor label input value not always being updated 
-    let label = this.$store.getters.editItemKey('label', '')
+    let label = this.editItemKey('label', '')
     let el = document.querySelector('#item-label')
     if(el && el.value !== label)
       el.value = label
   },
 
   mounted() {
-    this.$store.commit('fadeOutLoader')
+    this.fadeOutLoader()
     document.title = "ReaperWRB / Editor"
   },
+
+  computed: {
+    ...mapGetters([
+      'editItemKey',
+      'showHelp',
+      'isEditorModeDelete',
+      'hasEditItem',
+      'isEditorBulkEdit'
+    ])
+  },
+
+  methods: {
+    ...mapMutations([
+      'fadeOutLoader'
+    ])
+  }
 
 }
 </script>

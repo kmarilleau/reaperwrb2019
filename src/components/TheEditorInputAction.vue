@@ -1,6 +1,6 @@
 <template>
   <div class="app-editor-input-action-container"
-    v-if="this.$store.getters.editItemHasKey('action')"
+    v-if="editItemHasKey('action')"
   >
     <div>
       <label><svgicon icon="search" /> Search</label>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import { ActionList } from '@/actions'
 
 export default {
@@ -42,39 +43,48 @@ export default {
 
   computed: {
 
+    ...mapGetters([
+      'editItemHasKey',
+      'editItemKey'
+    ]),
+
     actions() {
       return ActionList
     },
 
     itemAction: {
       get() {
-        return this.$store.getters.editItemKey('action', '')
+        return this.editItemKey('action', '')
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'action', val: value })
+        this.updateItem({ key: 'action', val: value })
       }
     },
 
     itemDesc: {
       get() {
-        return this.$store.getters.editItemKey('desc', '')
+        return this.editItemKey('desc', '')
       },
       set(value) {
-        this.$store.commit('updateItem', { key: 'desc', val: value })
+        this.updateItem({ key: 'desc', val: value })
       }
     },
 
     itemLabel: {
       get() {
-        return this.$store.getters.editItemKey('label', '')
+        return this.editItemKey('label', '')
       },
       set(value) {
-        return this.$store.commit('updateItem', { key: 'label', val: value })
+        return this.updateItem({ key: 'label', val: value })
       }
     },
   },
   
   methods: {
+
+    ...mapMutations([
+      'updateItem'
+    ]),
 
     onSearchAction(event) {
       if(event.target.value !== '') {
@@ -110,6 +120,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

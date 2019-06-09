@@ -1,6 +1,6 @@
 <template>
   <div class="app-editor-menu"
-    v-if="this.$store.getters.isEditorModeDelete"
+    v-if="isEditorModeDelete"
   >
 
     <app-editor-button label="Cancel" icon="blocked" class="pure-button-secondary" 
@@ -8,7 +8,7 @@
     />
 
     <app-editor-button label="Keep" icon="sync" 
-      v-if="!this.$store.getters.isEditorBulkEdit && this.$store.getters.deleteCanKeepItems"
+      v-if="!isEditorBulkEdit && deleteCanKeepItems"
       @click.native.stop="onDelete(true)" 
     />
 
@@ -18,7 +18,7 @@
 
     <div class="app-editor-menu-help">
       <template
-        v-if="!this.$store.getters.isEditorBulkEdit && this.$store.getters.deleteCanKeepItems"
+        v-if="!isEditorBulkEdit && deleteCanKeepItems"
       >
         <label><svgicon icon="sync" /> Keep</label>
         <p>Items will be moved to next row/tab</p>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import BaseEditorButton from '@/components/BaseEditorButton.vue'
 
 export default {
@@ -39,22 +40,38 @@ export default {
     'app-editor-button': BaseEditorButton
   },
 
+  computed: {
+    ...mapGetters([
+      'isEditorModeDelete',
+      'isEditorBulkEdit',
+      'deleteCanKeepItems',
+    ])
+  },
+
   methods: {
 
-    onDelete(keepItems) {
-      if(this.$store.getters.isEditorBulkEdit)
-        this.$store.commit('bulkDelete')
-      else
-        this.$store.commit('delete', keepItems)
+    ...mapMutations([
+      'bulkDelete',
+      'delete',
+      'clearEditHighlight',
+      'cancelBulkDelete',
+      'cancelDelete'
+    ]),
 
-      this.$store.commit('clearEditHighlight')
+    onDelete(keepItems) {
+      if(this.isEditorBulkEdit)
+        this.bulkDelete()
+      else
+        this.delete(keepItems)
+
+      this.clearEditHighlight()
     },
     
     onCancel(event) {
-      if(this.$store.getters.isEditorBulkEdit)
-        this.$store.commit('cancelBulkDelete')
+      if(this.isEditorBulkEdit)
+        this.cancelBulkDelete()
       else
-        this.$store.commit('cancelDelete')
+        this.cancelDelete()
     }
   }
 }
