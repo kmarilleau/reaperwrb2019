@@ -276,7 +276,7 @@ const store = new Vuex.Store({
       }
     },
 
-    onDraggableStart({ commit, state }) {
+    onEditorDraggableStart({ commit, state }) {
       commit('clearEditHighlight')
       commit('clearEditItem')
     },

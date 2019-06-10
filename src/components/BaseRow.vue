@@ -88,7 +88,7 @@ export default {
     ]),
 
     ...mapActions([
-      'onDraggableStart'
+      'onEditorDraggableStart'
     ]),
 
     classRow() {
@@ -96,7 +96,7 @@ export default {
     },
 
     onDraggableStart() {
-      this.onDraggableStart()
+      this.onEditorDraggableStart()
     },
 
     onDraggableMove(event, originalEvent) {
