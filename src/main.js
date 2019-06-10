@@ -16,9 +16,10 @@ import example from '@/example'
 
 import VueSVGIcon from 'vue-svgicon'
 Vue.use(VueSVGIcon, {
-  defaultWidth: '1vw',
-  defaultHeight: '1vw'
+  defaultWidth: '16px',
+  defaultHeight: '16px'
 })
+
 import './icons/'
 
 Vue.config.productionTip = false
@@ -39,35 +40,35 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    reaperReady: (state, getters) => state.reaper.ready,
-    version: (state, getters) => state.version,
-
-    browser: (state, getters) => state.editor.browser,
+    reaperReady:  (state, getters) => state.reaper.ready,
+    version:      (state, getters) => state.version,
+    browser:      (state, getters) => state.editor.browser,
 
     showLocalStorage: (state, getters) => state.storage.local_support && typeof(state.storage.local.webremotes) !== 'undefined',
-    hasLocalStorage: (state, getters) => state.storage.local_support,
-    getLocalStorageWebremotes: (state, getters) => state.storage.local.webremotes,
-    getLocalStorageWebremoteByIndex: (state, getters) => (index) => state.storage.local.webremotes[index],
+    hasLocalStorage:  (state, getters) => state.storage.local_support,
+
+    getLocalStorageWebremotes:        (state, getters) => state.storage.local.webremotes,
+    getLocalStorageWebremoteByIndex:  (state, getters) => (index) => state.storage.local.webremotes[index],
     
-    getJSONStorageWebremotes: (state, getters) => state.storage.json.webremotes,
+    getJSONStorageWebremotes:       (state, getters) => state.storage.json.webremotes,
     getJSONStorageWebremoteByIndex: (state, getters) => (index) => state.storage.json.webremotes[index],
 
     isEditorEnabled: (state, getters) => state.editor.enabled,
 
     isAppModeStartup: (state, getters) => state.mode === appModes.STARTUP,
-    isAppModeRemote: (state, getters) => state.mode === appModes.REMOTE,
-    isAppModeEditor: (state, getters) => state.mode === appModes.EDITOR,
+    isAppModeRemote:  (state, getters) => state.mode === appModes.REMOTE,
+    isAppModeEditor:  (state, getters) => state.mode === appModes.EDITOR,
 
-    isEditorModeMain: (state, getters) => state.editor.mode === editorModes.MAIN,
-    isEditorModeAdd: (state, getters) => state.editor.mode === editorModes.ADD,
-    isEditorModeSave: (state, getters) => state.editor.mode === editorModes.SAVE,
-    isEditorModeDelete: (state, getters) => state.editor.mode === editorModes.DELETE,
-    isEditorBulkEdit: (state, getters) => state.editor.bulk_edit,
-    isEditorExecActions: (state, getters) => state.editor.execAction,
+    isEditorModeMain:     (state, getters) => state.editor.mode === editorModes.MAIN,
+    isEditorModeAdd:      (state, getters) => state.editor.mode === editorModes.ADD,
+    isEditorModeSave:     (state, getters) => state.editor.mode === editorModes.SAVE,
+    isEditorModeDelete:   (state, getters) => state.editor.mode === editorModes.DELETE,
+    isEditorBulkEdit:     (state, getters) => state.editor.bulk_edit,
+    isEditorExecActions:  (state, getters) => state.editor.execAction,
 
     itemHeight: (state, getters) => state.webremote.itemHeight,
-    itemWidth: (state, getters) => state.webremote.itemWidth,
-    iconSize: (state, getters) => (getters.itemHeight / 3).toString(),
+    itemWidth:  (state, getters) => state.webremote.itemWidth,
+    iconSize:   (state, getters) => (getters.itemHeight / 3).toString(),
 
     showHelp: (state, getters) =>  state.editor.help,
 
@@ -77,9 +78,14 @@ const store = new Vuex.Store({
         && state.editor.data.bulk.length > 0
     },
 
-    showEditorEditButtons: (state, getters) => getters.isAppModeEditor && !getters.isEditorModeSave && !getters.isEditorModeDelete,
-    showEditorDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
-    showEditorGlobalColumns: (state, getters) => getters.hasTabs && getters.isEditorModeMain,
+    showEditorEditButtons:      (state, getters) => {
+      return getters.isAppModeEditor 
+        && !getters.isEditorModeSave 
+        && !getters.isEditorModeDelete
+    },
+
+    showEditorDeleteRowButton:  (state, getters) => getters.tabs[getters.activeTab].rows.length > 1,
+    showEditorGlobalColumns:    (state, getters) => getters.hasTabs && getters.isEditorModeMain,
 
     webremoteTitle: (state, getters) => state.webremote.title,
 
@@ -90,12 +96,16 @@ const store = new Vuex.Store({
     },
     
     globalColumns: (state, getters) => state.webremote.columns,
-    activeTab: (state, getters) => state.webremote.active_tab,
-    activeRow: (state, getters) => state.editor.active_row,
-    isActiveRow: (state, getters) => (row) => getters.activeRow === row,
+
+    activeTab:    (state, getters) => state.webremote.active_tab,
+    activeRow:    (state, getters) => state.editor.active_row,
+    isActiveRow:  (state, getters) => (row) => getters.activeRow === row,
+
     tabs: (state, getters) => state.webremote.tabs,
     rows: (state, getters) => state.webremote.tabs[getters.activeTab].rows,
+
     rowItems: (state, getters) => (row) => getters.tabs[getters.activeTab].rows[row],
+
     hasTabs: (state, getters) => state.webremote.tabs.length > 0,
     hasNoTabs: (state, getters) => state.webremote.tabs.length === 0,
     isLastTab: (state, getters) => (item) => item.type === 'tab' && state.webremote.tabs.length === 1,
@@ -108,21 +118,23 @@ const store = new Vuex.Store({
     hasRegions: (state, getters) => state.reaper.regions.length > 0,
     getRegions: (state, getters) => state.reaper.regions,
     
-    transportOnline: (state, getters) => state.reaper.transport.online,
+    transportOnline:    (state, getters) => state.reaper.transport.online,
     transportPosString: (state, getters) => state.reaper.transport.position_string,
-    transportPosBeats: (state, getters) => state.reaper.transport.position_string_beats,
-    transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
-    transportPlaystate: (state, getters) => parseInt(state.reaper.transport.playstate),
-    transportPlaystatePlay: (state, getters) => parseInt(getters.transportPlaystate) === 1,
-    transportPlaystatePause: (state, getters) => parseInt(getters.transportPlaystate) === 2,
+    transportPosBeats:  (state, getters) => state.reaper.transport.position_string_beats,
+    transportPosSec:    (state, getters) => state.reaper.transport.position_seconds,
+    transportRepeat:    (state, getters) => parseInt(state.reaper.transport.repeat),
+
+    transportPlaystate:       (state, getters) => parseInt(state.reaper.transport.playstate),
+    transportPlaystatePlay:   (state, getters) => parseInt(getters.transportPlaystate) === 1,
+    transportPlaystatePause:  (state, getters) => parseInt(getters.transportPlaystate) === 2,
     transportPlaystateRecord: (state, getters) => parseInt(getters.transportPlaystate) === 5,
-    transportRepeat: (state, getters) => parseInt(state.reaper.transport.repeat),
     
     hasMoveItem: (state, getters) => state.editor.data.move,
     hasEditItem: (state, getters) => state.editor.data.item.obj,
+
     isEditItem: (state, getters) => (payload) => {
-      if(state.editor.data.item.row === payload.row
-      && state.webremote.tabs[state.webremote.active_tab].rows[payload.row].length - 1 === payload.index) {
+      if(getters.editItemRow === payload.row
+      && getters.tabs[getters.activeTab].rows[payload.row].length - 1 === payload.index) {
         let isItem = true
         Object.keys(payload.item).forEach(key => {
           if(payload.item[key] !== state.editor.data.item.obj[key])
@@ -133,10 +145,14 @@ const store = new Vuex.Store({
       }
     },
 
-    isEditTab: (state, getters) => (payload) => getters.editItemType('tab') && getters.activeTab === payload.index,
+    isEditTab: (state, getters) => (payload) => {
+      return getters.editItemType('tab') 
+        && getters.activeTab === payload.index
+    },
 
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
-    editItemRow: (state, getters) => state.editor.data.item.row,
+    editItemRow:  (state, getters) => state.editor.data.item.row,
+
     editItemHasKey: (state, getters) => (key) => { 
       if(getters.hasEditItem)
         return key in state.editor.data.item.obj
