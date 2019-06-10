@@ -15,9 +15,9 @@
           <span :style="{ color: item.textcolor }">Region: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
-        <template v-if="isAppModeEditor && !hasRegions">
-          <span :style="{ color: item.textcolor }">Region: 1</span>
-          <span :style="{ color: item.textcolor }">Name</span>
+        <template v-if="!hasRegions">
+          <span :style="{ color: item.textcolor }">Region: {id}</span>
+          <span :style="{ color: item.textcolor }">{Name}</span>
         </template>
       </div>
       <a class="app-item__regions-icon" 

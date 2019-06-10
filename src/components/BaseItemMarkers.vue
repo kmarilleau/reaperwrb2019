@@ -16,9 +16,9 @@
           <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
-        <template v-if="isAppModeEditor && !hasMarkers">
-          <span :style="{ color: item.textcolor }">Marker: 1</span>
-          <span :style="{ color: item.textcolor }">Name</span>
+        <template v-if="!hasMarkers">
+          <span :style="{ color: item.textcolor }">Marker: {id}</span>
+          <span :style="{ color: item.textcolor }">{Name}</span>
         </template>
       </div>
       <a class="app-item__markers-icon"
