@@ -29,11 +29,11 @@ export default {
   methods: {
 
     ...mapActions([
-      'onTabAdd',
+      'onEditorTabAdd',
     ]),
 
     onAdd(event) {
-      this.onTabAdd()
+      this.onEditorTabAdd()
     }
   }
 }

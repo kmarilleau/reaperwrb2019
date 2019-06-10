@@ -84,7 +84,7 @@ export default {
     ]),
 
     ...mapActions([
-      'onItemEdit'
+      'onEditorItemEdit'
     ]),
 
     getStyle() {
@@ -130,7 +130,7 @@ export default {
         }
 
         if(!this.isEditorBulkEdit)
-          this.onItemEdit(payload)
+          this.onEditorItemEdit(payload)
         else
           this.bulkEditAddRemove(payload)
       }

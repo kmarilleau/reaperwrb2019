@@ -103,7 +103,7 @@ export default {
 
     ...mapActions([
       'onEditorLaunch',
-      'onLoadDefault'
+      'onEditorLoadDefault'
     ]),
     
     getStyle() {
@@ -128,7 +128,7 @@ export default {
     },
 
     onDefault() {
-      this.onLoadDefault()
+      this.onEditorLoadDefault()
     },
   }
 }

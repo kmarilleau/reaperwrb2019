@@ -192,7 +192,7 @@ const store = new Vuex.Store({
       commit('setModeRemote')
     },
 
-    onSwitchTab({ commit, state }, tab) {
+    onTabSwitch({ commit, state }, tab) {
       commit('clearEditHighlight')
       commit('switchTab', tab)
       commit('getCmdStates')
@@ -234,18 +234,18 @@ const store = new Vuex.Store({
       commit('toggleBulkEdit')
     },
 
-    onItemAdd({ commit, state }, type) {
+    onEditorItemAdd({ commit, state }, type) {
       commit('clearEditHighlight')
       commit('addItem', type)
     },
 
-    onTabAdd({ commit, state }) {
+    onEditorTabAdd({ commit, state }) {
       commit('hideHelp')
       commit('clearEditHighlight')
       commit('addTab')
     },
 
-    onItemEdit({ commit, state }, payload) {
+    onEditorItemEdit({ commit, state }, payload) {
       commit('clearEditHighlight')
       commit('edit', payload)
     },
@@ -266,8 +266,7 @@ const store = new Vuex.Store({
       commit('setEditorModeSave')
     },
 
-    // FIXME inconsistent naming
-    onDeleteRow({ commit, state }, payload) {
+    onEditorRowDelete({ commit, state }, payload) {
       commit('clearEditHighlight')
       if(state.webremote.tabs[state.webremote.active_tab].rows[payload.index].length === 0) {
         state.editor.data.bin = payload
@@ -282,7 +281,8 @@ const store = new Vuex.Store({
       commit('clearEditItem')
     },
 
-    onShowItemAddMenu({ commit, state }, row) {
+    onEditorItemAddMenu({ commit, state }, row) {
+      commit('hideHelp')
       commit('clearEditHighlight')
       commit('clearEditItem')
       commit('switchRow', row)
@@ -903,7 +903,7 @@ const store = new Vuex.Store({
         state.editor.mode = editorModes.MAIN
       },
 
-    addRow: (state, row) => {
+    rowAdd: (state, row) => {
       state.webremote.tabs[state.webremote.active_tab].rows.splice(row + 1, 0, [])
     },
 

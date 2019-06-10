@@ -4,19 +4,19 @@
     :class="{ 'hidden': isEditorBulkEdit }"
   >
     <a class="app-row-edit-button app-row-edit-button-add"
-      @click.stop="onShowItemAddMenu()" 
+      @click.stop="onItemAddMenu()" 
     >
       <svgicon icon="plus" />
       <span>Item</span>
     </a>
     <a class="app-row-edit-button app-row-edit-button-add app-add-row"
-      @click.stop="onRowAdd()" 
+      @click.stop="onAdd()" 
     >
       <svgicon icon="plus" />
       <span>Row</span>
     </a>
     <a class="app-row-edit-button app-row-edit-button-delete"
-      @click.stop="onRowDelete()"
+      @click.stop="onDelete()"
       v-if="showEditorDeleteRowButton"
     >
       <svgicon icon="edit-delete" />
@@ -70,32 +70,31 @@ export default {
 
     ...mapMutations([
       'hideHelp',
-      'addRow',
-      'onDeleteRow'
+      'rowAdd',
+      'onEditorRowDelete'
     ]),
 
     ...mapActions([
-      'onShowItemAddMenu',
-      'onDeleteRow'
+      'onEditorItemAddMenu',
+      'onEditorRowDelete'
     ]),
 
-    onShowItemAddMenu(event) {
-      this.hideHelp()
-      this.onShowItemAddMenu(this.row)
+    onItemAddMenu(event) {
+      this.onEditorItemAddMenu(this.row)
     },
 
-    onRowAdd(event) {
-      this.addRow(this.row)
+    onAdd(event) {
+      this.rowAdd(this.row)
     },
 
-    onRowDelete(event) {
+    onDelete(event) {
       this.hideHelp()
       let payload = {
         obj: { type: 'row' },
         index: this.row,
         el: this.$parent.$children[0].$el
       }
-      this.onDeleteRow(payload)
+      this.onEditorRowDelete(payload)
     }
   }
 }

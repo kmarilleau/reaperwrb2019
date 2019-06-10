@@ -49,11 +49,11 @@ export default {
     ]),
     
     ...mapActions([
-      'onItemAdd'
+      'onEditorItemAdd'
     ]),
 
     onItemAdd(type) {
-      this.onItemAdd(type)
+      this.onEditorItemAdd(type)
     },
     onCancel() {
       this.setEditorModeMain()

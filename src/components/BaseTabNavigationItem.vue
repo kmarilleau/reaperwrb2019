@@ -56,8 +56,8 @@ export default {
     ]),
 
     ...mapActions([
-      'onSwitchTab',
-      'onItemEdit'
+      'onTabSwitch',
+      'onEditorItemEdit'
     ]),
 
     getStyle() {
@@ -77,7 +77,7 @@ export default {
     },
 
     onClick(event) {
-      this.onSwitchTab(this.index)
+      this.onTabSwitch(this.index)
       
       if(this.isAppModeEditor) {
         if(!this.isEditorBulkEdit) {
@@ -86,7 +86,7 @@ export default {
             index: this.index,
             el: this.$el,
           }
-          this.onItemEdit(payload)
+          this.onEditorItemEdit(payload)
         }
       }
     }
