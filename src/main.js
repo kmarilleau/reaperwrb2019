@@ -185,6 +185,13 @@ const store = new Vuex.Store({
 
   actions: {
     
+    // FIXME needs testing
+    onLaunchFromHTML({ commit, state }, webremote) {
+      commit('import', webremote)
+      commit('getCmdStates')
+      commit('setModeRemote')
+    },
+
     onSwitchTab({ commit, state }, tab) {
       commit('clearEditHighlight')
       commit('switchTab', tab)
@@ -206,6 +213,7 @@ const store = new Vuex.Store({
       commit('showDeleteDialog')
     },
 
+    // FIXME inconsistent naming
     onDeleteRow({ commit, state }, payload) {
       commit('clearEditHighlight')
       if(state.webremote.tabs[state.webremote.active_tab].rows[payload.index].length === 0) {

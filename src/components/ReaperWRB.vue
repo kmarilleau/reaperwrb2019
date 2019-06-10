@@ -32,11 +32,7 @@ export default {
     const div = document.querySelector('#reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
       const webremote = JSON.parse(div.innerHTML)
-      // FIXME dispatch
-      this.setModeRemote()
-      this.import(webremote)
-      this.getCmdStates() 
-      this.setModeRemote()
+      this.$store.dispatch('onLaunchFromHTML', webremote)
     }
 
     this.fadeOutLoader()
@@ -51,10 +47,6 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setModeRemote',
-      'import',
-      'getCmdStates',
-      'setModeRemote',
       'fadeOutLoader'
     ])
   }
