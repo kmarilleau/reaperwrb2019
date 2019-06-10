@@ -48,7 +48,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  props: ['item', 'markers'],
+  props: ['item'],
 
   data() {
     return {

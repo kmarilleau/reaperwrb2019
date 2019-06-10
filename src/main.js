@@ -111,6 +111,11 @@ const store = new Vuex.Store({
     transportPosString: (state, getters) => state.reaper.transport.position_string,
     transportPosBeats: (state, getters) => state.reaper.transport.position_string_beats,
     transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
+    transportPlaystate: (state, getters) => parseInt(state.reaper.transport.playstate),
+    transportPlaystatePlay: (state, getters) => parseInt(state.reaper.transport.playstate) === 1,
+    transportPlaystatePause: (state, getters) => parseInt(state.reaper.transport.playstate) === 2,
+    transportPlaystateRecord: (state, getters) => parseInt(state.reaper.transport.playstate) === 5,
+    transportRepeat: (state, getters) => parseInt(state.reaper.transport.repeat),
     
     hasMoveItem: (state, getters) => state.editor.data.move,
     hasEditItem: (state, getters) => state.editor.data.item.obj,

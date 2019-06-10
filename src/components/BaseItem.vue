@@ -28,13 +28,11 @@
     <app-item-markers
       v-if="item.type === 'markers'"
       :item="item"
-      :markesrs="this.$store.state.reaper.markers"
     />
 
     <app-item-regions
       v-if="item.type === 'regions'"
       :item="item"
-      :regions="this.$store.state.reaper.regions"
     />
 
   </div>
