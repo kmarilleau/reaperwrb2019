@@ -188,7 +188,7 @@ export default {
           return this.fixJSON(json.tabs)
         }
       } else {
-        console.log("ERROR: Couldn't load HTML")
+        console.error("ERROR: Couldn't load HTML")
         return []
       }
     },
@@ -220,7 +220,7 @@ export default {
         }
         return tab
       } else {
-        console.log("REAPERWRB ERROR: File \"%s\" didn't contain any items!", filename)
+        console.error("REAPERWRB ERROR: File \"%s\" didn't contain any items!", filename)
         return false
       }
     },

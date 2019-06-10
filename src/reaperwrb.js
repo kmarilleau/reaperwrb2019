@@ -15,6 +15,7 @@ export const defaults = {
   
   reaper: {
     ready: false,
+    sync_timeout: 250,
     transport: {
       online: false,
       playstate: 0,

@@ -325,7 +325,7 @@ const store = new Vuex.Store({
         commit('onWindowResize')
       })
       if(!success)
-        console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
+        console.error("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
     
     onEditWebremotePreset: ({ commit, state }, payload ) => {
@@ -341,7 +341,7 @@ const store = new Vuex.Store({
         }
       })
       if(!success)
-        console.log("REAPERWRB ERROR: Could not load %s storage.", payload.type)
+        console.error("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
 
   },
@@ -414,7 +414,7 @@ const store = new Vuex.Store({
         }
       } else {
         state.storage.local_support = false
-        console.log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
+        console.error('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
       }
     },
 
@@ -1115,8 +1115,12 @@ const app = new Vue({
       wwr_start()
       window.wwr_onreply = (result) => this.$store.commit('onReply', result)
       this.$store.commit('setReaperReady', reaperReady)
+
+      // start update timer
+      timeout(this.$store.commit('getCmdStates'), this.$store.state.reaper.sync_timeout)
+
     } else {
-      console.log('ReaperWRB ERROR: REAPER API not ready!')
+      console.error('ReaperWRB ERROR: REAPER API not ready!')
     }
     
   }
