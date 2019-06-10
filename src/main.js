@@ -200,7 +200,7 @@ const store = new Vuex.Store({
       commit('showDeleteDialog')
     },
 
-    onRowDelete({ commit, state }, payload) {
+    onDeleteRow({ commit, state }, payload) {
       commit('clearEditHighlight')
       if(state.webremote.tabs[state.webremote.active_tab].rows[payload.index].length === 0) {
         state.editor.data.bin = payload
