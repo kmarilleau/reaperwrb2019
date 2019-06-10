@@ -656,7 +656,6 @@ const store = new Vuex.Store({
       console.log(JSON.stringify(cloneDeep(tabs)))
     },
     
-    // FIXME unsafe
     import: (state, payload) => {
       console.log("REAPERWRB: Importing data.")
       state.editor.help = false

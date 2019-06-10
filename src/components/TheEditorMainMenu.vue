@@ -141,7 +141,6 @@ export default {
         // load toolbar
         if (type === 'txt') {
           tab = this.parseToolbar(text, files[i].name)
-          // FIXME handle failed files
           if (tab)
             tabs.push(tab)
           else 
@@ -156,7 +155,6 @@ export default {
       }
       this.$store.commit('import', tabs)
       event.target.value = ''
-      // FIXME display failed files?
     },
 
     readFileAsText(file) {
@@ -193,7 +191,6 @@ export default {
       }
     },
 
-    // FIXME pre load item defaults
     parseToolbar(text, filename) {
       const items = text
         .split("\n")
