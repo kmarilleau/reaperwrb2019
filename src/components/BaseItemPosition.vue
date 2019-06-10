@@ -18,7 +18,7 @@ export default {
 
   data() {
     return {
-      mode: 0,
+      mode: 0
     }
   },
 
@@ -58,7 +58,7 @@ export default {
       } else {
         switch(modes[this.mode]) {
           case 'AUTO':
-            return this.transportPosString
+            return this.transportPosString 
             break
           case 'BEAT':
             return this.transportPosBeats

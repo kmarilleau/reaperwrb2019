@@ -1117,7 +1117,7 @@ const app = new Vue({
       this.$store.commit('setReaperReady', reaperReady)
 
       // start update timer
-      timeout(this.$store.commit('getCmdStates'), this.$store.state.reaper.sync_timeout)
+      setInterval(() => this.$store.commit('getCmdStates'), this.$store.state.reaper.sync_interval)
 
     } else {
       console.error('ReaperWRB ERROR: REAPER API not ready!')
