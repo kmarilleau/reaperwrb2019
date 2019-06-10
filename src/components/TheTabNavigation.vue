@@ -6,7 +6,7 @@
       gridTemplateColumns: 'repeat(' + globalColumns + ', 1fr)',
     }"
     :options="{ 
-      draggable: isAppModeEditor && !isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
+      draggable: isAppModeEditor && !isEditorBulkEdit ? '.app-tab-navigation__item' : false, 
       group: { name: 'tabs', put: ['items'] },
       sort: isAppModeEditor,
       disabled: disableSort,
@@ -17,15 +17,15 @@
     @end="onDraggableEnd"
     :move="onDraggableMove"
   >
-    <app-tab-navigation-item
+    <app-tab-navigation__item
       v-for="(tab, index) in tabs" :key="index"
       :tab="tab"
       :index="index"
-    ></app-tab-navigation-item>
+    ></app-tab-navigation__item>
 
     <app-editor-tab-add />
 
-    <div class="app-tab-navigation-item app-tab-navigation-menu"
+    <div class="app-tab-navigation__item app-tab-navigation__menu"
       v-if="isAppModeRemote"
       :style="{
         'min-width': itemWidth + 'px',
@@ -65,7 +65,7 @@ export default {
 
   components: {
     'draggable': draggable,
-    'app-tab-navigation-item': BaseTabNavigationItem,
+    'app-tab-navigation__item': BaseTabNavigationItem,
     'app-editor-tab-add': TheEditorTabAdd
   },
 
@@ -133,10 +133,10 @@ export default {
     onDraggableMove(event, originalEvent) {
       // hacky way to cancel dropping item on the tab add button or the
       if(event.draggedContext.futureIndex === 0) {
-        if(originalEvent.target.classList.contains('app-tab-navigation-item'))
+        if(originalEvent.target.classList.contains('app-tab-navigation__item'))
           return true
 
-        if(originalEvent.target.parentElement.classList.contains('app-tab-navigation-item')) 
+        if(originalEvent.target.parentElement.classList.contains('app-tab-navigation__item')) 
           return true
 
         return false

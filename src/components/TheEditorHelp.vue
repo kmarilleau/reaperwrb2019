@@ -1,5 +1,5 @@
 <template>
-  <div class="app-help-container">
+  <div class="app-container__help">
     <div class="app-help">
 
       <header>
@@ -79,9 +79,9 @@
           on your device and open the webremote in fullscreen mode.
         </p>
 
-        <div class="app-help-footer">
+        <div class="app-help__footer">
           &copy; 2019 - 2119 Michael Klier
-          <div class="app-help-social">
+          <div class="app-help__social">
             <a href="https://m-klier.de" target="_blank"><svgicon icon="home" /></a>
             <a href="https://twitter.com/michael_klier" target="_blank"><svgicon icon="twitter" /></i></a>
           </div>

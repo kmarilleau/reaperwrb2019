@@ -1,17 +1,17 @@
 <template>
-  <a class="app-item-action-container"
+  <a class="app-item__action__container"
     @click="onClick"
     :style="getStyle()"
   >
 
-    <div class="app-item-label"
+    <div class="app-item__label"
       v-if="parseInt(item.labelpos) === 1"
       :style="{ color: item.textcolor }"
     >
       <span>{{item.label}}</span>
     </div>
 
-    <div class="app-item-action-icon"
+    <div class="app-item__action-icon"
       v-if="this.item.icon"
       :style="{
         color: this.item.textcolor,
@@ -26,7 +26,7 @@
       />
     </div>
 
-    <div class="app-item-label"
+    <div class="app-item__label"
       v-if="parseInt(item.labelpos) === 0"
       :style="{ 
         color: item.textcolor, 

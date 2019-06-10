@@ -1,5 +1,5 @@
 <template>
-  <div class="app-editor-input-action-container"
+  <div class="app-editor__input-action-container"
     v-if="editItemHasKey('action')"
   >
     <div>
@@ -8,7 +8,7 @@
         @keyup.enter="onSearchAction($event)"
         @keyup.delete="onSearchClear($event)"
       >
-      <div class="app-editor-input-action-search-result"
+      <div class="app-editor__input-action-search-result"
         :class="{ hidden: this.search.length === 0 }"
       >
         <ul>

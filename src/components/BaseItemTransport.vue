@@ -1,17 +1,17 @@
 <template>
   <div :style="{ color: item.textcolor }">
-    <div class="app-item-transport-container"
+    <div class="app-item__transport-container"
       :style="{ 'height': itemHeight + 'px'}"
     > 
 
-      <a @click="onStop()" class="app-item-transport-icon">
+      <a @click="onStop()" class="app-item__transport-icon">
         <svgicon icon="transport-stop" 
           :height="iconSize + 'px'"
           :width="iconSize + 'px'"
         />
       </a>
 
-      <a @click="onPlay()" class="app-item-transport-icon"
+      <a @click="onPlay()" class="app-item__transport-icon"
         :class="{ blink: transportPlaystatePlay }"
       >
         <svgicon icon="transport-play" 
@@ -20,7 +20,7 @@
         />
       </a>
 
-      <a @click="onPause()" class="app-item-transport-icon"
+      <a @click="onPause()" class="app-item__transport-icon"
         :class="{ blink: transportPlaystatePause }"
       >
         <svgicon icon="transport-pause" 
@@ -29,7 +29,7 @@
         />
       </a>
 
-      <a @click="onRecord()" class="app-item-transport-icon"
+      <a @click="onRecord()" class="app-item__transport-icon"
         :class="{ blink: transportPlaystateRecord }"
         :style="{ color: transportPlaystateRecord ? '#F44E3B' : item.textcolor }"
       >
@@ -41,7 +41,7 @@
 
       <a 
         @click="onToggleRepeat()" 
-        class="app-item-transport-icon"
+        class="app-item__transport-icon"
         :style="{ color: transportRepeat > 0 ? '#4ef442' : item.textcolor }"
       >
         <svgicon icon="transport-loop" 

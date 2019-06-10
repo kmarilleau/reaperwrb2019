@@ -1,5 +1,5 @@
 <template>
-  <div class="app-editor-menu"
+  <div class="app-editor__menu"
     v-if="isEditorModeSave"
   >
 
@@ -14,14 +14,14 @@
     
     <app-editor-button label="DB" icon="drive" @click.native.stop="onSaveJSON" class="pure-button-primary" />
 
-    <div class="app-editor-webremote-title">
+    <div class="app-editor__webremote-title">
       <label>Webremote Title</label>
       <input name="title" type="text" id="app-webremote-title" v-model="webremoteTitle" autofocus 
         @keyup.enter="onKeyupEnter($event)"
       >
     </div>
 
-    <div class="app-editor-menu-help">
+    <div class="app-editor__menu-help">
     
       <label><svgicon icon="storage" /> Browser</label>
       <p>Saves the webremote into the local browser storage of this device.</p>

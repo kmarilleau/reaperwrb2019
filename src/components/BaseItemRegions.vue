@@ -1,7 +1,7 @@
 <template>
-  <div class="app-item-container app-item-regions">
-    <div class="app-item-regions-nav">
-      <a class="app-item-regions-icon" 
+  <div class="app-item__container app-item__regions">
+    <div class="app-item__regions-nav">
+      <a class="app-item__regions-icon" 
         @click="onPreviousRegion()"
         :style="{ color: item.textcolor }"
       >
@@ -10,7 +10,7 @@
           :width="iconSize + 'px'"
         />
       </a>
-      <div class="app-item-regions-info">
+      <div class="app-item__regions-info">
         <template v-if="hasRegions">
           <span :style="{ color: item.textcolor }">Region: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
@@ -20,7 +20,7 @@
           <span :style="{ color: item.textcolor }">Name</span>
         </template>
       </div>
-      <a class="app-item-regions-icon" 
+      <a class="app-item__regions-icon" 
         @click="onRefresh()"
         :style="{ color: item.textcolor }"
       >
@@ -29,7 +29,7 @@
           :width="iconSize + 'px'"
         />
       </a>
-      <a class="app-item-regions-icon" 
+      <a class="app-item__regions-icon" 
         @click="onNextRegion()"
         :style="{ color: item.textcolor }"
       >

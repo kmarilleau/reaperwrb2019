@@ -1,10 +1,10 @@
 <template>
-  <div class="app-item-position-container" 
+  <div class="app-item__position-container" 
     :style="{ color: item.textcolor }"
     @click="onClick()"  
   >
-    <div class="app-item-position-mode"><span>{{getMode()}}</span></div>
-    <span class="app-item-position-info">{{getPosition()}}</span>
+    <div class="app-item__position-mode"><span>{{getMode()}}</span></div>
+    <span class="app-item__position-info">{{getPosition()}}</span>
   </div>
 </template>
 

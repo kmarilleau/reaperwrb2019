@@ -1,5 +1,5 @@
 <template>
-  <div class="app-editor-menu"
+  <div class="app-editor__menu"
     v-if="isEditorModeMain"
   >
 
@@ -89,7 +89,9 @@ export default {
 
     ...mapMutations([
       'toggleHelp',
-      'toggleExecActions'
+      'toggleExecActions',
+      'hideHelp',
+      'clearEditHighlight'
     ]),
 
     ...mapActions([
@@ -99,9 +101,7 @@ export default {
       'onEditorLoadExample',
       'onEditorToggleBulkEdit',
       'onEditorItemDelete',
-      'onEditorSave',
-      'hideHelp',
-      'clearEditHighlight'
+      'onEditorSave'
     ]),
 
     onHome(event)   { this.onEditorHome() },
@@ -114,7 +114,6 @@ export default {
     onToggleExecActions(event)  { this.toggleExecActions() },
     onToggleBulkEdit(event)     { this.onEditorToggleBulkEdit() },
     onItemDelete(event)         { this.onEditorItemDelete() },
-
 
     onTriggerLoadToolbar(event) {
       this.hideHelp()

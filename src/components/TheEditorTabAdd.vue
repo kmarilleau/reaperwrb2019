@@ -1,5 +1,5 @@
 <template>
-  <div class="app-tab-navigation-item app-tab-add"
+  <div class="app-tab-navigation__item app-tab-add"
     v-if="isAppModeEditor && !isEditorModeSave"
     :style="{
       width: itemWidth + 'px',

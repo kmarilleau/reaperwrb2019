@@ -1,5 +1,5 @@
 <template>
-  <div class="app-editor-menu"
+  <div class="app-editor__menu"
     v-if="isEditorModeAdd"
   >
     <button class="pure-button pure-button-secondary"

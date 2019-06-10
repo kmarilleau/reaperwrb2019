@@ -1,5 +1,5 @@
 <template>
-  <div class="app-editor-menu"
+  <div class="app-editor__menu"
     v-if="isEditorModeDelete"
   >
 
@@ -16,7 +16,7 @@
       @click.native.stop="onDelete(false)" 
     />
 
-    <div class="app-editor-menu-help">
+    <div class="app-editor__menu-help">
       <template
         v-if="!isEditorBulkEdit && deleteCanKeepItems"
       >

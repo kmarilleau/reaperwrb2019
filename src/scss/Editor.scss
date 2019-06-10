@@ -3,7 +3,7 @@
 @import "@/scss/EditorSlider.scss";
 @import "@/scss/EditorButtons.scss";
 
-.app-container-editor {
+.app-container__editor {
   grid-template-columns: $g-editor-view-width auto;
   background: $c-editor-primary;
 }
@@ -13,120 +13,122 @@
   overflow: hidden;
   background: $c-editor-primary;
   margin: 0 0.4vw;
-
-  .app-editor-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 0.4vw;
-  }
-
-  .app-editor-panel {
-    .app-editor-sub-panel {
-      display: grid;
-      grid-template-columns: 0.35fr auto;
-    }
-  }
-
-  .app-editor-menu {
-    padding: 0.5vw 0 0 0;
-    grid-column-end: span 2;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 0.3vw;
-    row-gap: 0.3vw;
-  }
-
-  .app-editor-bulk-menu {
-    height: $g-editor-item-edit-button-height;
-  }
-
-  .app-editor-input-action-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    column-gap: 0.4vw;
-  }
-
-  .app-editor-input-action-search-result { 
-    position: absolute;
-    margin: 0.5vw 0;
-    height: 0;
-    z-index: 1000;
-    width: 22vw;
-    
-    ul {
-      height: 62.5vh;
-      background: $bg-editor;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      overflow-y: scroll;
-      border-radius: $g-border-radius;
-      
-      li {
-        border-radius: $g-border-radius;
-        padding: .5vw;
-        line-height: 1.25vw;
-        margin: 0.25vw 0.25vw 0.25vw 0;
-        cursor: pointer;
-        color: $bg-primary;
-        background: white !important;
-        border: 1px solid $bg-editor-alt;
-        opacity: 0.7;
-      }
-
-      li:hover {
-        opacity: 1;
-      }
-    }
-  }
-
-  label {
-    text-shadow: 3px 3px 6px #b9b9b9;
-    display: flex;
-    margin: 1vh 0;
-    background: $bg-editor-alt !important;
-    padding: .25vw;
-    border-radius: $g-border-radius;
-    svg {
-      margin: 0 0.25vw 0 0;
-    }
-  }
-
-  input, select {
-    font-size: 1em;
-  }
-
-  input[type=text] {
-    transition: all 0.30s ease-in-out;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
-    outline: none;
-    display: block;
-    margin: 0;
-    width: 100%;
-    padding: .5vw 0.5vw 0.35vw 0.5vw;
-    border: .3vh solid $bg-editor-alt;
-  }
-
-  input[type=text]:focus, textarea:focus {
-    box-shadow: 0 0 1vw $c-editor-button-okay;
-    border: .3vh solid $c-editor-button-okay;
-  }
-
-  .app-item-desc {
-    background-color: white;
-    color: $bg-primary;
-    border-radius: $g-border-radius;
-    div {
-      padding: 0.25vw 0;
-      margin: 0.5vw;
-      line-height: 1.25vw;
-    }
-  }
-
 }
+
+.app-editor__section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.4vw;
+}
+
+.app-editor__panel {}
+
+.app-editor__sub-panel {
+  display: grid;
+  grid-template-columns: 0.35fr auto;
+}
+
+.app-editor__menu-container {}
+
+.app-editor__menu {
+  padding: 0.5vw 0 0 0;
+  grid-column-end: span 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 0.3vw;
+  row-gap: 0.3vw;
+}
+
+.app-editor__bulk-menu {
+  height: $g-editor-item-edit-button-height;
+}
+
+.app-editor__input-action-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 0.4vw;
+}
+
+.app-editor__input-action-search-result { 
+  position: absolute;
+  margin: 0.5vw 0;
+  height: 0;
+  z-index: 1000;
+  width: 22vw;
+  
+  ul {
+    height: 62.5vh;
+    background: $bg-editor;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    border-radius: $g-border-radius;
+    
+    li {
+      border-radius: $g-border-radius;
+      padding: .5vw;
+      line-height: 1.25vw;
+      margin: 0.25vw 0.25vw 0.25vw 0;
+      cursor: pointer;
+      color: $bg-primary;
+      background: white !important;
+      border: 1px solid $bg-editor-alt;
+      opacity: 0.7;
+    }
+
+    li:hover {
+      opacity: 1;
+    }
+  }
+}
+
+label {
+  text-shadow: 3px 3px 6px #b9b9b9;
+  display: flex;
+  margin: 1vh 0;
+  background: $bg-editor-alt !important;
+  padding: .25vw;
+  border-radius: $g-border-radius;
+  svg {
+    margin: 0 0.25vw 0 0;
+  }
+}
+
+input, select {
+  font-size: 1em;
+}
+
+input[type=text] {
+  transition: all 0.30s ease-in-out;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  display: block;
+  margin: 0;
+  width: 100%;
+  padding: .5vw 0.5vw 0.35vw 0.5vw;
+  border: .3vh solid $bg-editor-alt;
+}
+
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 1vw $c-editor-button-okay;
+  border: .3vh solid $c-editor-button-okay;
+}
+
+.app-item-desc {
+  background-color: white;
+  color: $bg-primary;
+  border-radius: $g-border-radius;
+  div {
+    padding: 0.25vw 0;
+    margin: 0.5vw;
+    line-height: 1.25vw;
+  }
+}
+
 
 input[type=checkbox] {
   cursor: pointer;
@@ -187,7 +189,7 @@ input[type=checkbox] {
 }
 
 .app-highlight-edit[class*="app-item"],
-.app-highlight-edit[class*="app-tab-navigation-item"] {
+.app-highlight-edit[class*="app-tab-navigation__item"] {
   box-shadow: inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit, inset 0 0 1vh $c-editor-hl-edit !important;
 }
 
@@ -203,14 +205,14 @@ input[type=checkbox] {
   background: $bg-editor-hl-delete !important;
 }
 
-.app-editor-webremote-title {
+.app-editor__webremote-title {
   width: 100%;
   height: 50%;
   grid-row-start: 2;
   grid-column-start: span 2;
 }
 
-.app-editor-menu-help {
+.app-editor__menu-help {
   grid-row-start: 3;
   grid-column-start: span 4;
   margin: 2vh 0;

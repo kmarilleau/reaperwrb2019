@@ -1,6 +1,6 @@
 <template>
-  <div class="app-editor-icon-menu-container app-editor-section">
-    <div class="app-editor-panel"
+  <div class="app-editor-icon-menu-container app-editor__section">
+    <div class="app-editor__panel"
       :class="{ 
         hidden: !editItemType('action') || isEditorModeDelete,
         blur: showHelp
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="app-editor-panel"
+    <div class="app-editor__panel"
       :class="{ 
         hidden : !editItemKey('toggle', false) || isEditorModeDelete,
         blur: showHelp 

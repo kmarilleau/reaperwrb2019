@@ -8,7 +8,7 @@
   background: $c-editor-button-warning;
 }
 
-.app-container-editor button {
+.app-container__editor button {
   border-radius: $g-border-radius;
   height: 3vw;
   display: flex;
@@ -64,7 +64,7 @@
 }
 
 .app-item:hover .app-item-edit-button,
-.app-tab-navigation-item:hover .app-item-edit-button {
+.app-tab-navigation__item:hover .app-item-edit-button {
   visibility: visible;
 }
 

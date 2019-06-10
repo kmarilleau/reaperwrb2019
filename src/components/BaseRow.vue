@@ -101,7 +101,7 @@ export default {
 
     onDraggableMove(event, originalEvent) {
       // hacky way to decide if an item is to be moved to another tab
-      if(event.related.classList.contains('app-tab-navigation-item') 
+      if(event.related.classList.contains('app-tab-navigation__item') 
       && typeof(event.related.attributes.tab) !== 'undefined') {
         
         const payload = {

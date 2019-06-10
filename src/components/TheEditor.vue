@@ -1,17 +1,17 @@
 <template>
   <div class="app-editor pure-form">
-    <div class="app-editor-menus">
-      <app-editor-main-menu class="app-editor-panel" />
-      <app-editor-add-menu class="app-editor-panel" />
-      <app-editor-save-menu class="app-editor-panel" />
-      <app-editor-delete-menu class="app-editor-panel" />
+    <div class="app-editor__menu-container">
+      <app-editor-main-menu class="app-editor__panel" />
+      <app-editor-add-menu class="app-editor__panel" />
+      <app-editor-save-menu class="app-editor__panel" />
+      <app-editor-delete-menu class="app-editor__panel" />
     </div>
 
     <app-help :class="{ hidden: !showHelp }" />
 
-    <div class="app-editor-section">
+    <div class="app-editor__section">
       <!-- EDITOR COLORS -->
-      <div class="app-editor-panel"
+      <div class="app-editor__panel"
         :class="{ blur: showHelp }"
       >
 
@@ -24,7 +24,7 @@
       </div>
 
       <!-- EDITOR OPTIONS PANEL -->
-      <div class="app-editor-panel" 
+      <div class="app-editor__panel" 
         v-if="hasEditItem && !isEditorBulkEdit && !isEditorModeDelete"
         :class="{ blur: showHelp }"
       >
@@ -33,7 +33,7 @@
         <app-editor-input-action />
         <app-editor-input-label />
 
-        <div class="app-editor-sub-panel">
+        <div class="app-editor__sub-panel">
           <app-editor-input-toggle />
           <app-editor-select-labelpos />
         </div>

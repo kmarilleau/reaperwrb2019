@@ -52,7 +52,7 @@ export default {
     ]),
 
     getClass() {
-      return { 'app-view-scroll' : this.isAppModeEditor }
+      return { 'app-view--scroll' : this.isAppModeEditor }
     }
   }
 }

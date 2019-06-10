@@ -8,12 +8,12 @@
     :item="item"
   >
 
-    <app-item-action 
+    <app-item__action 
       v-if="item.type === 'action'" 
       :item="item"
     />
     
-    <app-item-transport 
+    <app-item__transport 
       v-if="item.type === 'transport'" 
       :item="item" 
     />
@@ -23,12 +23,12 @@
       :item="item"
     />
 
-    <app-item-markers
+    <app-item__markers
       v-if="item.type === 'markers'"
       :item="item"
     />
 
-    <app-item-regions
+    <app-item__regions
       v-if="item.type === 'regions'"
       :item="item"
     />
@@ -48,10 +48,10 @@ export default {
   props: ['row', 'item', 'index', 'toggle'],
 
   components: {
-    'app-item-action': BaseItemAction,
-    'app-item-transport': BaseItemTransport,
-    'app-item-markers': BaseItemMarkers,
-    'app-item-regions': BaseItemRegions,
+    'app-item__action': BaseItemAction,
+    'app-item__transport': BaseItemTransport,
+    'app-item__markers': BaseItemMarkers,
+    'app-item__regions': BaseItemRegions,
     'app-item-position': BaseItemPosition,
   },
   
@@ -107,7 +107,7 @@ export default {
       classList['app-item-' + this.item.type] = true
       
       if(this.isAppModeRemote)
-        classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
+        classList['app-item__action--toggled'] = this.item.toggle && this.item.state > 0 ? true : false
       
       return classList
     },

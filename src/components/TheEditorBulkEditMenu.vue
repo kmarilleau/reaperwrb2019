@@ -1,5 +1,5 @@
 <template>
-  <div class="app-editor-panel app-editor-menu app-editor-bulk-menu"
+  <div class="app-editor__panel app-editor__menu app-editor__bulk-menu"
     v-if="showEditorBulkEditButtons"
     :class="{ blur: showHelp }"
   >

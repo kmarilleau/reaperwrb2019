@@ -1,15 +1,15 @@
 <template>
-  <div class="app-tab-navigation-item"
+  <div class="app-tab-navigation__item"
     :style="getStyle()"
     :class="{ 
-      'app-tab-navigation-item-active' : isActiveTab(index),
+      'app-tab-navigation__item--active' : isActiveTab(index),
       'app-highlight-edit' : isTabEdit(index),
       height: (itemHeight / 2) + 'px'
     }"
     @click.stop="onClick()"
     :tab="index"
   >
-    <span class="app-item-label" 
+    <span class="app-item__label" 
       :style="{ 
         color: tab.textcolor,
       }"

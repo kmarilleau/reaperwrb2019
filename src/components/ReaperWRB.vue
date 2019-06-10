@@ -1,6 +1,6 @@
 <template>
   <div class="app-container" 
-    :class="{ 'app-container-editor' : isAppModeEditor }"
+    :class="{ 'app-container__editor' : isAppModeEditor }"
   >
     <app-startup v-if="isAppModeStartup" />
 

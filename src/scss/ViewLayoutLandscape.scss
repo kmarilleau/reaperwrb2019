@@ -1,15 +1,15 @@
 @media (orientation: landscape) {
-  .app-tab-navigation-item {
+  .app-tab-navigation__item {
     overflow: hidden;
   }
 
-  .app-item-markers-info *,
-  .app-item-regions-info * {
+  .app-item__markers-info *,
+  .app-item__regions-info * {
     font-size: 2em;
     width: 9vw !important;
   }
 
-  .app-item-position-info {
+  .app-item__position-info {
     font-size: 4em;
   }
 }
