@@ -110,7 +110,7 @@ export default {
     onHelp(event)   { this.toggleHelp() },
     onSave(event)   { this.onEditorSave() },
 
-    onLoadExample(event)        { this.onEditorLoadExample(cloneDeep(example)) },
+    onLoadExample(event)        { this.onEditorLoadExample() },
     onToggleExecActions(event)  { this.toggleExecActions() },
     onToggleBulkEdit(event)     { this.onEditorToggleBulkEdit() },
     onItemDelete(event)         { this.onEditorItemDelete() },

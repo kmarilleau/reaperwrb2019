@@ -6,14 +6,14 @@
       'line-height': itemHeight / 2 + 'px'
     }"
   >
-    <a @click.stop="onTabAdd">
+    <a @click.stop="onAdd">
       <svgicon icon="plus" />
     </a>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 
@@ -28,17 +28,12 @@ export default {
 
   methods: {
 
-    ...mapMutations([
-      'hideHelp',
-      'clearEditHighlight',
-      'addTab'
+    ...mapActions([
+      'onTabAdd',
     ]),
 
-    onTabAdd(event) {
-      // FIXME this should be one commit / action
-      this.hideHelp()
-      this.clearEditHighlight()
-      this.addTab()
+    onAdd(event) {
+      this.onTabAdd()
     }
   }
 }

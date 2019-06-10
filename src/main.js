@@ -204,6 +204,12 @@ const store = new Vuex.Store({
       commit('setModeStartup')
     },
 
+    onEditorLaunch({ commit, state }) {
+      commit('fadeInLoader')
+      commit('setModeEditor')
+      commit('showHelp')
+    },
+
     onEditorNew({ commit, state }) {
       commit('hideHelp')
       commit('new')
@@ -215,8 +221,8 @@ const store = new Vuex.Store({
       commit('clear')
     },
 
-    onEditorLoadExample({ commit, state }, webremote) {
-      commit('import', webremote)
+    onEditorLoadExample({ commit, state }) {
+      commit('import', cloneDeep(example))
       commit('hideHelp')
       commit('getCmdStates')
       commit('onWindowResize')
@@ -231,6 +237,12 @@ const store = new Vuex.Store({
     onItemAdd({ commit, state }, type) {
       commit('clearEditHighlight')
       commit('addItem', type)
+    },
+
+    onTabAdd({ commit, state }) {
+      commit('hideHelp')
+      commit('clearEditHighlight')
+      commit('addTab')
     },
 
     onItemEdit({ commit, state }, payload) {
@@ -275,6 +287,13 @@ const store = new Vuex.Store({
       commit('clearEditItem')
       commit('switchRow', row)
       commit('setEditorModeAdd')
+    },
+
+    onLoadDefault({ commit, state }, webremote) {
+      commit('import', cloneDeep(example))
+      commit('onWindowResize')
+      commit('getCmdStates')
+      commit('setModeRemote')
     },
 
     onLoadWebremotePreset: ( { commit, state }, payload ) => {

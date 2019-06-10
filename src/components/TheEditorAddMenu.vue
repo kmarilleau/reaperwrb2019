@@ -53,7 +53,6 @@ export default {
     ]),
 
     onItemAdd(type) {
-      // FIXME map as well?
       this.onItemAdd(type)
     },
     onCancel() {

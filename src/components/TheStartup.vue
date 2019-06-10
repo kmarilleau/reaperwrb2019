@@ -23,18 +23,17 @@
       >
         <button class="pure-button pure-button-primary" 
           :style="getStyle()"
-          @click="onLaunchEditor()">
+          @click="onEdit()">
           <span>Editor</span>
         </button>
       </div>
 
       <div class="app-button-launch-default"
-        @click="onLoadDefault()"
         :style="getStyle()"
       >
         <button class="app-button-launch-preset"
           :style="getStyle()"
-          @click.stop="onLoadDefault()"
+          @click.stop="onDefault()"
         >
           <svgicon icon="launch" /><span> Default</span>
         </button>
@@ -65,7 +64,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
 import BasePresetButton from '@/components/BasePresetButton.vue'
@@ -101,6 +100,11 @@ export default {
       'getCmdStates',
       'setModeRemote'
     ]),
+
+    ...mapActions([
+      'onEditorLaunch',
+      'onLoadDefault'
+    ]),
     
     getStyle() {
       let style = {}
@@ -119,20 +123,12 @@ export default {
       location.reload(true)
     },
 
-    onLaunchEditor() {
-      // FIXME conver to action
-      this.fadeInLoader()
-      this.setModeEditor()
-      this.showHelp()
+    onEdit() {
+      this.onEditorLaunch()
     },
 
-    onLoadDefault() {
-      // FIXME convert to action
-      const webremote = cloneDeep(example)
-      this.import(webremote)
-      this.onWindowResize()
-      this.getCmdStates()
-      this.setModeRemote()
+    onDefault() {
+      this.onLoadDefault()
     },
   }
 }
