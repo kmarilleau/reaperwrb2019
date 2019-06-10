@@ -66,6 +66,7 @@ export default {
     ...mapGetters([
       'iconSize',
       'reaperReady',
+      'hasRegions',
       'getRegions',
       'isModeEditor'
     ])

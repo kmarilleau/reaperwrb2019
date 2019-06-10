@@ -120,7 +120,7 @@ export default {
     },
 
     onClick() {
-      if(this.sModeEditor 
+      if(this.isModeEditor 
       && !this.isEditorModeDelete
       && !this.isEditorModeSave) {
 

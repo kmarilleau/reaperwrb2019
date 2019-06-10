@@ -23,7 +23,7 @@ export default {
   },
 
   beforeMount() {
-    if(!transportOnline) 
+    if(!this.transportOnline) 
       this.execAction({ action: 'TRANSPORT', recur: 20 })
   },
 

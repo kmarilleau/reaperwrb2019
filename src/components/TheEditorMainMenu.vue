@@ -49,7 +49,7 @@
       <app-editor-button icon="edit-delete" 
         class="pure-button-warning"
         :label="'Delete ' + this.$store.getters.editItemKey('type', 'Item')"
-        @click.native.stop="onDeleteItem"
+        @click.native.stop="onItemDelete"
       />
     </template>
     
@@ -109,8 +109,8 @@ export default {
       this.$store.commit('toggleBulkEdit')
     },
 
-    onDeleteItem(event) {
-      this.$store.dispatch('onDeleteItem')
+    onItemDelete(event) {
+      this.$store.dispatch('onItemDelete')
     },
 
     onSave(event) {
