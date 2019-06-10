@@ -31,12 +31,10 @@ export default {
   mounted() {
 
     if(this.isAppModeEditor) {
-        if(this.isEditTab({ index: this.index })) {
-          // FIXME commit
-          this.$el.classList.add('app-highlight-edit')
-          this.$store.state.editor.data.item.el = this.$el
-        }
+      if(this.isEditTab({ index: this.index })) {
+        this.editHighlight($el)
       }
+    }
   },
 
   computed: {
@@ -52,6 +50,10 @@ export default {
   },
 
   methods: {
+
+    ...mapMutations([
+      'editHighlight'
+    ]),
 
     getStyle() {
       let style = { 
