@@ -198,6 +198,36 @@ const store = new Vuex.Store({
       commit('getCmdStates')
     },
 
+    onEditorHome({ commit, state }) {
+      commit('unload')
+      commit('clear')
+      commit('setModeStartup')
+    },
+
+    onEditorNew({ commit, state }) {
+      commit('hideHelp')
+      commit('new')
+      commit('onWindowResize')
+    },
+
+    onEditorClear({ commit, state }) {
+      commit('hideHelp')
+      commit('clear')
+    },
+
+    onEditorLoadExample({ commit, state }, webremote) {
+      commit('import', webremote)
+      commit('hideHelp')
+      commit('getCmdStates')
+      commit('onWindowResize')
+    },
+
+    onEditorToggleBulkEdit({ commit, state }) {
+      commit('hideHelp')
+      commit('clearEditHighlight')
+      commit('toggleBulkEdit')
+    },
+
     onItemAdd({ commit, state }, type) {
       commit('clearEditHighlight')
       commit('addItem', type)
@@ -208,9 +238,20 @@ const store = new Vuex.Store({
       commit('edit', payload)
     },
 
-    onItemDelete({ commit, state }) {
+    onEditorItemDelete({ commit, state }) {
       commit('clearEditHighlight')
       commit('showDeleteDialog')
+    },
+
+    onEditorSave({ commit, state }) {
+      commit('hideHelp')
+      commit('clearEditHighlight')
+      commit('clearEditItem')
+      
+      if(state.editor.bulk_edit)
+        commit('toggleBulkEdit')
+
+      commit('setEditorModeSave')
     },
 
     // FIXME inconsistent naming
@@ -391,7 +432,7 @@ const store = new Vuex.Store({
 
     editHighlight: (state, el) => {
       el.classList.add('app-highlight-edit')
-      state.editor.data.item.el = $el
+      state.editor.data.item.el = el
     },
 
     clearEditHighlight: (state) => {

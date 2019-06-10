@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import TheStartup from '@/components/TheStartup.vue'
 import TheView from '@/components/TheView.vue'
 import TheEditor from '@/components/TheEditor.vue'
@@ -32,7 +32,7 @@ export default {
     const div = document.querySelector('#reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
       const webremote = JSON.parse(div.innerHTML)
-      this.$store.dispatch('onLaunchFromHTML', webremote)
+      this.onLaunchFromHTML(webremote)
     }
 
     this.fadeOutLoader()
@@ -48,6 +48,10 @@ export default {
   methods: {
     ...mapMutations([
       'fadeOutLoader'
+    ]),
+
+    ...mapActions([
+      'onLaunchFromHTML'
     ])
   }
 }

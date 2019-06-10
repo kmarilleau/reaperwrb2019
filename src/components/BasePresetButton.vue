@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   props: ['title', 'type', 'timestamp'],
@@ -84,6 +84,11 @@ export default {
       'syncStorage'
     ]),
 
+    ...mapActions([
+      'onLoadWebremotePreset',
+      'onEditWebremotePreset'
+    ]),
+
     getStyle() {
       let style = {}
 
@@ -98,11 +103,11 @@ export default {
     },
 
     onLoad(title, timestamp, type) {
-      this.$store.dispatch('onLoadWebremotePreset', { title, timestamp, type })
+      this.onLoadWebremotePreset({ title, timestamp, type })
     },
 
     onEdit(title, timestamp, type) {
-      this.$store.dispatch('onEditWebremotePreset', { title, timestamp, type })
+      this.onEditWebremotePreset({ title, timestamp, type })
     },
 
     onShowDelete() {

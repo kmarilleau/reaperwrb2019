@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   props: [
@@ -32,7 +32,7 @@ export default {
 
     if(this.isAppModeEditor) {
       if(this.isEditTab({ index: this.index })) {
-        this.editHighlight($el)
+        this.editHighlight(this.$el)
       }
     }
   },
@@ -55,6 +55,11 @@ export default {
       'editHighlight'
     ]),
 
+    ...mapActions([
+      'onSwitchTab',
+      'onItemEdit'
+    ]),
+
     getStyle() {
       let style = { 
         backgroundColor: this.tab.bgcolor,
@@ -72,7 +77,7 @@ export default {
     },
 
     onClick(event) {
-      this.$store.dispatch('onSwitchTab', this.index)
+      this.onSwitchTab(this.index)
       
       if(this.isAppModeEditor) {
         if(!this.isEditorBulkEdit) {
@@ -81,7 +86,7 @@ export default {
             index: this.index,
             el: this.$el,
           }
-          this.$store.dispatch('onItemEdit', payload)
+          this.onItemEdit(payload)
         }
       }
     }

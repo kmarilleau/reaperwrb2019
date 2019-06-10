@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
 
@@ -48,9 +48,13 @@ export default {
       'setEditorModeMain'
     ]),
     
+    ...mapActions([
+      'onItemAdd'
+    ]),
+
     onItemAdd(type) {
       // FIXME map as well?
-      this.$store.dispatch('onItemAdd', type)
+      this.onItemAdd(type)
     },
     onCancel() {
       this.setEditorModeMain()

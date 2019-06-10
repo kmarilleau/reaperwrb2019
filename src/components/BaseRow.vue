@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import draggable from 'vuedraggable'
 import BaseRowEditButtons from '@/components/BaseRowEditButtons.vue'
 import BaseItem from '@/components/BaseItem.vue';
@@ -87,12 +87,16 @@ export default {
       'activeTab'
     ]),
 
+    ...mapActions([
+      'onDraggableStart'
+    ]),
+
     classRow() {
       return this.isAppModeEditor ? 'app-editor-grid' : 'app-view-grid'
     },
 
     onDraggableStart() {
-      this.$store.dispatch('onDraggableStart')
+      this.onDraggableStart()
     },
 
     onDraggableMove(event, originalEvent) {

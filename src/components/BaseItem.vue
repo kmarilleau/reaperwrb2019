@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
@@ -83,6 +83,10 @@ export default {
       'editHighlight'
     ]),
 
+    ...mapActions([
+      'onItemEdit'
+    ]),
+
     getStyle() {
       let style = { 
         backgroundColor: this.item.bgcolor, 
@@ -126,7 +130,7 @@ export default {
         }
 
         if(!this.isEditorBulkEdit)
-          this.$store.dispatch('onItemEdit', payload)
+          this.onItemEdit(payload)
         else
           this.bulkEditAddRemove(payload)
       }

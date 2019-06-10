@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 const bindHighlightEvent = (self) => {
 
@@ -74,9 +74,14 @@ export default {
       'onDeleteRow'
     ]),
 
+    ...mapActions([
+      'onShowItemAddMenu',
+      'onDeleteRow'
+    ]),
+
     onShowItemAddMenu(event) {
       this.hideHelp()
-      this.$store.dispatch('onShowItemAddMenu', this.row)
+      this.onShowItemAddMenu(this.row)
     },
 
     onRowAdd(event) {
@@ -90,7 +95,7 @@ export default {
         index: this.row,
         el: this.$parent.$children[0].$el
       }
-      this.$store.dispatch('onDeleteRow', payload)
+      this.onDeleteRow(payload)
     }
   }
 }

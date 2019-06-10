@@ -1,11 +1,11 @@
 <template>
   <div class="app-editor-menu"
-    v-if="this.$store.getters.isEditorModeMain"
+    v-if="isEditorModeMain"
   >
 
     <app-editor-button label="Home" icon="home" @click.native="onHome" class="pure-button-primary" />
 
-    <template v-if="this.$store.getters.hasNoTabs">
+    <template v-if="hasNoTabs">
 
       <app-editor-button label="Blank" icon="file-empty" @click.native="onNew" />
       <app-editor-button label="Template" icon="file-text" @click.native="onLoadExample" />
@@ -22,33 +22,33 @@
       multiple
     >
   
-    <template v-if="this.$store.getters.hasTabs">
+    <template v-if="hasTabs">
 
       <app-editor-button label="Connect" icon="power-cord"
-        v-if="this.$store.getters.reaperReady"
+        v-if="reaperReady"
         @click.native="onToggleExecActions($event)"
-        :class="{ 'pure-button-secondary' : this.$store.state.editor.exec_actions }"
+        :class="{ 'pure-button-secondary' : isEditorExecActions }"
       />
 
       <app-editor-button label="Bulk" icon="stack" @click.native="onToggleBulkEdit"
-        :class="{ 'pure-button-secondary': this.$store.state.editor.bulk_edit }"
+        :class="{ 'pure-button-secondary': isEditorBulkEdit }"
       />
 
-      <app-editor-button label="Clear" icon="file-empty" @click.native="onClearEditor" />
+      <app-editor-button label="Clear" icon="file-empty" @click.native="onClear" />
       <app-editor-button label="Save" icon="edit-save" class="pure-button-primary" @click.native="onSave" />
 
     </template>
 
     <app-editor-button label="Help" icon="question" @click.native="onHelp" 
-      :class="{ 'pure-button-secondary': this.$store.getters.showHelp }"
+      :class="{ 'pure-button-secondary': showHelp }"
     />
 
     <template
-      v-if="this.$store.getters.hasEditItem"
+      v-if="hasEditItem"
     >
       <app-editor-button icon="edit-delete" 
         class="pure-button-warning"
-        :label="'Delete ' + this.$store.getters.editItemKey('type', 'Item')"
+        :label="'Delete ' + editItemKey('type', 'Item')"
         @click.native.stop="onItemDelete"
       />
     </template>
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/example'
 import { defaults } from '@/reaperwrb'
@@ -70,68 +71,59 @@ export default {
     'app-editor-button': BaseEditorButton
   },
 
+  computed: {
+    ...mapGetters([
+      'isEditorModeMain',
+      'hasNoTabs',
+      'hasTabs',
+      'reaperReady',
+      'isEditorBulkEdit',
+      'isEditorExecActions',
+      'showHelp',
+      'hasEditItem',
+      'editItemKey'
+    ])
+  },
+
   methods: {
-    onHome(event) {
-      this.$store.commit('unload')
-      this.$store.commit('clear')
-      this.$store.commit('setModeStartup')
-    },
 
-    onNew(event) {
-      this.$store.commit('hideHelp')
-      this.$store.commit('new')
-      this.$store.commit('onWindowResize')
-    },
+    ...mapMutations([
+      'toggleHelp',
+      'toggleExecActions'
+    ]),
 
-    onClearEditor(event) {
-      this.$store.commit('hideHelp')
-      this.$store.commit('clear')
-    },
+    ...mapActions([
+      'onEditorHome',
+      'onEditorNew',
+      'onEditorClear',
+      'onEditorLoadExample',
+      'onEditorToggleBulkEdit',
+      'onEditorItemDelete',
+      'onEditorSave',
+      'hideHelp',
+      'clearEditHighlight'
+    ]),
 
-    onHelp(event) {
-      this.$store.commit('toggleHelp')
-    },
+    onHome(event)   { this.onEditorHome() },
+    onNew(event)    { this.onEditorNew() },
+    onClear(event)  { this.onEditorClear() },
+    onHelp(event)   { this.toggleHelp() },
+    onSave(event)   { this.onEditorSave() },
 
-    onLoadExample(event) {
-      this.$store.commit('hideHelp')
-      const webremote = cloneDeep(example)
-      this.$store.commit('import', webremote)
-      this.$store.commit('onWindowResize')
-    },
+    onLoadExample(event)        { this.onEditorLoadExample(cloneDeep(example)) },
+    onToggleExecActions(event)  { this.toggleExecActions() },
+    onToggleBulkEdit(event)     { this.onEditorToggleBulkEdit() },
+    onItemDelete(event)         { this.onEditorItemDelete() },
 
-    onToggleExecActions(event) {
-      this.$store.commit('toggleExecActions')
-    },
-
-    onToggleBulkEdit(event) {
-      this.$store.commit('hideHelp')
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('toggleBulkEdit')
-    },
-
-    onItemDelete(event) {
-      this.$store.dispatch('onItemDelete')
-    },
-
-    onSave(event) {
-      this.$store.commit('hideHelp')
-      this.$store.commit('clearEditHighlight')
-      this.$store.commit('clearEditItem')
-      
-      if(this.$store.state.editor.bulk_edit)
-        this.$store.commit('toggleBulkEdit')
-
-      this.$store.commit('setEditorModeSave')
-    },
 
     onTriggerLoadToolbar(event) {
-      this.$store.commit('hideHelp')
-      this.$store.commit('clearEditHighlight')
+      this.hideHelp()
+      this.clearEditHighlight()
       document.querySelector('#app-file-input-toolbar').click();
     },
 
     onTriggerLoadHTML(event) {
-      this.$store.commit('hideHelp')
+      this.hideHelp()
       document.querySelector('#app-file-input-html').click();
     },
 
