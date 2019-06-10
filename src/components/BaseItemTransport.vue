@@ -58,7 +58,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  props: ['item', 'transport'],
+  props: ['item'],
 
   beforeMount() {
     if(!this.transportOnline)

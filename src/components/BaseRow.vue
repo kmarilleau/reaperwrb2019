@@ -60,13 +60,13 @@ export default {
       'isEditorModeAdd',
       'globalColumns',
       'itemHeight',
-      'hasMoveItem'
+      'hasMoveItem',
+      'rowItems'
     ]),
 
     items: {
       get() {
-        // FIXME getter
-        return this.$store.state.webremote.tabs[this.$store.state.webremote.active_tab].rows[this.row]
+        return this.rowItems(this.row)
       },
 
       set(value) {

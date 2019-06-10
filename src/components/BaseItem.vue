@@ -16,13 +16,11 @@
     <app-item-transport 
       v-if="item.type === 'transport'" 
       :item="item" 
-      :transport="this.$store.state.reaper.transport"
     />
 
     <app-item-position
       v-if="item.type === 'position'"
       :item="item"
-      :transport="this.$store.state.reaper.transport"
     />
 
     <app-item-markers
@@ -39,9 +37,7 @@
 </template>
 
 <script>
-// FIXME getters for transport regions etc
 import { mapGetters, mapMutations } from 'vuex'
-
 import BaseItemAction from '@/components/BaseItemAction.vue'
 import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'

@@ -52,11 +52,11 @@ const store = new Vuex.Store({
     getJSONStorageWebremotes: (state, getters) => state.storage.json.webremotes,
     getJSONStorageWebremoteByIndex: (state, getters) => (index) => state.storage.json.webremotes[index],
 
+    isEditorEnabled: (state, getters) => state.editor.enabled,
+
     isModeStartup: (state, getters) => state.mode === modes.STARTUP,
     isModeRemote: (state, getters) => state.mode === modes.REMOTE,
     isModeEditor: (state, getters) => state.mode === modes.EDITOR,
-
-    isEditorEnabled: (state, getters) => state.editor.enabled,
 
     isEditorModeMain: (state, getters) => state.editor.mode === editorModes.MAIN,
     isEditorModeAdd: (state, getters) => state.editor.mode === editorModes.ADD,
@@ -83,7 +83,7 @@ const store = new Vuex.Store({
 
     webremoteTitle: (state, getters) => state.webremote.title,
 
-    isActiveTab: (state, getters) => (tab) => state.webremote.active_tab === tab,
+    isActiveTab: (state, getters) => (tab) => getters.activeTab === tab,
     isTabEdit: (state, getters) => (tab) => { 
       return state.editor.data.item.obj.type === 'tab'
         && state.webremote.active_tab === tab
@@ -92,14 +92,15 @@ const store = new Vuex.Store({
     globalColumns: (state, getters) => state.webremote.columns,
     activeTab: (state, getters) => state.webremote.active_tab,
     activeRow: (state, getters) => state.editor.active_row,
-    isActiveRow: (state, getters) => (row) => state.editor.active_row === row,
+    isActiveRow: (state, getters) => (row) => getters.activeRow === row,
     tabs: (state, getters) => state.webremote.tabs,
-    rows: (state, getters) => state.webremote.tabs[state.webremote.active_tab].rows,
+    rows: (state, getters) => state.webremote.tabs[getters.activeTab].rows,
+    rowItems: (state, getters) => (row) => getters.tabs[getters.activeTab].rows[row],
     hasTabs: (state, getters) => state.webremote.tabs.length > 0,
     hasNoTabs: (state, getters) => state.webremote.tabs.length === 0,
     isLastTab: (state, getters) => (item) => item.type === 'tab' && state.webremote.tabs.length === 1,
 
-    hasRows: (state, getters) => state.webremote.tabs[state.webremote.active_tab].rows.length > 0,
+    hasRows: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 0,
     
     hasMarkers: (state, getters) => state.reaper.markers.length > 0,
     getMarkers: (state, getters) => state.reaper.markers,
@@ -112,9 +113,9 @@ const store = new Vuex.Store({
     transportPosBeats: (state, getters) => state.reaper.transport.position_string_beats,
     transportPosSec: (state, getters) => state.reaper.transport.position_seconds,
     transportPlaystate: (state, getters) => parseInt(state.reaper.transport.playstate),
-    transportPlaystatePlay: (state, getters) => parseInt(state.reaper.transport.playstate) === 1,
-    transportPlaystatePause: (state, getters) => parseInt(state.reaper.transport.playstate) === 2,
-    transportPlaystateRecord: (state, getters) => parseInt(state.reaper.transport.playstate) === 5,
+    transportPlaystatePlay: (state, getters) => parseInt(getters.transportPlaystate) === 1,
+    transportPlaystatePause: (state, getters) => parseInt(getters.transportPlaystate) === 2,
+    transportPlaystateRecord: (state, getters) => parseInt(getters.transportPlaystate) === 5,
     transportRepeat: (state, getters) => parseInt(state.reaper.transport.repeat),
     
     hasMoveItem: (state, getters) => state.editor.data.move,
