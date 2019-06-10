@@ -381,6 +381,11 @@ const store = new Vuex.Store({
     hideHelp: (state) => state.editor.help = false,
     toggleHelp: (state) => state.editor.help = state.editor.help ? false : true,
 
+    editHighlight: (state, el) => {
+      el.classList.add('app-highlight-edit')
+      state.editor.data.item.el = $el
+    },
+
     clearEditHighlight: (state) => {
       if(state.mode === appModes.EDITOR) {
         //FIXME use el in edit_item reference
@@ -842,6 +847,8 @@ const store = new Vuex.Store({
       state.editor.data.item.index = state.webremote.active_tab
       state.editor.data.item.obj = state.webremote.tabs[state.webremote.active_tab]
     },
+
+
 
     updateItem: (state, payload) => state.editor.data.item.obj[payload.key] = payload.val,
 

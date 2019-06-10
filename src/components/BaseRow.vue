@@ -83,7 +83,8 @@ export default {
       'clearDropHighlight',
       'clearItemMoveCopy',
       'updateRow',
-      'setItemMoveCopy'
+      'setItemMoveCopy',
+      'activeTab'
     ]),
 
     classRow() {
@@ -94,7 +95,6 @@ export default {
       this.$store.dispatch('onDraggableStart')
     },
 
-    // FIXME dispatch
     onDraggableMove(event, originalEvent) {
       // hacky way to decide if an item is to be moved to another tab
       if(event.related.classList.contains('app-tab-navigation-item') 
@@ -103,16 +103,14 @@ export default {
         const payload = {
           row: parseInt(event.dragged.attributes.row.value),
           index: parseInt(event.dragged.attributes.index.value),
-          // FIXME 
           target: parseInt(event.related.attributes.tab.value)
         }
 
         this.setItemMoveCopy(payload)
         this.clearDropHighlight()
 
-        // FIXME getters
         if(parseInt(event.related.attributes.tab.value) 
-        !== this.$store.state.webremote.active_tab) {
+        !== this.activeTab) {
           event.related.classList.add('app-item-drop')
         }
 

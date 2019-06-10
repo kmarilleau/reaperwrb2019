@@ -58,9 +58,7 @@ export default {
   mounted() {
     if(this.isAppModeEditor) {
       if(this.isEditItem({ item: this.item, row: this.row, index: this.index })) {
-        // FIXME commit
-        this.$el.classList.add('app-highlight-edit')
-        this.$store.state.editor.data.item.el = this.$el
+        this.editHighligh($el)
       }
     }
   },
@@ -81,7 +79,8 @@ export default {
   methods: {
 
     ...mapMutations([
-      'bulkEditAddRemove'
+      'bulkEditAddRemove',
+      'editHighlight'
     ]),
 
     getStyle() {
