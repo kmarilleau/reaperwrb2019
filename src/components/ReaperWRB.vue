@@ -1,13 +1,13 @@
 <template>
   <div class="app-container" 
-    :class="{ 'app-container-editor' : isModeEditor }"
+    :class="{ 'app-container-editor' : isAppModeEditor }"
   >
-    <app-startup v-if="isModeStartup" />
+    <app-startup v-if="isAppModeStartup" />
 
-    <template v-if="!isModeStartup">
+    <template v-if="!isAppModeStartup">
       <app-view />
       <app-editor 
-        v-if="isModeEditor" 
+        v-if="isAppModeEditor" 
       />
     </template>
   </div>
@@ -44,8 +44,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isModeEditor',
-      'isModeStartup'
+      'isAppModeEditor',
+      'isAppModeStartup'
     ])
   },
 

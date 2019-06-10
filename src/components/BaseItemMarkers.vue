@@ -16,7 +16,7 @@
           <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
-        <template v-if="isModeEditor && !hasMarkers">
+        <template v-if="isAppModeEditor && !hasMarkers">
           <span :style="{ color: item.textcolor }">Marker: 1</span>
           <span :style="{ color: item.textcolor }">Name</span>
         </template>
@@ -62,7 +62,7 @@ export default {
     ...mapGetters([
       'iconSize',
       'hasMarkers',
-      'isModeEditor',
+      'isAppModeEditor',
       'getMarkers'
     ])
   },

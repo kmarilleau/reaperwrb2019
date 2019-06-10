@@ -20,14 +20,14 @@ import TheTab from '@/components/TheTab.vue'
 export default {
 
   mounted() {
-    if(this.isModeRemote)
+    if(this.isAppModeRemote)
       document.title = "ReaperWRB / " + this.webremoteTitle
 
     this.$store.commit('onWindowResize')
   },
 
   updated() {
-    if(this.isModeEditor)
+    if(this.isAppModeEditor)
       this.onWindowResize()
   },
 
@@ -35,8 +35,8 @@ export default {
     ...mapGetters([
       'hasTabs',
       'webremoteTitle',
-      'isModeEditor',
-      'isModeRemote'
+      'isAppModeEditor',
+      'isAppModeRemote'
     ])
   },
 
@@ -52,7 +52,7 @@ export default {
     ]),
 
     getClass() {
-      return { 'app-view-scroll' : this.isModeEditor }
+      return { 'app-view-scroll' : this.isAppModeEditor }
     }
   }
 }

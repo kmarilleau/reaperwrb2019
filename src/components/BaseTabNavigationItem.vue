@@ -30,7 +30,7 @@ export default {
 
   mounted() {
 
-    if(this.isModeEditor) {
+    if(this.isAppModeEditor) {
         if(this.isEditTab({ index: this.index })) {
           // FIXME commit
           this.$el.classList.add('app-highlight-edit')
@@ -46,7 +46,7 @@ export default {
       'itemHeight',
       'itemWidth',
       'isEditTab',
-      'isModeEditor',
+      'isAppModeEditor',
       'isEditorBulkEdit'
     ])
   },
@@ -72,7 +72,7 @@ export default {
     onClick(event) {
       this.$store.dispatch('onSwitchTab', this.index)
       
-      if(this.isModeEditor) {
+      if(this.isAppModeEditor) {
         if(!this.isEditorBulkEdit) {
           const payload = {
             type: 'tab',

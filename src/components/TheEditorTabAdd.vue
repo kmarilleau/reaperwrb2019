@@ -1,6 +1,6 @@
 <template>
   <div class="app-tab-navigation-item app-tab-add"
-    v-if="isModeEditor && !isEditorModeSave"
+    v-if="isAppModeEditor && !isEditorModeSave"
     :style="{
       width: itemWidth + 'px',
       'line-height': itemHeight / 2 + 'px'
@@ -19,7 +19,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isModeEditor',
+      'isAppModeEditor',
       'isEditorModeSave',
       'itemWidth',
       'itemHeight'

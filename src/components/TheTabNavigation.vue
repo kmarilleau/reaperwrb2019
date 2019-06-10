@@ -6,9 +6,9 @@
       gridTemplateColumns: 'repeat(' + globalColumns + ', 1fr)',
     }"
     :options="{ 
-      draggable: isModeEditor && !isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
+      draggable: isAppModeEditor && !isEditorBulkEdit ? '.app-tab-navigation-item' : false, 
       group: { name: 'tabs', put: ['items'] },
-      sort: isModeEditor,
+      sort: isAppModeEditor,
       disabled: disableSort,
       delay: 10,
     }"
@@ -26,7 +26,7 @@
     <app-editor-tab-add />
 
     <div class="app-tab-navigation-item app-tab-navigation-menu"
-      v-if="isModeRemote"
+      v-if="isAppModeRemote"
       :style="{
         'min-width': itemWidth + 'px',
         'line-height': itemHeight / 2 + 'px'
@@ -72,8 +72,8 @@ export default {
   computed: {
 
     ...mapGetters([
-      'isModeEditor',
-      'isModeRemote',
+      'isAppModeEditor',
+      'isAppModeRemote',
       'isEditorEnabled',
       'globalColumns',
       'isEditorBulkEdit',

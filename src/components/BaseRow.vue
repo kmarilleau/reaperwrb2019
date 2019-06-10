@@ -5,7 +5,7 @@
       :options="{ 
         draggable: draggableClass, 
         group: 'items',
-        sort: isModeEditor,
+        sort: isAppModeEditor,
         disabled: disableSort,
         delay: 5,
       }"
@@ -55,7 +55,7 @@ export default {
     ...mapGetters([
       'isActiveRow',
       'draggableClass',
-      'isModeEditor',
+      'isAppModeEditor',
       'disableSort',
       'isEditorModeAdd',
       'globalColumns',
@@ -87,7 +87,7 @@ export default {
     ]),
 
     classRow() {
-      return this.isModeEditor ? 'app-editor-grid' : 'app-view-grid'
+      return this.isAppModeEditor ? 'app-editor-grid' : 'app-view-grid'
     },
 
     onDraggableStart() {

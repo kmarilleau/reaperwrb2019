@@ -11,7 +11,7 @@ import merge from 'lodash/merge'
 import { saveAs } from 'file-saver/FileSaver'
 import { stat } from 'fs'
 import htmlTemplate from '@/htmlTemplate'
-import { modes, editorModes, defaults } from '@/reaperwrb'
+import { appModes, editorModes, defaults } from '@/reaperwrb'
 import example from '@/example'
 
 import VueSVGIcon from 'vue-svgicon'
@@ -27,7 +27,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     version: '2.1.1',
-    mode: modes.STARTUP,
+    mode: appModes.STARTUP,
     reaper: {}, 
     editor: {},
     webremote: {},
@@ -54,9 +54,9 @@ const store = new Vuex.Store({
 
     isEditorEnabled: (state, getters) => state.editor.enabled,
 
-    isModeStartup: (state, getters) => state.mode === modes.STARTUP,
-    isModeRemote: (state, getters) => state.mode === modes.REMOTE,
-    isModeEditor: (state, getters) => state.mode === modes.EDITOR,
+    isAppModeStartup: (state, getters) => state.mode === appModes.STARTUP,
+    isAppModeRemote: (state, getters) => state.mode === appModes.REMOTE,
+    isAppModeEditor: (state, getters) => state.mode === appModes.EDITOR,
 
     isEditorModeMain: (state, getters) => state.editor.mode === editorModes.MAIN,
     isEditorModeAdd: (state, getters) => state.editor.mode === editorModes.ADD,
@@ -77,7 +77,7 @@ const store = new Vuex.Store({
         && state.editor.data.bulk.length > 0
     },
 
-    showEditorEditButtons: (state, getters) => getters.isModeEditor && !getters.isEditorModeSave && !getters.isEditorModeDelete,
+    showEditorEditButtons: (state, getters) => getters.isAppModeEditor && !getters.isEditorModeSave && !getters.isEditorModeDelete,
     showEditorDeleteRowButton: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 1,
     showEditorGlobalColumns: (state, getters) => getters.hasTabs && getters.isEditorModeMain,
 
@@ -169,14 +169,14 @@ const store = new Vuex.Store({
     },
 
     draggableClass: (state, getters) => {
-      if(getters.isModeEditor && !getters.isEditorBulkEdit)
+      if(getters.isAppModeEditor && !getters.isEditorBulkEdit)
         return '.app-item'
       else
         return false
     },
 
     disableSort: (state, getters) => {
-      if(getters.isModeEditor)
+      if(getters.isAppModeEditor)
         return getters.isEditorBulkEdit ? true : false
       else
         return true
@@ -334,9 +334,9 @@ const store = new Vuex.Store({
       }
     },
 
-    setModeStartup: (state) => state.mode = modes.STARTUP,
-    setModeRemote: (state) => state.mode = modes.REMOTE,
-    setModeEditor: (state) => state.mode = modes.EDITOR,
+    setModeStartup: (state) => state.mode = appModes.STARTUP,
+    setModeRemote: (state) => state.mode = appModes.REMOTE,
+    setModeEditor: (state) => state.mode = appModes.EDITOR,
 
     setEditorModeMain: (state) => state.editor.mode = editorModes.MAIN,
     setEditorModeAdd: (state) => state.editor.mode = editorModes.ADD,
@@ -352,7 +352,7 @@ const store = new Vuex.Store({
       else
         state.editor.enabled = true
 
-      if(state.mode === modes.EDITOR) {
+      if(state.mode === appModes.EDITOR) {
         let editorView = document.querySelector('.app-view')
         Vue.set(state.webremote, 'columns', 8)
         Vue.set(state.webremote, 'itemWidth', editorView.clientWidth / 8)
@@ -382,7 +382,7 @@ const store = new Vuex.Store({
     toggleHelp: (state) => state.editor.help = state.editor.help ? false : true,
 
     clearEditHighlight: (state) => {
-      if(state.mode === modes.EDITOR) {
+      if(state.mode === appModes.EDITOR) {
         //FIXME use el in edit_item reference
         const el = document.querySelectorAll('.app-highlight-edit')
         for(let i = 0; i < el.length; i++) {
@@ -859,7 +859,7 @@ const store = new Vuex.Store({
 
     execAction: (state, payload) => {
 
-      if(state.mode === modes.EDITOR 
+      if(state.mode === appModes.EDITOR 
         && !state.editor.exec_actions 
         && typeof(payload.recur) === 'undefined')
         return

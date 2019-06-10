@@ -30,7 +30,7 @@ import { mapGetters, mapMutations } from 'vuex'
 
 const bindHighlightEvent = (self) => {
 
-  if(self.isModeEditor && typeof(self.$el.querySelectorAll) === 'function') {
+  if(self.isAppModeEditor && typeof(self.$el.querySelectorAll) === 'function') {
     const el = self.$el.querySelectorAll('.app-row-edit-button')
     el.forEach(button => {
       if(!button.classList.contains('app-add-row')) {
@@ -62,7 +62,7 @@ export default {
       'showEditorEditButtons',
       'isEditorBulkEdit',
       'showEditorDeleteRowButton',
-      'isModeEditor'
+      'isAppModeEditor'
     ])
   },
 

@@ -15,7 +15,7 @@
           <span :style="{ color: item.textcolor }">Region: {{ id }}</span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
-        <template v-if="isModeEditor && !hasRegions">
+        <template v-if="isAppModeEditor && !hasRegions">
           <span :style="{ color: item.textcolor }">Region: 1</span>
           <span :style="{ color: item.textcolor }">Name</span>
         </template>
@@ -68,7 +68,7 @@ export default {
       'reaperReady',
       'hasRegions',
       'getRegions',
-      'isModeEditor'
+      'isAppModeEditor'
     ])
   },
 

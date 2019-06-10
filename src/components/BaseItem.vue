@@ -56,7 +56,7 @@ export default {
   },
   
   mounted() {
-    if(this.isModeEditor) {
+    if(this.isAppModeEditor) {
       if(this.isEditItem({ item: this.item, row: this.row, index: this.index })) {
         // FIXME commit
         this.$el.classList.add('app-highlight-edit')
@@ -67,11 +67,11 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isModeEditor',
+      'isAppModeEditor',
       'isEditItem',
       'itemWidth',
       'itemHeight',
-      'isModeRemote',
+      'isAppModeRemote',
       'isEditorModeDelete',
       'isEditorModeSave',
       'isEditorBulkEdit'
@@ -103,7 +103,7 @@ export default {
       const classList = {}
       classList['app-item-' + this.item.type] = true
       
-      if(this.isModeRemote)
+      if(this.isAppModeRemote)
         classList['app-item-action-toggled'] = this.item.toggle && this.item.state > 0 ? true : false
       
       return classList
@@ -114,7 +114,7 @@ export default {
     },
 
     onClick() {
-      if(this.isModeEditor 
+      if(this.isAppModeEditor 
       && !this.isEditorModeDelete
       && !this.isEditorModeSave) {
 

@@ -1,4 +1,4 @@
-export const modes = {
+export const appModes = {
   STARTUP: 0,
   REMOTE: 1,
   EDITOR: 2,
