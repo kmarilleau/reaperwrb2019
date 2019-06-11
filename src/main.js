@@ -64,7 +64,7 @@ const store = new Vuex.Store({
     isEditorModeSave:     (state, getters) => state.editor.mode === editorModes.SAVE,
     isEditorModeDelete:   (state, getters) => state.editor.mode === editorModes.DELETE,
     isEditorBulkEdit:     (state, getters) => state.editor.bulk_edit,
-    isEditorExecActions:  (state, getters) => state.editor.execAction,
+    isEditorExecActions:  (state, getters) => state.editor.exec_actions,
 
     itemHeight: (state, getters) => state.webremote.itemHeight,
     itemWidth:  (state, getters) => state.webremote.itemWidth,
