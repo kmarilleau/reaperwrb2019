@@ -19,8 +19,33 @@ Vue.use(VueSVGIcon, {
   defaultWidth: '16px',
   defaultHeight: '16px'
 })
-
 import './icons/'
+
+// Logging helpers
+const DEBUG_LOG = true
+const LOG_LEVEL = {
+  INFO: 0,
+  WARN: 1,
+  ERROR: 2
+}
+
+const log = (msg, lvl = LOG_LEVEL.INFO) => {
+
+  switch (lvl) {
+    case LOG_LEVEL.INFO:
+      if(DEBUG_LOG) 
+        console.log(`ReaperWRB ${msg}`)
+      break;
+    case LOG_LEVEL.WARN:
+      if(DEBUG_LOG)
+        console.warn(`ReaperWRB: ${msg}`)
+      break;
+    case LOG_LEVEL.ERROR:
+      console.error(`ReaperWRB ERROR: ${msg}`)
+      break;
+  }
+}
+
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -345,6 +370,7 @@ const store = new Vuex.Store({
           success = true
         }
       })
+
       if(!success)
         console.error("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
@@ -354,16 +380,19 @@ const store = new Vuex.Store({
   mutations: {
     init: (state) => {
 
-      state.reaper = cloneDeep(defaults.reaper)
-      state.editor = cloneDeep(defaults.editor)
+      state.reaper    = cloneDeep(defaults.reaper)
+      state.editor    = cloneDeep(defaults.editor)
       state.webremote = cloneDeep(defaults.webremote)
 
+
+      // FIXME move browser detection to function
       // Firefox 1.0+
       if(typeof InstallTrigger !== 'undefined')
         state.editor.browser = 'firefox'
 
-      // Safari 3.0+ "[object HTMLElementConstructor]"
-      if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification)))
+      if(/constructor/i.test(window.HTMLElement) 
+      || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] 
+      || (typeof safari !== 'undefined' && safari.pushNotification)))
         state.editor.browser = 'safari'
 
       // Internet Explorer 6-11
@@ -378,28 +407,33 @@ const store = new Vuex.Store({
       if(!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime))
         state.editor.browser = 'chrome'
 
+      log(`Detected browser = ${state.editor.browser}`)
+
       const request = new XMLHttpRequest()
       request.open('GET', window.location.origin + '/reaperwrb.json')
       request.responseType = 'json'
       request.send()
 
       let hasJSON = false
+
       request.onload = () => {
-        console.log("REAPERWRB: Loading reaperwrb.json")
+        log("Loading reaperwrb.json")
         if(request.response !== null) {
           hasJSON = true
           state.storage.json = request.response
         } else {
           if(typeof(jsonStorage) !== 'undefined') {
+            
             if(jsonStorage.webremotes.length > 0 && !hasJSON) {
-              console.log("REAPERWRB: Migrating old json storage")
+              log("Migrating old json storage")
               alert("ReaperWRB needs to migrate webremote.js.\nPlease save the following file to your 'reaper_www_root' folder!\nAfterwards reload ReaperWRB!")
               const json = JSON.stringify(jsonStorage)
               const blob = new Blob([json], { type: "application/json" })
               saveAs(blob, "reaperwrb.json")
             }
+
           } else {
-            console.log("REAPERWRB: Creating json storage")
+            log("REAPERWRB: Creating json storage")
             alert("ReaperWRB needs to create it's db file.\nPlease save the following file to your 'reaper_www_root' folder!\nAfterwards reload ReaperWRB!")
             const json = JSON.stringify({"webremotes": []})
             const blob = new Blob([json], { type: "application/json" })
@@ -412,29 +446,29 @@ const store = new Vuex.Store({
       if(typeof(Storage) !== 'undefined') {
         state.storage.local_support = true
         state.storage.local = cloneDeep(defaults.storage)
-        console.log('REAPERWRB: Local storage support enabled.')
+        log('Local storage support enabled.')
         if(localStorage.getItem('REAPERWRB')) {
-          console.log('REAPERWRB: Loading local storage.')
+          log('Loading local storage.')
           state.storage.local = JSON.parse(localStorage.getItem('REAPERWRB'))
         }
       } else {
         state.storage.local_support = false
-        console.error('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!')
+        log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!', LOG_LEVEL.ERROR)
       }
     },
 
-    setModeStartup: (state) => state.mode = appModes.STARTUP,
-    setModeRemote: (state) => state.mode = appModes.REMOTE,
-    setModeEditor: (state) => state.mode = appModes.EDITOR,
+    setModeStartup: state => state.mode = appModes.STARTUP,
+    setModeRemote:  state => state.mode = appModes.REMOTE,
+    setModeEditor:  state => state.mode = appModes.EDITOR,
 
-    setEditorModeMain: (state) => state.editor.mode = editorModes.MAIN,
-    setEditorModeAdd: (state) => state.editor.mode = editorModes.ADD,
-    setEditorModeDelete: (state) => state.editor.mode = editorModes.DELETE,
-    setEditorModeSave: (state) => state.editor.mode = editorModes.SAVE,
+    setEditorModeMain:    state => state.editor.mode = editorModes.MAIN,
+    setEditorModeAdd:     state => state.editor.mode = editorModes.ADD,
+    setEditorModeDelete:  state => state.editor.mode = editorModes.DELETE,
+    setEditorModeSave:    state => state.editor.mode = editorModes.SAVE,
 
-    onWindowResize: (state) => {
+    onWindowResize: state => {
 
-      console.log("ReaperWRB: Window Resize")
+      log("Window Resize")
 
       if(screen.width < 1024)
         state.editor.enabled = false
@@ -466,16 +500,16 @@ const store = new Vuex.Store({
       }
     },
 
-    showHelp: (state) => state.editor.help = true,
-    hideHelp: (state) => state.editor.help = false,
-    toggleHelp: (state) => state.editor.help = state.editor.help ? false : true,
+    showHelp:   state => state.editor.help = true,
+    hideHelp:   state => state.editor.help = false,
+    toggleHelp: state => state.editor.help = state.editor.help ? false : true,
 
     editHighlight: (state, el) => {
       el.classList.add('app-highlight-edit')
       state.editor.data.item.el = el
     },
 
-    clearEditHighlight: (state) => {
+    clearEditHighlight: state => {
       if(state.mode === appModes.EDITOR) {
         //FIXME use el in edit_item reference
         const el = document.querySelectorAll('.app-highlight-edit')
@@ -489,7 +523,7 @@ const store = new Vuex.Store({
       }
     },
 
-    clearDropHighlight: (state) => {
+    clearDropHighlight: state => {
       const el = document.querySelectorAll('.app-item-drop')
       if(el.length > 0) {
         for(let i = 0; i < el.length; i++)
@@ -503,13 +537,12 @@ const store = new Vuex.Store({
 
     setWebremoteTitle: (state, title) => state.webremote.title = title,
 
-    clearEditItem: (state) => state.editor.data.item = cloneDeep(defaults.editor.data.item),
-
-    clearEditItems: (state) => state.editor.data.bulk = [],
+    clearEditItem:  state => state.editor.data.item = cloneDeep(defaults.editor.data.item),
+    clearEditItems: state => state.editor.data.bulk = [],
 
     setReaperReady: (state, ready) => state.reaper.ready = ready,
 
-    new: (state) => {
+    new: state => {
       const newWebremote = cloneDeep(defaults.webremote)
       const newTab = cloneDeep(defaults.tab)
       newTab.rows.push([])
@@ -521,27 +554,28 @@ const store = new Vuex.Store({
     },
 
     unload: (state) => {
-      console.log('REAPERWRB: Unloading webremote.')
+      log('Unloading webremote.')
       state.webremote = cloneDeep(defaults.webremote)
     },
 
-    showSaveDialog: (state) => {
+    showSaveDialog: state => {
       state.editor.save_dialog = true
     },
 
-    saveHTML: (state) => {
-      console.log('REAPERWRB: Saving to HTML.')
+    saveHTML: state => {
+      log('Saving to HTML.')
       const webremote = cloneDeep(state.webremote)
       webremote.active_tab = 0
       const d = new Date()
       webremote.timestamp = d.getTime();
+      // FIXME url encoding for S&WS actions
       const html = htmlTemplate.html(JSON.stringify(webremote)).replace(/\n|/g, '').replace(/>\s+</g, '><')
       const blob = new Blob([html], { type: "text/html;charset=utf-8" })
       saveAs(blob, webremote.title + '.html')
     },
 
-    saveJSON: (state) => {
-      console.log('REAPERWRB: Saving to JSON.')
+    saveJSON: state => {
+      log('Saving to JSON.')
       const webremote = cloneDeep(state.webremote)
       webremote.active_tab = 0
       const d = new Date()
@@ -552,13 +586,13 @@ const store = new Vuex.Store({
       if(typeof(webremote.timestamp) === 'undefined') {
         webremote.timestamp = d.getTime()
         state.storage.json.webremotes.push(webremote)
-        console.log('REAPERWRB: Adding new JSON entry.')
+        log('Adding new JSON entry.')
       } else {
 
         let saved = false
         state.storage.json.webremotes.map((storageWebremote, index) => {
           if(storageWebremote.timestamp === webremote.timestamp) {
-            console.log('REAPERWRB: Updating JSON entry.')
+            log('Updating JSON entry.')
             state.storage.json.webremotes[index] = webremote
             saved = true
           }
@@ -566,7 +600,7 @@ const store = new Vuex.Store({
 
         // if we still haven't saved we're probably moving a existing webremote to json
         if(!saved) {
-          console.log('REAPERWRB: Adding new JSON entry.')
+          log('Adding new JSON entry.')
           webremote.timestamp = d.getTime()
           state.storage.json.webremotes.push(webremote)
         }
@@ -576,15 +610,15 @@ const store = new Vuex.Store({
       saveAs(blob, "reaperwrb.json")
     },
 
-    saveLocalStorage: (state) => {
+    saveLocalStorage: state => {
       const d = new Date()
       if(state.storage.local_support) {
-        console.log('REAPERWRB: Saving to local storage.')
+        log('Saving to local storage.')
         const webremote = cloneDeep(state.webremote)
         webremote.active_tab = 0
 
         if(typeof(webremote.timestamp) === 'undefined') {
-          console.log('REAPERWRB: Adding new local entry.')
+          log('Adding new local entry.')
           webremote.timestamp = d.getTime()
           state.storage.local.webremotes.push(webremote)
 
@@ -593,7 +627,7 @@ const store = new Vuex.Store({
           let saved = false
           state.storage.local.webremotes.map((storageWebremote, index) => {
             if(storageWebremote.timestamp === webremote.timestamp) {
-              console.log('REAPERWRB: Updateing local entry.')
+              log('Updateing local entry.')
               state.storage.local.webremotes[index] = webremote
               saved = true
             }
@@ -601,7 +635,7 @@ const store = new Vuex.Store({
 
           // if we still haven't saved we're probably saving html/json webremote to local storage
           if(!saved) {
-            console.log('REAPERWRB: Adding new local entry.')
+            log('Adding new local entry.')
             webremote.timestamp = d.getTime()
             state.storage.local.webremotes.push(webremote)
           }
@@ -612,7 +646,7 @@ const store = new Vuex.Store({
     },
 
     syncStorage: (state, payload) => {
-      console.log('REAPERWRB: Syncing storage.')
+      log('Syncing storage.')
       if(payload.type === 'local') {
         if(state.storage.local_support)
           localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
@@ -625,8 +659,8 @@ const store = new Vuex.Store({
       }
     },
 
-    deleteLocalStorage: (state) => {
-      console.log("REAPERWRB: Deleting local storage!")
+    deleteLocalStorage: state => {
+      log("Deleting local storage!")
       localStorage.removeItem('REAPERWRB')
     },
 
@@ -634,20 +668,20 @@ const store = new Vuex.Store({
       state.storage[payload.type].webremotes.forEach((webremote, index) => {
         if(payload.title === webremote.title
         && payload.timestamp === webremote.timestamp) {
-          console.log(`REAPERWRB: Deleting preset from ${payload.type} storage.`)
+          log(`Deleting preset from ${payload.type} storage.`)
           state.storage[payload.type].webremotes.splice(index, 1)
         }
       })
     },
 
-    fadeInLoader: (state) => {
+    fadeInLoader: state => {
       const loader = document.querySelector('#loader')
       loader.classList.remove('fadeOut')
       loader.classList.remove('hidden')
       loader.classList.add('fadeIn')
     },
 
-    fadeOutLoader: (state) => {
+    fadeOutLoader: state => {
       const loader = document.querySelector('#loader')
       loader.classList.remove('fadeIn')
       loader.classList.add('fadeOut')
@@ -656,13 +690,12 @@ const store = new Vuex.Store({
       }, 1000)
     },
 
-    logTabs: (state) => {
+    logTabs: state => {
       const tabs = cloneDeep(state.webremote.tabs)
-      console.log(JSON.stringify(cloneDeep(tabs)))
     },
 
     import: (state, payload) => {
-      console.log("REAPERWRB: Importing data.")
+      log("Importing data.")
       state.editor.help = false
       if(typeof(payload.tabs) !== 'undefined') {
         state.webremote = cloneDeep(payload)
@@ -674,23 +707,24 @@ const store = new Vuex.Store({
     },
 
     switchTab: (state, tab) => {
-      // console.log(tab)
       state.editor.data.item = cloneDeep(defaults.editor.data.item)
       state.webremote.active_tab = tab
     },
 
     switchRow: (state, row) => state.editor.active_row = row,
 
-    toggleBulkEdit: (state) => {
+    toggleBulkEdit: state => {
       state.editor.data.item = cloneDeep(defaults.editor.data.item)
       state.editor.data.bulk = []
       state.editor.bulk_edit = state.editor.bulk_edit ? false : true
     },
 
-    toggleExecActions: (state) => state.editor.exec_actions = state.editor.exec_actions ? false : true,
+    toggleExecActions: state => state.editor.exec_actions = state.editor.exec_actions ? false : true,
 
     bulkEditAddRemove: (state, payload) => {
+
       let removedItem = false
+
       state.editor.data.bulk = state.editor.data.bulk.filter((item) => {
         if(item.index == payload.index && item.row == payload.row) {
           payload.el.classList.remove('app-highlight-edit')
@@ -749,7 +783,7 @@ const store = new Vuex.Store({
       state.editor.mode = editorModes.MAIN
     },
 
-    cancelAddItem: (state) => {
+    cancelAddItem: state => {
       state.editor.menu = false
     },
 
@@ -762,9 +796,9 @@ const store = new Vuex.Store({
       }
     },
 
-    clearItemMoveCopy: (state) => state.editor.data.move = false,
+    clearItemMoveCopy: state => state.editor.data.move = false,
 
-    moveItem: (state) => {
+    moveItem: state => {
       if(state.webremote.active_tab !== state.editor.data.move.target
         && state.editor.data.move) {
         const tab = state.editor.data.move.target
@@ -792,7 +826,7 @@ const store = new Vuex.Store({
       }
     },
 
-    showDeleteDialog: (state) => {
+    showDeleteDialog: state => {
       state.editor.mode = editorModes.DELETE
       state.editor.data.bin = cloneDeep(state.editor.data.item)
 
@@ -812,12 +846,12 @@ const store = new Vuex.Store({
       state.editor.data.bin.el.classList.add('app-highlight-delete')
     },
 
-    showBulkDeleteDialog: (state) => {
+    showBulkDeleteDialog: state => {
       state.editor.mode = editorModes.DELETE
       state.editor.data.bulk.forEach(item => item.el.classList.add('app-highlight-delete'))
     },
 
-    cancelDelete: (state) => {
+    cancelDelete: state => {
       state.editor.data.bin.el.classList.remove('app-highlight-delete')
       state.editor.data.bin.el.classList.add('app-highlight-edit')
       const el = document.querySelectorAll('.app-item')
@@ -828,14 +862,14 @@ const store = new Vuex.Store({
       state.editor.mode = editorModes.MAIN
     },
 
-    cancelBulkDelete: (state) => {
+    cancelBulkDelete: state => {
       state.editor.data.bulk.forEach(item => {
         item.el.classList.remove('app-highlight-delete')
       })
       state.editor.mode = editorModes.MAIN
     },
 
-    bulkDelete: (state) => {
+    bulkDelete: state => {
       state.editor.data.bulk.forEach(bulk => {
         bulk.el.classList.remove('app-highlight-delete')
         state.webremote.tabs[state.webremote.active_tab].rows[bulk.row].forEach((del, index) => {
@@ -964,7 +998,7 @@ const store = new Vuex.Store({
           wwr_req_recur(payload.action, payload.recur)
         } else {
           if(!payload.midi_editor) {
-            console.log("ReaperWRB Action: ", payload.action)
+            log("Executing action: ", payload.action)
             wwr_req(payload.action)
           } else {
             wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
@@ -983,10 +1017,10 @@ const store = new Vuex.Store({
         wwr_req_recur_cancel(payload.action)
     },
 
-    getCmdStates: (state) => {
+    getCmdStates: state => {
 
       if(state.reaper.ready && state.webremote.tabs[state.webremote.active_tab] !== undefined) {
-        console.log('REAPERWRB: Updating command states!')
+        log('Updating command states!')
         state.webremote.tabs[state.webremote.active_tab].rows.forEach((row) => {
           row.forEach((item) => {
             if(item.type === 'action')
@@ -998,8 +1032,6 @@ const store = new Vuex.Store({
 
     // FIXME create functions to import
     onReply: (state, result) => {
-      // console.warn("NEW RESULT -------------------------------------")
-      // console.log(result)
 
       if(typeof(state.webremote.tabs) === 'undefined') return
 
@@ -1117,8 +1149,9 @@ const app = new Vue({
     })
 
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
+
     if(reaperReady) {
-      console.log('REAPERWRB: REAPER API ready.')
+      log('Web Remote API ready.')
       wwr_start()
       window.wwr_onreply = (result) => this.$store.commit('onReply', result)
       this.$store.commit('setReaperReady', reaperReady)
@@ -1127,7 +1160,7 @@ const app = new Vue({
       setInterval(() => this.$store.commit('getCmdStates'), this.$store.state.reaper.sync_interval)
 
     } else {
-      console.error('ReaperWRB ERROR: REAPER API not ready!')
+      log('REAPER API not ready!', LOG_LEVEL.ERROR)
     }
 
   }
