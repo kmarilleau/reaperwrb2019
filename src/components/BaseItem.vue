@@ -33,8 +33,8 @@
       :item="item"
     />
 
-    <app-item-track
-      v-if="item.type === 'track'"
+    <app-item-tracks-util
+      v-if="item.type === 'tracksutil'"
       :item="item"
     />
 
@@ -48,7 +48,7 @@ import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
 import BaseItemRegions from '@/components/BaseItemRegions.vue'
 import BaseItemPosition from '@/components/BaseItemPosition.vue'
-import BaseItemTrack from '@/components/BaseItemTrack.vue'
+import BaseItemTracksUtil from '@/components/BaseItemTracksUtil.vue'
 
 export default {
   props: ['row', 'item', 'index', 'toggle'],
@@ -59,7 +59,7 @@ export default {
     'app-item-markers': BaseItemMarkers,
     'app-item-regions': BaseItemRegions,
     'app-item-position': BaseItemPosition,
-    'app-item-track': BaseItemTrack,
+    'app-item-tracks-util': BaseItemTracksUtil,
   },
   
   mounted() {

@@ -27,8 +27,8 @@
     <button @click.stop="onItemAdd('regions')"  class="pure-button app-editor-button-add">
       <span>Regions</span>
     </button>
-    <button @click.stop="onItemAdd('track')" class="pure-button app-editor-button-add">
-      <span>Track</span>
+    <button @click.stop="onItemAdd('tracksutil')" class="pure-button app-editor-button-add">
+      <span>Sel. Tracks Nudge / Mute / Solo</span>
     </button>
     
   </div>

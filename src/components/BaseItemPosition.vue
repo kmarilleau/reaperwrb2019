@@ -23,6 +23,7 @@ export default {
   },
 
   beforeMount() {
+    // FIXME always register this action
     if(!this.transportOnline) 
       this.execAction({ action: 'TRANSPORT', recur: 20 })
   },

@@ -129,8 +129,8 @@ export const defaults = {
     minwidth: 4,
   },
 
-  track: {
-    type: 'track',
+  tracksutil: {
+    type: 'tracksutil',
     bgcolor: '#7B64FF',
     textcolor: '#FFFFFF',
     width: 4,

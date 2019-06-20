@@ -1,11 +1,15 @@
 <template>
-  <div class="app-item__track-container" 
+  <div class="app-item__tracks-util-container" 
     :style="{ color: item.textcolor, 'height': itemHeight + 'px' }"
   >
-    <div class="app-item__track-info">
-      <span>{{ label }}</span>
+    <div class="app-item__tracks-util-info">
+      <div>
+        <span>SELECTED: {{ selected }}</span>
+        <span>MUTED: {{ muted }}</span>
+        <span>SOLO'ED: {{ soloed }}</span>
+      </div>
     </div>
-    <div class="app-item__track-buttons"
+    <div class="app-item__tracks-util-buttons"
       :style="{ 'height': itemHeight + 'px'}"
     >
       <a @click.stop="onNudgeVolDown()" class="app-item__tack-icon"
@@ -17,7 +21,7 @@
         />
       </a>
 
-      <a @click.stop="onNudgeVolUp()" class="app-item__tack-icon"
+      <a @click.stop="onNudgeVolUp()" class="app-item__tracks-util-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="volume-increase" 
@@ -26,7 +30,7 @@
         />
       </a>
 
-      <a @click.stop="onMute()" class="app-item__tack-icon"
+      <a @click.stop="onMute()" class="app-item__tracks-util-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="mute" 
@@ -35,7 +39,7 @@
         />
       </a>
 
-      <a @click.stop="onSolo()" class="app-item__tack-icon"
+      <a @click.stop="onSolo()" class="app-item__tracks-util-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="solo" 
@@ -54,6 +58,7 @@ export default {
   props: ['item'],
 
   beforeMount() {
+    // FIXME always register this action
     if(this.reaperReady)
       this.execAction({ action: 'TRACK', recur: 500 })
   },
@@ -67,12 +72,18 @@ export default {
       'getTracksSelected',
     ]),
 
-    label() {
-      const selected = this.getTracks.filter(track => track.selected).length
-      const muted = this.getTracks.filter(track => track.muted).length
-      const soloed = this.getTracks.filter(track => track.soloed).length
-      return `Selected: ${selected} Mute: ${muted} Solo: ${soloed}`
+    selected() {
+      return this.getTracks.filter(track => track.selected).length
     },
+
+    muted() {
+      return this.getTracks.filter(track => track.muted).length
+    },
+
+    soloed() {
+      return this.getTracks.filter(track => track.soloed).length
+    }
+
   },
 
   methods: {

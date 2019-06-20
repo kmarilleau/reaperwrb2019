@@ -196,22 +196,27 @@
   * { opacity: 1; }
 }
 
-.app-item__track-container {
+.app-item__tracks-util-container {
   display: flex;
   flex-wrap: wrap;
 
-  .app-item__track-info {
-    width: 0;
+  .app-item__tracks-util-info {
     height: 0;
-    span {
+    width: 100%;
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       position: relative;
       top: .5vh;
-      left: .5vw;
-      width: 100%;
+      span {
+        margin: 0 .5vh;
+        width: 33.3%;
+      }
     }
   }
 
-  .app-item__track-buttons {
+  .app-item__tracks-util-buttons {
     display: flex;
     width: 100%;
   }

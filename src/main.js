@@ -46,7 +46,6 @@ const log = (msg, lvl = LOG_LEVEL.INFO) => {
   }
 }
 
-
 Vue.config.productionTip = false
 Vue.use(Vuex)
 
@@ -1035,8 +1034,12 @@ const store = new Vuex.Store({
 
       if(state.mode === appModes.STARTUP) return
 
+      const active_tab  = state.webremote.active_tab
+
+      const tabs = state.webremote.tabs
+      const rows = tabs[active_tab].rows
+
       const lines = result.trim().split("\n")
-      const rows = state.webremote.tabs[state.webremote.active_tab].rows
 
       lines.forEach(line => {
 
