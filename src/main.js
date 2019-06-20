@@ -1033,7 +1033,7 @@ const store = new Vuex.Store({
     // FIXME create functions to import
     onReply: (state, result) => {
 
-      if(typeof(state.webremote.tabs) === 'undefined') return
+      if(state.mode === appModes.STARTUP) return
 
       const lines = result.trim().split("\n")
       const rows = state.webremote.tabs[state.webremote.active_tab].rows
