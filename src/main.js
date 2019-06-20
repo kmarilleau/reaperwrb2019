@@ -29,7 +29,7 @@ const store = new Vuex.Store({
   state: {
     version: '2.1.1',
     mode: appModes.STARTUP,
-    reaper: {}, 
+    reaper: {},
     editor: {},
     webremote: {},
     storage: {
@@ -41,7 +41,6 @@ const store = new Vuex.Store({
 
   getters: {
     reaperReady:  (state, getters) => state.reaper.ready,
-    version:      (state, getters) => state.version,
     browser:      (state, getters) => state.editor.browser,
 
     showLocalStorage: (state, getters) => state.storage.local_support && typeof(state.storage.local.webremotes) !== 'undefined',
@@ -49,7 +48,7 @@ const store = new Vuex.Store({
 
     getLocalStorageWebremotes:        (state, getters) => state.storage.local.webremotes,
     getLocalStorageWebremoteByIndex:  (state, getters) => (index) => state.storage.local.webremotes[index],
-    
+
     getJSONStorageWebremotes:       (state, getters) => state.storage.json.webremotes,
     getJSONStorageWebremoteByIndex: (state, getters) => (index) => state.storage.json.webremotes[index],
 
@@ -73,14 +72,14 @@ const store = new Vuex.Store({
     showHelp: (state, getters) =>  state.editor.help,
 
     showEditorBulkEditButtons: (state, getters) => {
-      return state.editor.bulk_edit 
+      return state.editor.bulk_edit
         && state.editor.mode !== editorModes.DELETE
         && state.editor.data.bulk.length > 0
     },
 
     showEditorEditButtons:      (state, getters) => {
-      return getters.isAppModeEditor 
-        && !getters.isEditorModeSave 
+      return getters.isAppModeEditor
+        && !getters.isEditorModeSave
         && !getters.isEditorModeDelete
     },
 
@@ -90,11 +89,11 @@ const store = new Vuex.Store({
     webremoteTitle: (state, getters) => state.webremote.title,
 
     isActiveTab: (state, getters) => (tab) => getters.activeTab === tab,
-    isTabEdit: (state, getters) => (tab) => { 
+    isTabEdit: (state, getters) => (tab) => {
       return state.editor.data.item.obj.type === 'tab'
         && state.webremote.active_tab === tab
     },
-    
+
     globalColumns: (state, getters) => state.webremote.columns,
 
     activeTab:    (state, getters) => state.webremote.active_tab,
@@ -111,13 +110,19 @@ const store = new Vuex.Store({
     isLastTab: (state, getters) => (item) => item.type === 'tab' && state.webremote.tabs.length === 1,
 
     hasRows: (state, getters) => state.webremote.tabs[getters.activeTab].rows.length > 0,
-    
+
     hasMarkers: (state, getters) => state.reaper.markers.length > 0,
     getMarkers: (state, getters) => state.reaper.markers,
-    
+
     hasRegions: (state, getters) => state.reaper.regions.length > 0,
     getRegions: (state, getters) => state.reaper.regions,
-    
+
+    hasTracks: (state, getters) => state.reaper.tracks.length > 0,
+    getTracks: (state, getters) => state.reaper.tracks,
+    getTracksSelected: (state, getters) => state.reaper.tracks.filter(track => track.flags === 2),
+    hasTracksSelected: (state, getters) => getters.getTracksSelected.length > 0,
+    getTracksLastSelectedName: (state, getters) => getters.getTracksSelected[getters.getTracksSelected.length - 1].name,
+
     transportOnline:    (state, getters) => state.reaper.transport.online,
     transportPosString: (state, getters) => state.reaper.transport.position_string,
     transportPosBeats:  (state, getters) => state.reaper.transport.position_string_beats,
@@ -128,7 +133,7 @@ const store = new Vuex.Store({
     transportPlaystatePlay:   (state, getters) => parseInt(getters.transportPlaystate) === 1,
     transportPlaystatePause:  (state, getters) => parseInt(getters.transportPlaystate) === 2,
     transportPlaystateRecord: (state, getters) => parseInt(getters.transportPlaystate) === 5,
-    
+
     hasMoveItem: (state, getters) => state.editor.data.move,
     hasEditItem: (state, getters) => state.editor.data.item.obj,
 
@@ -146,14 +151,14 @@ const store = new Vuex.Store({
     },
 
     isEditTab: (state, getters) => (payload) => {
-      return getters.editItemType('tab') 
+      return getters.editItemType('tab')
         && getters.activeTab === payload.index
     },
 
     editItemType: (state, getters) => (type) => state.editor.data.item.obj.type === type,
     editItemRow:  (state, getters) => state.editor.data.item.row,
 
-    editItemHasKey: (state, getters) => (key) => { 
+    editItemHasKey: (state, getters) => (key) => {
       if(getters.hasEditItem)
         return key in state.editor.data.item.obj
       else
@@ -170,7 +175,7 @@ const store = new Vuex.Store({
 
     deleteItemType: (state, getters) => state.editor.data.bin.obj.type,
     deleteCanKeepItems: (state, getters) => {
-      
+
       switch(getters.deleteItemType) {
         case 'tab':
           return state.webremote.tabs.length > 1 ? true : false
@@ -200,7 +205,7 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    
+
     // FIXME needs testing
     onLaunchFromHTML({ commit, state }, webremote) {
       commit('import', webremote)
@@ -275,7 +280,7 @@ const store = new Vuex.Store({
       commit('hideHelp')
       commit('clearEditHighlight')
       commit('clearEditItem')
-      
+
       if(state.editor.bulk_edit)
         commit('toggleBulkEdit')
 
@@ -327,7 +332,7 @@ const store = new Vuex.Store({
       if(!success)
         console.error("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
-    
+
     onEditWebremotePreset: ({ commit, state }, payload ) => {
       let success = false
       state.storage[payload.type].webremotes.forEach((webremote, index) => {
@@ -348,7 +353,7 @@ const store = new Vuex.Store({
 
   mutations: {
     init: (state) => {
-      
+
       state.reaper = cloneDeep(defaults.reaper)
       state.editor = cloneDeep(defaults.editor)
       state.webremote = cloneDeep(defaults.webremote)
@@ -357,7 +362,7 @@ const store = new Vuex.Store({
       if(typeof InstallTrigger !== 'undefined')
         state.editor.browser = 'firefox'
 
-      // Safari 3.0+ "[object HTMLElementConstructor]" 
+      // Safari 3.0+ "[object HTMLElementConstructor]"
       if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification)))
         state.editor.browser = 'safari'
 
@@ -549,7 +554,7 @@ const store = new Vuex.Store({
         state.storage.json.webremotes.push(webremote)
         console.log('REAPERWRB: Adding new JSON entry.')
       } else {
-        
+
         let saved = false
         state.storage.json.webremotes.map((storageWebremote, index) => {
           if(storageWebremote.timestamp === webremote.timestamp) {
@@ -558,7 +563,7 @@ const store = new Vuex.Store({
             saved = true
           }
         })
-        
+
         // if we still haven't saved we're probably moving a existing webremote to json
         if(!saved) {
           console.log('REAPERWRB: Adding new JSON entry.')
@@ -655,7 +660,7 @@ const store = new Vuex.Store({
       const tabs = cloneDeep(state.webremote.tabs)
       console.log(JSON.stringify(cloneDeep(tabs)))
     },
-    
+
     import: (state, payload) => {
       console.log("REAPERWRB: Importing data.")
       state.editor.help = false
@@ -665,7 +670,7 @@ const store = new Vuex.Store({
       } else {
         payload.forEach(tab => state.webremote.tabs.push(tab))
         state.webremote.active_tab = state.webremote.tabs.length - 1
-      } 
+      }
     },
 
     switchTab: (state, tab) => {
@@ -700,7 +705,7 @@ const store = new Vuex.Store({
         payload.el.classList.add('app-highlight-edit')
         payload.obj = state.webremote
                       .tabs[state.webremote.active_tab]
-                      .rows[payload.row][payload.index] 
+                      .rows[payload.row][payload.index]
         state.editor.data.bulk.push(payload)
       }
     },
@@ -709,7 +714,7 @@ const store = new Vuex.Store({
       payload.el.classList.add('app-highlight-edit')
       payload.obj = state.webremote
                     .tabs[state.webremote.active_tab]
-                    .rows[payload.row][payload.index] 
+                    .rows[payload.row][payload.index]
       state.editor.data.bulk.push(payload)
     },
 
@@ -760,7 +765,7 @@ const store = new Vuex.Store({
     clearItemMoveCopy: (state) => state.editor.data.move = false,
 
     moveItem: (state) => {
-      if(state.webremote.active_tab !== state.editor.data.move.target 
+      if(state.webremote.active_tab !== state.editor.data.move.target
         && state.editor.data.move) {
         const tab = state.editor.data.move.target
         const row = state.webremote.tabs[tab].rows.length - 1
@@ -783,14 +788,14 @@ const store = new Vuex.Store({
         state.editor.active_row = payload.row
         state.editor.data.item.obj = state.webremote
                                     .tabs[state.webremote.active_tab]
-                                    .rows[payload.row][payload.index] 
+                                    .rows[payload.row][payload.index]
       }
     },
 
     showDeleteDialog: (state) => {
       state.editor.mode = editorModes.DELETE
       state.editor.data.bin = cloneDeep(state.editor.data.item)
-      
+
       state.editor.data.bin.el.classList.add('app-highlight-delete')
 
       if(state.editor.data.bin.obj.type === 'tab') {
@@ -822,7 +827,7 @@ const store = new Vuex.Store({
       state.editor.data.bin = false
       state.editor.mode = editorModes.MAIN
     },
-    
+
     cancelBulkDelete: (state) => {
       state.editor.data.bulk.forEach(item => {
         item.el.classList.remove('app-highlight-delete')
@@ -856,7 +861,7 @@ const store = new Vuex.Store({
       state.editor.data.bin.el.classList.remove('app-highlight-delete')
 
       switch(state.editor.data.bin.obj.type) {
-        
+
         case 'tab':
           let el = document.querySelectorAll('.app-item')
           for(let i = 0; i < el.length; i++) {
@@ -874,7 +879,7 @@ const store = new Vuex.Store({
 
           // delete the tab
           state.webremote.tabs.splice(state.editor.data.bin.index, 1)
-          
+
           // switch to correct tab
           if(keepItems) {
             if(tab === 0)
@@ -899,13 +904,13 @@ const store = new Vuex.Store({
             items = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.data.bin.index]
 
           state.webremote.tabs[state.webremote.active_tab].rows.splice(state.editor.data.bin.index, 1)
-          
+
           if(state.webremote.tabs[state.webremote.active_tab].rows.length === 0)
             state.webremote.tabs[state.webremote.active_tab].rows.push([])
-          
+
           if(items)
             items.forEach(item => { state.webremote.tabs[state.webremote.active_tab].rows[0].push(item) })
-          
+
           break
 
         default:
@@ -947,18 +952,26 @@ const store = new Vuex.Store({
 
     updateTabs: (state, payload) => Vue.set(state.webremote, 'tabs', payload),
 
-    execAction: (state, payload) => {
+    execAction: (state, payload = { action: false, recur: false, midi_editor: false }) => {
 
-      if(state.mode === appModes.EDITOR 
-        && !state.editor.exec_actions 
+      if(state.mode === appModes.EDITOR
+        && !state.editor.exec_actions
         && typeof(payload.recur) === 'undefined')
         return
 
       if(state.reaper.ready) {
-        if(payload.recur)
+        if(payload.recur) {
           wwr_req_recur(payload.action, payload.recur)
-        else
-          wwr_req(payload.action)
+        } else {
+          if(!payload.midi_editor) {
+            console.log("ReaperWRB Action: ", payload.action)
+            wwr_req(payload.action)
+          } else {
+            wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
+            // FIXME
+            wwr_req('_RSb45d5d4b2fafdc4f77a378edadb7222c9c1ea54f')
+          }
+        }
         // update toggle state
         if(payload.toggle)
           wwr_req('GET/' + payload.action)
@@ -985,110 +998,105 @@ const store = new Vuex.Store({
 
     // FIXME create functions to import
     onReply: (state, result) => {
-      //console.log(result)
+      // console.warn("NEW RESULT -------------------------------------")
+      // console.log(result)
 
-      if(result.match('EXTSTATE')) {
-        const data = result.trim().split("\n")
-                      .filter(line => !line.match('TRANSPORT'))[0]
-                      .split("\t")
+      if(typeof(state.webremote.tabs) === 'undefined') return
 
-        if(data[1] === 'REAPERWRB_TRANSFER') {
-          if(data[2] === 'INFO') {
+      const lines = result.trim().split("\n")
+      const rows = state.webremote.tabs[state.webremote.active_tab].rows
 
-            let info = JSON.parse(data[3])
-            let c = -1
-            let r = function() {
-              c++
-              if(c < info.items) {
-                wwr_req('GET/EXTSTATE/REAPERWRB_TRANSFER/ITEM_' + c)
-                setTimeout(r, state.transfer.timeout)
-              } else {
-                state.transfer.okay = true
+      lines.forEach(line => {
+
+        if(line.match(/^TRANSPORT/)) {
+          const data = line.split("\t").splice(1)
+          state.reaper.transport = {
+            online: true,
+            playstate: parseInt(data[0]),
+            repeat: parseInt(data[2]),
+            position_seconds: parseFloat(data[1]).toFixed(2),
+            position_string: data[3],
+            position_string_beats: data[4]
+          }
+        }
+
+        if(line.match(/^CMDSTATE/)) {
+          const data = line.split("\t").splice(1)
+          const [ action, state ] = data
+          // FIXME async?
+          rows.forEach(row => {
+            row.forEach(item => {
+              if(item.type === 'action' && item.toggle) {
+                if(item.action === action)
+                  item.state = state
               }
-            }
-            r()
-          } else if (data[2].match('ITEM')) {
-            //console.log(JSON.parse(data[3]))
-            state.transfer.data.push(JSON.parse(data[3]))
-          }
+            })
+          })
+
         }
-      }
 
-      if(result.match('TRANSPORT')) {
-        const data = result.trim().split("\n")[0].split("\t")
-        data.splice(0,1)
-        state.reaper.transport = {
-          online: true,
-          playstate: parseInt(data[0]), // 
-          repeat: parseInt(data[2]),
-          position_seconds: parseFloat(data[1]).toFixed(2),
-          position_string: data[3],
-          position_string_beats: data[4]
+        if(line.match(/^MARKER_LIST/) && !line.match(/^MARKER_LIST_END/))
+          state.reaper.markers = []
+
+        if(line.match(/^MARKER/) && !line.match(/^MARKER_LIST/)) {
+          const data = line.split("\t").splice(1)
+          const [ name, id, pos, color ] = data
+          const marker = { name, id, pos, color }
+          state.reaper.markers.push(marker)
         }
-      }
 
-      // FIXME?
-      if(result.match('MARKER_LIST')) {
-        const data = result.trim().split("\n")
-        state.reaper.markers = data
-          .filter((item) => {
-            return !item.match('MARKER_LIST') && !item.match('MARKER_LIST_END') && item.match('MARKER')
-          })
-          .map((item) => {
-            let data = item.split('\t')
-            // check data length
-            return {
-              name: data[1],
-              id: data[2],
-              pos: data[3],
-              color: data[4]
-            }
-          })
-      }
+        if(line.match(/^REGION_LIST/) && !line.match(/^REGION_LIST_END/))
+          state.reaper.regions = []
 
-      // FIXME?
-      if(result.match('REGION_LIST')) {
-        const data = result.trim().split("\n")
-        state.reaper.regions = data
-          .filter((item) => {
-            return !item.match('REGION_LIST') && !item.match('REGION_LIST_END') && item.match('REGION')
-          })
-          .map((item) => {
-            let data = item.split('\t')
-            return {
-              name: data[1],
-              id: data[2],
-              pos: data[3],
-              color: data[4]
-            }
-          })
-      }
+        if(line.match(/^REGION/) && !line.match(/^REGION_LIST/)) {
+          const data = line.split("\t").splice(1)
+          const [ name, id, pos, color ] = data
+          const region = { name, id, pos, color }
+          state.reaper.regions.push(region)
+        }
 
-      if(result.match('CMDSTATE')) {
-        const data = result.trim().split("\n")
-        const actionStates = data.map((cmd) => {
-          let data = cmd.split('\t')
-          return {
-            action: data[1],
-            state: data[2]
+        if(line.match(/^TRACK/)) {
+          const data = line.split("\t").splice(1)
+          const [ 
+            number, name, flags, vol, pan, 
+            last_meter_peak, last_meter_pos, 
+            width, panmode, 
+            sendcnt, recvcnt, hwoutcnt,
+            color
+          ] = data
+
+          const track = {
+            name,
+            number: parseInt(number),
+            vol: parseFloat(vol),
+            pan: parseFloat(pan),
+            last_meter_peak: parseFloat(last_meter_peak),
+            last_meter_pos: parseFloat(last_meter_pos),
+            width: parseInt(width),
+            panmode: parseInt(panmode),
+            sendcnt: parseInt(sendcnt),
+            recvcnt: parseInt(recvcnt),
+            hwoutcnt: parseInt(hwoutcnt),
+            color: parseInt(color),
+            folder: parseInt(flags) & 1,
+            selected: parseInt(flags) & 2,
+            has_fx: parseInt(flags) & 4,
+            muted: parseInt(flags) & 8,
+            soloed: parseInt(flags) & 16,
+            rec_armed: parseInt(flags) & 64,
+            rec_mon_on: parseInt(flags) & 128,
+            rec_mon_auto: parseInt(flags) & 256,
           }
-        })
 
-        // check state of all actions of the current tab if they are toggles
-        state.webremote.tabs[state.webremote.active_tab].rows.forEach((row) => {
-          row.forEach((item) => {
-            if(item.type === 'action' && item.toggle) {
-              actionStates.forEach((action) => {
+          // clear track list before adding master track
+          if(track.number === 0)
+            state.reaper.tracks = []
 
-                if(action.action === item.action)
-                  item.state = action.state
+          state.reaper.tracks.push(track)
+        }
 
-              })
-            }
-          })
-        })
+      }) // end foreach
 
-      }
     },
   }
 })
@@ -1121,6 +1129,6 @@ const app = new Vue({
     } else {
       console.error('ReaperWRB ERROR: REAPER API not ready!')
     }
-    
+
   }
 })

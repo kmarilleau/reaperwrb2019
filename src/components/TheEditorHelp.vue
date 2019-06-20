@@ -3,7 +3,7 @@
     <div class="app-help">
 
       <header>
-        <h1>ReaperWRB {{this.$store.getters.version }}</h1>
+        <h1>ReaperWRB {{ version }}</h1>
       </header>
       <section>
         <h2>Getting Started</h2>
@@ -94,7 +94,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  props: ['version']
+  computed: {
+    ...mapState([
+      "version"
+    ])
+  }
 }
 </script>

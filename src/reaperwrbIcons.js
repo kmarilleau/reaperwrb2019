@@ -329,6 +329,9 @@ const reaperwrbIcons = [
 'fx-plus',
 'fx-minus',
 'fx-bypass',
-'metronome-off'
+'metronome-off',
+'music-notes-triplet',
+'mute',
+'solo'
 ]
 export default reaperwrbIcons

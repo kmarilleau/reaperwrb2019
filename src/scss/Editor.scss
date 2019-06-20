@@ -25,7 +25,7 @@
 
 .app-editor__sub-panel {
   display: grid;
-  grid-template-columns: 0.35fr auto;
+  grid-template-columns: repeat(3, auto);
 }
 
 .app-editor__menu-container {}

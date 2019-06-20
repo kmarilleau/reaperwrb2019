@@ -8,12 +8,12 @@
     :item="item"
   >
 
-    <app-item__action 
+    <app-item-action 
       v-if="item.type === 'action'" 
       :item="item"
     />
     
-    <app-item__transport 
+    <app-item-transport 
       v-if="item.type === 'transport'" 
       :item="item" 
     />
@@ -23,13 +23,18 @@
       :item="item"
     />
 
-    <app-item__markers
+    <app-item-markers
       v-if="item.type === 'markers'"
       :item="item"
     />
 
-    <app-item__regions
+    <app-item-regions
       v-if="item.type === 'regions'"
+      :item="item"
+    />
+
+    <app-item-track
+      v-if="item.type === 'track'"
       :item="item"
     />
 
@@ -43,22 +48,24 @@ import BaseItemTransport from '@/components/BaseItemTransport.vue'
 import BaseItemMarkers from '@/components/BaseItemMarkers.vue'
 import BaseItemRegions from '@/components/BaseItemRegions.vue'
 import BaseItemPosition from '@/components/BaseItemPosition.vue'
+import BaseItemTrack from '@/components/BaseItemTrack.vue'
 
 export default {
   props: ['row', 'item', 'index', 'toggle'],
 
   components: {
-    'app-item__action': BaseItemAction,
-    'app-item__transport': BaseItemTransport,
-    'app-item__markers': BaseItemMarkers,
-    'app-item__regions': BaseItemRegions,
+    'app-item-action': BaseItemAction,
+    'app-item-transport': BaseItemTransport,
+    'app-item-markers': BaseItemMarkers,
+    'app-item-regions': BaseItemRegions,
     'app-item-position': BaseItemPosition,
+    'app-item-track': BaseItemTrack,
   },
   
   mounted() {
     if(this.isAppModeEditor) {
       if(this.isEditItem({ item: this.item, row: this.row, index: this.index })) {
-        this.editHighligh($el)
+        this.editHighlight(this.$el)
       }
     }
   },

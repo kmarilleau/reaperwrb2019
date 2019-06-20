@@ -1,7 +1,7 @@
 <template>
   <draggable 
     :class="'app-tab-navigation'"
-    v-model="tabs"
+    v-model="navigationTabs"
     :style="{ 
       gridTemplateColumns: 'repeat(' + globalColumns + ', 1fr)',
     }"
@@ -84,16 +84,16 @@ export default {
       'tabs'
     ]),
 
-    tabs: {
+    navigationTabs: {
 
       get() {
-        return this.$store.getters.tabs
+        return this.tabs
       },
 
       set(value) {
         // only set on sort, when length doesn't change
-        if(value.length === this.$store.getters.tabs.length)
-          this.$store.commit('updateTabs', value)
+        if(value.length === this.tabs.length)
+          this.updateTabs(value)
       }
 
     }
@@ -110,7 +110,8 @@ export default {
       'clearEditItem',
       'moveItem',
       'clearEditHighlight',
-      'switchTab'
+      'switchTab',
+      'updateTabs'
     ]),
 
     onHome() {

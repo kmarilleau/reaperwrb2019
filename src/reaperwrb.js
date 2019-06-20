@@ -26,6 +26,7 @@ export const defaults = {
     },
     markers: [],
     regions: [],
+    tracks: []
   },
 
   editor: {
@@ -66,6 +67,7 @@ export const defaults = {
 
   action: {
     type: 'action',
+    midi_editor: false,
     label: 'new action',
     labelpos: 0,
     action: 0,
@@ -122,6 +124,14 @@ export const defaults = {
   regions: {
     type: 'regions',
     bgcolor: '#AEA1FF',
+    textcolor: '#FFFFFF',
+    width: 4,
+    minwidth: 4,
+  },
+
+  track: {
+    type: 'track',
+    bgcolor: '#7B64FF',
     textcolor: '#FFFFFF',
     width: 4,
     minwidth: 4,

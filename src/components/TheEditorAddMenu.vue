@@ -27,6 +27,9 @@
     <button @click.stop="onItemAdd('regions')"  class="pure-button app-editor-button-add">
       <span>Regions</span>
     </button>
+    <button @click.stop="onItemAdd('track')" class="pure-button app-editor-button-add">
+      <span>Track</span>
+    </button>
     
   </div>
 </template>

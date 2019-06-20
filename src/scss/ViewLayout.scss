@@ -196,6 +196,43 @@
   * { opacity: 1; }
 }
 
+.app-item__track-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .app-item__track-info {
+    width: 0;
+    height: 0;
+    span {
+      position: relative;
+      top: .5vh;
+      left: .5vw;
+      width: 100%;
+    }
+  }
+
+  .app-item__track-buttons {
+    display: flex;
+    width: 100%;
+  }
+  
+  a {
+    display: flex;
+    text-align: center;
+    margin: auto;
+    opacity: 0.8;
+  }
+
+  a:active {
+    opacity: 1;
+  }
+  
+  a svg {
+    margin: auto !important;
+  }
+
+}
+
 /* recommended css code for vue-svgicon */
 .svg-icon {
   display: inline-block;

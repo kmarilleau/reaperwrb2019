@@ -35,6 +35,7 @@
 
         <div class="app-editor__sub-panel">
           <app-editor-input-toggle />
+          <app-editor-input-midi-toggle />
           <app-editor-select-labelpos />
         </div>
 
@@ -64,6 +65,7 @@ import TheEditorSaveMenu from '@/components/TheEditorSaveMenu.vue'
 import TheEditorIconMenu from '@/components/TheEditorIconMenu.vue'
 import TheEditorInputAction from '@/components/TheEditorInputAction.vue'
 import TheEditorInputToggle from '@/components/TheEditorInputToggle.vue'
+import TheEditorInputMidiToggle from '@/components/TheEditorInputMidiToggle.vue'
 import TheEditorInputLabel from '@/components/TheEditorInputLabel.vue'
 import TheEditorSliderItemWidth from '@/components/TheEditorSliderItemWidth.vue'
 import TheEditorSelectLabelPos from '@/components/TheEditorSelectLabelPos.vue'
@@ -87,6 +89,7 @@ export default {
     'app-editor-input-action': TheEditorInputAction,
     'app-editor-input-label': TheEditorInputLabel,
     'app-editor-input-toggle': TheEditorInputToggle,
+    'app-editor-input-midi-toggle': TheEditorInputMidiToggle,
     'app-editor-slider-itemwidth': TheEditorSliderItemWidth,
     'app-editor-select-labelpos': TheEditorSelectLabelPos,
     'app-editor-item-desc': TheEditorItemDesc,

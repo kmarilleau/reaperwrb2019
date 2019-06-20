@@ -2,7 +2,7 @@
   <div class="app-item-color-picker"
     v-if="editItemHasKey('bgcolor') || isEditorBulkEdit" 
   >
-    <label>Background Color</label>
+    <label>Background Color: {{ getColor.hex }}</label>
     <app-item-color-picker-swatches v-model="getColor" />
     <app-item-color-picker-slider v-model="getColor" />
   </div>

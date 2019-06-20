@@ -63,7 +63,7 @@ export default {
     ]),
 
     onClick() {
-      this.execAction({ action: this.item.action, toggle: this.item.toggle })
+      this.execAction({ action: this.item.action, toggle: this.item.toggle, midi_editor: this.item.midi_editor })
     },
 
     itemIcon() {
