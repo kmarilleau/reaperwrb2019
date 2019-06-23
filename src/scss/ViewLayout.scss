@@ -84,7 +84,7 @@
 }
 
 /* ACTION */
-.app-item__action:active {
+.app-item__action__container:active {
   box-shadow: inset 0 0 20px #0f0f0f;
 }
 
@@ -187,7 +187,7 @@
   }
 }
 
-.app-item__action:active .app-item__action-icon,
+.app-item__action__container:active .app-item__action-icon,
 .app-item__action--toggled .app-item__action-icon {
   opacity: 1;
 }
