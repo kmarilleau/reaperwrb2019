@@ -15,14 +15,8 @@
       <div class="app-item__markers-info"
         @click="onRefresh()"
       >
-        <template v-if="hasMarkers">
-          <span :style="{ color: item.textcolor }">{{ id }}: </span>
-          <span :style="{ color: item.textcolor }">{{ name }}</span>
-        </template>
-        <template v-if="!hasMarkers">
-          <span :style="{ color: item.textcolor }">{id}: </span>
-          <span :style="{ color: item.textcolor }">{Name}</span>
-        </template>
+        <span v-if="hasMarkers" :style="{ color: item.textcolor }">{{ id }}: {{ name }}</span>
+        <span v-if="!hasMarkers" :style="{ color: item.textcolor }">{id}: {Name}</span>
       </div>
 
       <a class="app-item__markers-icon"
@@ -52,6 +46,10 @@ export default {
       name: '',
       current: 0,
     }
+  },
+
+  beforeMount() {
+    this.execAction({ action: 'MARKER' })
   },
 
   computed: {
@@ -92,10 +90,6 @@ export default {
     onRefresh(event) {
       this.execAction({ action: 'MARKER' })
     },
-  },
-
-  beforeMount() {
-    this.execAction({ action: 'MARKER' })
   },
 }
 </script>

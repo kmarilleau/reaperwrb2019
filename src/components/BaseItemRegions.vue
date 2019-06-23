@@ -15,14 +15,8 @@
       <div class="app-item__regions-info"
         @click="onRefresh()"
       >
-        <template v-if="hasRegions">
-          <span :style="{ color: item.textcolor }">{{ id }}: </span>
-          <span :style="{ color: item.textcolor }">{{ name }}</span>
-        </template>
-        <template v-if="!hasRegions">
-          <span :style="{ color: item.textcolor }">{id}: </span>
-          <span :style="{ color: item.textcolor }">{Name}</span>
-        </template>
+        <span v-if="hasRegions" :style="{ color: item.textcolor }">{{ id }}: {{ name }}</span>
+        <span v-if="!hasRegions" :style="{ color: item.textcolor }">{id}: {Name}</span>
       </div>
 
       <a class="app-item__regions-icon" 

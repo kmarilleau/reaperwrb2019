@@ -144,8 +144,6 @@
 .app-item__regions-nav {
   display: flex;
   height: 100%;
-  // display: grid;
-  // grid-template-columns: 1fr 2fr 1fr 1fr;
 }
 
 .app-item__markers-icon,
@@ -157,13 +155,17 @@
 .app-item__markers-info,
 .app-item__regions-info {
   overflow: hidden !important;
-  margin: auto 0;
   line-height: 2em;
+  height: inherit;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 50%;
 }
 
 .app-item__markers-info *,
 .app-item__regions-info * {
   white-space: nowrap;
+  margin: auto 0;
 }
 
 /* ICONS */
