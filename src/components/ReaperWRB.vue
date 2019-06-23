@@ -39,8 +39,6 @@ export default {
       let json = textarea.value
 
       const webremote = JSON.parse(json)
-      console.error(json)
-      console.log(webremote)
 
       this.onLaunchFromHTML(webremote)
     }
