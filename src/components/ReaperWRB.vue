@@ -31,7 +31,17 @@ export default {
     // check if we're running from inside a HTML
     const div = document.querySelector('#reaperwrb-json')
     if(typeof(div) !== 'undefined' && div !== null) {
-      const webremote = JSON.parse(div.innerHTML)
+
+      // looks hacky but does the trick, textarea will return decoded html entities
+      // while still preserving tags (though we don't need that)
+      let textarea = document.createElement("textarea")
+      textarea.innerHTML = div.innerHTML
+      let json = textarea.value
+
+      const webremote = JSON.parse(json)
+      console.error(json)
+      console.log(webremote)
+
       this.onLaunchFromHTML(webremote)
     }
 

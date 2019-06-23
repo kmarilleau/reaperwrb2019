@@ -11,25 +11,20 @@
           :width="iconSize + 'px'"
         />
       </a>
-      <div class="app-item__markers-info">
+
+      <div class="app-item__markers-info"
+        @click="onRefresh()"
+      >
         <template v-if="hasMarkers">
-          <span :style="{ color: item.textcolor }">Marker: {{ id }}</span>
+          <span :style="{ color: item.textcolor }">{{ id }}: </span>
           <span :style="{ color: item.textcolor }">{{ name }}</span>
         </template>
         <template v-if="!hasMarkers">
-          <span :style="{ color: item.textcolor }">Marker: {id}</span>
+          <span :style="{ color: item.textcolor }">{id}: </span>
           <span :style="{ color: item.textcolor }">{Name}</span>
         </template>
       </div>
-      <a class="app-item__markers-icon"
-        @click="onRefresh()"
-        :style="{ color: item.textcolor }"
-      >
-        <svgicon icon="sync" 
-          :height="iconSize + 'px'"
-          :width="iconSize + 'px'"
-        />
-      </a>
+
       <a class="app-item__markers-icon"
         @click="onNextMarker()"
         :style="{ color: item.textcolor }"
@@ -39,6 +34,7 @@
           :width="iconSize + 'px'"
         />
       </a>
+
     </div>
 
   </div>
