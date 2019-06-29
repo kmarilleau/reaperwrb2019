@@ -16,7 +16,7 @@
         @click="onRefresh()"
       >
         <span v-if="hasMarkers" :style="{ color: item.textcolor }">{{ id }}: {{ name }}</span>
-        <span v-if="!hasMarkers" :style="{ color: item.textcolor }">{id}: {Name}</span>
+        <span v-if="!hasMarkers" :style="{ color: item.textcolor }">tab to refresh</span>
       </div>
 
       <a class="app-item__markers-icon"
