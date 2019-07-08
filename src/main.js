@@ -389,7 +389,6 @@ const store = new Vuex.Store({
       state.editor    = cloneDeep(defaults.editor)
       state.webremote = cloneDeep(defaults.webremote)
 
-
       // FIXME move browser detection to function
       // Firefox 1.0+
       if(typeof InstallTrigger !== 'undefined')
@@ -684,6 +683,8 @@ const store = new Vuex.Store({
       loader.classList.remove('fadeOut')
       loader.classList.remove('hidden')
       loader.classList.add('fadeIn')
+      document.body.style.overflow = 'hidden'
+
     },
 
     fadeOutLoader: state => {
@@ -692,6 +693,7 @@ const store = new Vuex.Store({
       loader.classList.add('fadeOut')
       setTimeout(function() {
         document.querySelector('#loader').classList.add('hidden')
+        document.body.style.overflow = 'auto'
       }, 1000)
     },
 
@@ -1208,5 +1210,5 @@ const app = new Vue({
       log('REAPER API not ready!', LOG_LEVEL.ERROR)
     }
 
-  }
+  },
 })
