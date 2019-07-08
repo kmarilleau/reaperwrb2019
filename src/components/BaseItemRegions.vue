@@ -1,7 +1,7 @@
 <template>
   <div class="app-item__container app-item__regions">
     <div class="app-item__regions-nav">
-
+     
       <a class="app-item__regions-icon" 
         @click="onPreviousRegion()"
         :style="{ color: item.textcolor }"
@@ -15,7 +15,7 @@
       <div class="app-item__regions-info"
         @click="onRefresh()"
       >
-        <span v-if="hasRegions" :style="{ color: item.textcolor }">{{ id }}: {{ name }}</span>
+        <span v-if="hasRegions" :style="{ color: item.textcolor }">{{ getRegionId }}: {{ getRegionName }}</span>
         <span v-if="!hasRegions" :style="{ color: item.textcolor }">tab to refresh</span>
       </div>
 
@@ -50,7 +50,7 @@ export default {
 
   beforeMount() {
     if(this.reaperReady)
-      this.execAction({ action: 'REGION' })
+      this.execAction({ action: 'REGION', recur: 250 })
   },
 
   computed: {
@@ -59,8 +59,12 @@ export default {
       'reaperReady',
       'hasRegions',
       'getRegions',
+      'getRegionId',
+      'getRegionIdx',
+      'getRegionName',
+      'getRegionLastId',
       'isAppModeEditor'
-    ])
+    ]),
   },
 
   methods: {
@@ -69,22 +73,20 @@ export default {
     ]),
 
     onPreviousRegion(event) {
-      const regions  = this.getRegions
-      if(regions.length > 0) {
-        this.current = this.current - 1 < 0 ? regions.length - 1 : this.current - 1
-        this.id = regions[this.current].id
-        this.name = regions[this.current].name
-        this.execAction({ action: 'SET/POS_STR/r' + this.id })
+      if(this.getRegionIdx === 0) {
+        this.execAction({ action: `SET/POS_STR/r${this.getRegionLastId}` }) 
+      } else {
+        const id = this.getRegions[this.getRegionIdx - 1].id
+        this.execAction({ action: `SET/POS_STR/r${id}`})
       }
     },
 
     onNextRegion(event) {
-      const regions  = this.getRegions
-      if(regions.length > 0) {
-        this.current = (this.current + 1 === regions.length) ? 0 : this.current + 1
-        this.id = regions[this.current].id
-        this.name = regions[this.current].name 
-        this.execAction({ action: 'SET/POS_STR/r' + this.id })
+      if(this.getRegionIdx < this.getRegions.length - 1) {
+        const id = this.getRegions[this.getRegionIdx + 1].id
+        this.execAction({ action: `SET/POS_STR/r${id}`})
+      } else {
+        this.execAction({ action: `SET/POS_STR/r1`})
       }
     },
 

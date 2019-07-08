@@ -25,7 +25,9 @@ export const defaults = {
       position_string_beats: ''
     },
     markers: [],
+    marker_idx: 0,
     regions: [],
+    region_idx: 0,
     tracks: []
   },
 

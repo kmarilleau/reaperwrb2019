@@ -90,6 +90,7 @@ const store = new Vuex.Store({
     itemHeight: (state, getters) => state.webremote.itemHeight,
     itemWidth:  (state, getters) => state.webremote.itemWidth,
     iconSize:   (state, getters) => (getters.itemHeight / 3).toString(),
+    iconSizePX: (state, getters) => getters.iconSize + 'px',
 
     showHelp: (state, getters) =>  state.editor.help,
 
@@ -135,9 +136,17 @@ const store = new Vuex.Store({
 
     hasMarkers: (state, getters) => state.reaper.markers.length > 0,
     getMarkers: (state, getters) => state.reaper.markers,
+    getMarkerIdx: (state, getters) => state.reaper.marker_idx,
+    getMarkerId: (state, getters) => getters.hasMarkers ? state.reaper.markers[state.reaper.marker_idx].id : '',
+    getMarkerName: (state, getters) => getters.hasMarkers ? state.reaper.markers[state.reaper.marker_idx].name : '',
+    getMarkerLastId: (state, getters) => getters.hasMarkers ? state.reaper.markers[state.reaper.markers.length - 1].id : '',
 
     hasRegions: (state, getters) => state.reaper.regions.length > 0,
     getRegions: (state, getters) => state.reaper.regions,
+    getRegionIdx: (state, getters) => state.reaper.region_idx,
+    getRegionId: (state, getters) => getters.hasRegions ? state.reaper.regions[state.reaper.region_idx].id : '',
+    getRegionName: (state, getters) => getters.hasRegions ? state.reaper.regions[state.reaper.region_idx].name : '',
+    getRegionLastId: (state, getters) => getters.hasRegions ? state.reaper.regions[state.reaper.regions.length - 1].id : '',
 
     hasTracks: (state, getters) => state.reaper.tracks.length > 0,
     getTracks: (state, getters) => state.reaper.tracks,
@@ -371,7 +380,6 @@ const store = new Vuex.Store({
       if(!success)
         console.error("REAPERWRB ERROR: Could not load %s storage.", payload.type)
     },
-
   },
 
   mutations: {
@@ -967,8 +975,6 @@ const store = new Vuex.Store({
       state.editor.data.item.obj = state.webremote.tabs[state.webremote.active_tab]
     },
 
-
-
     updateItem: (state, payload) => state.editor.data.item.obj[payload.key] = payload.val,
 
     updateItems: (state, payload) => {
@@ -1033,7 +1039,6 @@ const store = new Vuex.Store({
       if(state.mode === appModes.STARTUP) return
 
       const active_tab  = state.webremote.active_tab
-
       const tabs = state.webremote.tabs
       const rows = tabs[active_tab].rows
 
@@ -1078,6 +1083,26 @@ const store = new Vuex.Store({
           state.reaper.markers.push(marker)
         }
 
+        if(line.match(/^MARKER_LIST_END/)) {
+          if(state.reaper.transport.online) {
+
+            let pos = Number(state.reaper.transport.position_seconds)
+            let prevMarkerPos = 0
+            
+            state.reaper.marker_idx = 0
+
+            state.reaper.markers.forEach((marker, index) => {
+              let markerPos = Number(marker.pos)
+              if(markerPos <= pos && markerPos > prevMarkerPos) {
+                prevMarkerPos = markerPos
+                state.reaper.marker_idx = index
+              }
+            })
+
+            // log("Updated Marker List", LOG_LEVEL.INFO)
+          }
+        }
+
         if(line.match(/^REGION_LIST/) && !line.match(/^REGION_LIST_END/))
           state.reaper.regions = []
 
@@ -1086,6 +1111,25 @@ const store = new Vuex.Store({
           const [ name, id, pos, color ] = data
           const region = { name, id, pos, color }
           state.reaper.regions.push(region)
+        }
+
+        if(line.match(/^REGION_LIST_END/)) {
+          if(state.reaper.transport.online) {
+
+            let pos = Number(state.reaper.transport.position_seconds)
+            let prevRegionPos = 0
+
+            state.reaper.region_idx = 0
+            state.reaper.regions.forEach((region, index) => {
+              let regionPos = Number(region.pos)
+              if(regionPos <= pos && regionPos > prevRegionPos) {
+                prevRegionPos = regionPos
+                state.reaper.region_idx = index
+              }
+            })
+
+            // log("Updated Region List", LOG_LEVEL.INFO)
+          }
         }
 
         if(line.match(/^TRACK/)) {

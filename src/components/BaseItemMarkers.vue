@@ -15,7 +15,7 @@
       <div class="app-item__markers-info"
         @click="onRefresh()"
       >
-        <span v-if="hasMarkers" :style="{ color: item.textcolor }">{{ id }}: {{ name }}</span>
+        <span v-if="hasMarkers" :style="{ color: item.textcolor }">{{ getMarkerId }}: {{ getMarkerName }}</span>
         <span v-if="!hasMarkers" :style="{ color: item.textcolor }">tab to refresh</span>
       </div>
 
@@ -40,16 +40,8 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   props: ['item'],
 
-  data() {
-    return {
-      id: '',
-      name: '',
-      current: 0,
-    }
-  },
-
   beforeMount() {
-    this.execAction({ action: 'MARKER' })
+    this.execAction({ action: 'MARKER', recur: 250 })
   },
 
   computed: {
@@ -57,33 +49,35 @@ export default {
       'iconSize',
       'hasMarkers',
       'isAppModeEditor',
-      'getMarkers'
+      'getMarkers',
+      'getMarkerIdx',
+      'getMarkerId',
+      'getMarkerName',
+      'getMarkerLastId'
     ])
   },
 
   methods: {
 
     ...mapMutations([
-      'execAction'
+      'execAction',
     ]),
 
     onPreviousMarker(event) {
-      const markers  = this.getMarkers
-      if(markers.length > 0) {
-        this.current = this.current - 1 < 0 ? markers.length - 1 : this.current - 1
-        this.id = markers[this.current].id
-        this.name = markers[this.current].name
-        this.execAction({ action: 'SET/POS_STR/m' + this.id })
+      if(this.getMarkerIdx === 0) {
+        this.execAction({ action: `SET/POS_STR/m${this.getMarkerLastId}` })
+      } else {
+        const id = this.getMarkers[this.getMarkerIdx - 1].id
+        this.execAction({ action: `SET/POS_STR/m${id}` })
       }
     },
 
     onNextMarker(event) {
-      const markers  = this.getMarkers
-      if(markers.length > 0) {
-        this.current = (this.current + 1 === markers.length) ? 0 : this.current + 1
-        this.id = markers[this.current].id
-        this.name = markers[this.current].name
-        this.execAction({ action: 'SET/POS_STR/m' + this.id })
+      if(this.getMarkerIdx < this.getMarkers.length - 1) {
+        const id = this.getMarkers[this.getMarkerIdx + 1].id
+        this.execAction({ action: `SET/POS_STR/m${id}` })
+      } else  {
+        this.execAction({ action: `SET/POS_STR/m1` })
       }
     },
 
