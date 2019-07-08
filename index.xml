@@ -5,7 +5,7 @@
 
       <version name="2.2" author="michaelklier" time="2019-05-07T00:00:000">
 
-        <source file="reaperwrb_2/reaperwrb.lua" type="script">http://m-klier.de/projects/reaperwrb/dist/2.2/script/reaperwrb.lua</source>
+        <source file="reaperwrb_2/reaperwrb.lua" main="main" type="script">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/script/reaperwrb.lua</source>
 
         <source file="reaperwrb_2.html">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2.html</source>
         <source file="reaperwrb_2/browserconfig.xml">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/browserconfig.xml</source>
@@ -49,8 +49,11 @@
         <source file="reaperwrb_2/css/app.css.map">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/css/app.css.map</source>
         <source file="reaperwrb_2/css/loader.css">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/css/loader.css</source>
       <changelog><![CDATA[
-        - added support for ipad 3
-        - additional icons
+        - track context module
+        - marker / region module live update
+        - update command states periodically
+        - couple new icons
+        - minor style changes
         ]]></changelog>
       </version>
       
