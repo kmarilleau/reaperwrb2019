@@ -35,7 +35,7 @@
           :style="getStyle()"
           @click.stop="onDefault()"
         >
-          <svgicon icon="launch" /><span> Default</span>
+          <span> Default</span>
         </button>
       </div>
 

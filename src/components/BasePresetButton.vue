@@ -10,7 +10,6 @@
       <button class="app-button-launch-preset"
         @click.stop="onLoad(title, timestamp, type)"
       >
-        <svgicon icon="launch" />
         <span>{{title}}</span>
       </button>
 
