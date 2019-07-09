@@ -87,13 +87,19 @@ export default {
     ]),
 
     onSearchAction(event) {
+
       if(event.target.value !== '') {
-        let regexString = '.*' + event.target.value.toLowerCase().split(' ').join('.+') + '.*'
-        let regex = new RegExp(regexString, 'g')
+        const isMidiAction = this.editItemKey('midi_editor', false)
+        const regexString = '.*' + event.target.value.toLowerCase().split(' ').join('.+') + '.*'
+        const regex = new RegExp(regexString, 'g')
+
         this.search = ActionList.filter(action => {
-          if(regex.test(action[2].toLowerCase()))
+          if(!isMidiAction && action[0] === 'Main' && regex.test(action[2].toLowerCase()))
+            return action
+          else if(isMidiAction && action[0] === 'Midi' && regex.test(action[2].toLowerCase()))
             return action
         })
+
         if(this.search.length > 0)
           event.target.blur()
       }
@@ -108,7 +114,6 @@ export default {
       this.itemAction = this.search[index][1].toString()
       this.itemDesc = this.search[index][2]
       this.itemLabel = this.itemDesc
-      // this.itemLabel = this.itemDesc.substr(0, 32) + '[...]'
       this.search = []
       this.$el.querySelector('#search-action').value = ''
     },

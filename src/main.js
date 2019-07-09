@@ -49,7 +49,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    version: '2.1.1',
+    version: '2.2',
     mode: appModes.STARTUP,
     reaper: {},
     editor: {},
@@ -196,6 +196,8 @@ const store = new Vuex.Store({
         return false
     },
 
+    // FIXME this is kinda bad, the 2nd test can fail if we have bools as key values
+    // also the default return should not be undefined! ffs
     editItemKey: (state, getters) => (key, defaultValue) => {
       if(getters.editItemHasKey(key) && state.editor.data.item.obj[key])
         return state.editor.data.item.obj[key]
