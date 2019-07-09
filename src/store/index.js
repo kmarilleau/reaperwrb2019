@@ -2,17 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import htmlTemplate from '@/lib/htmlTemplate'
 import example from '@/lib/example'
-import { appModes, editorModes, defaults } from '@/lib/reaperwrb'
+import { APP_MODES, EDITOR_MODES, APP_DEFAULTS } from '@/lib/reaperwrb'
 import { saveAs } from 'file-saver/FileSaver'
 import cloneDeep from 'lodash/cloneDeep'
-import { log, LOG_LEVEL, DEBUG_LOG } from '../lib/log'
+import { LOG, LOG_LEVEL, DEBUG } from '../lib/log'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
       version: '2.2',
-      mode: appModes.STARTUP,
+      mode: APP_MODES.STARTUP,
       reaper: {},
       editor: {},
       webremote: {},
@@ -38,14 +38,14 @@ export default new Vuex.Store({
   
       isEditorEnabled: (state, getters) => state.editor.enabled,
   
-      isAppModeStartup: (state, getters) => state.mode === appModes.STARTUP,
-      isAppModeRemote:  (state, getters) => state.mode === appModes.REMOTE,
-      isAppModeEditor:  (state, getters) => state.mode === appModes.EDITOR,
+      isAppModeStartup: (state, getters) => state.mode === APP_MODES.STARTUP,
+      isAppModeRemote:  (state, getters) => state.mode === APP_MODES.REMOTE,
+      isAppModeEditor:  (state, getters) => state.mode === APP_MODES.EDITOR,
   
-      isEditorModeMain:     (state, getters) => state.editor.mode === editorModes.MAIN,
-      isEditorModeAdd:      (state, getters) => state.editor.mode === editorModes.ADD,
-      isEditorModeSave:     (state, getters) => state.editor.mode === editorModes.SAVE,
-      isEditorModeDelete:   (state, getters) => state.editor.mode === editorModes.DELETE,
+      isEditorModeMain:     (state, getters) => state.editor.mode === EDITOR_MODES.MAIN,
+      isEditorModeAdd:      (state, getters) => state.editor.mode === EDITOR_MODES.ADD,
+      isEditorModeSave:     (state, getters) => state.editor.mode === EDITOR_MODES.SAVE,
+      isEditorModeDelete:   (state, getters) => state.editor.mode === EDITOR_MODES.DELETE,
       isEditorBulkEdit:     (state, getters) => state.editor.bulk_edit,
       isEditorExecActions:  (state, getters) => state.editor.exec_actions,
   
@@ -58,7 +58,7 @@ export default new Vuex.Store({
   
       showEditorBulkEditButtons: (state, getters) => {
         return state.editor.bulk_edit
-          && state.editor.mode !== editorModes.DELETE
+          && state.editor.mode !== EDITOR_MODES.DELETE
           && state.editor.data.bulk.length > 0
       },
   
@@ -349,9 +349,9 @@ export default new Vuex.Store({
     mutations: {
       init: (state) => {
   
-        state.reaper    = cloneDeep(defaults.reaper)
-        state.editor    = cloneDeep(defaults.editor)
-        state.webremote = cloneDeep(defaults.webremote)
+        state.reaper    = cloneDeep(APP_DEFAULTS.REAPER)
+        state.editor    = cloneDeep(APP_DEFAULTS.EDITOR)
+        state.webremote = cloneDeep(APP_DEFAULTS.WEBREMOTE)
   
         // FIXME move browser detection to function
         // Firefox 1.0+
@@ -375,7 +375,7 @@ export default new Vuex.Store({
         if(!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime))
           state.editor.browser = 'chrome'
   
-        log(`Detected browser = ${state.editor.browser}`)
+        LOG(`Detected browser = ${state.editor.browser}`)
   
         const request = new XMLHttpRequest()
         request.open('GET', window.location.origin + '/reaperwrb.json')
@@ -385,7 +385,7 @@ export default new Vuex.Store({
         let hasJSON = false
   
         request.onload = () => {
-          log("Loading reaperwrb.json")
+          LOG("Loading reaperwrb.json")
           if(request.response !== null) {
             hasJSON = true
             state.storage.json = request.response
@@ -393,7 +393,7 @@ export default new Vuex.Store({
             if(typeof(jsonStorage) !== 'undefined') {
               
               if(jsonStorage.webremotes.length > 0 && !hasJSON) {
-                log("Migrating old json storage")
+                LOG("Migrating old json storage")
                 alert("ReaperWRB needs to migrate webremote.js.\nPlease save the following file to your 'reaper_www_root' folder!\nAfterwards reload ReaperWRB!")
                 const json = JSON.stringify(jsonStorage)
                 const blob = new Blob([json], { type: "application/json" })
@@ -401,7 +401,7 @@ export default new Vuex.Store({
               }
   
             } else {
-              log("REAPERWRB: Creating json storage")
+              LOG("REAPERWRB: Creating json storage")
               alert("ReaperWRB needs to create it's db file.\nPlease save the following file to your 'reaper_www_root' folder!\nAfterwards reload ReaperWRB!")
               const json = JSON.stringify({"webremotes": []})
               const blob = new Blob([json], { type: "application/json" })
@@ -413,37 +413,37 @@ export default new Vuex.Store({
         // check local storage support
         if(typeof(Storage) !== 'undefined') {
           state.storage.local_support = true
-          state.storage.local = cloneDeep(defaults.storage)
-          log('Local storage support enabled.')
+          state.storage.local = cloneDeep(APP_DEFAULTS.STORAGE)
+          LOG('Local storage support enabled.')
           if(localStorage.getItem('REAPERWRB')) {
-            log('Loading local storage.')
+            LOG('Loading local storage.')
             state.storage.local = JSON.parse(localStorage.getItem('REAPERWRB'))
           }
         } else {
           state.storage.local_support = false
-          log('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!', LOG_LEVEL.ERROR)
+          LOG('REAPERWRB ERROR: Browser does not support Local Storage. Please use a modern Browser!', LOG_LEVEL.ERROR)
         }
       },
   
-      setModeStartup: state => state.mode = appModes.STARTUP,
-      setModeRemote:  state => state.mode = appModes.REMOTE,
-      setModeEditor:  state => state.mode = appModes.EDITOR,
+      setModeStartup: state => state.mode = APP_MODES.STARTUP,
+      setModeRemote:  state => state.mode = APP_MODES.REMOTE,
+      setModeEditor:  state => state.mode = APP_MODES.EDITOR,
   
-      setEditorModeMain:    state => state.editor.mode = editorModes.MAIN,
-      setEditorModeAdd:     state => state.editor.mode = editorModes.ADD,
-      setEditorModeDelete:  state => state.editor.mode = editorModes.DELETE,
-      setEditorModeSave:    state => state.editor.mode = editorModes.SAVE,
+      setEditorModeMain:    state => state.editor.mode = EDITOR_MODES.MAIN,
+      setEditorModeAdd:     state => state.editor.mode = EDITOR_MODES.ADD,
+      setEditorModeDelete:  state => state.editor.mode = EDITOR_MODES.DELETE,
+      setEditorModeSave:    state => state.editor.mode = EDITOR_MODES.SAVE,
   
       onWindowResize: state => {
   
-        log("Window Resize")
+        LOG("Window Resize")
   
         if(screen.width < 1024)
           state.editor.enabled = false
         else
           state.editor.enabled = true
   
-        if(state.mode === appModes.EDITOR) {
+        if(state.mode === APP_MODES.EDITOR) {
           let editorView = document.querySelector('.app-view')
           Vue.set(state.webremote, 'columns', 8)
           Vue.set(state.webremote, 'itemWidth', editorView.clientWidth / 8)
@@ -478,7 +478,7 @@ export default new Vuex.Store({
       },
   
       clearEditHighlight: state => {
-        if(state.mode === appModes.EDITOR) {
+        if(state.mode === APP_MODES.EDITOR) {
           //FIXME use el in edit_item reference
           const el = document.querySelectorAll('.app-highlight-edit')
           for(let i = 0; i < el.length; i++) {
@@ -505,14 +505,14 @@ export default new Vuex.Store({
   
       setWebremoteTitle: (state, title) => state.webremote.title = title,
   
-      clearEditItem:  state => state.editor.data.item = cloneDeep(defaults.editor.data.item),
+      clearEditItem:  state => state.editor.data.item = cloneDeep(APP_DEFAULTS.EDITOR.data.item),
       clearEditItems: state => state.editor.data.bulk = [],
   
       setReaperReady: (state, ready) => state.reaper.ready = ready,
   
       new: state => {
-        const newWebremote = cloneDeep(defaults.webremote)
-        const newTab = cloneDeep(defaults.tab)
+        const newWebremote = cloneDeep(APP_DEFAULTS.WEBREMOTE)
+        const newTab = cloneDeep(APP_DEFAULTS.TAB)
         newTab.rows.push([])
         newWebremote.tabs.push(newTab)
         state.webremote = newWebremote
@@ -522,8 +522,8 @@ export default new Vuex.Store({
       },
   
       unload: (state) => {
-        log('Unloading webremote.')
-        state.webremote = cloneDeep(defaults.webremote)
+        LOG('Unloading webremote.')
+        state.webremote = cloneDeep(APP_DEFAULTS.WEBREMOTE)
       },
   
       showSaveDialog: state => {
@@ -531,7 +531,7 @@ export default new Vuex.Store({
       },
   
       saveHTML: state => {
-        log('Saving to HTML.')
+        LOG('Saving to HTML.')
         const webremote = cloneDeep(state.webremote)
         webremote.active_tab = 0
         const d = new Date()
@@ -543,24 +543,24 @@ export default new Vuex.Store({
       },
   
       saveJSON: state => {
-        log('Saving to JSON.')
+        LOG('Saving to JSON.')
         const webremote = cloneDeep(state.webremote)
         webremote.active_tab = 0
         const d = new Date()
   
         if(!state.storage.json)
-          state.storage.json = cloneDeep(defaults.storage)
+          state.storage.json = cloneDeep(APP_DEFAULTS.STORAGE)
   
         if(typeof(webremote.timestamp) === 'undefined') {
           webremote.timestamp = d.getTime()
           state.storage.json.webremotes.push(webremote)
-          log('Adding new JSON entry.')
+          LOG('Adding new JSON entry.')
         } else {
   
           let saved = false
           state.storage.json.webremotes.map((storageWebremote, index) => {
             if(storageWebremote.timestamp === webremote.timestamp) {
-              log('Updating JSON entry.')
+              LOG('Updating JSON entry.')
               state.storage.json.webremotes[index] = webremote
               saved = true
             }
@@ -568,7 +568,7 @@ export default new Vuex.Store({
   
           // if we still haven't saved we're probably moving a existing webremote to json
           if(!saved) {
-            log('Adding new JSON entry.')
+            LOG('Adding new JSON entry.')
             webremote.timestamp = d.getTime()
             state.storage.json.webremotes.push(webremote)
           }
@@ -581,12 +581,12 @@ export default new Vuex.Store({
       saveLocalStorage: state => {
         const d = new Date()
         if(state.storage.local_support) {
-          log('Saving to local storage.')
+          LOG('Saving to local storage.')
           const webremote = cloneDeep(state.webremote)
           webremote.active_tab = 0
   
           if(typeof(webremote.timestamp) === 'undefined') {
-            log('Adding new local entry.')
+            LOG('Adding new local entry.')
             webremote.timestamp = d.getTime()
             state.storage.local.webremotes.push(webremote)
   
@@ -595,7 +595,7 @@ export default new Vuex.Store({
             let saved = false
             state.storage.local.webremotes.map((storageWebremote, index) => {
               if(storageWebremote.timestamp === webremote.timestamp) {
-                log('Updateing local entry.')
+                LOG('Updateing local entry.')
                 state.storage.local.webremotes[index] = webremote
                 saved = true
               }
@@ -603,7 +603,7 @@ export default new Vuex.Store({
   
             // if we still haven't saved we're probably saving html/json webremote to local storage
             if(!saved) {
-              log('Adding new local entry.')
+              LOG('Adding new local entry.')
               webremote.timestamp = d.getTime()
               state.storage.local.webremotes.push(webremote)
             }
@@ -614,7 +614,7 @@ export default new Vuex.Store({
       },
   
       syncStorage: (state, payload) => {
-        log('Syncing storage.')
+        LOG('Syncing storage.')
         if(payload.type === 'local') {
           if(state.storage.local_support)
             localStorage.setItem('REAPERWRB', JSON.stringify(state.storage.local))
@@ -628,7 +628,7 @@ export default new Vuex.Store({
       },
   
       deleteLocalStorage: state => {
-        log("Deleting local storage!")
+        LOG("Deleting local storage!")
         localStorage.removeItem('REAPERWRB')
       },
   
@@ -636,7 +636,7 @@ export default new Vuex.Store({
         state.storage[payload.type].webremotes.forEach((webremote, index) => {
           if(payload.title === webremote.title
           && payload.timestamp === webremote.timestamp) {
-            log(`Deleting preset from ${payload.type} storage.`)
+            LOG(`Deleting preset from ${payload.type} storage.`)
             state.storage[payload.type].webremotes.splice(index, 1)
           }
         })
@@ -666,7 +666,7 @@ export default new Vuex.Store({
       },
   
       import: (state, payload) => {
-        log("Importing data.")
+        LOG("Importing data.")
         state.editor.help = false
         if(typeof(payload.tabs) !== 'undefined') {
           state.webremote = cloneDeep(payload)
@@ -678,14 +678,14 @@ export default new Vuex.Store({
       },
   
       switchTab: (state, tab) => {
-        state.editor.data.item = cloneDeep(defaults.editor.data.item)
+        state.editor.data.item = cloneDeep(APP_DEFAULTS.EDITOR.data.item)
         state.webremote.active_tab = tab
       },
   
       switchRow: (state, row) => state.editor.active_row = row,
   
       toggleBulkEdit: state => {
-        state.editor.data.item = cloneDeep(defaults.editor.data.item)
+        state.editor.data.item = cloneDeep(APP_DEFAULTS.EDITOR.data.item)
         state.editor.data.bulk = []
         state.editor.bulk_edit = state.editor.bulk_edit ? false : true
       },
@@ -739,19 +739,19 @@ export default new Vuex.Store({
       clear: state => {
         state.webremote.tabs = []
         state.webremote.active_tab = 0
-        state.editor.data = cloneDeep(defaults.editor.data)
+        state.editor.data = cloneDeep(APP_DEFAULTS.EDITOR.data)
         state.editor.bulk_edit = false
         state.editor.help = true
       },
   
       addItem: (state, type) => {
-        const item = cloneDeep(defaults[type])
+        const item = cloneDeep(APP_DEFAULTS[type])
         const row = state.webremote.tabs[state.webremote.active_tab].rows[state.editor.active_row]
         row.push(item)
         state.editor.data.item.type = type
         state.editor.data.item.row = state.editor.active_row
         state.editor.data.item.obj = row[row.length - 1]
-        state.editor.mode = editorModes.MAIN
+        state.editor.mode = EDITOR_MODES.MAIN
       },
   
       cancelAddItem: state => {
@@ -798,7 +798,7 @@ export default new Vuex.Store({
       },
   
       showDeleteDialog: state => {
-        state.editor.mode = editorModes.DELETE
+        state.editor.mode = EDITOR_MODES.DELETE
         state.editor.data.bin = cloneDeep(state.editor.data.item)
   
         state.editor.data.bin.el.classList.add('app-highlight-delete')
@@ -812,13 +812,13 @@ export default new Vuex.Store({
       },
   
       showRowDeleteDialog: (state, payload) => {
-        state.editor.mode = editorModes.DELETE
+        state.editor.mode = EDITOR_MODES.DELETE
         state.editor.data.bin = payload
         state.editor.data.bin.el.classList.add('app-highlight-delete')
       },
   
       showBulkDeleteDialog: state => {
-        state.editor.mode = editorModes.DELETE
+        state.editor.mode = EDITOR_MODES.DELETE
         state.editor.data.bulk.forEach(item => item.el.classList.add('app-highlight-delete'))
       },
   
@@ -830,14 +830,14 @@ export default new Vuex.Store({
           el[i].classList.remove('app-highlight-delete')
         }
         state.editor.data.bin = false
-        state.editor.mode = editorModes.MAIN
+        state.editor.mode = EDITOR_MODES.MAIN
       },
   
       cancelBulkDelete: state => {
         state.editor.data.bulk.forEach(item => {
           item.el.classList.remove('app-highlight-delete')
         })
-        state.editor.mode = editorModes.MAIN
+        state.editor.mode = EDITOR_MODES.MAIN
       },
   
       bulkDelete: state => {
@@ -858,7 +858,7 @@ export default new Vuex.Store({
         })
   
         state.editor.data.bulk = []
-        state.editor.mode = editorModes.MAIN
+        state.editor.mode = EDITOR_MODES.MAIN
       },
   
       delete: (state, keepItems) => {
@@ -923,9 +923,9 @@ export default new Vuex.Store({
             break
           }
   
-          state.editor.data.item = cloneDeep(defaults.editor.data.item)
+          state.editor.data.item = cloneDeep(APP_DEFAULTS.EDITOR.data.item)
           state.editor.data.bin = false
-          state.editor.mode = editorModes.MAIN
+          state.editor.mode = EDITOR_MODES.MAIN
         },
   
       rowAdd: (state, row) => {
@@ -933,7 +933,7 @@ export default new Vuex.Store({
       },
   
       addTab: (state, tab) => {
-        const newTab = cloneDeep(defaults.tab)
+        const newTab = cloneDeep(APP_DEFAULTS.TAB)
         newTab.rows.push([])
         state.webremote.tabs.push(newTab)
         state.webremote.active_tab = state.webremote.tabs.length - 1
@@ -957,7 +957,7 @@ export default new Vuex.Store({
   
       execAction: (state, payload = { action: false, recur: false, midi_editor: false }) => {
   
-        if(state.mode === appModes.EDITOR
+        if(state.mode === APP_MODES.EDITOR
           && !state.editor.exec_actions
           && typeof(payload.recur) === 'undefined')
           return
@@ -967,7 +967,7 @@ export default new Vuex.Store({
             wwr_req_recur(payload.action, payload.recur)
           } else {
             if(!payload.midi_editor) {
-              log("Executing action: ", payload.action)
+              LOG("Executing action: ", payload.action)
               wwr_req(payload.action)
             } else {
               wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
@@ -988,7 +988,7 @@ export default new Vuex.Store({
       getCmdStates: state => {
   
         if(state.reaper.ready && state.webremote.tabs[state.webremote.active_tab] !== undefined) {
-          log('Updating command states!')
+          LOG('Updating command states!')
           state.webremote.tabs[state.webremote.active_tab].rows.forEach((row) => {
             row.forEach((item) => {
               if(item.type === 'action')
@@ -1001,7 +1001,7 @@ export default new Vuex.Store({
       // FIXME create functions to import
       onReply: (state, result) => {
   
-        if(state.mode === appModes.STARTUP) return
+        if(state.mode === APP_MODES.STARTUP) return
   
         const active_tab  = state.webremote.active_tab
         const tabs = state.webremote.tabs
@@ -1064,7 +1064,7 @@ export default new Vuex.Store({
                 }
               })
   
-              // log("Updated Marker List", LOG_LEVEL.INFO)
+              // LOG("Updated Marker List", LOG_LEVEL.INFO)
             }
           }
   
@@ -1093,7 +1093,7 @@ export default new Vuex.Store({
                 }
               })
   
-              // log("Updated Region List", LOG_LEVEL.INFO)
+              // LOG("Updated Region List", LOG_LEVEL.INFO)
             }
           }
   

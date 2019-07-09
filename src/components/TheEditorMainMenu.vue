@@ -62,7 +62,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
 import example from '@/lib/example'
-import { defaults } from '@/lib/reaperwrb'
+import { APP_DEFAULTS } from '@/lib/reaperwrb'
 import BaseEditorButton from '@/components/BaseEditorButton.vue'
 
 export default {
@@ -197,7 +197,7 @@ export default {
         .filter(line => !line.match('-1'))
         .map(line => {
           const r = line.split('=')[1].split(/ (.+)/)
-          let item = JSON.parse(JSON.stringify(defaults.action))
+          let item = JSON.parse(JSON.stringify(APP_DEFAULTS.ACTION))
           item.action = r[0]
           item.desc = r[1].replace(/ /g, ' ')
           item.label =
@@ -207,7 +207,7 @@ export default {
           return item
         })
 
-      const tab = JSON.parse(JSON.stringify(defaults.tab))
+      const tab = JSON.parse(JSON.stringify(APP_DEFAULTS.TAB))
       tab.label = filename.replace(/\.ReaperMenu|\.txt/g, '')
 
       if(items.length > 0) {
@@ -224,7 +224,7 @@ export default {
     fixJSON(tabs) {
       // import tabs
       let result = tabs.map(tab => {
-        const newTab = cloneDeep(defaults.tab)
+        const newTab = cloneDeep(APP_DEFAULTS.TAB)
         Object.keys(tab).forEach(key => {
           if(key in newTab)
             newTab[key] = tab[key]
@@ -237,7 +237,7 @@ export default {
         tab.rows = tab.rows.map(row => {
           return row.map(item => {
             
-            const newItem = cloneDeep(defaults[item.type])
+            const newItem = cloneDeep(APP_DEFAULTS[item.type])
             
             // import existing keys
             Object.keys(item).forEach(key => {

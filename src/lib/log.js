@@ -1,7 +1,7 @@
 'use strict'
 
 // Logging helpers
-export const DEBUG_LOG = true
+export const DEBUG = true
 
 export const LOG_LEVEL = {
   INFO: 0,
@@ -9,15 +9,15 @@ export const LOG_LEVEL = {
   ERROR: 2
 }
 
-export const log = (msg, lvl = LOG_LEVEL.INFO) => {
+export const LOG = (msg, lvl = LOG_LEVEL.INFO) => {
 
     switch (lvl) {
       case LOG_LEVEL.INFO:
-        if(DEBUG_LOG) 
+        if(DEBUG) 
           console.log(`ReaperWRB ${msg}`)
         break;
       case LOG_LEVEL.WARN:
-        if(DEBUG_LOG)
+        if(DEBUG)
           console.warn(`ReaperWRB: ${msg}`)
         break;
       case LOG_LEVEL.ERROR:

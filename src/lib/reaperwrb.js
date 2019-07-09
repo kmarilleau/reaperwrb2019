@@ -1,19 +1,19 @@
-export const appModes = {
+export const APP_MODES = {
   STARTUP: 0,
   REMOTE: 1,
   EDITOR: 2,
 }
 
-export const editorModes = {
+export const EDITOR_MODES = {
   MAIN: 0,
   ADD: 1,
   DELETE: 2,
   SAVE: 3,
 }
 
-export const defaults = {
+export const APP_DEFAULTS = {
   
-  reaper: {
+  REAPER: {
     ready: false,
     sync_interval: 2000,
     transport: {
@@ -31,9 +31,9 @@ export const defaults = {
     tracks: []
   },
 
-  editor: {
+  EDITOR: {
     browser: 'chrome',
-    mode: editorModes.MAIN,
+    mode: EDITOR_MODES.MAIN,
     exec_actions: false,
     bulk_edit: false,
     active_row: 0,
@@ -53,11 +53,11 @@ export const defaults = {
     }
   },
 
-  storage: {
+  STORAGE: {
     webremotes: []
   },
 
-  webremote: {
+  WEBREMOTE: {
     title: 'new webremote',
     timestamp: null,
     columns: 8, // grid 
@@ -67,7 +67,7 @@ export const defaults = {
     tabs: []
   },
 
-  action: {
+  ACTION: {
     type: 'action',
     midi_editor: false,
     label: 'new action',
@@ -84,14 +84,14 @@ export const defaults = {
     minwidth: 1,
   },
 
-  spacer: {
+  SPACER: {
     type: 'spacer',
     bgcolor: '#666666',
     width: 1,
     minwidth: 1,
   },
 
-  tab: {
+  TAB: {
     type: 'tab',
     label: 'new tab',
     bgcolor: '#666666',
@@ -99,7 +99,7 @@ export const defaults = {
     rows: [],
   },
 
-  transport: {
+  TRANSPORT: {
     type: 'transport',
     bgcolor: '#009CE0',
     textcolor: '#FFFFFF',
@@ -107,7 +107,7 @@ export const defaults = {
     minwidth: 4,
   },
 
-  position: {
+  POSITION: {
     type: 'position',
     bgcolor: '#009CE0',
     textcolor: '#FFFFFF',
@@ -115,7 +115,7 @@ export const defaults = {
     minwidth: 4,
   },
 
-  markers: {
+  MARKERS: {
     type: 'markers',
     bgcolor: '#A4DD00',
     textcolor: '#FFFFFF',
@@ -123,7 +123,7 @@ export const defaults = {
     minwidth: 4,
   },
 
-  regions: {
+  REGIONS: {
     type: 'regions',
     bgcolor: '#AEA1FF',
     textcolor: '#FFFFFF',
@@ -131,7 +131,7 @@ export const defaults = {
     minwidth: 4,
   },
 
-  tracksutil: {
+  TRACKSUTIL: {
     type: 'tracksutil',
     bgcolor: '#7B64FF',
     textcolor: '#FFFFFF',

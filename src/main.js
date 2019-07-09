@@ -5,7 +5,7 @@ import App from '@/App'
 import router from '@/router'
 import store from '@/store'
 import '@/icons/'
-import { log, LOG_LEVEL, DEBUG_LOG } from '@/lib/log'
+import { LOG, LOG_LEVEL, DEBUG } from '@/lib/log'
 
 Vue.config.productionTip = false
 
@@ -27,7 +27,7 @@ const app = new Vue({
     const reaperReady = typeof(wwr_start) === 'function' ? true : false
 
     if(reaperReady) {
-      log('Web Remote API ready.')
+      LOG('Web Remote API ready.')
       wwr_start()
       window.wwr_onreply = (result) => this.$store.commit('onReply', result)
       this.$store.commit('setReaperReady', reaperReady)
@@ -36,7 +36,7 @@ const app = new Vue({
       setInterval(() => this.$store.commit('getCmdStates'), this.$store.state.reaper.sync_interval)
 
     } else {
-      log('REAPER API not ready!', LOG_LEVEL.ERROR)
+      LOG('REAPER API not ready!', LOG_LEVEL.ERROR)
     }
 
   },
