@@ -61,8 +61,8 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
-import example from '@/example'
-import { defaults } from '@/reaperwrb'
+import example from '@/lib/example'
+import { defaults } from '@/lib/reaperwrb'
 import BaseEditorButton from '@/components/BaseEditorButton.vue'
 
 export default {

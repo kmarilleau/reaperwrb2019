@@ -31,7 +31,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import { ActionList } from '@/actions'
+import { ActionList } from '@/lib/actions'
 
 export default {
 
@@ -87,12 +87,10 @@ export default {
     ]),
 
     onSearchAction(event) {
-
       if(event.target.value !== '') {
         const isMidiAction = this.editItemKey('midi_editor', false)
         const regexString = '.*' + event.target.value.toLowerCase().split(' ').join('.+') + '.*'
         const regex = new RegExp(regexString, 'g')
-
         this.search = ActionList.filter(action => {
           if(!isMidiAction && action[0] === 'Main' && regex.test(action[2].toLowerCase()))
             return action

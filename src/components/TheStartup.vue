@@ -66,7 +66,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
-import example from '@/example'
+import example from '@/lib/example'
 import BasePresetButton from '@/components/BasePresetButton.vue'
 export default {
 

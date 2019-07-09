@@ -1,4 +1,11 @@
 /* eslint-disable */
+import Vue from 'vue'
+import VueSVGIcon from 'vue-svgicon'
+Vue.use(VueSVGIcon, {
+  defaultWidth: '16px',
+  defaultHeight: '16px'
+})
+
 require('./add-box')
 require('./add-circle-filled')
 require('./add-circle')

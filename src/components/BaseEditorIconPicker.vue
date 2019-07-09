@@ -16,7 +16,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import reaperwrbIcons from '../reaperwrbIcons.js'
+import reaperwrbIcons from '@/lib/reaperwrbIcons.js'
 
 export default {
   props: ['toggle'],
