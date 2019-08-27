@@ -93,11 +93,11 @@ export default {
     ]),
 
     onNudgeVolUp() {
-      this.execAction({ action: 40115 })
+      this.execAction({ script_action: true, action: "nudge_vol_up" })
     },
 
     onNudgeVolDown() {
-      this.execAction({ action: 40116 })
+      this.execAction({ script_action: true, action: "nudge_vol_down" })
     },
 
     onMute() {

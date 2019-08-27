@@ -963,20 +963,28 @@ export default new Vuex.Store({
           return
   
         if(state.reaper.ready) {
-          if(payload.recur) {
-            wwr_req_recur(payload.action, payload.recur)
+          console.log(payload)
+          if(payload.midi_editor) {
+            LOG(`Executing midi editor action: ${payload.action}`)
+            wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
+            wwr_req('_RS5476effa150063b90414e57b8572c03002fec048')
+
+          } else if (payload.script_action) {
+            LOG(`Executing script action: ${payload.action}`)
+            wwr_req('SET/EXTSTATE/reaperwrb/script_action/' + payload.action)
+            wwr_req('_RS5476effa150063b90414e57b8572c03002fec048')
+            
           } else {
-            if(!payload.midi_editor) {
-              LOG("Executing action: ", payload.action)
+            LOG(`Executing action: ${payload.action}`)
+            if(payload.recur)
+              wwr_req_recur(payload.action, payload.recur)
+            else
               wwr_req(payload.action)
-            } else {
-              wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
-              wwr_req('_RS5476effa150063b90414e57b8572c03002fec048')
-            }
+
+            // update toggle state
+            if(payload.toggle)
+             wwr_req('GET/' + payload.action)
           }
-          // update toggle state
-          if(payload.toggle)
-            wwr_req('GET/' + payload.action)
         }
       },
   
@@ -1005,7 +1013,7 @@ export default new Vuex.Store({
   
         const active_tab  = state.webremote.active_tab
         const tabs = state.webremote.tabs
-        const rows = tabs[active_tab].rows
+        const rows = tabs[active_tab].rows !== 'undefined' ? tabs[active_tab].rows : 0
   
         const lines = result.trim().split("\n")
   
