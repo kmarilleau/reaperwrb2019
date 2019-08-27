@@ -971,7 +971,7 @@ export default new Vuex.Store({
               wwr_req(payload.action)
             } else {
               wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
-              wwr_req('_RSf6d39a99f2cb70028377db1348e80bb1567dcd58')
+              wwr_req('_RS5476effa150063b90414e57b8572c03002fec048')
             }
           }
           // update toggle state

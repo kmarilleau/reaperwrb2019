@@ -6,7 +6,7 @@
       <div>
         <span>SELECTED: {{ selected }}</span>
         <span>MUTED: {{ muted }}</span>
-        <span>SOLO'ED: {{ soloed }}</span>
+        <span>SOLOED: {{ soloed }}</span>
       </div>
     </div>
     <div class="app-item__tracks-util-buttons"

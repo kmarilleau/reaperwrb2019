@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="ReaperWRB 2.0">
-  <category name="ReaperWRB 2.0">
-    <reapack name="reaperwrb_2.html" type="webinterface" desc="ReaperWRB (Web Remote Builder)">
+<index version="1" name="ReaperWRB">
+  <category name="Various">
+    <reapack name="ReaperWRB" type="webinterface" desc="ReaperWRB (Web Remote Builder)">
 
       <version name="2.2" author="michaelklier" time="2019-05-07T00:00:000">
 
-        <source file="reaperwrb_2/reaperwrb.lua" main="main" type="script">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/script/reaperwrb.lua</source>
+        <source file="reaperwrb.lua" main="main" type="script">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/script/reaperwrb.lua</source>
 
         <source file="reaperwrb_2.html">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2.html</source>
         <source file="reaperwrb_2/browserconfig.xml">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/browserconfig.xml</source>
@@ -54,6 +54,11 @@
         - update command states periodically
         - couple new icons
         - minor style changes
+        - midi editor actions
+          in case of a manual install: copy
+            <REAPER>\reaper_www_root\reaperwrb_2\script\reaperwrb.lua
+          to
+            <REAPER>\Scripts\ReaperWRB\Various\reaperwrb.lua
         ]]></changelog>
       </version>
       
