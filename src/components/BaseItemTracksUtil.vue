@@ -12,7 +12,7 @@
     <div class="app-item__tracks-util-buttons"
       :style="{ 'height': itemHeight + 'px'}"
     >
-      <a @click.stop="onNudgeVolDown()" class="app-item__tack-icon"
+      <a @click="onNudgeVolDown()" class="app-item__tack-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="volume-decrease" 
@@ -21,7 +21,7 @@
         />
       </a>
 
-      <a @click.stop="onNudgeVolUp()" class="app-item__tracks-util-icon"
+      <a @click="onNudgeVolUp()" class="app-item__tracks-util-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="volume-increase" 
@@ -30,7 +30,7 @@
         />
       </a>
 
-      <a @click.stop="onMute()" class="app-item__tracks-util-icon"
+      <a @click="onMute()" class="app-item__tracks-util-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="mute" 
@@ -39,7 +39,7 @@
         />
       </a>
 
-      <a @click.stop="onSolo()" class="app-item__tracks-util-icon"
+      <a @click="onSolo()" class="app-item__tracks-util-icon"
       :style="{ 'height': itemHeight + 'px'}"
       >
         <svgicon icon="solo" 

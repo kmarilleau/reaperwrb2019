@@ -438,7 +438,7 @@ export default new Vuex.Store({
   
         LOG("Window Resize")
   
-        if(screen.width < 1024)
+        if(screen.width < 1024 && !FORCE_ENABLE_EDITOR)
           state.editor.enabled = false
         else
           state.editor.enabled = true
