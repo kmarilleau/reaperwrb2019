@@ -750,7 +750,9 @@ export default new Vuex.Store({
         row.push(item)
         state.editor.data.item.type = type
         state.editor.data.item.row = state.editor.active_row
-        state.editor.data.item.obj = row[row.length - 1]
+        let index = row.length - 1
+        state.editor.data.item.obj = row[index]
+        state.editor.data.item.index = index
         state.editor.mode = EDITOR_MODES.MAIN
       },
   
@@ -963,16 +965,15 @@ export default new Vuex.Store({
           return
   
         if(state.reaper.ready) {
-          console.log(payload)
           if(payload.midi_editor) {
             LOG(`Executing midi editor action: ${payload.action}`)
             wwr_req('SET/EXTSTATE/reaperwrb/midi_editor/' + payload.action)
-            wwr_req('_RS5476effa150063b90414e57b8572c03002fec048')
+            wwr_req(PROXY_SCRIPT_ID)
 
           } else if (payload.script_action) {
             LOG(`Executing script action: ${payload.action}`)
             wwr_req('SET/EXTSTATE/reaperwrb/script_action/' + payload.action)
-            wwr_req('_RS5476effa150063b90414e57b8572c03002fec048')
+            wwr_req(PROXY_SCRIPT_ID)
             
           } else {
             LOG(`Executing action: ${payload.action}`)

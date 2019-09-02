@@ -3,13 +3,14 @@
   <category name="Various">
     <reapack name="ReaperWRB" type="webinterface" desc="ReaperWRB (Web Remote Builder)">
 
-      <version name="2.2" author="michaelklier" time="2019-05-07T00:00:000">
+      <version name="2.2" author="michaelklier" time="2019-09-02T00:00:000">
 
         <source file="reaperwrb.lua" main="main" type="script">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/script/reaperwrb.lua</source>
 
         <source file="reaperwrb_2.html">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2.html</source>
         <source file="reaperwrb_2/browserconfig.xml">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/browserconfig.xml</source>
         <source file="reaperwrb_2/manifest.json">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/manifest.json</source>
+        <source file="reaperwrb_2/config.js">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/config.js</source>
         
         <source file="reaperwrb_2/js/app.js">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/js/app.js</source>
         <source file="reaperwrb_2/js/app.js.map">http://m-klier.de/projects/reaperwrb/dist/2.2/reaperwrb_2/js/app.js.map</source>

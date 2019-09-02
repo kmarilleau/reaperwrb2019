@@ -48,6 +48,7 @@ export const htmlTemplate = { html: (json) => `<!DOCTYPE html>
       </div>
     </div>
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="/reaperwrb_2/config.js"></script>
     <div id="app"></div>
     <script type="text/javascript" src="/reaperwrb_2/js/manifest.js"></script>
     <script type="text/javascript" src="/reaperwrb_2/js/vendor.js"></script>
