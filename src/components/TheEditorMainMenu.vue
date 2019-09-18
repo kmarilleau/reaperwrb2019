@@ -178,8 +178,8 @@ export default {
       tmp.body.innerHTML = text;
       const div = tmp.getElementById('reaperwrb-json');
       if (div) {
-        const json = JSON.parse(div.innerHTML);
-        if (typeof(json.version) !== 'undefined') {
+        const json = JSON.parse(div.innerHTML.replace(/&amp;/g, "&"));
+        if (typeof(json.timestamp) != undefined) {
           return json.tabs
         } else {
           return this.fixJSON(json.tabs)
@@ -237,32 +237,35 @@ export default {
         tab.rows = tab.rows.map(row => {
           return row.map(item => {
             
-            const newItem = cloneDeep(APP_DEFAULTS[item.type])
-            
-            // import existing keys
-            Object.keys(item).forEach(key => {
-              // convert old wide items
-              if(key === 'wide' && item[key]) {
-                newItem.width = 2
+            const newItem = cloneDeep(APP_DEFAULTS[item.type.toUpperCase()])
 
-              // fix icons
-              } else if (key === 'icon') {
-                if(item.icon && typeof(item.icon) === 'string') {
-                  if(/^fa-/.test(item.icon))
-                    newItem.icon = 'question'
-                  else
-                    newItem.icon = item.icon
-                } else {
-                  newItem.icon = 'question'
-                }
+            if(typeof(newItem) != undefined) {
               
-              // import other existing keys
-              } else if (key in newItem) {
-                newItem[key] = item[key]
-              } 
-            })
+              // import existing keys
+              Object.keys(item).forEach(key => {
+                // convert old wide items
+                if(key === 'wide' && item[key]) {
+                  newItem.width = 2
 
-            return newItem
+                // fix icons
+                } else if (key === 'icon') {
+                  if(item.icon && typeof(item.icon) === 'string') {
+                    if(/^fa-/.test(item.icon))
+                      newItem.icon = 'question'
+                    else
+                      newItem.icon = item.icon
+                  } else {
+                    newItem.icon = 'question'
+                  }
+                
+                // import other existing keys
+                } else if (key in newItem) {
+                  newItem[key] = item[key]
+                } 
+              })
+              console.log(newItem)
+              return newItem
+            }
           })
         })
         return tab

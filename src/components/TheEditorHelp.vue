@@ -41,14 +41,6 @@
         <p>
           The editor also features a "Bulk Edit" edit mode (<svgicon icon="stack" />) which allows you to edit and delete multiple items at once.
         </p>
-        <h2>Adjusting the Global Layout</h2>
-        <p>
-          ReaperWRB webremotes use a grid based layout to position all items. You can adjust the global "Grid Columns" setting from 4 to 10, and set the width of individual items to
-          values in that global range. 
-        </p>
-        <p>
-          Less columns work better for small devices like mobile phones, and more columns are better for devices with bigger screens like tablets or desktop computers.
-        </p>
         <h2>Saving And Installation</h2>
         <p>
           ReaperWRB provides 3 methods of saving webremots.
