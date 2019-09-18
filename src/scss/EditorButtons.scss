@@ -1,6 +1,7 @@
 .pure-button-secondary {
   background: $c-editor-button-secondary;
   color: $bg-editor;
+  
 }
 
 .pure-button-warning {
@@ -10,6 +11,8 @@
 
 .app-container__editor button {
   border-radius: $g-border-radius;
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
   height: 3vw;
   display: flex;
   justify-content: center;

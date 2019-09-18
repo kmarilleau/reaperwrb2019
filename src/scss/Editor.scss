@@ -26,6 +26,7 @@
 .app-editor__sub-panel {
   display: grid;
   grid-template-columns: repeat(3, auto);
+  grid-gap: 10px;
 }
 
 .app-editor__menu-container {}
@@ -90,6 +91,8 @@ label {
   background: $bg-editor-alt !important;
   padding: .25vw;
   border-radius: $g-border-radius;
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
   svg {
     margin: 0 0.25vw 0 0;
   }
