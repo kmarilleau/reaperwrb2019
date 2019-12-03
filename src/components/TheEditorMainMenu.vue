@@ -191,6 +191,9 @@ export default {
     },
 
     parseToolbar(text, filename) {
+
+      const isMIDIEditorToolbar = text.split("\n")[0].includes("MIDI")
+
       const items = text
         .split("\n")
         .filter(line => line.startsWith('item'))
@@ -200,6 +203,7 @@ export default {
           let item = JSON.parse(JSON.stringify(APP_DEFAULTS.ACTION))
           item.action = r[0]
           item.desc = r[1].replace(/ /g, ' ')
+          item.midi_editor = isMIDIEditorToolbar
           item.label =
             item.desc.length > 20
               ? item.desc.substr(0, 20).replace(/_/g, ' ') + '[...]'
