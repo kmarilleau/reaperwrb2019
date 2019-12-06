@@ -73,25 +73,15 @@ export default {
     ]),
 
     onPreviousRegion(event) {
-      if(this.getRegionIdx === 0) {
-        this.execAction({ action: `SET/POS_STR/r${this.getRegionLastId}` }) 
-      } else {
-        const id = this.getRegions[this.getRegionIdx - 1].id
-        this.execAction({ action: `SET/POS_STR/r${id}`})
-      }
+      this.execAction({ action: "prev_region", script_action: true })
     },
 
     onNextRegion(event) {
-      if(this.getRegionIdx < this.getRegions.length - 1) {
-        const id = this.getRegions[this.getRegionIdx + 1].id
-        this.execAction({ action: `SET/POS_STR/r${id}`})
-      } else {
-        this.execAction({ action: `SET/POS_STR/r1`})
-      }
+      this.execAction({ action: "next_region", script_action: true })
     },
 
     onRefresh(event) {
-      this.execAction({ action: 'REGION' })
+      this.execAction({ action: "REGION" })
     }
   },
 
