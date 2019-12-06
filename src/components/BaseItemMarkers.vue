@@ -64,21 +64,11 @@ export default {
     ]),
 
     onPreviousMarker(event) {
-      if(this.getMarkerIdx === 0) {
-        this.execAction({ action: `SET/POS_STR/m${this.getMarkerLastId}` })
-      } else {
-        const id = this.getMarkers[this.getMarkerIdx - 1].id
-        this.execAction({ action: `SET/POS_STR/m${id}` })
-      }
+      this.execAction({ action: "prev_marker", script_action: true })
     },
 
     onNextMarker(event) {
-      if(this.getMarkerIdx < this.getMarkers.length - 1) {
-        const id = this.getMarkers[this.getMarkerIdx + 1].id
-        this.execAction({ action: `SET/POS_STR/m${id}` })
-      } else  {
-        this.execAction({ action: `SET/POS_STR/m1` })
-      }
+      this.execAction({ action: "next_marker", script_action: true })
     },
 
     onRefresh(event) {

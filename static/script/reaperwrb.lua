@@ -124,14 +124,16 @@ elseif action == "prev_region" then
   last_id=(num_markers + num_regions) - 1
 
 	i=last_id
+  skip_current = false
 	repeat
 		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
-		if iRetval >= 1 then
+    if iRetval >= 1 then
 			if bIsrgnOut == true and iPosOut < pos then
         -- ACTION ON REGIONS HERE
         if play_state > 0 then
-          iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i - 1)
-          if iRetval >= 1 then
+          if skip_current == false then
+            skip_current = true
+          else
             reaper.SetEditCurPos(iPosOut, true, true) -- moveview and seekplay
             exec = true
             break
@@ -143,19 +145,135 @@ elseif action == "prev_region" then
         end
 
 			end
-			i = i-1
+			i = i - 1
 		end
   until iRetval == 0
 
   if exec == false then
-    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, last_id)
-    if play_state > 0 then
-      reaper.SetEditCurPos(iPosOut, true, true)
-    else
-      reaper.SetEditCurPos(iPosOut, true, false)
-    end
+    i=last_id
+	  repeat
+      iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+      if bIsrgnOut == true then
+        if play_state > 0 then
+          reaper.SetEditCurPos(iPosOut, true, true)
+        else
+          reaper.SetEditCurPos(iPosOut, true, false)
+        end
+        break
+      end
+      i = i - 1
+    until iRetval == 0
   end
 
   reaper.Undo_EndBlock("ReaperWRB. Previous Region", -1)
+
+elseif action == "next_marker" then
+
+  exec = false
+  reaper.Undo_BeginBlock()
+
+  edit_pos = reaper.GetCursorPosition()
+  
+	play_state = reaper.GetPlayState()
+	if play_state > 0 then
+		pos = reaper.GetPlayPosition()
+	else
+		pos = edit_pos
+	end
+	
+	i=0
+	repeat
+		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+		if iRetval >= 1 then
+			if bIsrgnOut == false and iPosOut > pos then
+        -- ACTION ON REGIONS HERE
+        if play_state > 0 then
+          reaper.SetEditCurPos(iPosOut, true, true) -- moveview and seekplay
+        else
+          reaper.SetEditCurPos(iPosOut, true, false)
+        end
+
+        exec = true
+				break
+			end
+			i = i+1
+		end
+  until iRetval == 0
+
+  if exec == false then
+    reaper.GoToRegion(0, 1, true)
+    pos = reaper.GetCursorPosition()
+    if play_state > 0 then
+      reaper.SetEditCurPos(pos, true, true)
+    else
+      reaper.SetEditCurPos(pos, true, false)
+    end
+  end
+  
+  reaper.Undo_EndBlock("ReaperWRB: Next Marker", -1)
+
+elseif action == "prev_marker" then
+
+  reaper.Undo_BeginBlock()
+
+  exec = false
+  reaper.Undo_BeginBlock()
+
+  edit_pos = reaper.GetCursorPosition()
+  
+	play_state = reaper.GetPlayState()
+	if play_state > 0 then
+		pos = reaper.GetPlayPosition()
+	else
+		pos = edit_pos
+	end
+  
+  retval, num_markers, num_regions = reaper.CountProjectMarkers(-1)
+
+  last_id=(num_markers + num_regions) - 1
+
+  i=last_id
+  skip_current = false
+	repeat
+		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+		if iRetval >= 1 then
+			if bIsrgnOut == false and iPosOut < pos then
+        -- ACTION ON REGIONS HERE
+        if play_state > 0 then
+          if skip_current == false then
+            skip_current = true
+          else
+            reaper.SetEditCurPos(iPosOut, true, true) -- moveview and seekplay
+            exec = true
+            break
+          end
+        else
+          reaper.SetEditCurPos(iPosOut, true, false)
+          exec = true
+          break
+        end
+
+			end
+			i = i - 1
+		end
+  until iRetval == 0
+
+  if exec == false then
+    i=last_id
+	  repeat
+      iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+      if bIsrgnOut == false then
+        if play_state > 0 then
+          reaper.SetEditCurPos(iPosOut, true, true)
+        else
+          reaper.SetEditCurPos(iPosOut, true, false)
+        end
+        break
+      end
+      i = i - 1
+    until iRetval == 0
+  end
+
+  reaper.Undo_EndBlock("ReaperWRB. Previous Marker", -1)
 
 end
