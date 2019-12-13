@@ -127,12 +127,25 @@ function prevRegion()
 
 	i=last_id
   skip_current = false
+  regions_num = 0
+
 	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+
     if iRetval >= 1 then
-			if bIsrgnOut == true and iPosOut < pos then
+
+      if bIsrgnOut == true and iPosOut < pos then
+        
+        regions_num = regions_num + 1
+
         -- ACTION ON REGIONS HERE
         if play_state > 0 then
+
+          -- we're behind the last region no need to skip over it
+          if regions_num == 1 and pos > iRgnendOut then
+            skip_current = true
+          end
+
           if skip_current == false then
             skip_current = true
           else
@@ -146,7 +159,12 @@ function prevRegion()
           break
         end
 
-			end
+      elseif bIsrgnOut == true then
+        -- count found regions
+        regions_num = regions_num + 1
+      end
+      
+      -- decrement iterator
 			i = i - 1
 		end
   until iRetval == 0
