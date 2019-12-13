@@ -15,12 +15,13 @@ local EXT_SECTION, EXT_KEY = 'reaperwrb', 'script_action'
 local action = reaper.GetExtState(EXT_SECTION, EXT_KEY)
 reaper.DeleteExtState(EXT_SECTION, EXT_KEY, true)
 
--- SCRIPT ACTIONS
-if action == "nudge_vol_up" then
+
+-- FUNCTIONS
+function nudgeVolUp()
   reaper.Undo_BeginBlock()
-  
+    
   count_sel_tracks = reaper.CountSelectedTracks(0)
-  
+
   if count_sel_tracks > 0 then
     for i = 0, count_sel_tracks - 1 do  
       track = reaper.GetSelectedTrack(0, i)
@@ -34,10 +35,11 @@ if action == "nudge_vol_up" then
       reaper.SetMediaTrackInfo_Value(track, "D_VOL", new_vol)
     end
   end
-  
+
   reaper.Undo_EndBlock("ReaperWRB: Nudge selected tracks vol +1db", -1)
-  
-elseif action == "nudge_vol_down" then
+end
+
+function nudgeVolDown()
   reaper.Undo_BeginBlock()
   
   count_sel_tracks = reaper.CountSelectedTracks(0)
@@ -57,26 +59,26 @@ elseif action == "nudge_vol_down" then
   end
   
   reaper.Undo_EndBlock("ReaperWRB: Nudge selected tracks vol -1db", -1)
+end
 
-elseif action == "next_region" then
-
+function nextRegion()
   exec = false
   reaper.Undo_BeginBlock()
 
   edit_pos = reaper.GetCursorPosition()
-  
-	play_state = reaper.GetPlayState()
-	if play_state > 0 then
-		pos = reaper.GetPlayPosition()
-	else
-		pos = edit_pos
-	end
-	
-	i=0
-	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
-		if iRetval >= 1 then
-			if bIsrgnOut == true and iPosOut > pos then
+
+  play_state = reaper.GetPlayState()
+  if play_state > 0 then
+    pos = reaper.GetPlayPosition()
+  else
+    pos = edit_pos
+  end
+
+  i=0
+  repeat
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(-1, i)
+    if iRetval >= 1 then
+      if bIsrgnOut == true and iPosOut > pos then
         -- ACTION ON REGIONS HERE
         if play_state > 0 then
           reaper.SetEditCurPos(iPosOut, true, true) -- moveview and seekplay
@@ -85,10 +87,10 @@ elseif action == "next_region" then
         end
 
         exec = true
-				break
-			end
-			i = i+1
-		end
+        break
+      end
+      i = i+1
+    end
   until iRetval == 0
 
   if exec == false then
@@ -100,11 +102,11 @@ elseif action == "next_region" then
       reaper.SetEditCurPos(pos, true, false)
     end
   end
-  
+
   reaper.Undo_EndBlock("ReaperWRB: Next Region", -1)
+end
 
-elseif action == "prev_region" then
-
+function prevRegion()
   reaper.Undo_BeginBlock()
 
   exec = false
@@ -166,9 +168,9 @@ elseif action == "prev_region" then
   end
 
   reaper.Undo_EndBlock("ReaperWRB. Previous Region", -1)
+end
 
-elseif action == "next_marker" then
-
+function nextMarker()
   exec = false
   reaper.Undo_BeginBlock()
 
@@ -211,9 +213,9 @@ elseif action == "next_marker" then
   end
   
   reaper.Undo_EndBlock("ReaperWRB: Next Marker", -1)
+end
 
-elseif action == "prev_marker" then
-
+function prevMarker()
   reaper.Undo_BeginBlock()
 
   exec = false
@@ -275,5 +277,19 @@ elseif action == "prev_marker" then
   end
 
   reaper.Undo_EndBlock("ReaperWRB. Previous Marker", -1)
+end
 
+-- HANDLE SCRIPT ACTIONS
+if action == "nudge_vol_up" then
+  nudgeVolUp()
+elseif action == "nudge_vol_down" then
+  nudgeVolDown()
+elseif action == "next_region" then
+  nextRegion()
+elseif action == "prev_region" then
+  prevRegion()
+elseif action == "next_marker" then
+  nextMarker()
+elseif action == "prev_marker" then
+  prevMarker()
 end
