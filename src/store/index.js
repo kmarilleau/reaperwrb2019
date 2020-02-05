@@ -11,7 +11,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-      version: '2.2.1',
+      version: '2.2.2',
       mode: APP_MODES.STARTUP,
       reaper: {},
       editor: {},
