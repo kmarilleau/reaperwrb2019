@@ -18,4 +18,12 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Icons
+
+To add icons place the .svg files in ~/svg-icons and run:
+
+```
+npm generate-icons
+```
+
+After the script finishes you have to manually add the icon names (filename) to ~/src/lib/reaperwrbicons.js
