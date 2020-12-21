@@ -35,6 +35,9 @@ npm run build --report
 You'll find the latest version pre-build inside the "release" folder of this repository.
 
 ## Installation And Usage
+ATTENTION: reapack support is probably going to be discontinued. Please do a manual install 
+from the .zip file available in the "release" folder.
+
 For detailed installation and usage instructions please refer to the following youtube playlist:
 
 https://www.youtube.com/watch?v=SDABt0Cm9wQ&list=PL4mhaIEnflCCwJE0iqY6D1ukgEt9mtXsC
