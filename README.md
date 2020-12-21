@@ -34,11 +34,10 @@ npm run build --report
 ## Builds
 You'll find the latest version pre-build inside the "release" folder of this repository.
 
-## Installation
-FIXME
+## Installation And Usage
+For detailed installation and usage instructions please refer to the following youtube playlist:
 
-Just copy the .html file and folder inside the www_root folder of reaper and the reaperwrb_2/script/reaperwrb.lua script to
-the reaper Scripts/ReaperWRB/Various folder.
+https://www.youtube.com/watch?v=SDABt0Cm9wQ&list=PL4mhaIEnflCCwJE0iqY6D1ukgEt9mtXsC
 
 ## Icons
 
